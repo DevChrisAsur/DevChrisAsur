@@ -1,0 +1,1 @@
+Este proyecto consiste en el desarrollo de un CRM (Customer Relationship Management) destinado a mejorar la gestión de las relaciones con los clientes. El objetivo es crear una herramienta eficiente que permita a las empresas centralizar y optimizar las interacciones con sus clientes, facilitando la gestión de ventas, marketing y servicio al cliente en una única plataforma.
