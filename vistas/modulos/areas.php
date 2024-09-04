@@ -79,7 +79,7 @@
 
                     <td>'.($key+1).'</td>
 
-                    <td class="text">'.$value["area"].'</td>
+                    <td class="text-uppercase">'.$value["area"].'</td>
 
                     <td>
 
