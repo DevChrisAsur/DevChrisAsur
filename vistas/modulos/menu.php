@@ -3,6 +3,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <style>
+
+.treeview-menu {
+    display: none;
+    list-style: none;
+    padding-left: 20px;
+}
+
+.treeview:hover > .treeview-menu,
+.treeview-menu:hover {
+    display: block;
+}
+
+.treeview > a {
+    cursor: pointer;
+}
 /* Aplica el mismo fondo de gradiente al sidebar */
 .main-sidebar {
     padding-top: 50px;
@@ -84,6 +99,12 @@
                         <span>Roles de Usuario</span>
                     </a>
                 </li>
+                <li>
+                    <a href="clientes">
+                        <i class="fa fa-address-card"></i>
+                        <span>clientes</span>
+                    </a>
+                </li>
                 
                 ';
             }
@@ -92,23 +113,6 @@
     </section>
 </aside>
 
-<!-- CSS -->
-<style>
-.treeview-menu {
-    display: none;
-    list-style: none;
-    padding-left: 20px;
-}
-
-.treeview:hover > .treeview-menu,
-.treeview-menu:hover {
-    display: block;
-}
-
-.treeview > a {
-    cursor: pointer;
-}
-</style>
 
 <!-- JavaScript -->
 <script>
