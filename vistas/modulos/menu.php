@@ -21,8 +21,9 @@
 /* Aplica el mismo fondo de gradiente al sidebar */
 .main-sidebar {
     padding-top: 50px;
-    background: linear-gradient(to bottom, #101111, #353037); /* Mismo gradiente que el main-header */
+    background: linear-gradient(to bottom, #353037, #101111); /* Mismo gradiente que el main-header */
     color: #ffffff; /* Asegura que el texto sea legible */
+    border: none;
 }
 
 /* Ajusta el padding y tamaño de la imagen en el sidebar */

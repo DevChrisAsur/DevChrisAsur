@@ -150,7 +150,7 @@
         right: 5%;
         left: auto;
         border: 0;
-        background: linear-gradient(to bottom, #101111, #353037); /* Aplica el gradiente al fondo */
+        background: #5c4d4d; /* Aplica el gradiente al fondo */
         border-radius: 4px; /* Bordes ligeramente redondeados */
         padding: none; /* Espaciado interno */
         color: #ffffff; /* Asegura que el texto sea visible sobre el fondo oscuro */
@@ -166,7 +166,7 @@
 
         <!-- Logo normal -->
         <span class="logo-lg">
-            <img src="vistas/img/plantilla/AsurLogo.png" class="img-responsive">
+            <img src="vistas/img/plantilla/AsurLogo.png" width="150">
         </span>
     </a>
 

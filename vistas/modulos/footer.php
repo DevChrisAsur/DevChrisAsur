@@ -1,9 +1,9 @@
 <style>
 	.main-footer {
-		background: linear-gradient(to bottom, #101111, #353037);;
+		background: linear-gradient( #353037, 30%,#101111 );
 		padding: 15px;
 		color: #fffdfd;
-		border-top: 1px solid #d2d6de;
+		border-top: 1px;
 		font-style: italic;
 	}
 </style>
