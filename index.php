@@ -12,8 +12,10 @@ require_once "controladores/curso_estudiante.controlador.php";
 require_once "controladores/pension.controlador.php";
 require_once "controladores/telefono_padre.controlador.php";
 require_once "controladores/grupos.controlador.php";
+require_once "controladores/clientes.controlador.php";
 
 
+require_once "modelos/clientes.modelo.php";
 require_once "modelos/usuarios.modelo.php";
 require_once "modelos/areas.modelo.php";
 require_once "modelos/sedes.modelo.php";
