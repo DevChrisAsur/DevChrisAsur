@@ -30,6 +30,7 @@
         header img {
             max-width: 200px; /* Ajusta el tamaño del logo según tus necesidades */
             height: auto;
+            padding-top: 30px;
         }
 
         /* Estilos para el contenido principal */
@@ -74,7 +75,8 @@
 <body>
 
     <header>
-        <img src="vistas/img/plantilla/AsurLogo.png" alt="Logo"> <!-- Ajusta la ruta y extensión aquí -->
+        <br>
+        <img src="vistas/img/plantilla/legaltech_logo.jpeg" alt="Logo"> <!-- Ajusta la ruta y extensión aquí -->
     </header>
 
     <div class="main-content">
