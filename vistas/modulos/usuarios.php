@@ -1,4 +1,60 @@
 <style>
+.perfil-super-administrador {
+    background-color: #922b21; /* Rojo oscuro */
+    color: black;
+    padding: 5px;
+    border-radius: 7px;
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.perfil-administrador {
+    background-color: #cd6155; /* Azul oscuro */
+    color: black;
+    padding: 5px;
+    border-radius: 3px;
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.perfil-asesor-comercial {
+    background-color: #d4edda; /* Verde claro */
+    color: #155724; /* Verde oscuro */
+    padding: 5px;
+    border-radius: 3px;
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.perfil-coordinador-comercial {
+    background-color: #2196F3; /* Azul claro */
+    color: black;
+    padding: 5px;
+    border-radius: 3px;
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.perfil-director-comercial {
+    background-color: #ffeeba; /* Amarillo claro */
+    color: #856404; /* Amarillo oscuro */
+    padding: 5px;
+    border-radius: 3px;
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.perfil-especialista-juridico {
+    background-color: #f8d7da; /* Rojo claro */
+    color: #721c24; /* Rojo oscuro */
+    padding: 5px;
+    border-radius: 3px;
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.perfil-director-juridico {
+    background-color: #d1ecf1; /* Celeste claro */
+    color: #0c5460; /* Celeste oscuro */
+    padding: 5px;
+    border-radius: 3px;
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
   /* Estilos para SweetAlert2 */
   .swal2-popup {
     font-size: 1.6rem;
@@ -225,46 +281,28 @@
 <div class="content-wrapper">
 
   <section class="content-header">
-
-    <h1>
-
-      Administrar Usuarios
-
-    </h1>
-
+    <h1>Administrar Usuarios</h1>
     <ol class="breadcrumb">
-
       <li><a href="inicio"><i class="fa fa-dashboard"></i> Inicio</a></li>
-
       <li class="active">Administrar usuarios</li>
-
     </ol>
-
   </section>
 
   <section class="content">
 
     <div class="box">
-
       <div class="box-header with-border">
-
-
         <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarUsuario">
-
           Agregar usuario
-
         </button>
       </div>
 
       <div class="box-body">
 
-
         <table class="table table-bordered table-striped dt-responsive tablas" width="100%">
 
           <thead>
-
             <tr>
-
               <th style="width:10px">#</th>
               <th style="width:100px">Identificación</th>
               <th style="width:100px">Nombre</th>
@@ -275,15 +313,11 @@
               <th style="width:100px">Correo</th>
               <th style="width:100px">Telefono</th>
               <th style="width:100px">Último login</th>
-
               <th style="width:40px">Acciones</th>
-
             </tr>
-
           </thead>
 
           <tbody>
-
             <?php
             $comparar = $_SESSION["perfil"];
             $area = $_SESSION["area"];
@@ -291,19 +325,45 @@
             $valor = null;
 
             $usuarios = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
-            //echo '<pre>'; print_r($usuarios); echo '</pre>';
 
             foreach ($usuarios as $key => $value) {
               echo '<tr>
-  <td>' . ($key + 1) . '</td>
-  <td>' . $value["cc"] . '</td>
-  <td>' . $value["first_name"] . '</td>
-  <td>' . $value["last_name"] . '</td>
-  <td>' . $value["user_name"] . '</td>
-  <td>' . $value["perfil"] . '</td>
-  <td>' . $value["area"] . '</td>
-  <td>' . $value["correo"] . '</td>
-  <td>' . $value["phone"] . '</td>';
+              <td>' . ($key + 1) . '</td>
+              <td>' . $value["cc"] . '</td>
+              <td>' . $value["first_name"] . '</td>
+              <td>' . $value["last_name"] . '</td>
+              <td>' . $value["user_name"] . '</td>';
+
+              // Asignar clase según el perfil
+              $perfilClass = '';
+              switch ($value["perfil"]) {
+                case 'Super Administrador':
+                  $perfilClass = 'perfil-super-administrador';
+                  break;
+                case 'Administrador':
+                  $perfilClass = 'perfil-administrador';
+                  break;
+                case 'Asesor comercial':
+                  $perfilClass = 'perfil-asesor-comercial';
+                  break;
+                case 'Coordinador comercial':
+                  $perfilClass = 'perfil-coordinador-comercial';
+                  break;
+                case 'Director comercial':
+                  $perfilClass = 'perfil-director-comercial';
+                  break;
+                case 'Especialista juridico':
+                  $perfilClass = 'perfil-especialista-juridico';
+                  break;
+                case 'Director juridico':
+                  $perfilClass = 'perfil-director-juridico';
+                  break;
+              }
+
+              echo '<td><span class="' . $perfilClass . '">' . $value["perfil"] . '</span></td>';
+              echo '<td>' . $value["area"] . '</td>
+              <td>' . $value["correo"] . '</td>
+              <td>' . $value["phone"] . '</td>';
 
               // Verificar si la fecha de 'ultimo_login' está disponible y formatearla
               if (isset($value["ultimo_login"])) {
@@ -314,23 +374,22 @@
               }
 
               echo '
-  <td>
-      <div class="btn-group-container">
-          <div class="btn-group">
-              <button class="btn btn-danger btnEliminarCliente" idUsuario="' . $value["id"] . '" title="Eliminar Cliente"><i class="fa fa-times"></i></button>
-          </div>
-      </div>
-  </td>
-  </tr>';
+              <td>
+                <div class="btn-group-container">
+                  <div class="btn-group">
+                    <button class="btn btn-danger btnEliminarUsuario" idUsuario="' . $value["id"] . '" title="Eliminar Cliente">
+                      <i class="fa fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+              </td>
+              </tr>';
             }
-
             ?>
-
           </tbody>
+
           <tfoot>
-
             <tr>
-
               <th style="width:10px">#</th>
               <th style="width:100px">Identificación</th>
               <th style="width:100px">Nombre</th>
@@ -341,104 +400,22 @@
               <th style="width:100px">Correo</th>
               <th style="width:100px">Telefono</th>
               <th style="width:100px">Último login</th>
-
               <th style="width:40px">Acciones</th>
-
             </tr>
-
           </tfoot>
+
         </table>
-
-        <?php
-        // $searchString = " ";
-        // $replaceString = "_";
-        // // $originalString = $ofi; 
-        // $outputString = str_replace($searchString, $replaceString, $originalString); 
-        // $nueva_oficina = $outputString;
-        ?>
-
-
 
       </div>
 
     </div>
 
-    <div class="container">
+  </section>
 
-      <!--  <form action="excel_funcionarios.php" name="formulario" method="POST" enctype="multipart/form-data" / onsubmit="return validateForm()" required>
-
-             <div class="up">
-      <label for="inputTag">
-        <br>
-        <i class="fa fa-upload" style="font-size:24px"></i><br>
-        Seleccionar archivo <br/>
-          <input  type="file" name="dataCliente" id="inputTag" class="file-input__input "  accept=".csv"  />
-        
-        <br/>
-        <span id="imageName"></span>
-      </label>
-    </div>
-
-    <br>
-
-              <button type="submit" name="subir" class="btn btn-warning pull-left">Subir Excel</button> 
-
-          </form>
-
-              <form method="post" action="import.php" name="excel" enctype="multipart/form-data" / onsubmit="return validateExcel()" required>
-                <table class="table">
-                  <tr>
-                    <td width="25%" align="right">Select Excel File</td>
-                    <td width="50%"><input type="file" name="import_excel" accept=".csv, .xlsx, .xls" /></td>
-                    <td width="25%"><input type="submit" name="import" id="import" class="btn btn-primary" value="Import" /></td>
-                  </tr>
-                </table>
-              </form>
-
-
-
-
-<script>
-  function validateForm() {
-  var x = document.forms["formulario"]["dataCliente"].value;
-  if (x == "" || x == null) {
-    Swal.fire({
-            title: "ERROR!",
-            text: "Seleccione un archivo csv",
-            icon: "error",
-        });
-    return false;
-  }
-}
-
-function validateExcel() {
-  var x = document.forms["excel"]["import_excel"].value;
-  if (x == "" || x == null) {
-    Swal.fire({
-            title: "ERROR!",
-            text: "Seleccione un archivo csv o excel",
-            icon: "error",
-        });
-    return false;
-  }
-}
-
-
-     
-    
-let input = document.getElementById("inputTag");
-        let imageName = document.getElementById("imageName")
-
-        input.addEventListener("change", ()=>{
-            let inputImage = document.querySelector("input[type=file]").files[0];
-
-            imageName.innerText = inputImage.name;
-        })
-     
-
-</script>  -->
-    </div>
 </div>
+
+
+
 
 <script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>
 <script src="vistas/plugins/sweetalert2/sweetalert2.all.js"></script>

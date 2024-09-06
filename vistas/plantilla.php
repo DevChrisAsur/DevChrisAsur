@@ -124,17 +124,6 @@ CUERPO DOCUMENTO
     if($_GET["ruta"] == "inicio" ||
     $_GET["ruta"] == "usuarios" ||
     $_GET["ruta"] == "areas" ||
-    $_GET["ruta"] == "estudiantes" ||
-    $_GET["ruta"] == "sedes" ||
-    $_GET["ruta"] == "cursos" ||
-    $_GET["ruta"] == "acudientes" ||
-    $_GET["ruta"] == "matriculas" ||
-    $_GET["ruta"] == "cursoestudiante" ||
-    $_GET["ruta"] == "estudiantesinactivos" ||
-    $_GET["ruta"] == "generar_prueba" ||
-    $_GET["ruta"] == "recordatorio" ||
-    $_GET["ruta"] == "recordatoriopension" ||
-    $_GET["ruta"] == "pension" ||
     $_GET["ruta"] == "clientes" ||
     $_GET["ruta"] == "salir"){
 
@@ -151,7 +140,6 @@ CUERPO DOCUMENTO
 
     if(isset($_GET["ruta"])){
       if($_GET["ruta"] == "inicio" ||
-         $_GET["ruta"] == "cursoestudiante" ||
          $_GET["ruta"] == "salir"){
 
         include "modulos/".$_GET["ruta"].".php";
@@ -185,12 +173,6 @@ CUERPO DOCUMENTO
 <script src="vistas/js/plantilla.js"></script>
 <script src="vistas/js/usuarios.js"></script>
 <script src="vistas/js/areas.js"></script>
-<script src="vistas/js/sedes.js"></script>
-<script src="vistas/js/estudiantes.js"></script>
-<script src="vistas/js/cursos.js"></script>
-<script src="vistas/js/acudientes.js"></script>
-<script src="vistas/js/matriculas.js"></script>
-<script src="vistas/js/cursoestudiante.js"></script>
-<script src="vistas/js/pensiones.js"></script>
+
 </body>
 </html>
