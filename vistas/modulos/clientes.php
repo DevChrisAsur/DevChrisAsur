@@ -478,8 +478,14 @@
         </div>
 
     </section>
-
 </div>
+
+<?php
+
+  $eliminarCliente = new ControladorClientes();
+  $eliminarCliente -> ctrEliminarCliente();
+
+?> 
 
 <script>
     $(document).ready(function() {

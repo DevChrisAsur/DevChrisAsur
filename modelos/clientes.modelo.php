@@ -90,6 +90,26 @@ static public function mdlRegistrarCliente($tabla, $datos) {
     }
     
     
+    static public function mdlEliminarCliente($tabla, $datos){
 
+		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id_customer = :id_customer");
+
+		$stmt -> bindParam(":id_customer", $datos, PDO::PARAM_INT);
+
+		if($stmt -> execute()){
+
+			return "ok";
+		
+		}else{
+
+			return "error";	
+
+		}
+
+		$stmt -> close();
+
+		$stmt = null;
+
+	}
     
 }

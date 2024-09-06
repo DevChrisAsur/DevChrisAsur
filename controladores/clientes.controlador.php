@@ -109,4 +109,40 @@ class ControladorClientes {
 		return $respuesta;
 	
 	}
+
+    /*=============================================
+                ELIMINAR CLIENTE
+	=============================================*/
+
+	static public function ctrEliminarCliente(){
+
+		if(isset($_GET["idCliente"])){
+
+			$tabla ="cliente";
+			$datos = $_GET["idCliente"];
+
+			$respuesta = ModeloCliente::mdlEliminarCliente($tabla, $datos);
+
+			if($respuesta == "ok"){
+
+				echo'<script>
+
+					swal({
+						  type: "success",
+						  title: "El cliente ha sido eliminado de la base de datos",
+						  showConfirmButton: true,
+						  confirmButtonText: "Cerrar"
+						  }).then(function(result){
+									if (result.value) {
+
+									window.location = "clientes";
+
+									}
+								})
+
+					</script>';
+			}
+		}
+		
+	}
 }
