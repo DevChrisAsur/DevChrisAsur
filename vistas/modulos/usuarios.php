@@ -1,19 +1,243 @@
+<style>
+  /* Estilos para SweetAlert2 */
+  .swal2-popup {
+    font-size: 1.6rem;
+    font-family: Georgia, serif;
+  }
+
+  /* Estilos generales para el modal */
+  .modal-dialog {
+    width: 100%;  /* Se ajusta a la pantalla completa */
+    max-width: 830px; /* Ajusta el tamaño máximo de la ventana modal */
+    margin: 30px auto;
+  }
+
+  .modal-content {
+    border-radius: 8px;
+  }
+
+  .modal-body {
+    padding: 2rem;
+    max-width: 800px;
+    max-height: 500px; /* Controla la altura máxima del cuerpo del modal */
+    overflow-y: auto; /* Agrega scroll si el contenido excede la altura */
+  }
+
+  /* Estilos para el encabezado del modal */
+  .modal-header {
+    background: #3e383d;
+    color: white;
+  }
+
+  /* Estilos para el grupo de botones dentro del modal */
+  .btn-group {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+
+  .btn-group .btn {
+    margin: 0 5px;
+    white-space: nowrap;
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+
+  .btn-group-container {
+    text-align: center;
+  }
+
+  /* Estilos para el elemento con clase .up */
+  .up {
+    display: flex;
+    justify-content: center;
+    font-size: 15px;
+    line-height: 1;
+    border-radius: 2px;
+    border: thin solid black;
+    transition: 0.2s;
+    overflow: hidden;
+    text-align: center;
+    padding: 4px;
+  }
+
+  /* Estilos para el input oculto */
+  #inputTag {
+    cursor: pointer;
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    transform: scale(3);
+    opacity: 0;
+  }
+
+  /* Estilos para etiquetas */
+  label {
+    cursor: pointer;
+  }
+
+  /* Estilos para el nombre de la imagen */
+  #imageName {
+    color: green;
+  }
+
+  /* Estilos para campos de formulario */
+  .form-control {
+    border-radius: 4px;
+    width: 100%;
+  }
+
+  .form-control.input-lg {
+    height: calc(1.5em + .75rem + 4px);
+    padding: .75rem 1.25rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    border-radius: .3rem;
+  }
+
+  .input-group .form-control {
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+  }
+
+  .input-group-addon {
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    min-width: 45px;  /* Mantener el tamaño mínimo para los íconos */
+    text-align: center;
+  }
+
+  /* Estilos para selectize-input */
+  .selectize-input {
+    height: 45px;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  .selectize-input .item {
+    text-align: center;
+  }
+
+  /* Estilos para el menú de colección de botones de DataTables */
+  .dt-button-collection.dropdown-menu {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px;
+  }
+
+  .dt-button-collection.dropdown-menu a {
+    display: block;
+    margin-bottom: 5px;
+    color: #FF5833;
+  }
+
+  .dt-button-collection.dropdown-menu a.active {
+    background-color: #007bff !important;
+    color: #ffffff;
+  }
+
+  /* Controlar comportamiento en pantallas grandes */
+  @media (min-width: 992px) {
+    .modal-dialog {
+      max-width: 830px; /* Ajusta el tamaño máximo de la ventana modal */
+      margin: 30px auto;
+    }
+
+    .modal-body {
+      max-width: 800px;
+      max-height: 500px; /* Controla la altura máxima del cuerpo del modal */
+      overflow-y: auto; /* Agrega scroll si el contenido excede la altura */
+    }
+  }
+
+  /* Controlar el diseño en pantallas pequeñas */
+  @media (max-width: 576px) {
+    .modal-dialog {
+      max-width: 100%;  /* El modal ocupará todo el ancho de la pantalla */
+      margin: 10px;  /* Reducir márgenes en dispositivos pequeños */
+    }
+
+    .modal-body {
+      max-height: 400px;  /* Limitar la altura en dispositivos pequeños */
+    }
+  }
+</style>
+
+<!-- Datatables -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css"
+  integrity="sha512-pTaEn+6gF1IeWv3W1+7X7eM60TFu/agjgoHmYhAfLEU8Phuf6JKiiE8YmsNC0aCgQv4192s4Vai8YZ6VNM6vyQ=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.bootstrap4.min.css">
+<!-- filtrar fechas -->
+<link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.3.1/css/dataTables.dateTime.min.css">
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"
+  integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer">
+</script>
+
+<!-- Datatables librerias -->
+
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.bootstrap4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<!-- filtrar fechas -->
+<script src="https://cdn.datatables.net/datetime/1.3.1/js/dataTables.dateTime.min.js"></script>
+<script>
+  localStorage.setItem('rutaActual', 'usuarios');
+</script>
+<script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+<script src="vistas/plugins/sweetalert2/sweetalert2.all.js"></script>
+<div class="modal fade" id="confirmacionModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="background:Gold; color:white">
+
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+        <h4 class="modal-title">Confirmacion</h4>
+
+      </div>
+
+      <div class="modal-body">
+        ¿Está seguro de que desea cambiar el estado del Pago?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" style="background:Black; color:white" id="confirmarAccion">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="content-wrapper">
 
   <section class="content-header">
-    
+
     <h1>
-      
-      Administrar usuarios
-     
+
+      Administrar Usuarios
+
     </h1>
 
     <ol class="breadcrumb">
-      
+
       <li><a href="inicio"><i class="fa fa-dashboard"></i> Inicio</a></li>
-      
+
       <li class="active">Administrar usuarios</li>
-    
+
     </ol>
 
   </section>
@@ -21,209 +245,127 @@
   <section class="content">
 
     <div class="box">
- 
+
       <div class="box-header with-border">
-        
-  
+
+
         <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarUsuario">
-          
+
           Agregar usuario
 
         </button>
-
-        <button class="btn btn-primary" data-toggle="modal" data-target="#modalAsignarGrupo">
-          
-          Asignar grupo
-
-        </button>
-     
-
       </div>
 
       <div class="box-body">
-        
-        
-       <table class="table table-bordered table-striped dt-responsive tablas" width="100%">
-         
-        <thead>
-         
-         <tr>
-           
-           <th style="width:10px">#</th>
-           <th style="width:100px">Identificación</th>
-           <th style="width:100px">Correo</th>
-           <th style="width:100px">Nombre</th>
-           <th style="width:100px">Usuario</th>
-           <th style="width:100px">Perfil</th>
-          <th style="width:100px">Area</th>
-           <th style="width:100px">Último login</th>
-
-           <th style="width:40px">Acciones</th>
-
-         </tr> 
-
-        </thead>
-        <!-- Datatables -->
-  <link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css"
-  integrity="sha512-pTaEn+6gF1IeWv3W1+7X7eM60TFu/agjgoHmYhAfLEU8Phuf6JKiiE8YmsNC0aCgQv4192s4Vai8YZ6VNM6vyQ=="
-  crossorigin="anonymous"
-  referrerpolicy="no-referrer"
-/>
-<script
-  src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"
-  integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ=="
-  crossorigin="anonymous"
-  referrerpolicy="no-referrer"
-></script>        
-
-   <style>
-  
-  .selectize-input {
-    height: 45px;
-    font-size: 16px; /* Tamaño de la fuente */
-    line-height: 20px; /* Centra verticalmente el texto */
-}
-
-/* Centra horizontalmente el texto */
-.selectize-input .item {
-    text-align: center;
-} 
 
 
-.dt-button-collection.dropdown-menu {
-  background-color: #007bff; /* Color de fondo */
-  color: #ffffff; /* Color del texto */
-  padding: 10px; /* Espaciado interno para mejorar la apariencia */
-}
+        <table class="table table-bordered table-striped dt-responsive tablas" width="100%">
 
-.dt-button-collection.dropdown-menu a {
-  display: block;
-  margin-bottom: 5px;
-      color: #FF5833;
+          <thead>
 
-  /* Ajusta el margen según sea necesario */
-}
+            <tr>
 
-.dt-button-collection.dropdown-menu a.active {
-  background-color: #007bff !important; /* Color de fondo cuando está activo */
-  color: #ffffff; /* Color del texto cuando está activo */
-}
-</style>
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.bootstrap4.min.css">
-     <!-- filtrar fechas -->
-   <link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.3.1/css/dataTables.dateTime.min.css">
-    <!-- Datatables librerias -->
+              <th style="width:10px">#</th>
+              <th style="width:100px">Identificación</th>
+              <th style="width:100px">Nombre</th>
+              <th style="width:100px">Apellido</th>
+              <th style="width:100px">Usuario</th>
+              <th style="width:100px">Perfil</th>
+              <th style="width:100px">Area</th>
+              <th style="width:100px">Correo</th>
+              <th style="width:100px">Telefono</th>
+              <th style="width:100px">Último login</th>
 
-    <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.bootstrap4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <!-- filtrar fechas -->
-<script src="https://cdn.datatables.net/datetime/1.3.1/js/dataTables.dateTime.min.js"></script>
-<script>
-      localStorage.setItem('rutaActual', 'usuarios');
+              <th style="width:40px">Acciones</th>
 
-</script>
+            </tr>
 
-        <tbody>
+          </thead>
 
-       <?php
-$comparar = $_SESSION["perfil"];
-$area = $_SESSION["area"];
-$item = null;
-$valor = null;
+          <tbody>
 
-$usuarios = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
+            <?php
+            $comparar = $_SESSION["perfil"];
+            $area = $_SESSION["area"];
+            $item = null;
+            $valor = null;
 
-foreach ($usuarios as $key => $value) {
-    // Agrega esta condición para filtrar solo los usuarios con perfil de "Administrador" y el área coincide
-    if ($comparar == "Super Administrador" || ($comparar == "Administrador" && ($value["perfil"] == "Administrador" && $value["area"] == $area))) {
-        echo '<tr>
-                <td>' . ($key + 1) . '</td>
-                <td>' . $value["identificacion"] . '</td>';
-                    
-        echo '
-                <td>' . $value["correo"] . '</td>
-                <td>' . $value["nombre"] . '</td>
-                <td>' . $value["usuario"] . '</td>';
-        if ($value["perfil"] == "Super Administrador") {
-            echo '<td><button class="btn btn-warning btn-xs btnActivar" idUsuario="' . $value["perfil"] . '" estadoUsuario="0">Super Administrador</button></td>';
-        }
-        if ($value["perfil"] == "Administrador") {
-            echo '<td><button class="btn btn-success btn-xs btnActivar" idUsuario="' . $value["perfil"] . '" estadoUsuario="0">Administrador</button></td>';
-        }
-        if ($value["perfil"] == "Funcionario") {
-            echo '<td><button class="btn btn-info btn-xs btnActivar" idUsuario="' . $value["perfil"] . '" estadoUsuario="0">Funcionario</button></td>';
-        }
-        if ($value["perfil"] == "Profesor") {
-          echo '<td><button class="btn btn-info btn-xs btnActivar" idUsuario="' . $value["perfil"] . '" estadoUsuario="0">Profesor</button></td>';
-      }
-        if ($value["area"] != "") {
-            echo '<td><button class="btn btn-warning btn-xs btnActivar text-uppercase" idUsuario="' . $value["area"] . '" estadoUsuario="0">' . $value["area"] . '</button></td>';
-        } else {
-            echo '<td><button class="btn btn-danger btn-xs btnActivar text-uppercase" idUsuario="' . $value["area"] . '" estadoUsuario="0">REGISTRAR AREA</button></td>';
-        }
+            $usuarios = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
+            //echo '<pre>'; print_r($usuarios); echo '</pre>';
 
-        $fecha = date('d/m/Y');
-        echo '<td>' . $value["ultimo_login"] . '</td>';
-        echo '
-                <td>
-                    <div class="btn-group">
-                        <button class="btn btn-warning btnEditarUsuario" idUsuario="'.$value["id"].'" data-toggle="modal" data-target="#modalEditarUsuario"><i class="fa fa-pencil"></i></button>
-                        <button class="btn btn-danger btnEliminarUsuario" idUsuario="'.$value["id"].'" fotoUsuario="'.$value["foto"].'" usuario="'.$value["usuario"].'" style="margin-left: 8px;"><i class="fa fa-times"></i></button>
-                    </div>
-                </td>
-            </tr>';
-    }
-}
-?>
+            foreach ($usuarios as $key => $value) {
+              echo '<tr>
+  <td>' . ($key + 1) . '</td>
+  <td>' . $value["cc"] . '</td>
+  <td>' . $value["first_name"] . '</td>
+  <td>' . $value["last_name"] . '</td>
+  <td>' . $value["user_name"] . '</td>
+  <td>' . $value["perfil"] . '</td>
+  <td>' . $value["area"] . '</td>
+  <td>' . $value["correo"] . '</td>
+  <td>' . $value["phone"] . '</td>';
 
-        </tbody>
- <tfoot>
-         
-         <tr>
-           
-           <th style="width:10px">#</th>
-           <th style="width:100px">Identificación</th>
-           <th style="width:100px">Correo</th>
-           <th style="width:100px">Nombre</th>
-           <th style="width:100px">Usuario</th>
-           <th style="width:100px">Perfil</th>
-          <th style="width:100px">Area</th>
-           <th style="width:100px">Último login</th>
+              // Verificar si la fecha de 'ultimo_login' está disponible y formatearla
+              if (isset($value["ultimo_login"])) {
+                $fechaFormateada = date('d/m/Y H:i:s', strtotime($value["ultimo_login"]));
+                echo '<td>' . $fechaFormateada . '</td>';
+              } else {
+                echo '<td>Sin registro</td>';
+              }
 
-           <th style="width:40px">Acciones</th>
+              echo '
+  <td>
+      <div class="btn-group-container">
+          <div class="btn-group">
+              <button class="btn btn-danger btnEliminarCliente" idUsuario="' . $value["id"] . '" title="Eliminar Cliente"><i class="fa fa-times"></i></button>
+          </div>
+      </div>
+  </td>
+  </tr>';
+            }
 
-         </tr> 
+            ?>
 
-        </tfoot>
-       </table>
-      
-       <?php 
-          // $searchString = " ";
-          // $replaceString = "_";
-          // // $originalString = $ofi; 
-          // $outputString = str_replace($searchString, $replaceString, $originalString); 
-          // $nueva_oficina = $outputString;
-       ?>
-    
+          </tbody>
+          <tfoot>
+
+            <tr>
+
+              <th style="width:10px">#</th>
+              <th style="width:100px">Identificación</th>
+              <th style="width:100px">Nombre</th>
+              <th style="width:100px">Apellido</th>
+              <th style="width:100px">Usuario</th>
+              <th style="width:100px">Perfil</th>
+              <th style="width:100px">Area</th>
+              <th style="width:100px">Correo</th>
+              <th style="width:100px">Telefono</th>
+              <th style="width:100px">Último login</th>
+
+              <th style="width:40px">Acciones</th>
+
+            </tr>
+
+          </tfoot>
+        </table>
+
+        <?php
+        // $searchString = " ";
+        // $replaceString = "_";
+        // // $originalString = $ofi; 
+        // $outputString = str_replace($searchString, $replaceString, $originalString); 
+        // $nueva_oficina = $outputString;
+        ?>
+
 
 
       </div>
 
     </div>
-   
-<div class="container">
 
-         <!--  <form action="excel_funcionarios.php" name="formulario" method="POST" enctype="multipart/form-data" / onsubmit="return validateForm()" required>
+    <div class="container">
+
+      <!--  <form action="excel_funcionarios.php" name="formulario" method="POST" enctype="multipart/form-data" / onsubmit="return validateForm()" required>
 
              <div class="up">
       <label for="inputTag">
@@ -295,60 +437,19 @@ let input = document.getElementById("inputTag");
      
 
 </script>  -->
-        </div>
+    </div>
 </div>
 
-<style>
+<script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+<script src="vistas/plugins/sweetalert2/sweetalert2.all.js"></script>
 
 
-.swal2-popup {
-font-size: 1.6rem;
- font-family: Georgia, serif;
-}
-
-      .up{
-
- display: flex;
-  justify-content: center;
-  font-size: 15px;
-  line-height: 1;
-  border-radius: 2px;
-
-
-  border: 0;
-  transition: 0.2s;
-  overflow: hidden;
-  text-align:center;
-  padding:4;
-    border:thin solid black;
-      }
-
-      #inputTag{
-       cursor: pointer;
-  position: absolute;
-  left: 0%;
-  top: 0%;
-  transform: scale(3);
-  opacity: 0;
-      }
-      label{
-        cursor:pointer;
-      }
-      #imageName{
-        color:green;
-      }
- 
-    </style>
-  <script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-  <script src="vistas/plugins/sweetalert2/sweetalert2.all.js"></script>
-
-        
 <!--=====================================
 MODAL AGREGAR USUARIO
 ======================================-->
 
 <div id="modalAgregarUsuario" class="modal fade" role="dialog">
-  
+
   <div class="modal-dialog">
 
     <div class="modal-content">
@@ -376,143 +477,168 @@ MODAL AGREGAR USUARIO
           <div class="box-body">
 
             <!-- ENTRADA PARA LA IDENTIFICACION -->
-            
-            <div class="form-group">
-              
-              <div class="input-group">
-              
-                <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span> 
+            <div class="container">
+              <h5>Informacion del Usuario</h5>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
+                      <input type="number" class="form-control input-lg" name="nuevoIdentificacion" placeholder="Ingresar Identificacion" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
+                      <input type="text" class="form-control" name="nuevoNombre" placeholder="Ingresar Nombre">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
+                      <input type="text" class="form-control" name="nuevoApellido" placeholder="Ingresar Apellido">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container mt-3">
+              <h5>Informacion de Contacto</h5>
+              <div class="row">
+                <!-- ENTRADA PARA CORREO-->
+                <div class="col-md-4">
+                  <div class="form-group">
 
-                <input type="text" class="form-control input-lg" name="nuevoIdentificacion" placeholder="Ingresar Identificacion" required>
+                    <div class="input-group">
+
+                      <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+
+                      <input type="email" class="form-control input-lg" name="nuevoCorreo" placeholder="Ingresar Correo" required>
+
+                    </div>
+
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+
+                    <div class="input-group">
+
+                      <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+
+                      <input type="text" class="form-control input-lg" name="nuevoTelefono" placeholder="Ingresar telefono de Contacto" required>
+
+                    </div>
+
+                  </div>
+                </div>
 
               </div>
-
             </div>
 
-            
+            <div class="container mt-3">
+              <h5>Informacion del Sistema</h5>
+              <div class="row">
+                <!-- ENTRADA PARA CORREO-->
+                <div class="col-md-4">
+                  <div class="form-group">
 
+                    <div class="input-group">
 
-            <!-- ENTRADA PARA CORREO-->
-            
-            <div class="form-group">
-              
-              <div class="input-group">
-              
-                <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span> 
+                      <span class="input-group-addon"><i class="fa fa-user"></i></span>
 
-                <input type="email" class="form-control input-lg" name="nuevoCorreo" placeholder="Ingresar Correo" required>
+                      <input type="text" class="form-control input-lg" name="nuevoUsuario" placeholder="Ingresar nombre de Usuario" required>
+
+                    </div>
+
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+
+                    <div class="input-group">
+
+                      <span class="input-group-addon"><i class="fa fa-key"></i></span>
+
+                      <input type="text" class="form-control input-lg" name="nuevoPassword" placeholder="Ingresar contraseña" required>
+
+                    </div>
+
+                  </div>
+                </div>
 
               </div>
-
             </div>
-
-
-
-            <!-- ENTRADA PARA EL NOMBRE -->
-            
-            <div class="form-group">
-              
-              <div class="input-group">
-              
-                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
-
-                <input type="text" class="form-control input-lg" name="nuevoNombre" placeholder="Ingresar nombre" required>
-
-              </div>
-
-            </div>
-
-            <!-- ENTRADA PARA EL USUARIO -->
-
-             <div class="form-group">
-              
-              <div class="input-group">
-              
-                <span class="input-group-addon"><i class="fa fa-key"></i></span> 
-
-                <input type="text" class="form-control input-lg" name="nuevoUsuario" placeholder="Ingresar usuario" id="nuevoUsuario" required>
-
-              </div> 
-
-            </div>
-
-            <!-- ENTRADA PARA LA CONTRASEÑA -->
-
-             <div class="form-group">
-              
-              <div class="input-group">
-              
-                <span class="input-group-addon"><i class="fa fa-lock"></i></span> 
-
-                <input type="password" class="form-control input-lg" name="nuevoPassword" placeholder="Ingresar contraseña" required>
-
-              </div>
-
-            </div>
-
-             
-
             <!-- ENTRADA PARA El area -->
+            <div class="container mt-3">
+              <h5>Area y Perfil</h5>
+              <div class="row">
+
+                <div class="col-md-4">
+                  <div class="form-group">
+
+                    <div class="input-group">
+
+                      <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
+
+                      <select class="form-control input-lg" name="nuevaArea" required>
+
+                        <option value="">Seleccionar Area</option>
+
+                        <?php
+
+                        if ($comparar == "Super Administrador") {
+
+                          $item = null;
+                          $valor = null;
+
+                          $categorias = ControladorAreas::ctrMostrarAreas($item, $valor);
+
+                          foreach ($categorias as $key => $value) {
+
+                            echo '
+
+                        <option value="' . $value["area"] . '">' . $value["area"] . '</option>';
+                          }
+                        }
+
+                        if ($comparar == "Administrador") {
+
+                          $item = null;
+                          $valor = null;
+
+                          $categorias = ControladorAreas::ctrMostrarAreas($item, $valor);
 
 
-            <div class="form-group"> 
-               
-              <div class="input-group">
-              
-                <span class="input-group-addon"><i class="fa fa-suitcase"></i></span> 
+                          echo '
 
-                <select class="form-control input-lg" name="nuevaArea" required>
-                  
-                  <option value="">Seleccionar Area</option>
+                          <option value="' . $area . '">' . $area . '</option>';
+                        }
+                        echo '
 
-                  <?php
+                          </select>
 
-                    if($comparar == "Super Administrador"){
- 
-                      $item = null;
-                      $valor = null;
+                        </div>
 
-                      $categorias = ControladorAreas::ctrMostrarAreas($item, $valor);
+                      </div>';
 
-                      foreach ($categorias as $key => $value) {
+                        ?>
 
-                        echo'
 
-                        <option value="'.$value["area"].'">'.$value["area"].'</option>';
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
 
-                      }
-                    }
-
-                    if($comparar == "Administrador"){
- 
-                      $item = null;
-                      $valor = null;
-
-                      $categorias = ControladorAreas::ctrMostrarAreas($item, $valor);
-
-                       
-                          echo'
-
-                          <option value="'.$area.'">'.$area.'</option>';
-                        
-
-                      
-                    }
-                  echo'
-
-                </select>
-
-              </div>
-
-            </div>';
-
-            ?>
-
-            <!-- ENTRADA PARA SELECCIONAR SU PERFIL -->
-
-            <?php
-            if ($comparar=="Super Administrador"){
-              echo '
+                        <div class="input-group">
+                          <?php
+                          if ($comparar == "Super Administrador") {
+                            echo '
             <div class="form-group">
               
               <div class="input-group">
@@ -527,19 +653,21 @@ MODAL AGREGAR USUARIO
 
                   <option value="Administrador">Administrador</option>
 
-                  <option value="Funcionario">Funcionario</option>
-
-                  <option value="Profesor">Profesor</option>
+                  <option value="Asesor comercial">Asesor comercial</option>
+                  <option value="Coordinador comercial">Coordinador comercial</option>
+                  <option value="Director comercial">Director comercial</option>
+                  <option value="Especialista juridico">Especialista juridico</option>
+                  <option value="Director juridico">Director juridico</option>          
 
                 </select>
 
               </div>
 
             </div>';
-            }
+                          }
 
-            if ($comparar=="Administrador"){
-              echo '
+                          if ($comparar == "Administrador") {
+                            echo '
             <div class="form-group">
               
               <div class="input-group">
@@ -550,51 +678,49 @@ MODAL AGREGAR USUARIO
                   
                   <option value="">Seleccionar perfil</option>
 
-                  <option value="Funcionario">Funcionario</option>
+                  <option value="Director comercial">Director comercial</option>
+                  <option value="Especialista juridico">Especialista juridico</option>
+                  <option value="Director juridico">Director juridico</option>   
 
                 </select>
 
               </div>
 
             </div>';
-            }
-            
-            ?>
+                          }
 
-           
+                          ?>
+                        </div>
+                      </div>
 
-           
+                    </div>
 
-            
-            
 
-            
-
-          </div>
-
-        </div>
-
-        <!--=====================================
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--=====================================
         PIE DEL MODAL
         ======================================-->
 
-        <div class="modal-footer">
+            <div class="modal-footer">
 
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
+              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
 
-          <button type="submit" name="register" class="btn btn-primary">Guardar usuario</button>
+              <button type="submit" name="register" class="btn btn-primary">Guardar usuario</button>
 
-        </div>
+            </div>
 
-        <?php
-           $crearUsuario = new ControladorUsuarios();
-          $crearUsuario -> ctrCrearUsuario();
-        ?>
+            <?php
+            $crearUsuario = new ControladorUsuarios();
+            $crearUsuario->ctrCrearUsuario();
+            ?>
 
       </form>
 
     </div>
- 
+
   </div>
 
 </div>
@@ -604,7 +730,7 @@ MODAL EDITAR USUARIO
 ======================================-->
 
 <div id="modalEditarUsuario" class="modal fade" role="dialog">
-  
+
   <div class="modal-dialog">
 
     <div class="modal-content">
@@ -631,17 +757,17 @@ MODAL EDITAR USUARIO
 
           <div class="box-body">
 
-             
+
 
             <!-- ENTRADA PARA EL NOMBRE -->
-            
-            <div class="form-group">
-              
-              <div class="input-group">
-              
-                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
 
-                <input type="text" class="form-control input-lg" id="editarNombre" name="editarNombre" value="" >
+            <div class="form-group">
+
+              <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+
+                <input type="text" class="form-control input-lg" id="editarNombre" name="editarNombre" value="">
 
               </div>
 
@@ -649,28 +775,28 @@ MODAL EDITAR USUARIO
 
             <!-- ENTRADA PARA EL USUARIO -->
 
-             <div class="form-group">
-              
+            <div class="form-group">
+
               <div class="input-group">
-              
-                <span class="input-group-addon"><i class="fa fa-key"></i></span> 
+
+                <span class="input-group-addon"><i class="fa fa-key"></i></span>
 
                 <input type="text" class="form-control input-lg" id="editarUsuario" name="editarUsuario" value="">
-                  <input type="hidden"  name="idUsuario" id="idUsuario" >
+                <input type="hidden" name="idUsuario" id="idUsuario">
               </div>
 
             </div>
-              
+
 
             <!-- ENTRADA PARA LA CONTRASEÑA -->
 
-             <div class="form-group">
-              
-              <div class="input-group">
-              
-                <span class="input-group-addon"><i class="fa fa-lock"></i></span> 
+            <div class="form-group">
 
-                <input type="password" class="form-control input-lg" name="editarPassword" placeholder="Escriba la nueva contraseña" >
+              <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+
+                <input type="password" class="form-control input-lg" name="editarPassword" placeholder="Escriba la nueva contraseña">
 
                 <input type="hidden" id="passwordActual" name="passwordActual">
 
@@ -680,13 +806,13 @@ MODAL EDITAR USUARIO
 
             <!-- ENTRADA PARA EL CORREO -->
 
-             <div class="form-group">
-              
-              <div class="input-group">
-              
-                <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span> 
+            <div class="form-group">
 
-                <input type="email" class="form-control input-lg" id="editarCorreo" name="editarCorreo" placeholder="Escriba el nuevo correo" >
+              <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+
+                <input type="email" class="form-control input-lg" id="editarCorreo" name="editarCorreo" placeholder="Escriba el nuevo correo">
 
                 <input type="hidden" id="correodActual" name="correodActual">
 
@@ -694,18 +820,10 @@ MODAL EDITAR USUARIO
 
             </div>
 
-            
-
-            
-
-          
-            
-
-
-              <!-- ENTRADA PARA SELECCIONAR SU PERFIL -->
+            <!-- ENTRADA PARA SELECCIONAR SU PERFIL -->
 
             <?php
-            if ($comparar=="Super Administrador"){
+            if ($comparar == "Super Administrador") {
               echo '
             <div class="form-group">
               
@@ -730,7 +848,7 @@ MODAL EDITAR USUARIO
             </div>';
             }
 
-            if ($comparar=="Administrador"){
+            if ($comparar == "Administrador") {
               echo '
             <div class="form-group">
               
@@ -751,57 +869,53 @@ MODAL EDITAR USUARIO
 
             </div>';
             }
-            
+
             ?>
 
-               <!-- ENTRADA PARA El area -->
+            <!-- ENTRADA PARA El area -->
 
 
-            <div class="form-group"> 
-               
+            <div class="form-group">
+
               <div class="input-group">
-              
-                <span class="input-group-addon"><i class="fa fa-suitcase"></i></span> 
 
-                <select class="form-control input-lg" id="editarArea" name="editarArea" >
-                  
+                <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
+
+                <select class="form-control input-lg" id="editarArea" name="editarArea">
+
                   <option value="">Seleccionar Area</option>
 
                   <?php
 
-                    if($comparar == "Super Administrador"){
- 
-                      $item = null;
-                      $valor = null;
+                  if ($comparar == "Super Administrador") {
 
-                      $categorias = ControladorAreas::ctrMostrarAreas($item, $valor);
+                    $item = null;
+                    $valor = null;
 
-                      foreach ($categorias as $key => $value) {
+                    $categorias = ControladorAreas::ctrMostrarAreas($item, $valor);
 
-                        echo'
+                    foreach ($categorias as $key => $value) {
 
-                        <option value="'.$value["area"].'">'.$value["area"].'</option>';
+                      echo '
 
-                      }
+                        <option value="' . $value["area"] . '">' . $value["area"] . '</option>';
                     }
+                  }
 
-                    if($comparar == "Administrador"){
- 
-                      $item = null;
-                      $valor = null;
+                  if ($comparar == "Administrador") {
 
-                      $categorias = ControladorAreas::ctrMostrarAreas($item, $valor);
+                    $item = null;
+                    $valor = null;
 
-                      
-                        
-                           echo'
+                    $categorias = ControladorAreas::ctrMostrarAreas($item, $valor);
 
-                          <option value="'.$area.'">'.$area.'</option>';
-                        
 
-                      
-                    }
-                  echo'
+
+                    echo '
+
+                          <option value="' . $area . '">' . $area . '</option>';
+                  }
+                  echo '
 
                 </select>
 
@@ -809,42 +923,42 @@ MODAL EDITAR USUARIO
 
             </div>';
 
-            ?>
-           
-           
-
-            <!-- ENTRADA PARA SUBIR FOTO -->
-
-             <div class="form-group">
-              
-              <div class="panel"></div>
+                  ?>
 
 
+
+                  <!-- ENTRADA PARA SUBIR FOTO -->
+
+                  <div class="form-group">
+
+                    <div class="panel"></div>
+
+
+
+                  </div>
+
+              </div>
 
             </div>
 
-          </div>
-
-        </div>
-
-        <!--=====================================
+            <!--=====================================
         PIE DEL MODAL
         ======================================-->
 
-        <div class="modal-footer">
+            <div class="modal-footer">
 
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
+              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
 
-          <button type="submit" class="btn btn-primary">Modificar usuario</button>
+              <button type="submit" class="btn btn-primary">Modificar usuario</button>
 
-        </div>
+            </div>
 
-     <?php
+            <?php
 
-          $editarUsuario = new ControladorUsuarios();
-          $editarUsuario -> ctrEditarUsuario();
+            $editarUsuario = new ControladorUsuarios();
+            $editarUsuario->ctrEditarUsuario();
 
-        ?> 
+            ?>
 
       </form>
 
@@ -854,170 +968,40 @@ MODAL EDITAR USUARIO
 
 </div>
 
-<div id="modalAsignarGrupo" class="modal fade" role="dialog">
-  
-<div class="modal-dialog">
-
-<div class="modal-content">
-
-  <form role="form" method="post" enctype="multipart/form-data">
-
-    <!--=====================================
-    CABEZA DEL MODAL
-    ======================================-->
-
-    <div class="modal-header" style="background:#31B404; color:white">
-
-      <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-      <h4 class="modal-title">Asignar grupo</h4>
-
-    </div>
-
-
-
-    <!--=====================================
-    CUERPO DEL MODAL
-    ======================================-->
-
-    <div class="modal-body">
-
-      <div class="box-body">
-
-        <!-- ENTRADA PARA LA IDENTIFICACION -->
-        <div class="form-group"> 
-           
-          <div class="input-group">
-          
-            <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span> 
-
-            <select class="selectize select-lg" name="asignarProfesor" id="asignarProfesor">
-              
-              <option value="">Seleccionar Profesor</option>
-
-              <?php
-
-         
-
-                  $item = null;
-                  $valor = null;
-
-                  $categorias = ControladorUsuarios::ctrMostrarProfesores($item, $valor);
-                  echo '<pre>'; print_r($categorias); echo '</pre>';
-                  foreach ($categorias as $key => $value) {
-
-                    echo'
-
-                    <option value="'.$value["id"].'">'.$value["nombre"].'</option>';
-
-                  }
-        ?>
-          </select>
-
-          </div>
-
-        </div>
-        
-
-
-        <div class="form-group"> 
-           
-          <div class="input-group">
-          
-            <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span> 
-
-            <select class="selectize select-lg" name="asignarGrupo" id="asignarGrupo">
-              
-              <option value="">Seleccionar Curso</option>
-
-              <?php
-
-         
-
-                  $item = null;
-                  $valor = null;
-
-                  $categorias = ControladorCursos::ctrMostrarCursos($item, $valor);
-
-                  foreach ($categorias as $key => $value) {
-
-                    echo'
-
-                    <option value="'.$value["id_grade"].'">'.$value["level_grade"]." ". $value["clasification"].'</option>';
-
-                  }
-        ?>
-          </select>
-
-          </div>
-
-        </div>
-       
-            
-
-      </div>
-
-    </div>
-
-    <!--=====================================
-    PIE DEL MODAL
-    ======================================-->
-
-    <div class="modal-footer">
-
-      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
-
-      <button type="submit" name="register" class="btn btn-primary">Asignar Curso</button>
-
-    </div>
-
-    <?php
-      $crearGrupoProfesor = new ControladorGrupos();
-      $crearGrupoProfesor -> ctrAsignarGrupo();
-    ?>
-
-  </form>
-
-</div>
-
-</div>
-
-</div>
 
 
 <?php
 
-  $borrarUsuario = new ControladorUsuarios();
-  $borrarUsuario -> ctrBorrarUsuario();
+$borrarUsuario = new ControladorUsuarios();
+$borrarUsuario->ctrBorrarUsuario();
 
-?> 
+?>
 
-<script>  
-  
-  $(".tablas").on("click", ".btnReenviarCorreo", function(){
+<script>
+  $(".tablas").on("click", ".btnReenviarCorreo", function() {
 
-  var idUsuario = $(this).attr("idUsuario");
-  var usuario = $(this).attr("usuario");
-  var idUser = $(this).attr("idUser")
+    var idUsuario = $(this).attr("idUsuario");
+    var usuario = $(this).attr("usuario");
+    var idUser = $(this).attr("idUser")
 
-  swal({
-    title: '¿Está seguro de Reenviar el correo?',
-    text: "¡Si no lo está puede cancelar la accíón!",
-    type: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
+    swal({
+      title: '¿Está seguro de Reenviar el correo?',
+      text: "¡Si no lo está puede cancelar la accíón!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       cancelButtonText: 'Cancelar',
       confirmButtonText: 'Si, Reenviar correo!'
-  }).then(function(result){
+    }).then(function(result) {
 
-    if(result.value){
+      if (result.value) {
 
-      //window.location = "correos.php?ruta=usuarios&idUsuario="+idUsuario+"&usuario="+usuario+"&idUser="+idUser;
-      window.location = "correos.php?&idUsuario="+idUsuario;
-    }
+        //window.location = "correos.php?ruta=usuarios&idUsuario="+idUsuario+"&usuario="+usuario+"&idUser="+idUser;
+        window.location = "correos.php?&idUsuario=" + idUsuario;
+      }
+
+    })
 
   })
-
-})
 </script>
