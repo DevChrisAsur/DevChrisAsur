@@ -130,24 +130,24 @@
     }
 
     /* Asegurarse de que el select tenga el mismo tamaño y estilo que los campos de texto */
-.form-control.input-lg {
-  height: calc(1.5em + .75rem + 4px); /* Ajustar la altura del select */
-  padding: .75rem 1.25rem; /* Asegurar el mismo relleno que los campos de texto */
-  font-size: 1.25rem; /* Asegurar el mismo tamaño de fuente */
-  line-height: 1.5; /* Ajustar la línea de altura */
-  border-radius: .3rem; /* Ajustar el radio de borde */
-}
+    .form-control.input-lg {
+    height: calc(1.5em + .75rem + 4px); /* Ajustar la altura del select */
+    padding: .75rem 1.25rem; /* Asegurar el mismo relleno que los campos de texto */
+    font-size: 1.25rem; /* Asegurar el mismo tamaño de fuente */
+    line-height: 1.5; /* Ajustar la línea de altura */
+    border-radius: .3rem; /* Ajustar el radio de borde */
+    }
 
-.input-group .form-control {
-  border: 1px solid #ced4da; /* Asegurar que el borde sea igual al de los campos de texto */
-  border-radius: .25rem; /* Radio de borde para las esquinas redondeadas */
-}
+    .input-group .form-control {
+    border: 1px solid #ced4da; /* Asegurar que el borde sea igual al de los campos de texto */
+    border-radius: .25rem; /* Radio de borde para las esquinas redondeadas */
+    }
 
-.input-group-addon {
-  background-color: #e9ecef; /* Asegurar el mismo color de fondo */
-  border: 1px solid #ced4da; /* Borde del addon igual al de los campos de texto */
-  border-radius: .25rem; /* Radio de borde para las esquinas redondeadas */
-}
+    .input-group-addon {
+    background-color: #e9ecef; /* Asegurar el mismo color de fondo */
+    border: 1px solid #ced4da; /* Borde del addon igual al de los campos de texto */
+    border-radius: .25rem; /* Radio de borde para las esquinas redondeadas */
+    }
 
 </style>
 
@@ -254,7 +254,6 @@
                       <td>
                           <div class="btn-group-container">
                             <div class="btn-group">
-                                <button class="btn btn-warning btnEditarCliente" idCliente="' . $value["id_customer"] . '" data-toggle="modal" data-target="#modalEditarCliente"><i class="fa fa-pencil"></i></button>
                                 <button class="btn btn-danger btnEliminarCliente" idCliente="' . $value["id_customer"] . '" style="margin-left: 8px;"><i class="fa fa-times"></i></button>
                                 <button class="btn btn-primary btnGenerarPDF" idCliente="' . $value["id_customer"] . '" style="margin-left: 8px;"><i class="fa fa-file-pdf-o"></i></button>    
                             </div>
@@ -413,64 +412,6 @@
                         <?php
                         $crearCliente = new ControladorClientes();
                         $crearCliente->ctrCrearCliente();
-                        ?>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- MODAL EDITAR CLIENTE -->
-        <div id="modalEditarCliente" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form role="form" method="post" enctype="multipart/form-data">
-                        <div class="modal-header" style="background:#3c8dbc; color:white">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Editar Cliente</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="box-body">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
-                                        <input type="number" class="form-control input-lg" name="editarIdentificacion" id="editarIdentificacion">
-                                        <input type="hidden" name="idCliente" id="idCliente">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                        <input type="text" class="form-control input-lg" id="editarNombre" name="editarNombre">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                        <input type="text" class="form-control input-lg" name="editarApellido" id="editarApellido">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                        <input type="email" class="form-control input-lg" name="editarCorreo" id="editarCorreo">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                                        <input type="text" class="form-control input-lg" name="editarTelefono" id="editarTelefono">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
-                            <button type="submit" class="btn btn-primary">Modificar Cliente</button>
-                        </div>
-                        <?php
-                        $editarCliente = new ControladorClientes();
-                        //$editarCliente -> ctrEditarCliente();
                         ?>
                     </form>
                 </div>

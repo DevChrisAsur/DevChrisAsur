@@ -43,33 +43,29 @@ class ModeloUsuarios{
 
 	static public function mdlIngresarUsuario($tabla, $datos){
 
-		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(user_status, cc, first_name, last_name, user_name, perfil, area, correo,  password) VALUES (:user_status, :cc, :first_name, :last_name, :user_name, :perfil, :area, :correo,  :password)");
-    	$stmt->bindParam(":user_status", $datos['user_status'], PDO::PARAM_INT);
-	    $stmt->bindParam(":cc", $datos['cc'], PDO::PARAM_STR);
-    	$stmt->bindParam(":first_name", $datos['first_name'], PDO::PARAM_STR);
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(user_status, cc, first_name, last_name, user_name, perfil, area, correo, phone, password) VALUES (:user_status, :cc, :first_name, :last_name, :user_name, :perfil, :area, :correo, :phone, :password)");
+		
+		$stmt->bindParam(":user_status", $datos['user_status'], PDO::PARAM_INT);
+		$stmt->bindParam(":cc", $datos['cc'], PDO::PARAM_STR);
+		$stmt->bindParam(":first_name", $datos['first_name'], PDO::PARAM_STR);
 		$stmt->bindParam(":last_name", $datos['last_name'], PDO::PARAM_STR);
-    	$stmt->bindParam(":user_name", $datos['user_name'], PDO::PARAM_STR);
-    	$stmt->bindParam(":perfil", $datos['perfil'], PDO::PARAM_STR);
-    	$stmt->bindParam(":area", $datos['area'], PDO::PARAM_STR);
+		$stmt->bindParam(":user_name", $datos['user_name'], PDO::PARAM_STR);
+		$stmt->bindParam(":perfil", $datos['perfil'], PDO::PARAM_STR);
+		$stmt->bindParam(":area", $datos['area'], PDO::PARAM_STR);
 		$stmt->bindParam(":correo", $datos['correo'], PDO::PARAM_STR);
 		$stmt->bindParam(":phone", $datos['phone'], PDO::PARAM_STR);
-		$stmt->bindParam(":password", $datos['password'], PDO::PARAM_STR);				
-
+		$stmt->bindParam(":password", $datos['password'], PDO::PARAM_STR);
+	
 		if($stmt->execute()){
-
-			return "ok";	
-
-		}else{
-
+			return "ok";
+		} else {
 			return "error";
-		
 		}
-
+	
 		$stmt->close();
-		
 		$stmt = null;
- 
 	}
+	
 
 	/*=============================================
 	EDITAR USUARIO

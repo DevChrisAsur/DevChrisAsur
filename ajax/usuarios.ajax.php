@@ -34,7 +34,7 @@ class AjaxUsuarios{
 
 		$tabla = "usuarios";
 
-		$item1 = "estado";
+		$item1 = "user_status";
 		$valor1 = $this->activarUsuario;
 
 		$item2 = "id";
