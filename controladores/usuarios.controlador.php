@@ -17,7 +17,7 @@ class ControladorUsuarios{
 
 				$tabla = "usuarios";
 
-				$item = "usuario";
+				$item = "user_name";
 				$valor = $_POST["ingUsuario"];
 
 				$respuesta = ModeloUsuarios::MdlMostrarUsuarios($tabla, $item, $valor);
@@ -26,7 +26,7 @@ class ControladorUsuarios{
 					
 				$area = $respuesta["area"];
 
-				if($respuesta["usuario"] == $_POST["ingUsuario"] && $respuesta["password"] == $encriptar){
+				if($respuesta["user_name"] == $_POST["ingUsuario"] && $respuesta["password"] == $encriptar){
 
 					$fecha = date('d/m/Y');
                     $array = explode("/", $fecha);
@@ -146,79 +146,70 @@ class ControladorUsuarios{
 	REGISTRO DE USUARIO
 	=============================================*/
 
-	static public function ctrCrearUsuario(){
-		if(isset($_POST["nuevoUsuario"])){
-			if(preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/',
-			 $_POST["nuevoNombre"]) &&
-			preg_match('/^[a-zA-Z0-9]+$/', 
-			   $_POST["nuevoUsuario"]) &&
-			preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ!@#$%^&*()_+\-=\[\]{};:"\\|,.<>\/?~` ]+$/',
-			 	$_POST["nuevoPassword"])){
-				if(preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', 
-					$_POST["nuevoIdentificacion"])){
-						$ruta = "";
-						$tabla = "usuarios";
-						$encriptar = crypt($_POST["nuevoPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
-
-						$datos = array("identificacion" => $_POST["nuevoIdentificacion"],
-							           "correo" => $_POST["nuevoCorreo"],
-									   "nombre" => $_POST["nuevoNombre"],
-							           "usuario" => $_POST["nuevoUsuario"],
-							           "password" => $encriptar,
-							           "perfil" => $_POST["nuevoPerfil"],
-							           "area" => $_POST["nuevaArea"],
-							           "foto"=>$ruta,
-							       	   "estado"=>"1");
-
-						$respuesta = ModeloUsuarios::mdlIngresarUsuario($tabla, $datos);
-					
-						if($respuesta == "ok"){
-							echo '<script>
+	static public function ctrCrearUsuario() {
+		if (isset($_POST["nuevoUsuario"])) {
+	
+			try {
+				// Preparación de los datos a insertar
+				$ruta = "";
+				$tabla = "usuarios";
+	
+				// Encriptación de la contraseña
+				$encriptar = crypt($_POST["nuevoPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+	
+				$datos = array(
+					"cc" => $_POST["nuevoIdentificacion"],
+					"first_name" => $_POST["nuevoNombre"],
+					"last_name" => $_POST["nuevoApellido"],
+					"user_name" => $_POST["nuevoUsuario"],
+					"perfil" => $_POST["nuevoPerfil"],
+					"area" => $_POST["nuevaArea"],
+					"correo" => $_POST["nuevoCorreo"],
+					"phone" => $_POST["nuevoTelefono"],
+					"password" => $encriptar,
+					"foto" => $ruta,
+					"user_status" => "1"
+				);
+	
+				// Inserción en la base de datos
+				$respuesta = ModeloUsuarios::mdlIngresarUsuario($tabla, $datos);
+	
+				if ($respuesta == "ok") {
+					echo '<script>
 							swal({
 								type: "success",
 								title: "¡El usuario ha sido guardado correctamente!",
 								showConfirmButton: true,
 								confirmButtonText: "Cerrar"
-
 							}).then(function(result){
-								if(result.value){
-									window.location = "usuarios";
-								}
-							});
-							</script>';
-						}
-				}else{
-						echo '<script>
-							swal({
-								type: "error",
-								title: "¡La identificación no puede ir vacío o llevar caracteres especiales!",
-								showConfirmButton: true,
-								confirmButtonText: "Cerrar"
-
-							}).then(function(result){
-								if(result.value){
+								if (result.value) {
 									window.location = "usuarios";
 								}
 							});
 						</script>';
-					}
-			}else{
+				} else {
+					throw new Exception("Error al guardar el usuario.");
+				}
+	
+			} catch (Exception $e) {
+				// Captura de cualquier excepción y muestra un error en un modal
 				echo '<script>
-					swal({
-						type: "error",
-						title: "¡El usuario no puede ir vacío o llevar caracteres especiales!",
-						showConfirmButton: true,
-						confirmButtonText: "Cerrar"
-
-					}).then(function(result){
-						if(result.value){
-							window.location = "usuarios";
-						}
-					});
-				</script>';
+						swal({
+							type: "error",
+							title: "'.$e->getMessage().'",
+							showConfirmButton: true,
+							confirmButtonText: "Cerrar"
+						}).then(function(result){
+							if (result.value) {
+								window.location = "usuarios";
+							}
+						});
+					</script>';
 			}
 		}
 	}
+	
+	
 
 	/*=============================================
 	MOSTRAR USUARIO
