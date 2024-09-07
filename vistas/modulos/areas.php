@@ -64,7 +64,7 @@
             <thead>
               <tr>
                 <th style="width:10px">#</th>
-                <th style="width:100px">Areas de derecho</th>
+                <th>Areas de derecho</th>
                 <th style="width:80px">Acciones</th>
               </tr>
             </thead>
