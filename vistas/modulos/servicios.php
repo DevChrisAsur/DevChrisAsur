@@ -185,7 +185,7 @@
 <!-- filtrar fechas -->
 <script src="https://cdn.datatables.net/datetime/1.3.1/js/dataTables.dateTime.min.js"></script>
 <script>
-    localStorage.setItem('rutaActual', 'cliente');
+    localStorage.setItem('rutaActual', 'servicios');
 </script>
 
 <div class="content-wrapper">
