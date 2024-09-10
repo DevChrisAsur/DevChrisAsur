@@ -126,6 +126,7 @@ CUERPO DOCUMENTO
     $_GET["ruta"] == "areas" ||
     $_GET["ruta"] == "clientes" ||
     $_GET["ruta"] == "servicios" ||
+    $_GET["ruta"] == "suscripciones" ||
     $_GET["ruta"] == "salir"){
 
         include "modulos/".$_GET["ruta"].".php";

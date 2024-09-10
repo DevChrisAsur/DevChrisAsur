@@ -112,7 +112,12 @@
                         <span>servicios</span>
                     </a>
                 </li>
-                
+                <li>
+                    <a href="suscripciones">
+                        <i class="fa fa-address-card"></i>
+                        <span>suscripciones</span>
+                    </a>
+                </li>
                 ';
             }
             ?>
