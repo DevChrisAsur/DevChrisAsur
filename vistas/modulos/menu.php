@@ -106,6 +106,12 @@
                         <span>clientes</span>
                     </a>
                 </li>
+                <li>
+                    <a href="servicios">
+                        <i class="fa fa-address-card"></i>
+                        <span>servicios</span>
+                    </a>
+                </li>
                 
                 ';
             }
