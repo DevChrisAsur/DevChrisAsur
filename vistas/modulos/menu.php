@@ -4,20 +4,29 @@
 </head>
 <style>
 
-.treeview-menu {
-    display: none;
-    list-style: none;
-    padding-left: 20px;
+.treeview-menu:hover {
+    display: block; /* Asegura que se mantenga abierto al hacer hover */
 }
 
-.treeview:hover > .treeview-menu,
+.treeview-menu {
+    position: relative;
+}
+
+.treeview-menu::before {
+    content: "";
+    position: absolute;
+    top: -10px; /* Ajusta estos valores según lo necesario */
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    z-index: -1; /* Coloca este pseudo-elemento detrás */
+}
+
+
 .treeview-menu:hover {
     display: block;
 }
 
-.treeview > a {
-    cursor: pointer;
-}
 /* Aplica el mismo fondo de gradiente al sidebar */
 .main-sidebar {
     padding-top: 50px;
@@ -68,51 +77,84 @@
             $valor = null;
 
             $usuarios = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
-            if ($comparar != "Profesor") {
-                echo '
-                <li>
-                    <a href="usuarios">
-                        <i class="fa fa-address-book"></i>
-                        <span>Usuarios</span>
-                    </a>
-                </li>';
-            }
-            ?>
-
-            <?php
-            if ($comparar == "Profesor") {
-                echo '
-                <li>
-                    <a href="cursoestudiante">
-                        <i class="fa fa-drivers-license-o"></i>
-                        <span>Cursos y Estudiantes</span>
-                    </a>
-                </li>';
-            }
             ?>
 
             <?php
             if ($comparar == "Super Administrador") {
                 echo '
-                <li>
-                    <a href="areas">
-                        <i class="fa fa-address-card"></i>
-                        <span>Roles de Usuario</span>
+
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-user-circle-o"></i>
+                        <span>Operadores</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
                     </a>
+                    <ul class="treeview-menu">
+                        
+                        <li>
+                            <a href="usuarios">
+                                <i class="fa fa-book"></i>
+                                <span>Usuarios</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="areas">
+                                <i class="fa fa-gavel"></i>
+                                <span>Areas de trabajo</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
-                <li>
-                    <a href="clientes">
-                        <i class="fa fa-address-card"></i>
-                        <span>clientes</span>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-group"></i>
+                        <span>Contactos</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
                     </a>
+                    <ul class="treeview-menu">
+                        
+                        <li>
+                            <a href="clientes">
+                                <i class="fa fa-address-book"></i>
+                                <span>clientes</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="leads">
+                                <i class="fa fa-exclamation"></i>
+                                <span>Leads</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
-                <li>
-                    <a href="servicios">
-                        <i class="fa fa-address-card"></i>
-                        <span>servicios</span>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-group"></i>
+                        <span>Ofertas</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
                     </a>
+                    <ul class="treeview-menu">
+                        
+                        <li>
+                            <a href="servicios">
+                                <i class="fa fa-address-card"></i>
+                                <span>Productos</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="suscripciones">
+                                <i class="fa fa-address-card"></i>
+                                <span>suscripciones</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
-                
                 ';
             }
             ?>
@@ -120,35 +162,31 @@
     </section>
 </aside>
 
-
 <!-- JavaScript -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    var treeviewItems = document.querySelectorAll('.treeview > a');
 
-    treeviewItems.forEach(function(item) {
-        item.addEventListener('click', function(event) {
-            event.preventDefault();
-            var menu = this.nextElementSibling;
-            if (menu.style.display === 'block') {
-                menu.style.display = 'none';
-            } else {
-                // Cerrar otros submenús abiertos
-                var allSubMenus = document.querySelectorAll('.treeview-menu');
-                allSubMenus.forEach(function(subMenu) {
-                    subMenu.style.display = 'none';
-                });
-                menu.style.display = 'block';
-            }
-        });
+document.addEventListener('DOMContentLoaded', function() {
+    const treeviewMenu = document.querySelector('.treeview-menu');
+    const adjacentElements = document.querySelectorAll('.treeview-menu + li, .some-adjacent-selector'); // Selecciona los elementos adyacentes
+
+    // Mantén el menú desplegado mientras el ratón esté sobre él
+    treeviewMenu.addEventListener('mouseenter', function() {
+        treeviewMenu.style.display = 'block';
     });
 
-    // Cerrar el submenú si el mouse sale del área del submenú
-    var subMenus = document.querySelectorAll('.treeview-menu');
-    subMenus.forEach(function(menu) {
-        menu.addEventListener('mouseleave', function() {
-            this.style.display = 'none';
+    // Cuando el ratón sale del menú, oculta tras un retraso
+    treeviewMenu.addEventListener('mouseleave', function() {
+        setTimeout(function() {
+            treeviewMenu.style.display = 'none';
+        }, 500);
+    });
+
+    // Desactiva el treeview cuando pasa por los elementos adyacentes
+    adjacentElements.forEach(function(element) {
+        element.addEventListener('mouseenter', function() {
+            treeviewMenu.style.display = 'none'; // Cierra el menú al pasar sobre los adyacentes
         });
     });
 });
+
 </script>
