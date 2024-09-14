@@ -60,6 +60,31 @@ class AjaxUsuarios{
 		echo json_encode($respuesta);
 
 	}
+
+	public $activarPago;
+    public $activarIdPension;
+
+    
+    public function ajaxEstadoPago() {
+        $tabla = "usuarios";
+        $item1 = "user_status";
+        $valor1 = $this->activarPago;
+        $item2 = "id";
+        $valor2 = $this->activarIdPension;
+
+        $respuesta = ModeloUsuarios::mdlEstadoUsuario($tabla, $item1, $valor1, $item2, $valor2);
+
+        echo json_encode($respuesta);
+    }
+}
+
+if (isset($_POST['activarPagoPension'])) {
+    error_log("activarPagoPension: " . $_POST['activarPagoPension']);
+    error_log("activarIdPension: " . $_POST['activarIdPension']);
+    $activarPago = new AjaxUsuarios();
+    $activarPago->activarPago = $_POST['activarPagoPension'];
+    $activarPago->activarIdPension = $_POST['activarIdPension'];
+    $activarPago->ajaxEstadoPago();
 }
 
 /*=============================================
