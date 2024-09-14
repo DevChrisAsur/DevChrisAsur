@@ -193,12 +193,12 @@
   <section class="content-header">
     
     <h1>
-      Administrar Areas
+      Administrar Leads
     </h1>
 
     <ol class="breadcrumb">
       <li><a href="inicio"><i class="fa fa-dashboard"></i> Inicio</a></li>
-      <li class="active">Areas</li>
+      <li class="active">Leads</li>
     </ol>
 
   </section>
@@ -209,7 +209,7 @@
 
       <div class="box-header with-border">
         <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarAreas">
-          Agregar Area
+          Registrar Lead
         </button>
       </div>
 
@@ -222,7 +222,13 @@
             <thead>
               <tr>
                 <th style="width:10px">#</th>
-                <th>Area</th>
+                <th>Status</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Telefono</th>
+                <th>origen</th>
+                <th>informacion adicional</th>
                 <th style="width:80px">Acciones</th>
               </tr>
             </thead>
@@ -230,15 +236,21 @@
               <?php
                 $item = null;
                 $valor = null;
-                $categorias = ControladorAreas::ctrMostrarAreas($item, $valor);
+                $categorias = ControladorLeads::ctrVerLeadsFrio($item, $valor);
                 foreach ($categorias as $key => $value) {
                   echo ' <tr>
                           <td>'.($key+1).'</td>
-                          <td class="text-uppercase">'.$value["area"].'</td>
+                          <td class="text">'.$value["status_lead"].'</td>
+                          <td class="text">'.$value["first_name"].'</td>
+                          <td class="text">'.$value["last_name"].'</td>
+                          <td class="text">'.$value["email"].'</td>
+                          <td class="text">'.$value["phone"].'</td>
+                          <td class="text">'.$value["origin"].'</td>
+                          <td class="text">'.$value["note"].'</td>                                               
                           <td>
                             <div class="btn-group">
-                              <button class="btn btn-warning btnEditarAreas" idAreas="'.$value["id"].'" data-toggle="modal" data-target="#modalEditarAreas"><i class="fa fa-pencil"></i></button>
-                              <button class="btn btn-danger btnEliminarAreas" idAreas="'.$value["id"].'" style="margin-left: 8px;"><i class="fa fa-times"></i></button>
+                              <button class="btn btn-warning btnEditarAreas" idLeads="'.$value["id_lead"].'" data-toggle="modal" data-target="#modalEditarAreas"><i class="fa fa-pencil"></i></button>
+                              <button class="btn btn-danger btnEliminarAreas" idLeads="'.$value["id_lead"].'" style="margin-left: 8px;"><i class="fa fa-times"></i></button>
                             </div>
                           </td>
                         </tr>';
@@ -254,7 +266,13 @@
             <thead>
               <tr>
                 <th style="width:10px">#</th>
-                <th>Areas de derecho</th>
+                <th>Status</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Telefono</th>
+                <th>origen</th>
+                <th>informacion adicional</th>
                 <th style="width:80px">Acciones</th>
               </tr>
             </thead>
@@ -262,15 +280,64 @@
               <?php
                 $item = null;
                 $valor = null;
-                $elementos = ControladorAreaDerecho::ctrVerAreasDerecho($item, $valor);
+                $elementos = ControladorLeads::ctrVerLeadsMQL($item, $valor);
                 foreach ($elementos as $key => $value) {
                   echo ' <tr>
                           <td>'.($key+1).'</td>
-                          <td class="text-uppercase">'.$value["law_area"].'</td>
+                          <td class="text">'.$value["status_lead"].'</td>
+                          <td class="text">'.$value["first_name"].'</td>
+                          <td class="text">'.$value["last_name"].'</td>
+                          <td class="text">'.$value["email"].'</td>
+                          <td class="text">'.$value["phone"].'</td>
+                          <td class="text">'.$value["origin"].'</td>
+                          <td class="text">'.$value["note"].'</td>                                               
                           <td>
                             <div class="btn-group">
-                              <button class="btn btn-warning btnEditarElementos" idElementos="'.$value["id_area"].'" data-toggle="modal" data-target="#modalEditarElementos"><i class="fa fa-pencil"></i></button>
-                              <button class="btn btn-danger btnEliminarElementos" idElementos="'.$value["id_area"].'" style="margin-left: 8px;"><i class="fa fa-times"></i></button>
+                              <button class="btn btn-warning btnEditarAreas" idLeads="'.$value["id_lead"].'" data-toggle="modal" data-target="#modalEditarAreas"><i class="fa fa-pencil"></i></button>
+                              <button class="btn btn-danger btnEliminarAreas" idLeads="'.$value["id_lead"].'" style="margin-left: 8px;"><i class="fa fa-times"></i></button>
+                            </div>
+                          </td>
+                        </tr>';
+                }
+              ?>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="table-container" style="flex: 1;">
+          <table class="table table-bordered table-striped dt-responsive tablas5" width="100%">
+            <thead>
+              <tr>
+                <th style="width:10px">#</th>
+                <th>Status</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Telefono</th>
+                <th>origen</th>
+                <th>informacion adicional</th>
+                <th style="width:80px">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+                $item = null;
+                $valor = null;
+                $elementos = ControladorLeads::ctrVerLeadsSQL($item, $valor);
+                foreach ($elementos as $key => $value) {
+                  echo ' <tr>
+                          <td>'.($key+1).'</td>
+                          <td class="text">'.$value["status_lead"].'</td>
+                          <td class="text">'.$value["first_name"].'</td>
+                          <td class="text">'.$value["last_name"].'</td>
+                          <td class="text">'.$value["email"].'</td>
+                          <td class="text">'.$value["phone"].'</td>
+                          <td class="text">'.$value["origin"].'</td>
+                          <td class="text">'.$value["note"].'</td>                                               
+                          <td>
+                            <div class="btn-group">
+                              <button class="btn btn-warning btnEditarAreas" idLeads="'.$value["id_lead"].'" data-toggle="modal" data-target="#modalEditarAreas"><i class="fa fa-pencil"></i></button>
+                              <button class="btn btn-danger btnEliminarAreas" idLeads="'.$value["id_lead"].'" style="margin-left: 8px;"><i class="fa fa-times"></i></button>
                             </div>
                           </td>
                         </tr>';
@@ -335,7 +402,7 @@
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-th"></i></span> 
                 <input type="text" class="form-control input-lg" name="editarAreas" id="editarAreas" required>
-                <input type="hidden" name="idAreas" id="idAreas" required>
+                <input type="hidden" name="idLeads" id="idLeads" required>
               </div>
             </div>
           </div>
@@ -372,6 +439,14 @@ $(document).ready(function() {
 
     // Inicializa la segunda tabla
     $('.tablas4').DataTable({
+        destroy: true,
+        responsive: true,
+        buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+        lengthChange: false, // Desactiva la opción de cambiar la cantidad de registros mostrados
+        searching: false,    // Desactiva el filtro de búsqueda
+    });
+
+    $('.tablas5').DataTable({
         destroy: true,
         responsive: true,
         buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
