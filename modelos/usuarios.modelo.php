@@ -112,26 +112,39 @@ class ModeloUsuarios{
 			$query .= ", $item3 = :$item3";
 		}
 		$query .= " WHERE $item2 = :$item2";
-		
+
 		$stmt = conexion::conectar()->prepare($query);
-	
-		$stmt->bindParam(":".$item1, $valor1, PDO::PARAM_STR);
-		$stmt->bindParam(":".$item2, $valor2, PDO::PARAM_STR);
-		
+
+		$stmt->bindParam(":" . $item1, $valor1, PDO::PARAM_STR);
+		$stmt->bindParam(":" . $item2, $valor2, PDO::PARAM_STR);
+
 		if ($item3) {
-			$stmt->bindParam(":".$item3, $valor3, PDO::PARAM_STR);
+			$stmt->bindParam(":" . $item3, $valor3, PDO::PARAM_STR);
 		}
-	
+
 		if ($stmt->execute()) {
 			return "ok";
 		} else {
 			return "error";
 		}
-	
+
 		$stmt->close();
 		$stmt = null;
 	}
 
+	static public function mdlEstadoUsuario($tabla,$item1,$valor1,$item2,$valor2){
+        $stmt = conexion::conectar()->prepare("UPDATE $tabla SET $item1 = :$item1 WHERE $item2 = :$item2");
+        $stmt -> bindParam(":".$item1,$valor1,PDO::PARAM_STR);
+        $stmt -> bindParam(":".$item2,$valor2,PDO::PARAM_STR);
+        if($stmt->execute()){
+         return "ok";
+        }else{
+         return "error";
+        }
+        $stmt ->close();
+        $stmt = null;
+     
+    }
 	/*=============================================
 	BORRAR USUARIO
 	=============================================*/
