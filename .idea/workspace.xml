@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="587e209a-0ed8-489d-88f0-5135e4fcacea" name="Changes" comment="feacture-suscripcion">
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vistas/plantilla.php" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/plantilla.php" afterDir="false" />
+    <list default="true" id="587e209a-0ed8-489d-88f0-5135e4fcacea" name="Changes" comment="feacture-leads:ajuste de rutas">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,12 +45,22 @@
     &quot;assignee&quot;: &quot;ViajaCris&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/DevChrisAsur/DevChrisAsur.git&quot;,
-    &quot;accountId&quot;: &quot;49a6a0de-fd25-4086-8faf-9a7f9e93e9a1&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/DevChrisAsur/DevChrisAsur.git",
+    "accountId": "49a6a0de-fd25-4086-8faf-9a7f9e93e9a1"
+  },
+  "recentNewPullRequestHead": {
+    "server": {
+      "useHttp": false,
+      "host": "github.com",
+      "port": null,
+      "suffix": null
+    },
+    "owner": "DevChrisAsur",
+    "repository": "DevChrisAsur"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 0
@@ -61,21 +70,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Develop&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/parcial 1/tienda-anonima&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "#4 on Develop",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/xampp/htdocs/parcial 1/tienda-anonima"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;ChangesTree.GroupingKeys&quot;: [
-      &quot;directory&quot;,
-      &quot;module&quot;
+  "keyToStringList": {
+    "ChangesTree.GroupingKeys": [
+      "directory",
+      "module"
     ]
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -84,46 +93,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1715270956159</updated>
-    </task>
-    <task id="LOCAL-00034" summary="Certificado de retiro estudiantil">
-      <option name="closed" value="true" />
-      <created>1718220046425</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1718220046425</updated>
-    </task>
-    <task id="LOCAL-00035" summary="modificacion de iconos y orden de tablas">
-      <option name="closed" value="true" />
-      <created>1718386135707</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1718386135707</updated>
-    </task>
-    <task id="LOCAL-00036" summary="CRM sistema base">
-      <option name="closed" value="true" />
-      <created>1725341070779</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1725341070779</updated>
-    </task>
-    <task id="LOCAL-00037" summary="feacture: actualizacion de ruta para la base de datos">
-      <option name="closed" value="true" />
-      <created>1725484194250</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1725484194250</updated>
-    </task>
-    <task id="LOCAL-00038" summary="feacture-menu: acutalizacion de estilos del menu">
-      <option name="closed" value="true" />
-      <created>1725484306046</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1725484306046</updated>
     </task>
     <task id="LOCAL-00039" summary="feacture-cliente: generacion del modelo clientes">
       <option name="closed" value="true" />
@@ -477,7 +446,47 @@
       <option name="project" value="LOCAL" />
       <updated>1726171370332</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="feacture-suscripcion">
+      <option name="closed" value="true" />
+      <created>1726171421505</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1726171421505</updated>
+    </task>
+    <task id="LOCAL-00084" summary="feacture-leads:modelo para cada tipo de lead">
+      <option name="closed" value="true" />
+      <created>1726173154583</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1726173154583</updated>
+    </task>
+    <task id="LOCAL-00085" summary="feacture-leads:controlador para cada lead">
+      <option name="closed" value="true" />
+      <created>1726173173551</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1726173173551</updated>
+    </task>
+    <task id="LOCAL-00086" summary="feacture-leads:modulo leads segregado">
+      <option name="closed" value="true" />
+      <created>1726173188746</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1726173188746</updated>
+    </task>
+    <task id="LOCAL-00087" summary="feacture-leads:ajuste de rutas">
+      <option name="closed" value="true" />
+      <created>1726173220374</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1726173220374</updated>
+    </task>
+    <option name="localTasksCounter" value="88" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -521,6 +530,12 @@
         <entry key="MAIN">
           <value>
             <State>
+              <option name="COLUMN_ID_WIDTH">
+                <map>
+                  <entry key="Table.Default.Author.ColumnIdWidth" value="101" />
+                  <entry key="Table.Default.Date.ColumnIdWidth" value="100" />
+                </map>
+              </option>
               <option name="FILTERS">
                 <map>
                   <entry key="branch">
@@ -539,10 +554,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feacture-usuarios: ajuste estado usuario" />
-    <MESSAGE value="feacture-usuarios: ajuste campos para registrar usuario" />
-    <MESSAGE value="feacture-usuarios: actualizacion de modulo clientes" />
-    <MESSAGE value="feacture-usuarios: actualizacion de modulo usuarios" />
     <MESSAGE value="feacture-index: actualizacion de rutas" />
     <MESSAGE value="feacture-usuario:actualizacion tabla cliente" />
     <MESSAGE value="feacture-area_derecho: modelos de area de derecho" />
@@ -564,6 +575,10 @@
     <MESSAGE value="UPDATE DATABASE:" />
     <MESSAGE value="trash" />
     <MESSAGE value="feacture-suscripcion" />
-    <option name="LAST_COMMIT_MESSAGE" value="feacture-suscripcion" />
+    <MESSAGE value="feacture-leads:modelo para cada tipo de lead" />
+    <MESSAGE value="feacture-leads:controlador para cada lead" />
+    <MESSAGE value="feacture-leads:modulo leads segregado" />
+    <MESSAGE value="feacture-leads:ajuste de rutas" />
+    <option name="LAST_COMMIT_MESSAGE" value="feacture-leads:ajuste de rutas" />
   </component>
 </project>
