@@ -1,59 +1,70 @@
 <style>
-.perfil-super-administrador {
-    background-color: #922b21; /* Rojo oscuro */
+  .perfil-super-administrador {
+    background-color: #922b21;
+    /* Rojo oscuro */
     color: black;
     padding: 5px;
     border-radius: 7px;
     font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
+  }
 
-.perfil-administrador {
-    background-color: #cd6155; /* Azul oscuro */
+  .perfil-administrador {
+    background-color: #cd6155;
+    /* Azul oscuro */
     color: black;
     padding: 5px;
     border-radius: 3px;
     font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
+  }
 
-.perfil-asesor-comercial {
-    background-color: #d4edda; /* Verde claro */
-    color: #155724; /* Verde oscuro */
+  .perfil-asesor-comercial {
+    background-color: #d4edda;
+    /* Verde claro */
+    color: #155724;
+    /* Verde oscuro */
     padding: 5px;
     border-radius: 3px;
     font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
+  }
 
-.perfil-coordinador-comercial {
-    background-color: #2196F3; /* Azul claro */
+  .perfil-coordinador-comercial {
+    background-color: #2196F3;
+    /* Azul claro */
     color: black;
     padding: 5px;
     border-radius: 3px;
     font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
+  }
 
-.perfil-director-comercial {
-    background-color: #ffeeba; /* Amarillo claro */
-    color: #856404; /* Amarillo oscuro */
+  .perfil-director-comercial {
+    background-color: #ffeeba;
+    /* Amarillo claro */
+    color: #856404;
+    /* Amarillo oscuro */
     padding: 5px;
     border-radius: 3px;
     font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
+  }
 
-.perfil-especialista-juridico {
-    background-color: #f8d7da; /* Rojo claro */
-    color: #721c24; /* Rojo oscuro */
+  .perfil-especialista-juridico {
+    background-color: #f8d7da;
+    /* Rojo claro */
+    color: #721c24;
+    /* Rojo oscuro */
     padding: 5px;
     border-radius: 3px;
     font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
+  }
 
-.perfil-director-juridico {
-    background-color: #d1ecf1; /* Celeste claro */
-    color: #0c5460; /* Celeste oscuro */
+  .perfil-director-juridico {
+    background-color: #d1ecf1;
+    /* Celeste claro */
+    color: #0c5460;
+    /* Celeste oscuro */
     padding: 5px;
     border-radius: 3px;
     font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
+  }
 
   /* Estilos para SweetAlert2 */
   .swal2-popup {
@@ -63,8 +74,10 @@
 
   /* Estilos generales para el modal */
   .modal-dialog {
-    width: 100%;  /* Se ajusta a la pantalla completa */
-    max-width: 830px; /* Ajusta el tamaño máximo de la ventana modal */
+    width: 100%;
+    /* Se ajusta a la pantalla completa */
+    max-width: 830px;
+    /* Ajusta el tamaño máximo de la ventana modal */
     margin: 30px auto;
   }
 
@@ -75,8 +88,10 @@
   .modal-body {
     padding: 2rem;
     max-width: 800px;
-    max-height: 500px; /* Controla la altura máxima del cuerpo del modal */
-    overflow-y: auto; /* Agrega scroll si el contenido excede la altura */
+    max-height: 500px;
+    /* Controla la altura máxima del cuerpo del modal */
+    overflow-y: auto;
+    /* Agrega scroll si el contenido excede la altura */
   }
 
   /* Estilos para el encabezado del modal */
@@ -159,7 +174,8 @@
     background-color: #e9ecef;
     border: 1px solid #ced4da;
     border-radius: .25rem;
-    min-width: 45px;  /* Mantener el tamaño mínimo para los íconos */
+    min-width: 45px;
+    /* Mantener el tamaño mínimo para los íconos */
     text-align: center;
   }
 
@@ -195,26 +211,32 @@
   /* Controlar comportamiento en pantallas grandes */
   @media (min-width: 992px) {
     .modal-dialog {
-      max-width: 830px; /* Ajusta el tamaño máximo de la ventana modal */
+      max-width: 830px;
+      /* Ajusta el tamaño máximo de la ventana modal */
       margin: 30px auto;
     }
 
     .modal-body {
       max-width: 800px;
-      max-height: 500px; /* Controla la altura máxima del cuerpo del modal */
-      overflow-y: auto; /* Agrega scroll si el contenido excede la altura */
+      max-height: 500px;
+      /* Controla la altura máxima del cuerpo del modal */
+      overflow-y: auto;
+      /* Agrega scroll si el contenido excede la altura */
     }
   }
 
   /* Controlar el diseño en pantallas pequeñas */
   @media (max-width: 576px) {
     .modal-dialog {
-      max-width: 100%;  /* El modal ocupará todo el ancho de la pantalla */
-      margin: 10px;  /* Reducir márgenes en dispositivos pequeños */
+      max-width: 100%;
+      /* El modal ocupará todo el ancho de la pantalla */
+      margin: 10px;
+      /* Reducir márgenes en dispositivos pequeños */
     }
 
     .modal-body {
-      max-height: 400px;  /* Limitar la altura en dispositivos pequeños */
+      max-height: 400px;
+      /* Limitar la altura en dispositivos pequeños */
     }
   }
 </style>
@@ -257,27 +279,6 @@
 </script>
 <script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>
 <script src="vistas/plugins/sweetalert2/sweetalert2.all.js"></script>
-<div class="modal fade" id="confirmacionModal" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header" style="background:Gold; color:white">
-
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-        <h4 class="modal-title">Confirmacion</h4>
-
-      </div>
-
-      <div class="modal-body">
-        ¿Está seguro de que desea cambiar el estado del Pago?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" style="background:Black; color:white" id="confirmarAccion">Confirmar</button>
-      </div>
-    </div>
-  </div>
-</div>
 <div class="content-wrapper">
 
   <section class="content-header">
@@ -328,7 +329,13 @@
 
             foreach ($usuarios as $key => $value) {
               echo '<tr>
-              <td>' . ($key + 1) . '</td>
+              <td>' . ($key + 1) . '</td>';
+              if ($value["user_status"] != 0) {
+                echo '<td><button class="btn btn-success btn-xs btnAprobarPagoPension" idUsuario="' . $value["id"] . '" estadoPagoPension="0">Habilitado</button></td>';
+              } else {
+                  echo '<td><button class="btn btn-danger btn-xs btnAprobarPagoPension" idUsuario="' . $value["id"] . '" estadoPagoPension="1">Inhabilitado</button></td>';
+              };
+              echo '
               <td>' . $value["cc"] . '</td>
               <td>' . $value["first_name"] . '</td>
               <td>' . $value["last_name"] . '</td>
@@ -437,7 +444,7 @@ MODAL AGREGAR USUARIO
         CABEZA DEL MODAL
         ======================================-->
 
-        <div class="modal-header" style="background:#31B404; color:white">
+        <div class="modal-header" style="background:#3e383d; color:white">
 
           <button type="button" class="close" data-dismiss="modal">&times;</button>
 
@@ -954,6 +961,72 @@ $borrarUsuario->ctrBorrarUsuario();
 
 ?>
 
+<style>
+  .swal2-popup {
+    font-size: 1.6rem;
+    font-family: Georgia, serif;
+  }
+
+  .up {
+
+    display: flex;
+    justify-content: center;
+    font-size: 15px;
+    line-height: 1;
+    border-radius: 2px;
+
+
+    border: 0;
+    transition: 0.2s;
+    overflow: hidden;
+    text-align: center;
+    padding: 4;
+    border: thin solid black;
+  }
+
+  #inputTag {
+    cursor: pointer;
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    transform: scale(3);
+    opacity: 0;
+  }
+
+  label {
+    cursor: pointer;
+  }
+
+  #imageName {
+    color: green;
+  }
+
+
+</style>
+<script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+<script src="vistas/plugins/sweetalert2/sweetalert2.all.js"></script>
+
+<div class="modal fade" id="confirmacionModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+        <h4 class="modal-title">Confirmacion</h4>
+
+      </div>
+
+      <div class="modal-body">
+        ¿Está seguro de modificar el estado del usuario?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" style="background:Black; color:white" id="confirmarAccion">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script>
   $(".tablas").on("click", ".btnReenviarCorreo", function() {
 
@@ -981,4 +1054,14 @@ $borrarUsuario->ctrBorrarUsuario();
     })
 
   })
+
+  $(document).ready(function() {
+    $(".btnAprobarPagoPension").click(function() {
+        console.log("Se ha clicado en el botón para cambiar el estado");
+        $("#confirmacionModal").modal('show');
+    });
+});
+
+
+
 </script>
