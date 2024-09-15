@@ -6,40 +6,25 @@ class ControladorUsuarios{
 	INGRESO DE USUARIO
 	=============================================*/
 
-	static public function ctrIngresoUsuario(){
-
-		if(isset($_POST["ingUsuario"])){
- 
-			if(preg_match('/^[a-zA-Z0-9]+$/', $_POST["ingUsuario"]) &&
-			   preg_match('/^[a-zA-Z0-9]+$/', $_POST["ingPassword"])){
-
-			   	$encriptar = crypt($_POST["ingPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
-
+	static public function ctrIngresoUsuario() {
+		if (isset($_POST["ingUsuario"])) {
+	
+			// Validar el input usando expresiones regulares
+			if (preg_match('/^[a-zA-Z0-9]+$/', $_POST["ingUsuario"]) &&
+				preg_match('/^[a-zA-Z0-9]+$/', $_POST["ingPassword"])) {
+	
+				// Obtener la tabla y buscar el usuario en la base de datos
 				$tabla = "usuarios";
-
 				$item = "user_name";
 				$valor = $_POST["ingUsuario"];
-
 				$respuesta = ModeloUsuarios::MdlMostrarUsuarios($tabla, $item, $valor);
-
-				if ($respuesta != ""){
-					
-				$area = $respuesta["area"];
-
-				if($respuesta["user_name"] == $_POST["ingUsuario"] && $respuesta["password"] == $encriptar){
-
-					$fecha = date('d/m/Y');
-                    $array = explode("/", $fecha);
-                    $dia = $array[0]; 
-                    $mes = $array[1]; 
-                    $años =$array[2];
-
-                    
-                    // return;
-				if($respuesta["perfil"] == "Funcionario"){
-					
-					
-                     
+	
+				// Verificar si se encontró un usuario
+				if (!empty($respuesta)) {
+					// Verificar la contraseña utilizando password_verify
+					if (password_verify($_POST["ingPassword"], $respuesta["password"])) {
+	
+						// Iniciar sesión
 						$_SESSION["iniciarSesion"] = "ok";
 						$_SESSION["id"] = $respuesta["id"];
 						$_SESSION["nombre"] = $respuesta["nombre"];
@@ -47,133 +32,68 @@ class ControladorUsuarios{
 						$_SESSION["foto"] = $respuesta["foto"];
 						$_SESSION["perfil"] = $respuesta["perfil"];
 						$_SESSION["area"] = $respuesta["area"];
-
-						/*=============================================
-						REGISTRAR FECHA PARA SABER EL ÚLTIMO LOGIN
-						=============================================*/
-
+	
+						// Registrar el último login
 						date_default_timezone_set('America/Bogota');
-
-						$fecha = date('Y-m-d');
-						$hora = date('H:i:s');
-
-						$fechaActual = $fecha.' '.$hora;
-
+						$fechaActual = date('Y-m-d H:i:s');
 						$item1 = "ultimo_login";
 						$valor1 = $fechaActual;
-
 						$item2 = "id";
 						$valor2 = $respuesta["id"];
-
 						$ultimoLogin = ModeloUsuarios::mdlActualizarUsuario($tabla, $item1, $valor1, $item2, $valor2);
-
-						if($ultimoLogin == "ok"){
-
-							echo '<script>
-
-								window.location = "inicio";
-
-							</script>';
-
-										
-						
-				
-               }else{
-
-					echo '<br><div class="alert alert-danger">Error al ingresar, Usuario Caducado</div>';
-
+	
+						if ($ultimoLogin == "ok") {
+							echo '<script>window.location = "inicio";</script>';
+						}
+					} else {
+						echo '<br><div class="alert alert-danger">Error al ingresar, vuelve a intentarlo</div>';
+					}
+				} else {
+					echo '<br><div class="alert alert-danger">Usuario no encontrado</div>';
 				}
 			}
-
-
-			if($respuesta["perfil"] != "Funcionario"){
-		
-						$_SESSION["iniciarSesion"] = "ok";
-						$_SESSION["id"] = $respuesta["id"];
-						$_SESSION["nombre"] = $respuesta["nombre"];
-						$_SESSION["usuario"] = $respuesta["usuario"];
-						$_SESSION["foto"] = $respuesta["foto"];
-						$_SESSION["perfil"] = $respuesta["perfil"];
-						$_SESSION["area"] = $respuesta["area"];
-						$_SESSION["area"] = $respuesta["area"];
-
-						/*=============================================
-						REGISTRAR FECHA PARA SABER EL ÚLTIMO LOGIN
-						=============================================*/
-
-						date_default_timezone_set('America/Bogota');
-
-						$fecha = date('Y-m-d');
-						$hora = date('H:i:s');
-
-						$fechaActual = $fecha.' '.$hora;
-
-						$item1 = "ultimo_login";
-						$valor1 = $fechaActual;
-
-						$item2 = "id";
-						$valor2 = $respuesta["id"];
-
-						$ultimoLogin = ModeloUsuarios::mdlActualizarUsuario($tabla, $item1, $valor1, $item2, $valor2);
-
-						if($ultimoLogin == "ok"){
-
-							echo '<script>
-
-								window.location = "inicio";
-
-							</script>';
-
-						}				
-			}
-
-			}else{
-
-					echo '<br><div class="alert alert-danger">Error al ingresar, vuelve a intentarlo</div>';
-
-				}
-			}else{
-				echo '<br><div class="alert alert-danger">Error al ingresar, usuario no encontrado</div>';
-			}
-
-			}	
-
 		}
-
 	}
+	
 
 	/*=============================================
 	REGISTRO DE USUARIO
 	=============================================*/
 
 	static public function ctrCrearUsuario() {
+
 		if (isset($_POST["nuevoUsuario"])) {
 	
-			try {
-				// Preparación de los datos a insertar
+			// Validar el nombre, usuario y contraseña
+			if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoNombre"]) &&
+				preg_match('/^[a-zA-Z0-9]+$/', $_POST["nuevoUsuario"]) &&
+				preg_match('/^[a-zA-Z0-9]+$/', $_POST["nuevoPassword"]) &&
+				preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoIdentificacion"])) {
+	
+				// Inicializar la variable de la ruta de la imagen (en caso de que se quiera usar)
 				$ruta = "";
+	
+				// Encriptar la contraseña usando password_hash()
+				$encriptar = password_hash($_POST["nuevoPassword"], PASSWORD_BCRYPT);
+	
+				// Preparar los datos para la base de datos
 				$tabla = "usuarios";
-	
-				// Encriptación de la contraseña
-				$encriptar = crypt($_POST["nuevoPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
-	
 				$datos = array(
-					"cc" => $_POST["nuevoIdentificacion"],
-					"first_name" => $_POST["nuevoNombre"],
-					"last_name" => $_POST["nuevoApellido"],
-					"user_name" => $_POST["nuevoUsuario"],
+					"identificacion" => $_POST["nuevoIdentificacion"],
+					"correo" => $_POST["nuevoCorreo"],
+					"nombre" => $_POST["nuevoNombre"],
+					"usuario" => $_POST["nuevoUsuario"],
+					"password" => $encriptar,
 					"perfil" => $_POST["nuevoPerfil"],
 					"area" => $_POST["nuevaArea"],
-					"correo" => $_POST["nuevoCorreo"],
-					"phone" => $_POST["nuevoTelefono"],
-					"password" => $encriptar,
-					"foto" => $ruta,
-					"user_status" => "1"
+					"foto" => $ruta, // Aquí podrías agregar la lógica para manejar la subida de fotos
+					"estado" => "1"
 				);
 	
-				// Inserción en la base de datos
+				// Insertar el usuario en la base de datos
 				$respuesta = ModeloUsuarios::mdlIngresarUsuario($tabla, $datos);
 	
+				// Verificar si la inserción fue exitosa
 				if ($respuesta == "ok") {
 					echo '<script>
 							swal({
@@ -181,25 +101,22 @@ class ControladorUsuarios{
 								title: "¡El usuario ha sido guardado correctamente!",
 								showConfirmButton: true,
 								confirmButtonText: "Cerrar"
-							}).then(function(result){
+							}).then(function(result) {
 								if (result.value) {
 									window.location = "usuarios";
 								}
 							});
 						</script>';
-				} else {
-					throw new Exception("Error al guardar el usuario.");
 				}
-	
-			} catch (Exception $e) {
-				// Captura de cualquier excepción y muestra un error en un modal
+			} else {
+				// Mensaje de error si la validación no se cumple
 				echo '<script>
 						swal({
 							type: "error",
-							title: "'.$e->getMessage().'",
+							title: "¡Error en los datos ingresados! Asegúrate de que no haya caracteres especiales.",
 							showConfirmButton: true,
 							confirmButtonText: "Cerrar"
-						}).then(function(result){
+						}).then(function(result) {
 							if (result.value) {
 								window.location = "usuarios";
 							}
@@ -208,6 +125,7 @@ class ControladorUsuarios{
 			}
 		}
 	}
+	
 	
 	
 
