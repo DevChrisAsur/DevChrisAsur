@@ -1,4 +1,43 @@
 <style>
+  .swal2-popup {
+    font-size: 1.6rem;
+    font-family: Georgia, serif;
+  }
+
+  .up {
+
+    display: flex;
+    justify-content: center;
+    font-size: 15px;
+    line-height: 1;
+    border-radius: 2px;
+
+
+    border: 0;
+    transition: 0.2s;
+    overflow: hidden;
+    text-align: center;
+    padding: 4;
+    border: thin solid black;
+  }
+
+  #inputTag {
+    cursor: pointer;
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    transform: scale(3);
+    opacity: 0;
+  }
+
+  label {
+    cursor: pointer;
+  }
+
+  #imageName {
+    color: green;
+  }
+
   .perfil-super-administrador {
     background-color: #922b21;
     /* Rojo oscuro */
@@ -305,6 +344,7 @@
           <thead>
             <tr>
               <th style="width:10px">#</th>
+              <th style="width:100px">Status</th>
               <th style="width:100px">Identificación</th>
               <th style="width:100px">Nombre</th>
               <th style="width:100px">Apellido</th>
@@ -384,9 +424,11 @@
               <td>
                 <div class="btn-group-container">
                   <div class="btn-group">
+                    <button class="btn btn-warning btnEditarUsuario" idUsuario="'.$value["id"].'" data-toggle="modal" data-target="#modalEditarUsuario"><i class="fa fa-pencil"></i></button>
                     <button class="btn btn-danger btnEliminarUsuario" idUsuario="' . $value["id"] . '" title="Eliminar Cliente">
                       <i class="fa fa-times"></i>
                     </button>
+                    
                   </div>
                 </div>
               </td>
@@ -398,6 +440,7 @@
           <tfoot>
             <tr>
               <th style="width:10px">#</th>
+              <th style="width:100px">Status</th>
               <th style="width:100px">Identificación</th>
               <th style="width:100px">Nombre</th>
               <th style="width:100px">Apellido</th>
@@ -961,51 +1004,7 @@ $borrarUsuario->ctrBorrarUsuario();
 
 ?>
 
-<style>
-  .swal2-popup {
-    font-size: 1.6rem;
-    font-family: Georgia, serif;
-  }
-
-  .up {
-
-    display: flex;
-    justify-content: center;
-    font-size: 15px;
-    line-height: 1;
-    border-radius: 2px;
-
-
-    border: 0;
-    transition: 0.2s;
-    overflow: hidden;
-    text-align: center;
-    padding: 4;
-    border: thin solid black;
-  }
-
-  #inputTag {
-    cursor: pointer;
-    position: absolute;
-    left: 0%;
-    top: 0%;
-    transform: scale(3);
-    opacity: 0;
-  }
-
-  label {
-    cursor: pointer;
-  }
-
-  #imageName {
-    color: green;
-  }
-
-
-</style>
-<script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-<script src="vistas/plugins/sweetalert2/sweetalert2.all.js"></script>
-
+<!-- MODAL DE CONFIRMACION PARA EL CAMBIO DE ESTADO -->
 <div class="modal fade" id="confirmacionModal" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -1027,6 +1026,8 @@ $borrarUsuario->ctrBorrarUsuario();
     </div>
   </div>
 </div>
+
+
 <script>
   $(".tablas").on("click", ".btnReenviarCorreo", function() {
 
