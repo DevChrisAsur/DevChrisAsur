@@ -1,3 +1,5 @@
+
+
 <div class="content-wrapper">
 
   <section class="content-header">
@@ -48,7 +50,7 @@
                           <td>
                             <div class="btn-group">
                               <button class="btn btn-warning btnEditarAreas" idAreas="'.$value["id"].'" data-toggle="modal" data-target="#modalEditarAreas"><i class="fa fa-pencil"></i></button>
-                              <button class="btn btn-danger btnEliminarAreas" idAreas="'.$value["id"].'" style="margin-left: 8px;"><i class="fa fa-times"></i></button>
+                              <button class="btn btn-danger º" idAreas="'.$value["id"].'" style="margin-left: 8px;"><i class="fa fa-times"></i></button>
                             </div>
                           </td>
                         </tr>';
@@ -79,8 +81,8 @@
                           <td class="text-uppercase">'.$value["law_area"].'</td>
                           <td>
                             <div class="btn-group">
-                              <button class="btn btn-warning btnEditarElementos" idElementos="'.$value["id_area"].'" data-toggle="modal" data-target="#modalEditarElementos"><i class="fa fa-pencil"></i></button>
-                              <button class="btn btn-danger btnEliminarElementos" idElementos="'.$value["id_area"].'" style="margin-left: 8px;"><i class="fa fa-times"></i></button>
+                              <button class="btn btn-warning btnEditarAreaDerecho" idAreasDerecho="'.$value["id_area"].'" data-toggle="modal" data-target="#modalEditarCursos"><i class="fa fa-pencil"></i></button>
+                              <button class="btn btn-danger btnEliminarAreaDerecho" idAreasDerecho="'.$value["id_area"].'" style="margin-left: 8px;"><i class="fa fa-times"></i></button>
                             </div>
                           </td>
                         </tr>';
@@ -103,7 +105,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <form role="form" method="post">
-        <div class="modal-header" style="background:#3c8dbc; color:white">
+        <div class="modal-header" style="background:#3e383d; color:white">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Agregar Area</h4>
         </div>
@@ -135,7 +137,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <form role="form" method="post">
-        <div class="modal-header" style="background:#3c8dbc; color:white">
+        <div class="modal-header" style="background:#3e383d; color:white">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Editar Area</h4>
         </div>
@@ -163,9 +165,93 @@
   </div>
 </div>
 
+<!-- MODAL EDITAR AREAS DE DERECHO -->
+<div id="modalEditarCursos" class="modal fade" role="dialog">
+  
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+
+      <form role="form" method="post"  enctype="multipart/form-data">
+
+        <!--=====================================
+        CABEZA DEL MODAL
+        ======================================-->
+
+        <div class="modal-header" style="background:#3e383d; color:white">
+
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+          <h4 class="modal-title">Editar Area de derecho</h4>
+
+        </div>
+
+        <!--=====================================
+        CUERPO DEL MODAL
+        ======================================-->
+
+        <div class="modal-body">
+
+          <div class="box-body">
+
+            <!-- ENTRADA PARA EL NOMBRE -->
+            
+            <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-th"></i></span> 
+
+                <input type="text" class="form-control input-lg" name="editarNombreAreaDerecho" 
+                id="editarNombreAreaDerecho" placeholder="Ingresa nombre del curso" required>
+
+                <input type="hidden" name="idAreasDerecho" id="idAreasDerecho" >
+
+              </div>
+
+            </div>
+  
+          </div>
+
+        </div>
+
+        <!--=====================================
+        PIE DEL MODAL
+        ======================================-->
+
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
+
+          <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+
+        </div>
+
+        <?php
+
+          $editarCurso = new ControladorAreaDerecho();
+          $editarCurso -> ctrEditarAreaDerecho();
+
+        ?>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
 <?php
   $borrarCategoria = new ControladorAreas();
   $borrarCategoria -> ctrBorrarAreas();
+?>
+
+<?php
+  $borrarCategoria = new ControladorAreaDerecho();
+  $borrarCategoria -> ctrBorrarAreaDerecho();
 ?>
 
 <!-- SCRIPTS PARA LAS TABLAS -->
