@@ -87,7 +87,7 @@ class ControladorAreas{
 
 		if(isset($_POST["editarAreas"])){
 
-			if(preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ-]+$/', $_POST["editarAreas"])){
+
 
 				$tabla = "areas";
 
@@ -118,26 +118,7 @@ class ControladorAreas{
 				}
 
 
-			}else{
 
-				echo'<script>
-
-					swal({
-						  type: "error",
-						  title: "El area no puede ir vacía o llevar caracteres especiales!",
-						  showConfirmButton: true,
-						  confirmButtonText: "Cerrar"
-						  }).then(function(result){
-							if (result.value) {
-
-							window.location = "areas";
-
-							}
-						})
-
-			  	</script>';
-
-			}
 
 		}
 
