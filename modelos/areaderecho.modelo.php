@@ -63,7 +63,48 @@ class ModeloAreasDerecho{
 
 	}
 
+	static public function mdlEditarAreaDerecho($tabla, $datos){
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET law_area = :law_area WHERE id_area = :id_area");
 	
+		$stmt->bindParam(":law_area", $datos["law_area"], PDO::PARAM_STR);
+		$stmt->bindParam(":id_area", $datos["id_area"], PDO::PARAM_INT);
+	
+		if($stmt->execute()){
+			return "ok";
+		} else {
+			return "error";
+		}
+	
+		$stmt->close();
+		$stmt = null;
+	}
+	
+
+	/*=============================================
+	BORRAR CATEGORIA
+	=============================================*/
+
+	static public function mdlBorrarAreaDerecho($tabla, $datos){
+
+		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id_area = :id_area");
+
+		$stmt -> bindParam(":id_area", $datos, PDO::PARAM_INT);
+
+		if($stmt -> execute()){
+
+			return "ok";
+		
+		}else{
+
+			return "error";	
+
+		}
+
+		$stmt -> close();
+
+		$stmt = null;
+
+	}
 
 }
 
