@@ -142,14 +142,6 @@ class ControladorUsuarios{
 		return $respuesta;
 	}
 
-	// static public function ctrMostrarProfesores($item, $valor){
-
-	// 	$tabla = "usuarios";
-
-	// 	$respuesta = ModeloUsuarios::mdlMostrarProfesores($tabla, $item, $valor);
-
-	// 	return $respuesta;
-	// }
 	/*=============================================
 	EDITAR USUARIO
 	=============================================*/
