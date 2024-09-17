@@ -61,39 +61,33 @@ class ControladorUsuarios{
 	=============================================*/
 
 	static public function ctrCrearUsuario() {
-
 		if (isset($_POST["nuevoUsuario"])) {
 	
-			// Validar el nombre, usuario y contraseña
-			if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoNombre"]) &&
-				preg_match('/^[a-zA-Z0-9]+$/', $_POST["nuevoUsuario"]) &&
-				preg_match('/^[a-zA-Z0-9]+$/', $_POST["nuevoPassword"]) &&
-				preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoIdentificacion"])) {
-	
-				// Inicializar la variable de la ruta de la imagen (en caso de que se quiera usar)
+			try {
+				// Preparación de los datos a insertar
 				$ruta = "";
+				$tabla = "usuarios";
 	
-				// Encriptar la contraseña usando password_hash()
+				// Encriptación de la contraseña
 				$encriptar = password_hash($_POST["nuevoPassword"], PASSWORD_BCRYPT);
 	
-				// Preparar los datos para la base de datos
-				$tabla = "usuarios";
 				$datos = array(
-					"identificacion" => $_POST["nuevoIdentificacion"],
-					"correo" => $_POST["nuevoCorreo"],
-					"nombre" => $_POST["nuevoNombre"],
-					"usuario" => $_POST["nuevoUsuario"],
-					"password" => $encriptar,
+					"cc" => $_POST["nuevoIdentificacion"],
+					"first_name" => $_POST["nuevoNombre"],
+					"last_name" => $_POST["nuevoApellido"],
+					"user_name" => $_POST["nuevoUsuario"],
 					"perfil" => $_POST["nuevoPerfil"],
 					"area" => $_POST["nuevaArea"],
-					"foto" => $ruta, // Aquí podrías agregar la lógica para manejar la subida de fotos
-					"estado" => "1"
+					"correo" => $_POST["nuevoCorreo"],
+					"phone" => $_POST["nuevoTelefono"],
+					"password" => $encriptar,
+					"foto" => $ruta,
+					"user_status" => "1"
 				);
 	
-				// Insertar el usuario en la base de datos
+				// Inserción en la base de datos
 				$respuesta = ModeloUsuarios::mdlIngresarUsuario($tabla, $datos);
 	
-				// Verificar si la inserción fue exitosa
 				if ($respuesta == "ok") {
 					echo '<script>
 							swal({
@@ -101,22 +95,25 @@ class ControladorUsuarios{
 								title: "¡El usuario ha sido guardado correctamente!",
 								showConfirmButton: true,
 								confirmButtonText: "Cerrar"
-							}).then(function(result) {
+							}).then(function(result){
 								if (result.value) {
 									window.location = "usuarios";
 								}
 							});
 						</script>';
+				} else {
+					throw new Exception("Error al guardar el usuario.");
 				}
-			} else {
-				// Mensaje de error si la validación no se cumple
+	
+			} catch (Exception $e) {
+				// Captura de cualquier excepción y muestra un error en un modal
 				echo '<script>
 						swal({
 							type: "error",
-							title: "¡Error en los datos ingresados! Asegúrate de que no haya caracteres especiales.",
+							title: "'.$e->getMessage().'",
 							showConfirmButton: true,
 							confirmButtonText: "Cerrar"
-						}).then(function(result) {
+						}).then(function(result){
 							if (result.value) {
 								window.location = "usuarios";
 							}
@@ -150,7 +147,6 @@ class ControladorUsuarios{
 
 		if(isset($_POST["editarUsuario"])){
 
-			if(preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editarUsuario"])){
 
 				/*=============================================
 				VALIDAR IMAGEN
@@ -164,8 +160,7 @@ class ControladorUsuarios{
 
 					if(preg_match('/^[a-zA-Z0-9]+$/', $_POST["editarPassword"])){
 
-						$encriptar = crypt($_POST["editarPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
-
+						$encriptar = password_hash($_POST["editarPassword"], PASSWORD_BCRYPT);
 					}else{
 
 						echo'<script>
@@ -193,13 +188,15 @@ class ControladorUsuarios{
 
 				}
 
-				$datos = array("correo" => $_POST["editarCorreo"],
-					           "nombre" => $_POST["editarNombre"],
-							   "usuario" => $_POST["editarUsuario"],
-							   "password" => $encriptar,
-							   "perfil" => $_POST["editarPerfil"],
-							   "area" => $_POST["editarArea"],
-							   "id"=>$_POST["idUsuario"]);
+				$datos = array(
+					"id"=>$_POST["idUsuario"],
+					"user_name" => $_POST["editarUsuario"],
+					"perfil" => $_POST["editarPerfil"],
+					"area" => $_POST["editarArea"],
+					"phone" => $_POST["editarTelefone"],
+					"correo" => $_POST["editarCorreo"],							   
+					"password" => $encriptar	   
+					);
 
 				$respuesta = ModeloUsuarios::mdlEditarUsuario($tabla, $datos);
 
@@ -224,27 +221,6 @@ class ControladorUsuarios{
 					</script>';
 
 				}
-				
-			}else{
-
-				echo'<script>
-
-					swal({
-						  type: "error",
-						  title: "¡El nombre no puede ir vacío o llevar caracteres especiales!",
-						  showConfirmButton: true,
-						  confirmButtonText: "Cerrar"
-						  }).then(function(result){
-							if (result.value) {
-
-							window.location = "usuarios";
-
-							}
-						})
-
-			  	</script>';
-
-			}
 
 		}
 
