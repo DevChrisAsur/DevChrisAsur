@@ -593,7 +593,7 @@ MODAL AGREGAR USUARIO
 
                       <span class="input-group-addon"><i class="fa fa-key"></i></span>
 
-                      <input type="text" class="form-control input-lg" name="nuevoPassword" placeholder="Ingresar contraseña" required>
+                      <input type="password" class="form-control input-lg" name="nuevoPassword" placeholder="Ingresar contraseña" required>
 
                     </div>
 
@@ -666,54 +666,54 @@ MODAL AGREGAR USUARIO
                           <?php
                           if ($comparar == "Super Administrador") {
                             echo '
-            <div class="form-group">
-              
-              <div class="input-group">
-              
-                <span class="input-group-addon"><i class="fa fa-users"></i></span> 
+                            <div class="form-group">
+                              
+                              <div class="input-group">
+                              
+                                <span class="input-group-addon"><i class="fa fa-users"></i></span> 
 
-                <select class="form-control input-lg" name="nuevoPerfil" required>
-                  
-                  <option value="">Seleccionar Perfil</option>
+                                <select class="form-control input-lg" name="nuevoPerfil" required>
+                                  
+                                  <option value="">Seleccionar Perfil</option>
 
-                  <option value="Super Administrador">Super Administrador</option>
+                                  <option value="Super Administrador">Super Administrador</option>
 
-                  <option value="Administrador">Administrador</option>
+                                  <option value="Administrador">Administrador</option>
 
-                  <option value="Asesor comercial">Asesor comercial</option>
-                  <option value="Coordinador comercial">Coordinador comercial</option>
-                  <option value="Director comercial">Director comercial</option>
-                  <option value="Especialista juridico">Especialista juridico</option>
-                  <option value="Director juridico">Director juridico</option>          
+                                  <option value="Asesor comercial">Asesor comercial</option>
+                                  <option value="Coordinador comercial">Coordinador comercial</option>
+                                  <option value="Director comercial">Director comercial</option>
+                                  <option value="Especialista juridico">Especialista juridico</option>
+                                  <option value="Director juridico">Director juridico</option>          
 
-                </select>
+                                </select>
 
-              </div>
+                              </div>
 
-            </div>';
+                            </div>';
                           }
 
                           if ($comparar == "Administrador") {
                             echo '
-            <div class="form-group">
-              
-              <div class="input-group">
-              
-                <span class="input-group-addon"><i class="fa fa-users"></i></span> 
+                            <div class="form-group">
+                              
+                              <div class="input-group">
+                              
+                                <span class="input-group-addon"><i class="fa fa-users"></i></span> 
 
-                <select class="form-control input-lg" name="nuevoPerfil" required>
-                  
-                  <option value="">Seleccionar perfil</option>
+                                <select class="form-control input-lg" name="nuevoPerfil" required>
+                                  
+                                  <option value="">Seleccionar perfil</option>
 
-                  <option value="Director comercial">Director comercial</option>
-                  <option value="Especialista juridico">Especialista juridico</option>
-                  <option value="Director juridico">Director juridico</option>   
+                                  <option value="Director comercial">Director comercial</option>
+                                  <option value="Especialista juridico">Especialista juridico</option>
+                                  <option value="Director juridico">Director juridico</option>   
 
-                </select>
+                                </select>
 
-              </div>
+                              </div>
 
-            </div>';
+                            </div>';
                           }
 
                           ?>
@@ -768,7 +768,7 @@ MODAL EDITAR USUARIO
         CABEZA DEL MODAL
         ======================================-->
 
-        <div class="modal-header" style="background:#3c8dbc; color:white">
+        <div class="modal-header" style="background:#3e383d; color:white">
 
           <button type="button" class="close" data-dismiss="modal">&times;</button>
 
@@ -784,190 +784,200 @@ MODAL EDITAR USUARIO
 
           <div class="box-body">
 
-
-
-            <!-- ENTRADA PARA EL NOMBRE -->
-
-            <div class="form-group">
-
-              <div class="input-group">
-
-                <span class="input-group-addon"><i class="fa fa-user"></i></span>
-
-                <input type="text" class="form-control input-lg" id="editarNombre" name="editarNombre" value="">
-
-              </div>
-
-            </div>
-
-            <!-- ENTRADA PARA EL USUARIO -->
-
-            <div class="form-group">
-
-              <div class="input-group">
-
-                <span class="input-group-addon"><i class="fa fa-key"></i></span>
-
-                <input type="text" class="form-control input-lg" id="editarUsuario" name="editarUsuario" value="">
-                <input type="hidden" name="idUsuario" id="idUsuario">
-              </div>
-
-            </div>
-
-
-            <!-- ENTRADA PARA LA CONTRASEÑA -->
-
-            <div class="form-group">
-
-              <div class="input-group">
-
-                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-
-                <input type="password" class="form-control input-lg" name="editarPassword" placeholder="Escriba la nueva contraseña">
-
-                <input type="hidden" id="passwordActual" name="passwordActual">
-
-              </div>
-
-            </div>
-
-            <!-- ENTRADA PARA EL CORREO -->
-
-            <div class="form-group">
-
-              <div class="input-group">
-
-                <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
-
-                <input type="email" class="form-control input-lg" id="editarCorreo" name="editarCorreo" placeholder="Escriba el nuevo correo">
-
-                <input type="hidden" id="correodActual" name="correodActual">
-
-              </div>
-
-            </div>
-
-            <!-- ENTRADA PARA SELECCIONAR SU PERFIL -->
-
-            <?php
-            if ($comparar == "Super Administrador") {
-              echo '
-            <div class="form-group">
-              
-              <div class="input-group">
-              
-                <span class="input-group-addon"><i class="fa fa-users"></i></span> 
-
-                <select class="form-control input-lg" id="editarPerfil" name="editarPerfil" >
-                  
-                  <option value="">Seleccionar perfil</option>
-
-                  <option value="Super Administrador">Super Administrador</option>
-
-                  <option value="Administrador">Administrador</option>
-
-                  <option value="Funcionario">Funcionario</option>
-
-                </select>
-
-              </div>
-
-            </div>';
-            }
-
-            if ($comparar == "Administrador") {
-              echo '
-            <div class="form-group">
-              
-              <div class="input-group">
-              
-                <span class="input-group-addon"><i class="fa fa-users"></i></span> 
-
-                <select class="form-control input-lg" id="editarPerfil" name="editarPerfil" >
-                  
-                  <option value="">Seleccionar perfil</option>
- <option value="Administrador">Administrador</option>
-
-                  <option value="Funcionario">Funcionario</option>
-
-                </select>
-
-              </div>
-
-            </div>';
-            }
-
-            ?>
-
-            <!-- ENTRADA PARA El area -->
-
-
-            <div class="form-group">
-
-              <div class="input-group">
-
-                <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
-
-                <select class="form-control input-lg" id="editarArea" name="editarArea">
-
-                  <option value="">Seleccionar Area</option>
-
-                  <?php
-
-                  if ($comparar == "Super Administrador") {
-
-                    $item = null;
-                    $valor = null;
-
-                    $categorias = ControladorAreas::ctrMostrarAreas($item, $valor);
-
-                    foreach ($categorias as $key => $value) {
-
-                      echo '
-
-                        <option value="' . $value["area"] . '">' . $value["area"] . '</option>';
-                    }
-                  }
-
-                  if ($comparar == "Administrador") {
-
-                    $item = null;
-                    $valor = null;
-
-                    $categorias = ControladorAreas::ctrMostrarAreas($item, $valor);
-
-
-
-                    echo '
-
-                          <option value="' . $area . '">' . $area . '</option>';
-                  }
-                  echo '
-
-                </select>
-
-              </div>
-
-            </div>';
-
-                  ?>
-
-
-
-                  <!-- ENTRADA PARA SUBIR FOTO -->
-
+            <!-- ENTRADA PARA LA IDENTIFICACION -->
+            <div class="container mt-3">
+              <h5>Informacion de Contacto</h5>
+              <div class="row">
+                <!-- ENTRADA PARA CORREO-->
+                <div class="col-md-4">
                   <div class="form-group">
 
-                    <div class="panel"></div>
+                    <div class="input-group">
 
+                      <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+
+                      <input type="email" class="form-control input-lg" id="editarCorreo" name="editarCorreo" placeholder="Actualizar Correo" required>
+                      <input type="hidden" id="correodActual" name="correodActual">   
+                    </div>
+
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+
+                    <div class="input-group">
+
+                      <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+
+                      <input type="text" class="form-control input-lg" id="editarTelefone" name="editarTelefone" placeholder="Actualizar telefono de Contacto" required>
+
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="container mt-3">
+              <h5>Informacion del Sistema</h5>
+              <div class="row">
+                <!-- ENTRADA PARA CORREO-->
+                <div class="col-md-4">
+                  <div class="form-group">
+
+                    <div class="input-group">
+
+                      <span class="input-group-addon"><i class="fa fa-user"></i></span>
+
+                      <input type="text" class="form-control input-lg" id="editarUsuario" name="editarUsuario" placeholder="Actualizar nombre de Usuario" required>
+                      <input type="hidden" name="idUsuario" id="idUsuario">    
+                    </div>
+
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+
+                    <div class="input-group">
+
+                      <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+
+                      <input type="password" class="form-control input-lg" name="editarPassword" placeholder="Ingresar contraseña" required>
+                      <input type="hidden" id="passwordActual" name="passwordActual">    
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <!-- ENTRADA PARA El area -->
+            <div class="container mt-3">
+              <h5>Area y Perfil</h5>
+              <div class="row">
+
+                <div class="col-md-4">
+                  <div class="form-group">
+
+                    <div class="input-group">
+
+                      <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
+
+                      <select class="form-control input-lg"  id="editarArea" name="editarArea" required>
+
+                        <option value="">Seleccionar Area</option>
+
+                        <?php
+
+                        if ($comparar == "Super Administrador") {
+
+                          $item = null;
+                          $valor = null;
+
+                          $categorias = ControladorAreas::ctrMostrarAreas($item, $valor);
+
+                          foreach ($categorias as $key => $value) {
+
+                            echo '
+
+                        <option value="' . $value["area"] . '">' . $value["area"] . '</option>';
+                          }
+                        }
+
+                        if ($comparar == "Administrador") {
+
+                          $item = null;
+                          $valor = null;
+
+                          $categorias = ControladorAreas::ctrMostrarAreas($item, $valor);
+
+
+                          echo '
+
+                          <option value="' . $area . '">' . $area . '</option>';
+                        }
+                        echo '
+
+                          </select>
+
+                        </div>
+
+                      </div>';
+
+                        ?>
+
+
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+
+                        <div class="input-group">
+                          
+                          <?php
+                          if ($comparar == "Super Administrador") {
+                            echo '
+                            <div class="form-group">
+                              
+                              <div class="input-group">
+                              
+                                <span class="input-group-addon"><i class="fa fa-users"></i></span> 
+
+                                <select class="form-control input-lg" id="editarPerfil" name="editarPerfil" required>
+                                  
+                                  <option value="">Seleccionar Perfil</option>
+
+                                  <option value="Super Administrador">Super Administrador</option>
+
+                                  <option value="Administrador">Administrador</option>
+
+                                  <option value="Asesor comercial">Asesor comercial</option>
+                                  <option value="Coordinador comercial">Coordinador comercial</option>
+                                  <option value="Director comercial">Director comercial</option>
+                                  <option value="Especialista juridico">Especialista juridico</option>
+                                  <option value="Director juridico">Director juridico</option>          
+
+                                </select>
+
+                              </div>
+
+                            </div>';
+                          }
+
+                          if ($comparar == "Administrador") {
+                            echo '
+                            <div class="form-group">
+                              
+                              <div class="input-group">
+                              
+                                <span class="input-group-addon"><i class="fa fa-users"></i></span> 
+
+                                <select class="form-control input-lg" id="editarPerfil" name="editarPerfil" required>
+                                  
+                                  <option value="">Seleccionar perfil</option>
+
+                                  <option value="Director comercial">Director comercial</option>
+                                  <option value="Especialista juridico">Especialista juridico</option>
+                                  <option value="Director juridico">Director juridico</option>   
+
+                                </select>
+
+                              </div>
+
+                            </div>';
+                          }
+
+                          ?>
+                        </div>
+                      </div>
+
+                    </div>
 
 
                   </div>
-
+                </div>
               </div>
-
             </div>
-
             <!--=====================================
         PIE DEL MODAL
         ======================================-->
@@ -976,15 +986,13 @@ MODAL EDITAR USUARIO
 
               <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
 
-              <button type="submit" class="btn btn-primary">Modificar usuario</button>
+              <button type="submit" name="register" class="btn btn-primary">Actualizar usuario</button>
 
             </div>
 
             <?php
-
             $editarUsuario = new ControladorUsuarios();
             $editarUsuario->ctrEditarUsuario();
-
             ?>
 
       </form>
