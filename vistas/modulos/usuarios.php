@@ -796,7 +796,7 @@ MODAL EDITAR USUARIO
 
                       <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
 
-                      <input type="email" class="form-control input-lg" id="editarCorreo" name="editarCorreo" placeholder="Actualizar Correo" required>
+                      <input type="email" class="form-control input-lg" id="editarCorreo" name="editarCorreo" placeholder="Actualizar Correo">
                       <input type="hidden" id="correodActual" name="correodActual">   
                     </div>
 
@@ -809,7 +809,7 @@ MODAL EDITAR USUARIO
 
                       <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
 
-                      <input type="text" class="form-control input-lg" id="editarTelefone" name="editarTelefone" placeholder="Actualizar telefono de Contacto" required>
+                      <input type="text" class="form-control input-lg" id="editarTelefone" name="editarTelefone" placeholder="Actualizar telefono de Contacto">
 
                     </div>
 
@@ -830,7 +830,7 @@ MODAL EDITAR USUARIO
 
                       <span class="input-group-addon"><i class="fa fa-user"></i></span>
 
-                      <input type="text" class="form-control input-lg" id="editarUsuario" name="editarUsuario" placeholder="Actualizar nombre de Usuario" required>
+                      <input type="text" class="form-control input-lg" id="editarUsuario" name="editarUsuario" placeholder="Actualizar nombre de Usuario">
                       <input type="hidden" name="idUsuario" id="idUsuario">    
                     </div>
 
@@ -843,7 +843,7 @@ MODAL EDITAR USUARIO
 
                       <span class="input-group-addon"><i class="fa fa-lock"></i></span>
 
-                      <input type="password" class="form-control input-lg" name="editarPassword" placeholder="Ingresar contraseña" required>
+                      <input type="password" class="form-control input-lg" name="editarPassword" placeholder="Ingresar contraseña">
                       <input type="hidden" id="passwordActual" name="passwordActual">    
                     </div>
 
@@ -864,7 +864,7 @@ MODAL EDITAR USUARIO
 
                       <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
 
-                      <select class="form-control input-lg"  id="editarArea" name="editarArea" required>
+                      <select class="form-control input-lg"  id="editarArea" name="editarArea">
 
                         <option value="">Seleccionar Area</option>
 
@@ -923,7 +923,7 @@ MODAL EDITAR USUARIO
                               
                                 <span class="input-group-addon"><i class="fa fa-users"></i></span> 
 
-                                <select class="form-control input-lg" id="editarPerfil" name="editarPerfil" required>
+                                <select class="form-control input-lg" id="editarPerfil" name="editarPerfil">
                                   
                                   <option value="">Seleccionar Perfil</option>
 
@@ -952,7 +952,7 @@ MODAL EDITAR USUARIO
                               
                                 <span class="input-group-addon"><i class="fa fa-users"></i></span> 
 
-                                <select class="form-control input-lg" id="editarPerfil" name="editarPerfil" required>
+                                <select class="form-control input-lg" id="editarPerfil" name="editarPerfil">
                                   
                                   <option value="">Seleccionar perfil</option>
 
