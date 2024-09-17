@@ -72,15 +72,17 @@ class ModeloUsuarios{
 	=============================================*/
 
 	static public function mdlEditarUsuario($tabla, $datos){
-		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET usuario = :usuario, correo = :correo, nombre = :nombre, password = :password, perfil = :perfil, area = :area WHERE id = :id");
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET user_name = :user_name, perfil = :perfil, area = :area,phone = :phone, correo = :correo, password = :password WHERE id = :id");
 		
 		$stmt -> bindParam(":id", $datos["id"], PDO::PARAM_INT);
-		$stmt -> bindParam(":correo", $datos["correo"], PDO::PARAM_STR);
-		$stmt -> bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
-		$stmt -> bindParam(":password", $datos["password"], PDO::PARAM_STR);
+		$stmt -> bindParam(":user_name", $datos["user_name"], PDO::PARAM_STR);
 		$stmt -> bindParam(":perfil", $datos["perfil"], PDO::PARAM_STR);
 		$stmt -> bindParam(":area", $datos["area"], PDO::PARAM_STR);
-		$stmt -> bindParam(":usuario", $datos["usuario"], PDO::PARAM_STR);
+		$stmt -> bindParam(":phone", $datos["phone"], PDO::PARAM_STR);
+		$stmt -> bindParam(":correo", $datos["correo"], PDO::PARAM_STR);
+		$stmt -> bindParam(":password", $datos["password"], PDO::PARAM_STR);
+
+
 
 		//echo $datos["oficina"];
 		//return;
