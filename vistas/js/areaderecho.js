@@ -18,7 +18,7 @@ $(".tablas2").on("click", ".btnEditarAreaDerecho", function(){
      	processData: false,
      	dataType:"json",
      	success: function(respuesta){
-     		console.log("respuesta es", respuesta);
+     		//console.log("respuesta es", respuesta);
 
      		$("#editarNombreAreaDerecho").val(respuesta["law_area"]);
      		$("#idAreasDerecho").val(respuesta["id_area"]);
