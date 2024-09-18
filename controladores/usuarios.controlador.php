@@ -9,8 +9,8 @@ class ControladorUsuarios{
 	static public function ctrIngresoUsuario() {
 		if (isset($_POST["ingUsuario"])) {
 	
-			// Validar el input usando expresiones regulares
-			if (preg_match('/^[a-zA-Z0-9]+$/', $_POST["ingUsuario"]) &&
+			// Modificar la expresión regular para permitir guiones bajos en el nombre de usuario
+			if (preg_match('/^[a-zA-Z0-9_]+$/', $_POST["ingUsuario"]) &&
 				preg_match('/^[a-zA-Z0-9]+$/', $_POST["ingPassword"])) {
 	
 				// Obtener la tabla y buscar el usuario en la base de datos
@@ -51,9 +51,13 @@ class ControladorUsuarios{
 				} else {
 					echo '<br><div class="alert alert-danger">Usuario no encontrado</div>';
 				}
+			} else {
+				// Mensaje de error si la validación falla
+				echo '<br><div class="alert alert-danger">El nombre de usuario o la contraseña contienen caracteres no permitidos</div>';
 			}
 		}
 	}
+	
 	
 
 	/*=============================================
@@ -139,6 +143,14 @@ class ControladorUsuarios{
 		return $respuesta;
 	}
 
+	static public function ctrMostrarAsesores($item, $valor){
+
+		$tabla = "usuarios";
+
+		$respuesta = ModeloUsuarios::mdlMostrarAsesores($tabla, $item, $valor);
+
+		return $respuesta;
+	}
 	/*=============================================
 	EDITAR USUARIO
 	=============================================*/
