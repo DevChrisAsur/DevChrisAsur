@@ -139,11 +139,14 @@ CUERPO DOCUMENTO
       }
    }
   }
-  if($perfil == "Profesor"){
+  if($perfil == "Coordinador comercial"){
 
     if(isset($_GET["ruta"])){
-      if($_GET["ruta"] == "inicio" ||
-         $_GET["ruta"] == "salir"){
+      if(
+      $_GET["ruta"] == "inicio" ||
+      $_GET["ruta"] == "usuarios" ||
+      $_GET["ruta"] == "clientes" ||
+      $_GET["ruta"] == "salir"){
 
         include "modulos/".$_GET["ruta"].".php";
 
