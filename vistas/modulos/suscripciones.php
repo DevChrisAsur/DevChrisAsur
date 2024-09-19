@@ -228,9 +228,9 @@
                     <thead>
                         <tr>
                             <th style="width:10px">#</th>
-                            <th style="width:80px">Status</th>
-                            <th style="width:100px">Creacion de suscipcion</th>
-                            <th style="width:100px">Terminacion de suscripcion</th>
+                            <th style="width:50px">Status</th>
+                            <th style="width:100px">Fecha de suscipcion</th>
+                            <th style="width:40px">Terminacion de suscripcion</th>
                             <th style="width:100px">Cliente Asociado</th>
                             <th style="width:100px">Servicio Asociado</th>
                             <th style="width:80px" align="center">Acciones</th>
@@ -241,7 +241,7 @@
                         <?php
                         $item = null;
                         $valor = null;
-                        $suscripciones = ControladorSuscripcion::ctrVerSuscripciones($item, $valor);
+                        $suscripciones = ControladorSuscripcion::ctrVerSuscripcionesClienteServicio($item, $valor);
                         // echo '<pre>'; print_r($clientes); echo '</pre>';
 
                         foreach ($suscripciones as $key => $value) {
@@ -249,9 +249,10 @@
                       <td>' . ($key + 1) . '</td>
                       <td>' . $value["suscripcion_status"] . '</td>
                       <td>' . $value["start_date"] . '</td>
-                      <td>' . $value["end_date"] . '</td>
-                      <td>' . $value["id_customer"] . '</td>
-                      <td>' . $value["id_service"] . '</td>
+                      <td>' . $value["end_date"] . '</td>';
+                      echo '<td>' . $value["first_name"] . " " . $value["last_name"]. '</td>';
+                      echo '
+                      <td>' . $value["service_name"] . '</td>
                       <td>
                           <div class="btn-group-container">
                             <div class="btn-group">
@@ -263,15 +264,13 @@
                         ?>
                     </tbody>
                     <tfoot>
-                        <tr>
                             <th style="width:10px">#</th>
-                            <th style="width:80px">Status</th>
-                            <th style="width:100px">Creacion de suscipcion</th>
-                            <th style="width:100px">Terminacion de suscripcion</th>
+                            <th style="width:50px">Status</th>
+                            <th style="width:100px">Fecha de suscipcion</th>
+                            <th style="width:40px">Terminacion de suscripcion</th>
                             <th style="width:100px">Cliente Asociado</th>
                             <th style="width:100px">Servicio Asociado</th>
                             <th style="width:80px" align="center">Acciones</th>
-                        </tr>
                     </tfoot>
                 </table>
 
