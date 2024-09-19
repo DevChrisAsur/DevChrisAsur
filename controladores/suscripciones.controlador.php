@@ -80,5 +80,9 @@ class ControladorSuscripcion{
 
 	}
 
+	static public function ctrVerSuscripcionesClienteServicio($item, $valor) {
+		$respuesta = ModeloSuscripcion::mdlVerSuscripcionCliente($item, $valor);
+		return $respuesta;
+	}
 
 }
