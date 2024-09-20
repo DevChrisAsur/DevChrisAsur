@@ -451,71 +451,87 @@
                 }
             } 
             ?>
-            <?php
-            // Verificar si el usuario tiene el perfil de Coordinador comercial o Director comercial
-            if ($_SESSION["perfil"] == "Coordinador comercial" || $_SESSION["perfil"] == "Director comercial") {
+<?php
+// Verificar si el usuario tiene el perfil de Coordinador comercial o Director comercial
+if (in_array($_SESSION["perfil"], ["Coordinador comercial", "Director comercial"])) {
 
-                $item = null;
-                $valor = null;
-                
-                $usuarios = ControladorUsuarios::ctrMostrarAsesores($item, $valor);
+    // Obtener el ID del coordinador desde la sesión y asegurarse de que sea un entero
+    $idCoordinador = isset($_SESSION["id"]) ? (int) $_SESSION["id"] : 0; // Asegurarse de que sea un entero
 
-                foreach ($usuarios as $key => $value) {
-                    echo '<tr>
-                          <td>' . ($key + 1) . '</td>';
-                          
-                    if ($value["user_status"] != 0) {
-                        echo '<td><button class="btn btn-success btn-xs btnAprobarPagoPension" idUsuario="' . $value["id"] . '" estadoPagoPension="0">Habilitado</button></td>';
-                    } else {
-                        echo '<td><button class="btn btn-danger btn-xs btnAprobarPagoPension" idUsuario="' . $value["id"] . '" estadoPagoPension="1">Inhabilitado</button></td>';
-                    };
-                    
-                    echo '<td>' . $value["cc"] . '</td>
-                          <td>' . $value["first_name"] . '</td>
-                          <td>' . $value["last_name"] . '</td>
-                          <td>' . $value["user_name"] . '</td>';
+    if ($idCoordinador > 0) {
+        // Llamar al controlador para obtener los asesores asociados
+        $usuarios = ControladorUsuarios::ctrMostrarAsesoresPorCoordinador($idCoordinador);
 
-                    // Asignar clase según el perfil
-                    $perfilClass = '';
-                    switch ($value["perfil"]) {
-                        case 'Super Administrador':
-                            $perfilClass = 'perfil-super-administrador';
-                            break;
-                        case 'Administrador':
-                            $perfilClass = 'perfil-administrador';
-                            break;
-                        case 'Asesor comercial':
-                            $perfilClass = 'perfil-asesor-comercial';
-                            break;
-                        case 'Coordinador comercial':
-                            $perfilClass = 'perfil-coordinador-comercial';
-                            break;
-                        case 'Director comercial':
-                            $perfilClass = 'perfil-director-comercial';
-                            break;
-                        case 'Especialista juridico':
-                            $perfilClass = 'perfil-especialista-juridico';
-                            break;
-                        case 'Director juridico':
-                            $perfilClass = 'perfil-director-juridico';
-                            break;
-                    }
+        foreach ($usuarios as $key => $value) {
+            echo '<tr>
+                  <td>' . ($key + 1) . '</td>';
 
-                    echo '<td><span class="' . $perfilClass . '">' . $value["perfil"] . '</span></td>';
-                    echo '<td>' . $value["area"] . '</td>
-                          <td>' . $value["correo"] . '</td>
-                          <td>' . $value["phone"] . '</td>';
-
-                    // Verificar si la fecha de 'ultimo_login' está disponible y formatearla
-                    if (isset($value["ultimo_login"])) {
-                        $fechaFormateada = date('d/m/Y H:i:s', strtotime($value["ultimo_login"]));
-                        echo '<td>' . $fechaFormateada . '</td>';
-                    } else {
-                        echo '<td>Sin registro</td>';
-                    };
-                }
+            // Verificar el estado del usuario
+            if ($value["user_status"] != 0) {
+                echo '<td><button class="btn btn-success btn-xs btnAprobarPagoPension" idUsuario="' . $value["id"] . '" estadoPagoPension="0">Habilitado</button></td>';
+            } else {
+                echo '<td><button class="btn btn-danger btn-xs btnAprobarPagoPension" idUsuario="' . $value["id"] . '" estadoPagoPension="1">Inhabilitado</button></td>';
             }
-            ?>
+
+            // Mostrar información del asesor
+            echo '<td>' . htmlspecialchars($value["cc"]) . '</td>
+                  <td>' . htmlspecialchars($value["first_name"]) . '</td>
+                  <td>' . htmlspecialchars($value["last_name"]) . '</td>
+                  <td>' . htmlspecialchars($value["user_name"]) . '</td>';
+
+            // Asignar clase según el perfil del asesor
+            $perfilClass = '';
+            switch ($value["perfil"]) {
+                case 'Super Administrador':
+                    $perfilClass = 'perfil-super-administrador';
+                    break;
+                case 'Administrador':
+                    $perfilClass = 'perfil-administrador';
+                    break;
+                case 'Asesor comercial':
+                    $perfilClass = 'perfil-asesor-comercial';
+                    break;
+                case 'Coordinador comercial':
+                    $perfilClass = 'perfil-coordinador-comercial';
+                    break;
+                case 'Director comercial':
+                    $perfilClass = 'perfil-director-comercial';
+                    break;
+                case 'Especialista juridico':
+                    $perfilClass = 'perfil-especialista-juridico';
+                    break;
+                case 'Director juridico':
+                    $perfilClass = 'perfil-director-juridico';
+                    break;
+                default:
+                    $perfilClass = 'perfil-otros'; // Clase por defecto en caso de no coincidir con ningún perfil
+                    break;
+            }
+
+            echo '<td><span class="' . $perfilClass . '">' . htmlspecialchars($value["perfil"]) . '</span></td>';
+            echo '<td>' . htmlspecialchars($value["area"]) . '</td>
+                  <td>' . htmlspecialchars($value["correo"]) . '</td>
+                  <td>' . htmlspecialchars($value["phone"]) . '</td>';
+
+            // Verificar si la fecha de 'ultimo_login' está disponible y formatearla
+            if (!empty($value["ultimo_login"])) {
+                $fechaFormateada = date('d/m/Y H:i:s', strtotime($value["ultimo_login"]));
+                echo '<td>' . $fechaFormateada . '</td>';
+            } else {
+                echo '<td>Sin registro</td>';
+            }
+
+            echo '</tr>';
+        }
+    } else {
+        echo '<tr><td colspan="10">No se encontraron asesores asociados.</td></tr>';
+    }
+} else {
+    echo '<tr><td colspan="10">No tienes permisos para ver esta información.</td></tr>';
+}
+?>
+
+
 
 
           </tbody>
@@ -559,31 +575,20 @@ MODAL AGREGAR USUARIO
 ======================================-->
 
 <div id="modalAgregarUsuario" class="modal fade" role="dialog">
-
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg"> <!-- Cambié modal-lg para darle más espacio horizontal -->
 
     <div class="modal-content">
 
       <form role="form" method="post" enctype="multipart/form-data">
 
-        <!--=====================================
-        CABEZA DEL MODAL
-        ======================================-->
-
+        <!-- CABEZA DEL MODAL -->
         <div class="modal-header" style="background:#3e383d; color:white">
-
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-
           <h4 class="modal-title">Agregar usuario</h4>
-
         </div>
 
-        <!--=====================================
-        CUERPO DEL MODAL
-        ======================================-->
-
-        <div class="modal-body">
-
+        <!-- CUERPO DEL MODAL -->
+        <div class="modal-body" style="max-height: 400px; overflow-y: auto;"> <!-- Añado el scroll interno -->
           <div class="box-body">
 
             <!-- ENTRADA PARA LA IDENTIFICACION -->
@@ -618,219 +623,173 @@ MODAL AGREGAR USUARIO
                 </div>
               </div>
             </div>
+
             <div class="container mt-3">
               <h5>Informacion de Contacto</h5>
               <div class="row">
-                <!-- ENTRADA PARA CORREO-->
                 <div class="col-md-4">
                   <div class="form-group">
-
                     <div class="input-group">
-
                       <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
-
                       <input type="email" class="form-control input-lg" name="nuevoCorreo" placeholder="Ingresar Correo" required>
-
                     </div>
-
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
-
                     <div class="input-group">
-
                       <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
-
                       <input type="text" class="form-control input-lg" name="nuevoTelefono" placeholder="Ingresar telefono de Contacto" required>
-
                     </div>
-
                   </div>
                 </div>
-
               </div>
             </div>
 
             <div class="container mt-3">
               <h5>Informacion del Sistema</h5>
               <div class="row">
-                <!-- ENTRADA PARA CORREO-->
                 <div class="col-md-4">
                   <div class="form-group">
-
                     <div class="input-group">
-
                       <span class="input-group-addon"><i class="fa fa-user"></i></span>
-
                       <input type="text" class="form-control input-lg" name="nuevoUsuario" placeholder="Ingresar nombre de Usuario" required>
-
                     </div>
-
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
-
                     <div class="input-group">
-
                       <span class="input-group-addon"><i class="fa fa-key"></i></span>
-
                       <input type="password" class="form-control input-lg" name="nuevoPassword" placeholder="Ingresar contraseña" required>
-
                     </div>
-
                   </div>
                 </div>
-
               </div>
             </div>
-            <!-- ENTRADA PARA El area -->
+
             <div class="container mt-3">
               <h5>Area y Perfil</h5>
               <div class="row">
-
                 <div class="col-md-4">
                   <div class="form-group">
-
                     <div class="input-group">
-
                       <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
-
                       <select class="form-control input-lg" name="nuevaArea" required>
-
                         <option value="">Seleccionar Area</option>
-
                         <?php
-
-                        // Realizar una única consulta para obtener todas las áreas disponibles
-                        $item = null;
-                        $valor = null;
-                        $categorias = ControladorAreas::ctrMostrarAreas($item, $valor);
-
-                        // Mostrar las áreas obtenidas
-                        foreach ($categorias as $key => $value) {
+                          $item = null;
+                          $valor = null;
+                          $categorias = ControladorAreas::ctrMostrarAreas($item, $valor);
+                          foreach ($categorias as $key => $value) {
                             echo '<option value="' . $value["area"] . '">' . $value["area"] . '</option>';
-                        }
-
-                        echo '</select></div></div>';
+                          }
                         ?>
+                      </select>
                     </div>
-                    <div class="col-md-4">
-                      <div class="form-group">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <?php
+                      if ($comparar == "Super Administrador") {
+                        echo '<span class="input-group-addon"><i class="fa fa-users"></i></span>
+                              <select class="form-control input-lg" name="nuevoPerfil" required>
+                              <option value="">Seleccionar Perfil</option>
 
-                        <div class="input-group">
-                          <?php
-                          if ($comparar == "Super Administrador") {
-                            echo '
-                            <div class="form-group">
+                              <option value="Super Administrador">Super Administrador</option>
+                              <option value="Director juridico">Director juridico</option>
+
+                              <option value="Director comercial">Director comercial</option>
+                              <option value="Coordinador comercial">Coordinador comercial</option>
+                              <option value="Asesor comercial">Asesor comercial</option>
                               
-                              <div class="input-group">
                               
-                                <span class="input-group-addon"><i class="fa fa-users"></i></span> 
+                              <option value="Especialista juridico">Especialista juridico</option>
+                              <option value="Director juridico">Director juridico</option>
+                              </select>';
+                      }
+                      if ($comparar == "Director juridico") {
+                        echo '<span class="input-group-addon"><i class="fa fa-users"></i></span>
+                              <select class="form-control input-lg" name="nuevoPerfil" required>
+                              <option value="">Seleccionar Perfil</option>
 
-                                <select class="form-control input-lg" name="nuevoPerfil" required>
-                                  
-                                  <option value="">Seleccionar Perfil</option>
+                              <option value="Director juridico">Director juridico</option>
 
-                                  <option value="Super Administrador">Super Administrador</option>
-
-                                  <option value="Administrador">Administrador</option>
-
-                                  <option value="Asesor comercial">Asesor comercial</option>
-                                  <option value="Coordinador comercial">Coordinador comercial</option>
-                                  <option value="Director comercial">Director comercial</option>
-                                  <option value="Especialista juridico">Especialista juridico</option>
-                                  <option value="Director juridico">Director juridico</option>          
-
-                                </select>
-
-                              </div>
-
-                            </div>';
-                          }
-
-                          if ($comparar == "Administrador") {
-                            echo '
-                            <div class="form-group">
+                              <option value="Director comercial">Director comercial</option>
+                              <option value="Coordinador comercial">Coordinador comercial</option>
+                              <option value="Asesor comercial">Asesor comercial</option>
                               
-                              <div class="input-group">
                               
-                                <span class="input-group-addon"><i class="fa fa-users"></i></span> 
+                              <option value="Especialista juridico">Especialista juridico</option>
+                              <option value="Director juridico">Director juridico</option>
+                              </select>';
+                      }elseif ($comparar == "Director comercial") {
+                        echo '<span class="input-group-addon"><i class="fa fa-users"></i></span>
+                              <select class="form-control input-lg" name="nuevoPerfil" required>
+                              <option value="">Seleccionar Perfil</option>
 
-                                <select class="form-control input-lg" name="nuevoPerfil" required>
-                                  
-                                  <option value="">Seleccionar perfil</option>
-
-                                  <option value="Asesor comercial">Asesor comercial</option>
-                                  <option value="Coordinador comercial">Coordinador comercial</option>
-                                  <option value="Director comercial">Director comercial</option>
-                                  <option value="Especialista juridico">Especialista juridico</option>
-                                  <option value="Director juridico">Director juridico</option>   
-
-                                </select>
-
-                              </div>
-
-                            </div>';
-                          }
-
-                          if ($comparar == "Coordinador comercial") {
-                            echo '
-                            <div class="form-group">
-                              
-                              <div class="input-group">
-                              
-                                <span class="input-group-addon"><i class="fa fa-users"></i></span> 
-
-                                <select class="form-control input-lg" name="nuevoPerfil" required>
-                                  
-                                  <option value="">Seleccionar perfil</option>
-
-                                  <option value="Asesor comercial">Asesor comercial</option>
-                                  <option value="Coordinador comercial">Coordinador comercial</option>  
-
-                                </select>
-
-                              </div>
-
-                            </div>';
-                          }
-
-                          ?>
-                        </div>
-                      </div>
-
+                              <option value="Asesor comercial">Asesor comercial</option>
+                              <option value="Coordinador comercial">Coordinador comercial</option>
+                              </select>';
+                      }elseif ($comparar == "Coordinador comercial") {
+                        echo '<span class="input-group-addon"><i class="fa fa-users"></i></span>
+                              <select class="form-control input-lg" name="nuevoPerfil" required>
+                              <option value="">Seleccionar Perfil</option>
+                              <option value="Asesor comercial">Asesor comercial</option>
+                              </select>';
+                      }
+                      ?>
                     </div>
-
-
                   </div>
                 </div>
               </div>
             </div>
-            <!--=====================================
-        PIE DEL MODAL
-        ======================================-->
 
-            <div class="modal-footer">
-
-              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
-
-              <button type="submit" name="register" class="btn btn-primary">Guardar usuario</button>
-
+            <div class="container mt-3">
+              <h5>Asociar coordinador</h5>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
+                      <select class="form-control input-lg" name="nuevoCoordinador">
+                        <option value="">Asociar coordinador</option>
+                        <?php
+                          $item = null;
+                          $valor = null;
+                          $categorias = ControladorUsuarios::ctrMostrarCoordinadores($item, $valor);
+                          foreach ($categorias as $key => $value) {
+                            echo '<option value="' . $value["id"] . '">' . $value["user_name"]  . '</option>';
+                          }
+                        ?>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <?php
-            $crearUsuario = new ControladorUsuarios();
-            $crearUsuario->ctrCrearUsuario();
-            ?>
+          </div> <!-- Cierre del box-body -->
+        </div> <!-- Cierre del modal-body -->
+
+        <!-- PIE DEL MODAL -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
+          <button type="submit" name="register" class="btn btn-primary">Guardar usuario</button>
+        </div>
+
+        <?php
+          $crearUsuario = new ControladorUsuarios();
+          $crearUsuario->ctrCrearUsuario();
+        ?>
 
       </form>
 
     </div>
 
   </div>
-
 </div>
 
 <!--=====================================
