@@ -85,6 +85,7 @@ class ControladorUsuarios{
 					"correo" => $_POST["nuevoCorreo"],
 					"phone" => $_POST["nuevoTelefono"],
 					"password" => $encriptar,
+					"id_coordinador" => $_POST["nuevoCoordinador"],
 					"foto" => $ruta,
 					"user_status" => "1"
 				);
@@ -149,6 +150,21 @@ class ControladorUsuarios{
 
 		$respuesta = ModeloUsuarios::mdlMostrarAsesores($tabla, $item, $valor);
 
+		return $respuesta;
+	}
+
+	static public function ctrMostrarCoordinadores($item, $valor){
+
+		$tabla = "usuarios";
+
+		$respuesta = ModeloUsuarios::mdlMostrarCoordinadores($tabla, $item, $valor);
+
+		return $respuesta;
+	} 
+
+	static public function ctrMostrarAsesoresPorCoordinador($id_coordinador) {
+		$tabla = "usuarios";
+		$respuesta = ModeloUsuarios::mdlMostrarAsesoresPorCoordinador($tabla, $id_coordinador);
 		return $respuesta;
 	}
 	/*=============================================
