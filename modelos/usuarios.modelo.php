@@ -10,19 +10,19 @@ class ModeloUsuarios{
 
 	static public function mdlMostrarUsuarios($tabla, $item, $valor){
 		if($item != null){
-			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :$item");
-			$stmt -> bindParam(":".$item, $valor, PDO::PARAM_STR);
-			$stmt -> execute();
-			return $stmt -> fetch();
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :$item ORDER BY perfil DESC");
+			$stmt->bindParam(":".$item, $valor, PDO::PARAM_STR);
+			$stmt->execute();
+			return $stmt->fetch();
 		}else{
-			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
-			$stmt -> execute();
-			return $stmt -> fetchAll();
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla ORDER BY perfil DESC");
+			$stmt->execute();
+			return $stmt->fetchAll();
 		}
-		$stmt -> close();
+		$stmt->close();
 		$stmt = null;
-
 	}
+	
 	/*=============================================
 	MOSTRAR ASESORES
 	=============================================*/
@@ -41,14 +41,42 @@ class ModeloUsuarios{
 		}
 		$stmt = null;
 	}
+
+	static public function mdlMostrarCoordinadores($tabla, $item, $valor) {
+		if ($item != null) {
+			// Aquí se añade la condición adicional de perfil = 'Coordinador comercial'
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :$item AND perfil = 'Coordinador comercial'");
+			$stmt->bindParam(":".$item, $valor, PDO::PARAM_STR);
+			$stmt->execute();
+			return $stmt->fetch();
+		} else {
+			// Aquí se añade la condición adicional de perfil = 'Coordinador comercial'
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE perfil = 'Coordinador comercial'");
+			$stmt->execute();
+			return $stmt->fetchAll();
+		}
+		$stmt = null;
+	}
  
+	static public function mdlMostrarAsesoresPorCoordinador($tabla, $id_coordinador) {
+		$stmt = Conexion::conectar()->prepare("
+			SELECT a.*, c.first_name AS coordinador_first_name, c.last_name AS coordinador_last_name
+			FROM $tabla a
+			LEFT JOIN $tabla c ON c.id = a.id_coordinador
+			WHERE a.perfil = 'Asesor comercial' AND a.id_coordinador = :id_coordinador
+		");
+		$stmt->bindParam(":id_coordinador", $id_coordinador, PDO::PARAM_INT);
+		$stmt->execute();
+		return $stmt->fetchAll();
+	}
+		
 	/*=============================================
 	REGISTRO DE USUARIO
 	=============================================*/
 
 	static public function mdlIngresarUsuario($tabla, $datos){
 
-		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(user_status, cc, first_name, last_name, user_name, perfil, area, correo, phone, password) VALUES (:user_status, :cc, :first_name, :last_name, :user_name, :perfil, :area, :correo, :phone, :password)");
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(user_status, cc, first_name, last_name, user_name, perfil, area, correo, phone, password, id_coordinador) VALUES (:user_status, :cc, :first_name, :last_name, :user_name, :perfil, :area, :correo, :phone, :password, :id_coordinador)");
 		
 		$stmt->bindParam(":user_status", $datos['user_status'], PDO::PARAM_INT);
 		$stmt->bindParam(":cc", $datos['cc'], PDO::PARAM_STR);
@@ -60,6 +88,7 @@ class ModeloUsuarios{
 		$stmt->bindParam(":correo", $datos['correo'], PDO::PARAM_STR);
 		$stmt->bindParam(":phone", $datos['phone'], PDO::PARAM_STR);
 		$stmt->bindParam(":password", $datos['password'], PDO::PARAM_STR);
+		$stmt->bindParam(":id_coordinador", $datos['id_coordinador'], PDO::PARAM_INT);
 	
 		if($stmt->execute()){
 			return "ok";
