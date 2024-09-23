@@ -2,103 +2,70 @@
 
 class ControladorLeads {
 
-    // static public function ctrCrearCliente() {
-    //     if (isset($_POST["nuevoIdCliente"])) {
+    static public function ctrRegistrarLead(){
 
-    //         // Validar campos con expresión regular adecuada
-    //         if (
-    //             preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoNombre"]) &&
-    //             preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoApellido"]) &&
-    //             preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoTipoCliente"]) &&
-    //             preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoEmpleado"]) &&
-    //             preg_match('/^[0-9]+$/', $_POST["nuevoAnosExperiencia"]) &&
-    //             filter_var($_POST["nuevoEmail"], FILTER_VALIDATE_EMAIL) &&
-    //             preg_match('/^[0-9+ ]+$/', $_POST["nuevoTelefono"]) &&
-    //             preg_match('/^[a-zA-Z0-9_]+$/', $_POST["nuevoUsuario"])) {
+      if(isset($_POST["nuevoNombre"])){
+               
+          $tabla = "leads";
+          $fecha_actual = date('Y-m-d');
+      
+          $datos =array(
+  
+            "first_name" => $_POST["nuevoNombre"],
+            "last_name" => $_POST["nuevoApellido"],
+            "email" => $_POST["nuevoEmail"],
+            "phone" => $_POST["nuevoTelefono"],
+            "status_lead" => "Frio",
+            "creation_date" => $fecha_actual,
+            "origin" => $_POST["origenLead"],
+            "note" => $_POST["observaciones"],
+            "id_service" => $_POST["nuevoServicio"],
+            "id_area" => $_POST["nuevaArea"],
+            
+          );
 
-    //             $tabla = "cliente";
+          $respuesta = ModeloLeads::mdlRegistrarLead($tabla, $datos);
 
-    //             // Verificar si el nombre de usuario ya está registrado
-    //             $nombreUsuario = $_POST["nuevoUsuario"];
-    //             $usuarioRegistrado = ModeloCliente::mdlVerificarUsuario($tabla, $nombreUsuario);
-
-    //             if ($usuarioRegistrado) {
-    //                 echo '<script>
-    //                     swal({
-    //                         type: "error",
-    //                         title: "¡El nombre de usuario ya está registrado!",
-    //                         showConfirmButton: true,
-    //                         confirmButtonText: "Cerrar"
-    //                     }).then(function(result){
-    //                         if (result.value) {
-    //                             window.location = "clientes";
-    //                         }
-    //                     });
-    //                 </script>';
-    //                 return; // Salir del método si el usuario ya está registrado
-    //             }
-
-    //             // Preparar datos para inserción
-    //             $datos = array(
-    //                 "cc" => $_POST["nuevoIdCliente"],
-    //                 "first_name" => $_POST["nuevoNombre"],
-    //                 "last_name" => $_POST["nuevoApellido"],
-    //                 "customer_type" => $_POST["nuevoTipoCliente"],
-    //                 "employers" => $_POST["nuevoEmpleado"],
-    //                 "experience_years" => $_POST["nuevoAnosExperiencia"],
-    //                 "email" => $_POST["nuevoEmail"],
-    //                 "customer_phone" => $_POST["nuevoTelefono"],
-    //                 "customer_username" => $_POST["nuevoUsuario"]
-    //             );
-    //             // echo '<pre>'; print_r($datos); echo '</pre>';
-    //             // return;
-    //             // Insertar datos en la base de datos
-    //             $respuesta = ModeloCliente::mdlRegistrarCliente($tabla, $datos);
-
-    //             if ($respuesta == "ok") {
-    //                 echo '<script>
-    //                     swal({
-    //                         type: "success",
-    //                         title: "¡El cliente ha sido registrado correctamente!",
-    //                         showConfirmButton: true,
-    //                         confirmButtonText: "Cerrar"
-    //                     }).then(function(result){
-    //                         if (result.value) {
-    //                             window.location = "clientes";
-    //                         }
-    //                     });
-    //                 </script>';
-    //             } else {
-    //                 echo '<script>
-    //                     swal({
-    //                         type: "error",
-    //                         title: "¡Hubo un error al registrar el cliente!",
-    //                         showConfirmButton: true,
-    //                         confirmButtonText: "Cerrar"
-    //                     }).then(function(result){
-    //                         if (result.value) {
-    //                             window.location = "clientes";
-    //                         }
-    //                     });
-    //                 </script>';
-    //             }
-
-    //         } else {
-    //             echo '<script>
-    //                 swal({
-    //                     type: "error",
-    //                     title: "¡Datos ingresados no válidos!",
-    //                     showConfirmButton: true,
-    //                     confirmButtonText: "Cerrar"
-    //                 }).then(function(result){
-    //                     if (result.value) {
-    //                         window.location = "clientes";
-    //                     }
-    //                 });
-    //             </script>';
-    //         }
-    //     }
-    // }
+          if($respuesta == "ok"){
+    
+            echo'<script>
+      
+            swal({
+                type: "success",
+                title: "Un nuevo Lead ha sido registrado",
+                showConfirmButton: true,
+                confirmButtonText: "Cerrar"
+                }).then(function(result){
+                    if (result.value) {
+      
+                    window.location = "leads";
+      
+                    }
+                  })
+      
+            </script>';
+      
+          } else {
+      
+            echo'<script>
+      
+            swal({
+                type: "error",
+                title: "¡Error al registrar al usuario!",
+                showConfirmButton: true,
+                confirmButtonText: "Cerrar"
+                }).then(function(result){
+                    if (result.value) {
+      
+                    window.location = "leads";
+      
+                    }
+                  })
+      
+            </script>';    
+          }
+      }    
+    }	
 
     static public function ctrVerLeadsFrio($item, $valor){
 
