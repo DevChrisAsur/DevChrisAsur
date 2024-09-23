@@ -208,7 +208,7 @@
     <div class="box">
 
       <div class="box-header with-border">
-        <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarAreas">
+        <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarLead">
           Registrar Lead
         </button>
       </div>
@@ -355,35 +355,151 @@
 
 </div>
 
-<!-- MODAL AGREGAR Areas -->
-<div id="modalAgregarAreas" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+<div id="modalAgregarLead" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg"> <!-- Cambié modal-lg para darle más espacio horizontal -->
+
     <div class="modal-content">
-      <form role="form" method="post">
-        <div class="modal-header" style="background:#3c8dbc; color:white">
+
+      <form role="form" method="post" enctype="multipart/form-data">
+
+        <!-- CABEZA DEL MODAL -->
+        <div class="modal-header" style="background:#3e383d; color:white">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Agregar Area</h4>
+          <h4 class="modal-title">Agregar usuario</h4>
         </div>
-        <div class="modal-body">
+
+        <!-- CUERPO DEL MODAL -->
+        <div class="modal-body" style="max-height: 400px; overflow-y: auto;"> <!-- Añado el scroll interno -->
           <div class="box-body">
-            <div class="form-group">
-              <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-th"></i></span> 
-                <input type="text" class="form-control input-lg" name="nuevaArea" placeholder="Ingresar Area" required>
+
+            <!-- ENTRADA PARA LA IDENTIFICACION -->
+            <div class="container">
+              <h5>Informacion del Usuario</h5>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
+                      <input type="text" class="form-control" name="nuevoNombre" placeholder="Ingresar Nombre">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
+                      <input type="text" class="form-control" name="nuevoApellido" placeholder="Ingresar Apellido">
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
+
+            <div class="container mt-3">
+              <h5>Informacion de Contacto</h5>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+                      <input type="email" class="form-control input-lg" name="nuevoEmail" placeholder="Ingresar Correo" required>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+                      <input type="text" class="form-control input-lg" name="nuevoTelefono" placeholder="Ingresar telefono de Contacto" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="container mt-3">
+              <h5>Area de derecho y Servicio Solicitado</h5>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
+                      <select class="form-control input-lg" name="nuevaArea" required>
+                        <option value="">Seleccionar Area de derecho</option>
+                        <?php
+                          $item = null;
+                          $valor = null;
+                          $categorias = ControladorAreaDerecho::ctrVerAreasDerecho($item, $valor);
+                          foreach ($categorias as $key => $value) {
+                            echo '<option value="' . $value["id_area"] . '">' . $value["law_area"] . '</option>';
+                          }
+                        ?>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="container mt-3">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
+                      <select class="form-control input-lg" name="nuevoServicio">
+                        <option value="">Seleccionar Servicio</option>
+                        <?php
+                          $item = null;
+                          $valor = null;
+                          $categorias = ControladorServicios::ctrVerServicios($item, $valor);
+                          foreach ($categorias as $key => $value) {
+                            echo '<option value="' . $value["id_service"] . '">' . $value["service_name"]  . '</option>';
+                          }
+                        ?>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+              </div>
+            </div>
+            <div class="container mt-3">
+            <h5>Informacion adicional</h5>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                  <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
+                      <input type="text" class="form-control" name="origenLead" placeholder="Como se entero del servicio">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                  <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
+                      <input type="text" class="form-control" name="observaciones" placeholder="Observaciones del asesor">
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div> <!-- Cierre del box-body -->
+        </div> <!-- Cierre del modal-body -->
+
+        <!-- PIE DEL MODAL -->
         <div class="modal-footer">
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
-          <button type="submit" class="btn btn-primary">Guardar Area</button>
+          <button type="submit" name="register" class="btn btn-primary">Guardar usuario</button>
         </div>
+
         <?php
-          $crearCategoria = new ControladorAreas();
-          $crearCategoria -> ctrCrearAreas();
+          $crearUsuario = new ControladorLeads();
+          $crearUsuario->ctrRegistrarLead();
         ?>
+
       </form>
+
     </div>
+
   </div>
 </div>
 
