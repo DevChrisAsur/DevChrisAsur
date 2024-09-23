@@ -1,44 +1,155 @@
+
 <style>
-  .swal2-popup {
-    font-size: 1.6rem;
-    font-family: Georgia, serif;
-  }
+    .modal-header {
+        background: #3e383d;
+        color: white;
+    }
 
-  .up {
+    /* Asegura que el div btn-group se mantenga en una línea y no se rompa */
+    .btn-group {
+        display: flex;
+        /* Usa flexbox para la alineación */
+        flex-wrap: nowrap;
+        /* No permite que los botones se envuelvan en una nueva línea */
+    }
 
-    display: flex;
-    justify-content: center;
-    font-size: 15px;
-    line-height: 1;
-    border-radius: 2px;
+    /* Asegura que los botones se alineen de manera horizontal */
+    .btn-group .btn {
+        margin: 0 5px;
+        /* Espacio entre botones */
+        white-space: nowrap;
+        /* Evita que el texto del botón se rompa */
+    }
+
+    /* Ajusta el tamaño de los botones para que sean más pequeños si es necesario */
+    .btn-group .btn {
+        font-size: 14px;
+        padding: 6px 12px;
+    }
+
+    /* Ajusta el contenedor del grupo de botones para adaptarse al tamaño del contenido */
+    .btn-group-container {
+        text-align: center;
+        /* Centra los botones dentro del contenedor */
+    }
+
+    .swal2-popup {
+        font-size: 1.6rem;
+        font-family: Georgia, serif;
+    }
+
+    .up {
+
+        display: flex;
+        justify-content: center;
+        font-size: 15px;
+        line-height: 1;
+        border-radius: 2px;
 
 
-    border: 0;
-    transition: 0.2s;
-    overflow: hidden;
-    text-align: center;
-    padding: 4;
-    border: thin solid black;
-  }
+        border: 0;
+        transition: 0.2s;
+        overflow: hidden;
+        text-align: center;
+        padding: 4;
+        border: thin solid black;
+    }
 
-  #inputTag {
-    cursor: pointer;
-    position: absolute;
-    left: 0%;
-    top: 0%;
-    transform: scale(3);
-    opacity: 0;
-  }
+    #inputTag {
+        cursor: pointer;
+        position: absolute;
+        left: 0%;
+        top: 0%;
+        transform: scale(3);
+        opacity: 0;
+    }
 
-  label {
-    cursor: pointer;
-  }
+    label {
+        cursor: pointer;
+    }
 
-  #imageName {
-    color: green;
-  }
+    #imageName {
+        color: green;
+    }
 
-  .perfil-super-administrador {
+    .selectize-input {
+        height: 45px;
+        font-size: 16px;
+        /* Tamaño de la fuente */
+        line-height: 20px;
+        /* Centra verticalmente el texto */
+    }
+
+    /* Centra horizontalmente el texto */
+    .selectize-input .item {
+        text-align: center;
+    }
+
+
+    .dt-button-collection.dropdown-menu {
+        background-color: #007bff;
+        /* Color de fondo */
+        color: #ffffff;
+        /* Color del texto */
+        padding: 10px;
+        /* Espaciado interno para mejorar la apariencia */
+    }
+
+    .dt-button-collection.dropdown-menu a {
+        display: block;
+        margin-bottom: 5px;
+        color: #FF5833;
+
+        /* Ajusta el margen según sea necesario */
+    }
+
+    .dt-button-collection.dropdown-menu a.active {
+        background-color: #007bff !important;
+        /* Color de fondo cuando está activo */
+        color: #ffffff;
+        /* Color del texto cuando está activo */
+    }
+
+    .modal-dialog {
+        max-width: 80%;
+        /* Ajusta el tamaño máximo del modal */
+        width: auto;
+    }
+
+    .modal-content {
+        border-radius: 8px;
+    }
+
+    .modal-body {
+        padding: 2rem;
+        /* Ajusta el relleno del modal */
+    }
+
+    .form-control {
+        border-radius: 4px;
+        /* Opcional: Mejora el aspecto de los campos */
+    }
+
+    /* Asegurarse de que el select tenga el mismo tamaño y estilo que los campos de texto */
+    .form-control.input-lg {
+    height: calc(1.5em + .75rem + 4px); /* Ajustar la altura del select */
+    padding: .75rem 1.25rem; /* Asegurar el mismo relleno que los campos de texto */
+    font-size: 1.25rem; /* Asegurar el mismo tamaño de fuente */
+    line-height: 1.5; /* Ajustar la línea de altura */
+    border-radius: .3rem; /* Ajustar el radio de borde */
+    }
+
+    .input-group .form-control {
+    border: 1px solid #ced4da; /* Asegurar que el borde sea igual al de los campos de texto */
+    border-radius: .25rem; /* Radio de borde para las esquinas redondeadas */
+    }
+
+    .input-group-addon {
+    background-color: #e9ecef; /* Asegurar el mismo color de fondo */
+    border: 1px solid #ced4da; /* Borde del addon igual al de los campos de texto */
+    border-radius: .25rem; /* Radio de borde para las esquinas redondeadas */
+    }
+    .perfil-super-administrador {
     background-color: #922b21;
     /* Rojo oscuro */
     color: black;
@@ -103,183 +214,9 @@
     padding: 5px;
     border-radius: 3px;
     font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  }
+  }   
 
-  /* Estilos para SweetAlert2 */
-  .swal2-popup {
-    font-size: 1.6rem;
-    font-family: Georgia, serif;
-  }
-
-  /* Estilos generales para el modal */
-  .modal-dialog {
-    width: 100%;
-    /* Se ajusta a la pantalla completa */
-    max-width: 830px;
-    /* Ajusta el tamaño máximo de la ventana modal */
-    margin: 30px auto;
-  }
-
-  .modal-content {
-    border-radius: 8px;
-  }
-
-  .modal-body {
-    padding: 2rem;
-    max-width: 800px;
-    max-height: 500px;
-    /* Controla la altura máxima del cuerpo del modal */
-    overflow-y: auto;
-    /* Agrega scroll si el contenido excede la altura */
-  }
-
-  /* Estilos para el encabezado del modal */
-  .modal-header {
-    background: #3e383d;
-    color: white;
-  }
-
-  /* Estilos para el grupo de botones dentro del modal */
-  .btn-group {
-    display: flex;
-    flex-wrap: nowrap;
-  }
-
-  .btn-group .btn {
-    margin: 0 5px;
-    white-space: nowrap;
-    font-size: 14px;
-    padding: 6px 12px;
-  }
-
-  .btn-group-container {
-    text-align: center;
-  }
-
-  /* Estilos para el elemento con clase .up */
-  .up {
-    display: flex;
-    justify-content: center;
-    font-size: 15px;
-    line-height: 1;
-    border-radius: 2px;
-    border: thin solid black;
-    transition: 0.2s;
-    overflow: hidden;
-    text-align: center;
-    padding: 4px;
-  }
-
-  /* Estilos para el input oculto */
-  #inputTag {
-    cursor: pointer;
-    position: absolute;
-    left: 0%;
-    top: 0%;
-    transform: scale(3);
-    opacity: 0;
-  }
-
-  /* Estilos para etiquetas */
-  label {
-    cursor: pointer;
-  }
-
-  /* Estilos para el nombre de la imagen */
-  #imageName {
-    color: green;
-  }
-
-  /* Estilos para campos de formulario */
-  .form-control {
-    border-radius: 4px;
-    width: 100%;
-  }
-
-  .form-control.input-lg {
-    height: calc(1.5em + .75rem + 4px);
-    padding: .75rem 1.25rem;
-    font-size: 1.25rem;
-    line-height: 1.5;
-    border-radius: .3rem;
-  }
-
-  .input-group .form-control {
-    border: 1px solid #ced4da;
-    border-radius: .25rem;
-  }
-
-  .input-group-addon {
-    background-color: #e9ecef;
-    border: 1px solid #ced4da;
-    border-radius: .25rem;
-    min-width: 45px;
-    /* Mantener el tamaño mínimo para los íconos */
-    text-align: center;
-  }
-
-  /* Estilos para selectize-input */
-  .selectize-input {
-    height: 45px;
-    font-size: 16px;
-    line-height: 20px;
-  }
-
-  .selectize-input .item {
-    text-align: center;
-  }
-
-  /* Estilos para el menú de colección de botones de DataTables */
-  .dt-button-collection.dropdown-menu {
-    background-color: #007bff;
-    color: #ffffff;
-    padding: 10px;
-  }
-
-  .dt-button-collection.dropdown-menu a {
-    display: block;
-    margin-bottom: 5px;
-    color: #FF5833;
-  }
-
-  .dt-button-collection.dropdown-menu a.active {
-    background-color: #007bff !important;
-    color: #ffffff;
-  }
-
-  /* Controlar comportamiento en pantallas grandes */
-  @media (min-width: 992px) {
-    .modal-dialog {
-      max-width: 830px;
-      /* Ajusta el tamaño máximo de la ventana modal */
-      margin: 30px auto;
-    }
-
-    .modal-body {
-      max-width: 800px;
-      max-height: 500px;
-      /* Controla la altura máxima del cuerpo del modal */
-      overflow-y: auto;
-      /* Agrega scroll si el contenido excede la altura */
-    }
-  }
-
-  /* Controlar el diseño en pantallas pequeñas */
-  @media (max-width: 576px) {
-    .modal-dialog {
-      max-width: 100%;
-      /* El modal ocupará todo el ancho de la pantalla */
-      margin: 10px;
-      /* Reducir márgenes en dispositivos pequeños */
-    }
-
-    .modal-body {
-      max-height: 400px;
-      /* Limitar la altura en dispositivos pequeños */
-    }
-  }
 </style>
-
 <!-- Datatables -->
 <link
   rel="stylesheet"
@@ -451,7 +388,7 @@
                 }
             } 
             ?>
-<?php
+            <?php
 // Verificar si el usuario tiene el perfil de Coordinador comercial o Director comercial
 if (in_array($_SESSION["perfil"], ["Coordinador comercial", "Director comercial"])) {
 
@@ -526,8 +463,6 @@ if (in_array($_SESSION["perfil"], ["Coordinador comercial", "Director comercial"
     } else {
         echo '<tr><td colspan="10">No se encontraron asesores asociados.</td></tr>';
     }
-} else {
-    echo '<tr><td colspan="10">No tienes permisos para ver esta información.</td></tr>';
 }
 ?>
 
