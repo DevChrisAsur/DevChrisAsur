@@ -13,15 +13,18 @@ class ModeloLeads
     static public function mdlRegistrarLead($tabla, $datos){
 
         // Preparar la consulta SQL para insertar datos en la tabla
-        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla( first_name, last_name, email, phone, status_lead, origin, note) VALUES ( :first_name, :last_name, :email, :phone, :status_lead,:origin, :note)");
+        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla( first_name, last_name, email, phone, status_lead,creation_date, origin, note, id_service, id_area) VALUES ( :first_name, :last_name, :email, :phone, :status_lead, :creation_date, :origin, :note, :id_service, :id_area)");
 
         $stmt->bindParam(":first_name", $datos['first_name'], PDO::PARAM_STR);
         $stmt->bindParam(":last_name", $datos['last_name'], PDO::PARAM_STR);
         $stmt->bindParam(":email", $datos['email'], PDO::PARAM_STR);
         $stmt->bindParam(":phone", $datos['phone'], PDO::PARAM_STR);
         $stmt->bindParam(":status_lead", $datos['status_lead'], PDO::PARAM_STR);
+        $stmt->bindParam(":creation_date", $datos['creation_date'], PDO::PARAM_STR);
         $stmt->bindParam(":origin", $datos['origin'], PDO::PARAM_STR);
         $stmt->bindParam(":note", $datos['note'], PDO::PARAM_STR);
+        $stmt->bindParam(":id_service", $datos['id_service'], PDO::PARAM_INT);
+        $stmt->bindParam(":id_area", $datos['id_area'], PDO::PARAM_INT);
 
         // Ejecutar la consulta y manejar el resultado
         if ($stmt->execute()) {
