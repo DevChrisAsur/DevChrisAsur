@@ -66,59 +66,30 @@ static public function mdlVerLeadfrio($tabla, $item, $valor){
     $stmt = null;
 }
 
-static public function mdlVerLeadMQL($tabla, $item, $valor)
-{
-    if ($item != null) {
+static public function mdlEditarLead($tabla, $datos) {
 
-        // Cambiamos la condición para que sea 'frio' en vez de una cadena vacía
-        $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE status_lead = 'MQL' AND $item = :$item");
+    // Preparar la consulta SQL para actualizar los datos del lead en la tabla
+    $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET first_name = :first_name, last_name = :last_name, email = :email, phone = :phone WHERE id_lead = :id_lead");
 
-        $stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
-
-        $stmt->execute();
-
-        return $stmt->fetch();
+    // Vincular parámetros con sus respectivos valores
+    $stmt->bindParam(":first_name", $datos['first_name'], PDO::PARAM_STR);
+    $stmt->bindParam(":last_name", $datos['last_name'], PDO::PARAM_STR);
+    $stmt->bindParam(":email", $datos['email'], PDO::PARAM_STR);
+    $stmt->bindParam(":phone", $datos['phone'], PDO::PARAM_STR);
+    $stmt->bindParam(":id_lead", $datos['id_lead'], PDO::PARAM_INT);
+    // Ejecutar la consulta y manejar el resultado
+    if ($stmt->execute()) {
+        return "ok";
     } else {
-
-        $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE status_lead = 'MQL'");
-
-        $stmt->execute();
-
-        return $stmt->fetchAll();
+        return "error";
     }
 
+    // Cerrar la conexión
     $stmt->close();
     $stmt = null;
 }
 
-static public function mdlVerLeadSQL($tabla, $item, $valor)
-{
-    if ($item != null) {
-
-        // Cambiamos la condición para que sea 'frio' en vez de una cadena vacía
-        $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE status_lead = 'SQL' AND $item = :$item");
-
-        $stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
-
-        $stmt->execute();
-
-        return $stmt->fetch();
-    } else {
-
-        $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE status_lead = 'SQL'");
-
-        $stmt->execute();
-
-        return $stmt->fetchAll();
-    }
-
-    $stmt->close();
-    $stmt = null;
-}
-
-
-
-    static public function mdlEliminarCliente($tabla, $datos)
+    static public function mdlEliminarLead($tabla, $datos)
     {
 
         $stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id_lead = :id_lead");
