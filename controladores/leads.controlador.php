@@ -15,7 +15,7 @@ class ControladorLeads {
             "last_name" => $_POST["nuevoApellido"],
             "email" => $_POST["nuevoEmail"],
             "phone" => $_POST["nuevoTelefono"],
-            "status_lead" => "Frio",
+            "status_lead" => 0,
             "creation_date" => $fecha_actual,
             "origin" => $_POST["origenLead"],
             "note" => $_POST["observaciones"],
@@ -76,38 +76,84 @@ class ControladorLeads {
 		return $respuesta;
 	
 	}
-    static public function ctrVerLeadsMQL($item, $valor){
 
-		$tabla = "leads";
+	static public function ctrEditarLead(){
 
-		$respuesta = ModeloLeads::mdlVerLeadMQL($tabla, $item, $valor);
+		if(isset($_POST["editarNombre"])){
 
-		return $respuesta;
-	
-	}
+			if(preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editarNombre"])){
 
-    static public function ctrVerLeadsSQL($item, $valor){
+				$tabla = "leads";
 
-		$tabla = "leads";
 
-		$respuesta = ModeloLeads::mdlVerLeadSQL($tabla, $item, $valor);
+				$datos = array(
+                    "first_name" => $_POST["editarNombre"],
+					"last_name" => $_POST["editarApellido"],
+                    "email" => $_POST["editarCorreo"],
+					"phone" => $_POST["editarTelefono"],
+					"id_lead"=>$_POST["idLeads"]);
 
-		return $respuesta;
-	
+				$respuesta = ModeloLeads::mdlEditarLead($tabla, $datos);
+
+
+				if($respuesta == "ok"){
+
+					echo'<script>
+
+					swal({
+						  type: "success",
+						  title: "El usuario ha sido editado correctamente",
+						  showConfirmButton: true,
+						  confirmButtonText: "Cerrar"
+						  }).then(function(result){
+									if (result.value) {
+
+									window.location = "leads";
+
+									}
+								})
+
+					</script>';
+
+				}
+				
+			}else{
+
+				echo'<script>
+
+					swal({
+						  type: "error",
+						  title: "¡El nombre no puede ir vacío o llevar caracteres especiales!",
+						  showConfirmButton: true,
+						  confirmButtonText: "Cerrar"
+						  }).then(function(result){
+							if (result.value) {
+
+							window.location = "leads";
+
+							}
+						})
+
+			  	</script>';
+
+			}
+
+		}
+
 	}
 
     /*=============================================
                 ELIMINAR CLIENTE
 	=============================================*/
 
-	static public function ctrEliminarCliente(){
+	static public function ctrEliminarLead(){
 
-		if(isset($_GET["idCliente"])){
+		if(isset($_GET["idLeads"])){
 
-			$tabla ="cliente";
-			$datos = $_GET["idCliente"];
+			$tabla ="leads";
+			$datos = $_GET["idLeads"];
 
-			$respuesta = ModeloCliente::mdlEliminarCliente($tabla, $datos);
+			$respuesta = ModeloLeads::mdlEliminarLead($tabla, $datos);
 
 			if($respuesta == "ok"){
 
@@ -121,7 +167,7 @@ class ControladorLeads {
 						  }).then(function(result){
 									if (result.value) {
 
-									window.location = "clientes";
+									window.location = "leads";
 
 									}
 								})
