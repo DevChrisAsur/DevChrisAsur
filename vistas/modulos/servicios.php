@@ -220,7 +220,7 @@
                         <tr>
                             <th style="width:10px">#</th>
                             <th style="width:100px">Servicio Ofrecido</th>
-                            <th style="width:100px">Costo Anual</th>
+                            <th style="width:100px">Costo Mensual</th>
                             <th style="width:100px">Personas Cubiertas</th>
                             <th style="width:80px" align="center">Acciones</th>
                         </tr>

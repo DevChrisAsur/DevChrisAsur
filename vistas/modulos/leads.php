@@ -190,283 +190,361 @@
 
 <div class="content-wrapper">
 
-  <section class="content-header">
-    
-    <h1>
-      Administrar Leads
-    </h1>
+    <section class="content-header">
 
-    <ol class="breadcrumb">
-      <li><a href="inicio"><i class="fa fa-dashboard"></i> Inicio</a></li>
-      <li class="active">Leads</li>
-    </ol>
+        <h1>
+            Administrar Leads
+        </h1>
 
-  </section>
+        <ol class="breadcrumb">
+            <li><a href="inicio"><i class="fa fa-dashboard"></i> Inicio</a></li>
+            <li class="active">LEads</li>
+        </ol>
 
-  <section class="content">
+    </section>
 
-    <div class="box">
+    <section class="content">
 
-      <div class="box-header with-border">
-        <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarAreas">
-          Registrar Lead
-        </button>
+        <div class="box">
+
+            <div class="box-header with-border">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#modalRegistrarLeads">
+                    Registrar Lead
+                </button>
+            </div>
+
+            <div class="box-body">
+
+                <table class="table table-bordered table-striped dt-responsive tablas" width="100%">
+                    <thead>
+                      <tr>
+                        <th style="width:10px">#</th>
+                        <th>Status</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Email</th>
+                        <th>Telefono</th>
+                        <th>origen</th>
+                        <th>informacion adicional</th>
+                        <th style="width:80px">Acciones</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                        <?php
+                        $item = null;
+                        $valor = null;
+                        $categorias = ControladorLeads::ctrVerLeadsFrio($item, $valor);
+                       // echo '<pre>'; print_r($clientes); echo '</pre>';
+
+                        foreach ($categorias as $key => $value) {
+                          echo ' <tr>
+                          <td>'.($key+1).'</td>';
+                          if ($value["status_lead"] != 0) {
+                              echo '<td><button class="btn btn-success btn-xs btnAprobarPagoPension" idLeads="' . $value["id_lead"] . '" estadoActualLead="0">Habilitado</button></td>';
+                          } else {
+                              echo '<td><button class="btn btn-danger btn-xs btnAprobarPagoPension" idLeads="' . $value["id_lead"] . '" estadoActualLead="1">Inhabilitado</button></td>';
+                          };
+                          echo'
+                          <td class="text">'.$value["first_name"].'</td>
+                          <td class="text">'.$value["last_name"].'</td>
+                          <td class="text">'.$value["email"].'</td>
+                          <td class="text">'.$value["phone"].'</td>
+                          <td class="text">'.$value["origin"].'</td>
+                          <td class="text">'.$value["note"].'</td>                                               
+                          <td>
+                            <div class="btn-group">
+                              <button class="btn btn-warning btnEditarLead" idLeads="'.$value["id_lead"].'" data-toggle="modal" data-target="#modalActualizarLead"><i class="fa fa-pencil"></i></button>
+                              <button class="btn btn-danger btnEliminarLead" idLeads="'.$value["id_lead"].'" style="margin-left: 8px;"><i class="fa fa-times"></i></button>
+                            </div>
+                          </td>
+                        </tr>';
+
+                        }
+                        ?>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <th style="width:10px">#</th>
+                        <th>Status</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Email</th>
+                        <th>Telefono</th>
+                        <th>origen</th>
+                        <th>informacion adicional</th>
+                        <th style="width:80px">Acciones</th>
+                      </tr>
+                    </tfoot>
+                </table>
+
+            </div>
+
+        </div>
+    </section>
+</div>
+<!-- MODAL EDITAR Areas -->
+<div id="modalActualizarLead" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form role="form" method="post" enctype="multipart/form-data">
+                <!-- CABEZA DEL MODAL -->
+                <div class="modal-header" style="background:#3e383d; color:white">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Editar Lead</h4>
+                </div>
+                <!-- CUERPO DEL MODAL -->
+                <div class="modal-body" style="max-height: 400px; overflow-y: auto;">
+                    <div class="box-body">
+                        <div class="container">
+                            <h5>Información del Usuario</h5>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
+                                            <input type="text" class="form-control" name="editarNombre" id="editarNombre" placeholder="Ingresar Nombre" required>
+                                            <input type="hidden" name="idLeads" id="idLeads" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
+                                            <input type="text" class="form-control" name="editarApellido" id="editarApellido" placeholder="Ingresar Apellido" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                            <div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                            <input type="email" class="form-control" name="editarCorreo" id="editarCorreo" placeholder="Ingresar Correo" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                            <input type="text" class="form-control" name="editarTelefono" id="editarTelefono" placeholder="Ingresar Teléfono" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- PIE DEL MODAL -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+                  <?php
+                    $editarCategoria = new ControladorLeads();
+                    $editarCategoria -> ctrEditarLead();
+                  ?>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL DE CONFIRMACION PARA EL CAMBIO DE ESTADO -->
+<div class="modal fade" id="confirmacionModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+        <h4 class="modal-title">Confirmacion</h4>
+
       </div>
 
-      <!-- Flexbox para alinear las tablas -->
-      <div class="box-body d-flex">
+      <div class="modal-body">
+        ¿Está seguro de modificar el estado del lead?
+        <br>
+        Para realizar esta accion registre la informacion adicional
 
-        <!-- Primera tabla -->
-        <div class="table-container" style="flex: 1;">
-          <table class="table table-bordered table-striped dt-responsive tablas3" width="100%">
-            <thead>
-              <tr>
-                <th style="width:10px">#</th>
-                <th>Status</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Email</th>
-                <th>Telefono</th>
-                <th>origen</th>
-                <th>informacion adicional</th>
-                <th style="width:80px">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php
-                $item = null;
-                $valor = null;
-                $categorias = ControladorLeads::ctrVerLeadsFrio($item, $valor);
-                foreach ($categorias as $key => $value) {
-                  echo ' <tr>
-                          <td>'.($key+1).'</td>
-                          <td class="text">'.$value["status_lead"].'</td>
-                          <td class="text">'.$value["first_name"].'</td>
-                          <td class="text">'.$value["last_name"].'</td>
-                          <td class="text">'.$value["email"].'</td>
-                          <td class="text">'.$value["phone"].'</td>
-                          <td class="text">'.$value["origin"].'</td>
-                          <td class="text">'.$value["note"].'</td>                                               
-                          <td>
-                            <div class="btn-group">
-                              <button class="btn btn-warning btnEditarAreas" idLeads="'.$value["id_lead"].'" data-toggle="modal" data-target="#modalEditarAreas"><i class="fa fa-pencil"></i></button>
-                              <button class="btn btn-danger btnEliminarAreas" idLeads="'.$value["id_lead"].'" style="margin-left: 8px;"><i class="fa fa-times"></i></button>
-                            </div>
-                          </td>
-                        </tr>';
-                }
-              ?>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Segunda tabla -->
-        <div class="table-container" style="flex: 1;">
-          <table class="table table-bordered table-striped dt-responsive tablas4" width="100%">
-            <thead>
-              <tr>
-                <th style="width:10px">#</th>
-                <th>Status</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Email</th>
-                <th>Telefono</th>
-                <th>origen</th>
-                <th>informacion adicional</th>
-                <th style="width:80px">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php
-                $item = null;
-                $valor = null;
-                $elementos = ControladorLeads::ctrVerLeadsMQL($item, $valor);
-                foreach ($elementos as $key => $value) {
-                  echo ' <tr>
-                          <td>'.($key+1).'</td>
-                          <td class="text">'.$value["status_lead"].'</td>
-                          <td class="text">'.$value["first_name"].'</td>
-                          <td class="text">'.$value["last_name"].'</td>
-                          <td class="text">'.$value["email"].'</td>
-                          <td class="text">'.$value["phone"].'</td>
-                          <td class="text">'.$value["origin"].'</td>
-                          <td class="text">'.$value["note"].'</td>                                               
-                          <td>
-                            <div class="btn-group">
-                              <button class="btn btn-warning btnEditarAreas" idLeads="'.$value["id_lead"].'" data-toggle="modal" data-target="#modalEditarAreas"><i class="fa fa-pencil"></i></button>
-                              <button class="btn btn-danger btnEliminarAreas" idLeads="'.$value["id_lead"].'" style="margin-left: 8px;"><i class="fa fa-times"></i></button>
-                            </div>
-                          </td>
-                        </tr>';
-                }
-              ?>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="table-container" style="flex: 1;">
-          <table class="table table-bordered table-striped dt-responsive tablas5" width="100%">
-            <thead>
-              <tr>
-                <th style="width:10px">#</th>
-                <th>Status</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Email</th>
-                <th>Telefono</th>
-                <th>origen</th>
-                <th>informacion adicional</th>
-                <th style="width:80px">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php
-                $item = null;
-                $valor = null;
-                $elementos = ControladorLeads::ctrVerLeadsSQL($item, $valor);
-                foreach ($elementos as $key => $value) {
-                  echo ' <tr>
-                          <td>'.($key+1).'</td>
-                          <td class="text">'.$value["status_lead"].'</td>
-                          <td class="text">'.$value["first_name"].'</td>
-                          <td class="text">'.$value["last_name"].'</td>
-                          <td class="text">'.$value["email"].'</td>
-                          <td class="text">'.$value["phone"].'</td>
-                          <td class="text">'.$value["origin"].'</td>
-                          <td class="text">'.$value["note"].'</td>                                               
-                          <td>
-                            <div class="btn-group">
-                              <button class="btn btn-warning btnEditarAreas" idLeads="'.$value["id_lead"].'" data-toggle="modal" data-target="#modalEditarAreas"><i class="fa fa-pencil"></i></button>
-                              <button class="btn btn-danger btnEliminarAreas" idLeads="'.$value["id_lead"].'" style="margin-left: 8px;"><i class="fa fa-times"></i></button>
-                            </div>
-                          </td>
-                        </tr>';
-                }
-              ?>
-            </tbody>
-          </table>
-        </div>
-
-      </div> <!-- Fin de flexbox -->
-
-    </div>
-
-  </section>
-
-</div>
-
-<!-- MODAL AGREGAR Areas -->
-<div id="modalAgregarAreas" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <form role="form" method="post">
-        <div class="modal-header" style="background:#3c8dbc; color:white">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Agregar Area</h4>
-        </div>
-        <div class="modal-body">
-          <div class="box-body">
-            <div class="form-group">
-              <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-th"></i></span> 
-                <input type="text" class="form-control input-lg" name="nuevaArea" placeholder="Ingresar Area" required>
+        <div class="container">
+          <h5>Información del Cliente</h5>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
+                  <input type="number" class="form-control" name="nuevoIdCliente" placeholder="Ingresar Identificación">
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+            </div>              
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
-          <button type="submit" class="btn btn-primary">Guardar Area</button>
-        </div>
-        <?php
-          $crearCategoria = new ControladorAreas();
-          $crearCategoria -> ctrCrearAreas();
-        ?>
-      </form>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" style="background:Black; color:white" id="confirmarAccion">Confirmar</button>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- MODAL EDITAR Areas -->
-<div id="modalEditarAreas" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+<div id="modalRegistrarLeads" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg"> <!-- Cambié modal-lg para darle más espacio horizontal -->
+
     <div class="modal-content">
-      <form role="form" method="post">
-        <div class="modal-header" style="background:#3c8dbc; color:white">
+
+      <form role="form" method="post" enctype="multipart/form-data">
+
+        <!-- CABEZA DEL MODAL -->
+        <div class="modal-header" style="background:#3e383d; color:white">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Editar Area</h4>
+          <h4 class="modal-title">Agregar usuario</h4>
         </div>
-        <div class="modal-body">
+
+        <!-- CUERPO DEL MODAL -->
+        <div class="modal-body" style="max-height: 400px; overflow-y: auto;"> <!-- Añado el scroll interno -->
           <div class="box-body">
-            <div class="form-group">
-              <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-th"></i></span> 
-                <input type="text" class="form-control input-lg" name="editarAreas" id="editarAreas" required>
-                <input type="hidden" name="idLeads" id="idLeads" required>
+
+            <!-- ENTRADA PARA LA IDENTIFICACION -->
+            <div class="container">
+              <h5>Informacion del Usuario</h5>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
+                      <input type="text" class="form-control" name="nuevoNombre" placeholder="Ingresar Nombre">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
+                      <input type="text" class="form-control" name="nuevoApellido" placeholder="Ingresar Apellido">
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
+
+            <div class="container mt-3">
+              <h5>Informacion de Contacto</h5>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+                      <input type="email" class="form-control input-lg" name="nuevoEmail" placeholder="Ingresar Correo" required>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+                      <input type="text" class="form-control input-lg" name="nuevoTelefono" placeholder="Ingresar telefono de Contacto" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="container mt-3">
+              <h5>Area de derecho y Servicio Solicitado</h5>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
+                      <select class="form-control input-lg" name="nuevaArea" required>
+                        <option value="">Seleccionar Area de derecho</option>
+                        <?php
+                          $item = null;
+                          $valor = null;
+                          $categorias = ControladorAreaDerecho::ctrVerAreasDerecho($item, $valor);
+                          foreach ($categorias as $key => $value) {
+                            echo '<option value="' . $value["id_area"] . '">' . $value["law_area"] . '</option>';
+                          }
+                        ?>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="container mt-3">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
+                      <select class="form-control input-lg" name="nuevoServicio">
+                        <option value="">Seleccionar Servicio</option>
+                        <?php
+                          $item = null;
+                          $valor = null;
+                          $categorias = ControladorServicios::ctrVerServicios($item, $valor);
+                          foreach ($categorias as $key => $value) {
+                            echo '<option value="' . $value["id_service"] . '">' . $value["service_name"]  . '</option>';
+                          }
+                        ?>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+              </div>
+            </div>
+            <div class="container mt-3">
+            <h5>Informacion adicional</h5>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                  <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
+                      <input type="text" class="form-control" name="origenLead" placeholder="Como se entero del servicio">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                  <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
+                      <input type="text" class="form-control" name="observaciones" placeholder="Observaciones del asesor">
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div> <!-- Cierre del box-body -->
+        </div> <!-- Cierre del modal-body -->
+
+        <!-- PIE DEL MODAL -->
         <div class="modal-footer">
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
-          <button type="submit" class="btn btn-primary">Guardar cambios</button>
+          <button type="submit" name="register" class="btn btn-primary">Guardar usuario</button>
         </div>
+
         <?php
-          $editarCategoria = new ControladorAreas();
-          $editarCategoria -> ctrEditarAreas();
+          $crearUsuario = new ControladorLeads();
+          $crearUsuario->ctrRegistrarLead();
         ?>
+
       </form>
+
     </div>
+
   </div>
 </div>
+
+
+
+
 
 <?php
-  $borrarCategoria = new ControladorAreas();
-  $borrarCategoria -> ctrBorrarAreas();
+  $borrarLead = new ControladorLeads();
+  $borrarLead -> ctrEliminarLead();
 ?>
-
-<!-- SCRIPTS PARA LAS TABLAS -->
-<script>
-$(document).ready(function() {
-    // Inicializa la primera tabla
-    $('.tablas3').DataTable({
-        destroy: true,
-        responsive: true,
-        buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
-        lengthChange: false, // Desactiva la opción de cambiar la cantidad de registros mostrados
-        searching: false,    // Desactiva el filtro de búsqueda
-    });
-
-    // Inicializa la segunda tabla
-    $('.tablas4').DataTable({
-        destroy: true,
-        responsive: true,
-        buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
-        lengthChange: false, // Desactiva la opción de cambiar la cantidad de registros mostrados
-        searching: false,    // Desactiva el filtro de búsqueda
-    });
-
-    $('.tablas5').DataTable({
-        destroy: true,
-        responsive: true,
-        buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
-        lengthChange: false, // Desactiva la opción de cambiar la cantidad de registros mostrados
-        searching: false,    // Desactiva el filtro de búsqueda
-    });
-});
-
-</script>
-
-
-<?php
-
-  $eliminarCliente = new ControladorClientes();
-  $eliminarCliente -> ctrEliminarCliente();
-
-?> 
-
-
-
-
-
-
