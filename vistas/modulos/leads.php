@@ -239,8 +239,13 @@
 
                         foreach ($categorias as $key => $value) {
                           echo ' <tr>
-                          <td>'.($key+1).'</td>
-                          <td class="text">'.$value["status_lead"].'</td>
+                          <td>'.($key+1).'</td>';
+                          if ($value["status_lead"] != 0) {
+                              echo '<td><button class="btn btn-success btn-xs btnAprobarPagoPension" idLeads="' . $value["id_lead"] . '" estadoActualLead="0">Habilitado</button></td>';
+                          } else {
+                              echo '<td><button class="btn btn-danger btn-xs btnAprobarPagoPension" idLeads="' . $value["id_lead"] . '" estadoActualLead="1">Inhabilitado</button></td>';
+                          };
+                          echo'
                           <td class="text">'.$value["first_name"].'</td>
                           <td class="text">'.$value["last_name"].'</td>
                           <td class="text">'.$value["email"].'</td>
@@ -346,6 +351,47 @@
         </div>
     </div>
 </div>
+
+<!-- MODAL DE CONFIRMACION PARA EL CAMBIO DE ESTADO -->
+<div class="modal fade" id="confirmacionModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+        <h4 class="modal-title">Confirmacion</h4>
+
+      </div>
+
+      <div class="modal-body">
+        ¿Está seguro de modificar el estado del lead?
+        <br>
+        Para realizar esta accion registre la informacion adicional
+
+        <div class="container">
+          <h5>Información del Cliente</h5>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
+                  <input type="number" class="form-control" name="nuevoIdCliente" placeholder="Ingresar Identificación">
+                  </div>
+                </div>
+              </div>
+            </div>              
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" style="background:Black; color:white" id="confirmarAccion">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="modalRegistrarLeads" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg"> <!-- Cambié modal-lg para darle más espacio horizontal -->
 
