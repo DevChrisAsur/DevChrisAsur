@@ -34,6 +34,22 @@ class AjaxLeads {
             echo json_encode(array("error" => "ID de lead no válido."));
         }
     }
+
+    public $activarPago;
+    public $activarIdPension;
+
+    
+    public function ajaxEstadoPago() {
+        $tabla = "leads";
+        $item1 = "status_lead";
+        $valor1 = $this->activarPago;
+        $item2 = "id_lead";
+        $valor2 = $this->activarIdPension;
+
+        $respuesta = ModeloLeads::mdlEstadoLead($tabla, $item1, $valor1, $item2, $valor2);
+
+        echo json_encode($respuesta);
+    }
 }
 
 /*=============================================
@@ -44,4 +60,12 @@ if (isset($_POST["idLeads"])) {
     $curso = new AjaxLeads();
     $curso->idLeads = $_POST["idLeads"];
     $curso->ajaxEditarLead();
+}
+if (isset($_POST['activarPagoPension'])) {
+    error_log("activarPagoPension: " . $_POST['activarPagoPension']);
+    error_log("activarIdPension: " . $_POST['activarIdPension']);
+    $activarPago = new AjaxUsuarios();
+    $activarPago->activarPago = $_POST['activarPagoPension'];
+    $activarPago->activarIdPension = $_POST['activarIdPension'];
+    $activarPago->ajaxEstadoPago();
 }
