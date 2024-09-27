@@ -696,6 +696,7 @@ MODAL AGREGAR USUARIO
                           $valor = null;
                           $categorias = ControladorUsuarios::ctrMostrarCoordinadores($item, $valor);
                           foreach ($categorias as $key => $value) {
+                            echo ' <option value="0">sin asesor</option>';
                             echo '<option value="' . $value["id"] . '">' . $value["user_name"]  . '</option>';
                           }
                         ?>

@@ -10,12 +10,12 @@ class ControladorUsuarios{
 		if (isset($_POST["ingUsuario"])) {
 	
 			// Modificar la expresión regular para permitir guiones bajos en el nombre de usuario
-			if (preg_match('/^[a-zA-Z0-9_]+$/', $_POST["ingUsuario"]) &&
+			if (filter_var($_POST["ingUsuario"], FILTER_VALIDATE_EMAIL)&&
 				preg_match('/^[a-zA-Z0-9]+$/', $_POST["ingPassword"])) {
 	
 				// Obtener la tabla y buscar el usuario en la base de datos
 				$tabla = "usuarios";
-				$item = "user_name";
+				$item = "correo";
 				$valor = $_POST["ingUsuario"];
 				$respuesta = ModeloUsuarios::MdlMostrarUsuarios($tabla, $item, $valor);
 	
@@ -72,9 +72,20 @@ class ControladorUsuarios{
 				$ruta = "";
 				$tabla = "usuarios";
 	
+				// Verificar si el correo ya está registrado
+				$item = "correo";
+				$valor = $_POST["nuevoCorreo"];
+				$correoExistente = ModeloUsuarios::MdlMostrarUsuarios($tabla, $item, $valor);
+	
+				if (!empty($correoExistente)) {
+					// Si el correo ya está registrado, lanzar una excepción
+					throw new Exception("El correo ya está registrado en el sistema.");
+				}
+	
 				// Encriptación de la contraseña
 				$encriptar = password_hash($_POST["nuevoPassword"], PASSWORD_BCRYPT);
 	
+				// Datos del nuevo usuario
 				$datos = array(
 					"cc" => $_POST["nuevoIdentificacion"],
 					"first_name" => $_POST["nuevoNombre"],
@@ -115,7 +126,7 @@ class ControladorUsuarios{
 				echo '<script>
 						swal({
 							type: "error",
-							title: "'.$e->getMessage().'",
+							title: "' . $e->getMessage() . '",
 							showConfirmButton: true,
 							confirmButtonText: "Cerrar"
 						}).then(function(result){
@@ -128,9 +139,6 @@ class ControladorUsuarios{
 		}
 	}
 	
-	
-	
-
 	/*=============================================
 	MOSTRAR USUARIO
 	=============================================*/

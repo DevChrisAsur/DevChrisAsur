@@ -268,21 +268,3 @@ $(".tablas").on("click", ".btnEliminarUsuario1", function(){
   })
 
 })
-
-$(function () {
-	$("#asignarProfesor").selectize({
-
-	});
-});
-
-$(function () {
-	$("#asignarGrupo").selectize({
-
-	});
-});
-
-
-/*=============================================
-ENVIAR CORREO USUARIO
-=============================================*/
-
