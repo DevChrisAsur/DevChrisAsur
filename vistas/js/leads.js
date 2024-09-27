@@ -39,8 +39,7 @@ $(".tablas").on("click", ".btnEditarLead", function(){
       processData: false,
       dataType: "json",
       success: function(respuesta){
-        console.log("respuesta es", respuesta);
-  
+
         $("#editarNombre").val(respuesta["first_name"]);
         $("#editarApellido").val(respuesta["last_name"]);
         $("#editarCorreo").val(respuesta["email"]);
@@ -49,4 +48,47 @@ $(".tablas").on("click", ".btnEditarLead", function(){
       }
     });
   });
-  
+
+$(document).ready(function() {
+    $(document).on('click', '.btnAprobarPagoPension', function() {
+        var boton = $(this);
+        console.log("Se ha clicado en el botón para cambiar el estado"); // Depuración
+        
+        var idPension = boton.attr("idPension");
+        var estadoPago = boton.attr("estadoActualLead");
+
+        // Mostrar la modal de confirmación
+        $("#confirmacionModal").modal('show');
+
+        // Limpiar cualquier evento previo adjunto al botón #confirmarAccion
+        $("#confirmarAccion").off('click').on('click', function() {
+            var datos = new FormData();
+            datos.append("activarIdPension", idPension);
+            datos.append("activarPagoPension", estadoPago);
+
+            $.ajax({
+                url: "ajax/leads.ajax.php",
+                method: "POST",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(respuesta) {
+                    if (estadoPago == 0) {
+                        boton.removeClass('btn-success').addClass('btn-danger').html('Inhabilitado').attr('estadoActualLead', 1);
+                    } else {
+                        boton.removeClass('btn-danger').addClass('btn-success').html('Habilitado').attr('estadoActualLead', 0);
+                    }
+
+                    // Refrescar la página después de la actualización
+                    if (window.location.href.indexOf("ruta=usuarios") !== -1) {
+                        window.location.reload();
+                    }
+                }
+            });
+
+            // Ocultar la modal de confirmación
+            $("#confirmacionModal").modal('hide');
+        });
+    });
+});  
