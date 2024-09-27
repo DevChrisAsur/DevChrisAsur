@@ -131,32 +131,22 @@
 
     /* Asegurarse de que el select tenga el mismo tamaño y estilo que los campos de texto */
     .form-control.input-lg {
-        height: calc(1.5em + .75rem + 4px);
-        /* Ajustar la altura del select */
-        padding: .75rem 1.25rem;
-        /* Asegurar el mismo relleno que los campos de texto */
-        font-size: 1.25rem;
-        /* Asegurar el mismo tamaño de fuente */
-        line-height: 1.5;
-        /* Ajustar la línea de altura */
-        border-radius: .3rem;
-        /* Ajustar el radio de borde */
+    height: calc(1.5em + .75rem + 4px); /* Ajustar la altura del select */
+    padding: .75rem 1.25rem; /* Asegurar el mismo relleno que los campos de texto */
+    font-size: 1.25rem; /* Asegurar el mismo tamaño de fuente */
+    line-height: 1.5; /* Ajustar la línea de altura */
+    border-radius: .3rem; /* Ajustar el radio de borde */
     }
 
     .input-group .form-control {
-        border: 1px solid #ced4da;
-        /* Asegurar que el borde sea igual al de los campos de texto */
-        border-radius: .25rem;
-        /* Radio de borde para las esquinas redondeadas */
+    border: 1px solid #ced4da; /* Asegurar que el borde sea igual al de los campos de texto */
+    border-radius: .25rem; /* Radio de borde para las esquinas redondeadas */
     }
 
     .input-group-addon {
-        background-color: #e9ecef;
-        /* Asegurar el mismo color de fondo */
-        border: 1px solid #ced4da;
-        /* Borde del addon igual al de los campos de texto */
-        border-radius: .25rem;
-        /* Radio de borde para las esquinas redondeadas */
+    background-color: #e9ecef; /* Asegurar el mismo color de fondo */
+    border: 1px solid #ced4da; /* Borde del addon igual al de los campos de texto */
+    border-radius: .25rem; /* Radio de borde para las esquinas redondeadas */
     }
 </style>
 
@@ -279,7 +269,7 @@
         </div>
 
         <!-- MODAL AGREGAR CLIENTE -->
-        <div id="modalAgregarSuscripcion" class="modal fade" role="dialog">
+<div id="modalAgregarSuscripcion" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <form role="form" method="post" enctype="multipart/form-data">
@@ -331,7 +321,8 @@
                                     </div>
                                 </div>
                             </div>
-
+                        </div>
+                        <div class="row">
                             <!-- Fecha de Finalización de la Suscripción -->
                             <div class="col-md-4">
                                 <div class="form-group">
