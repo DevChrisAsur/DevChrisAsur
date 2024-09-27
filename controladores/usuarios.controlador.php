@@ -9,9 +9,8 @@ class ControladorUsuarios{
 	static public function ctrIngresoUsuario() {
 		if (isset($_POST["ingUsuario"])) {
 	
-			// Modificar la expresión regular para permitir guiones bajos en el nombre de usuario
-			if (filter_var($_POST["ingUsuario"], FILTER_VALIDATE_EMAIL)&&
-				preg_match('/^[a-zA-Z0-9]+$/', $_POST["ingPassword"])) {
+			// Comprobamos que el correo sea válido
+			if (filter_var($_POST["ingUsuario"], FILTER_VALIDATE_EMAIL)) {
 	
 				// Obtener la tabla y buscar el usuario en la base de datos
 				$tabla = "usuarios";
@@ -21,43 +20,58 @@ class ControladorUsuarios{
 	
 				// Verificar si se encontró un usuario
 				if (!empty($respuesta)) {
-					// Verificar la contraseña utilizando password_verify
-					if (password_verify($_POST["ingPassword"], $respuesta["password"])) {
 	
-						// Iniciar sesión
-						$_SESSION["iniciarSesion"] = "ok";
-						$_SESSION["id"] = $respuesta["id"];
-						$_SESSION["nombre"] = $respuesta["nombre"];
-						$_SESSION["usuario"] = $respuesta["usuario"];
-						$_SESSION["foto"] = $respuesta["foto"];
-						$_SESSION["perfil"] = $respuesta["perfil"];
-						$_SESSION["area"] = $respuesta["area"];
+					// Verificar el estado del usuario (si es diferente de 0)
+					if ($respuesta["user_status"] != 0) {
 	
-						// Registrar el último login
-						date_default_timezone_set('America/Bogota');
-						$fechaActual = date('Y-m-d H:i:s');
-						$item1 = "ultimo_login";
-						$valor1 = $fechaActual;
-						$item2 = "id";
-						$valor2 = $respuesta["id"];
-						$ultimoLogin = ModeloUsuarios::mdlActualizarUsuario($tabla, $item1, $valor1, $item2, $valor2);
+						// Verificar la contraseña utilizando password_verify
+						if (preg_match('/^[a-zA-Z0-9]+$/', $_POST["ingPassword"])) {
+							if (password_verify($_POST["ingPassword"], $respuesta["password"])) {
 	
-						if ($ultimoLogin == "ok") {
-							echo '<script>window.location = "inicio";</script>';
+								// Iniciar sesión
+								$_SESSION["iniciarSesion"] = "ok";
+								$_SESSION["id"] = $respuesta["id"];
+								$_SESSION["nombre"] = $respuesta["nombre"];
+								$_SESSION["usuario"] = $respuesta["usuario"];
+								$_SESSION["foto"] = $respuesta["foto"];
+								$_SESSION["perfil"] = $respuesta["perfil"];
+								$_SESSION["area"] = $respuesta["area"];
+	
+								// Registrar el último login
+								date_default_timezone_set('America/Bogota');
+								$fechaActual = date('Y-m-d H:i:s');
+								$item1 = "ultimo_login";
+								$valor1 = $fechaActual;
+								$item2 = "id";
+								$valor2 = $respuesta["id"];
+								$ultimoLogin = ModeloUsuarios::mdlActualizarUsuario($tabla, $item1, $valor1, $item2, $valor2);
+	
+								if ($ultimoLogin == "ok") {
+									echo '<script>window.location = "inicio";</script>';
+								}
+	
+							} else {
+								echo '<br><div class="alert alert-danger">Error al ingresar, vuelve a intentarlo</div>';
+							}
+						} else {
+							echo '<br><div class="alert alert-danger">La contraseña contiene caracteres no permitidos</div>';
 						}
+	
 					} else {
-						echo '<br><div class="alert alert-danger">Error al ingresar, vuelve a intentarlo</div>';
+						// Mensaje si el usuario está inactivo
+						echo '<br><div class="alert alert-danger">El usuario no está activo</div>';
 					}
+	
 				} else {
 					echo '<br><div class="alert alert-danger">Usuario no encontrado</div>';
 				}
+	
 			} else {
-				// Mensaje de error si la validación falla
-				echo '<br><div class="alert alert-danger">El nombre de usuario o la contraseña contienen caracteres no permitidos</div>';
+				// Mensaje de error si el correo no es válido
+				echo '<br><div class="alert alert-danger">El correo no es válido</div>';
 			}
 		}
 	}
-	
 	
 
 	/*=============================================
