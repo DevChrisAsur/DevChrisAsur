@@ -98,7 +98,7 @@ class ControladorUsuarios{
 	
 				// Encriptación de la contraseña
 				$encriptar = password_hash($_POST["nuevoPassword"], PASSWORD_BCRYPT);
-	
+				$idCoordinador = empty($_POST["nuevoCoordinador"]) ? null : $_POST["nuevoCoordinador"];
 				// Datos del nuevo usuario
 				$datos = array(
 					"cc" => $_POST["nuevoIdentificacion"],
@@ -110,7 +110,7 @@ class ControladorUsuarios{
 					"correo" => $_POST["nuevoCorreo"],
 					"phone" => $_POST["nuevoTelefono"],
 					"password" => $encriptar,
-					"id_coordinador" => $_POST["nuevoCoordinador"],
+					"id_coordinador" => $idCoordinador,
 					"foto" => $ruta,
 					"user_status" => "1"
 				);
