@@ -64,7 +64,7 @@ if (isset($_POST["idLeads"])) {
 if (isset($_POST['activarPagoPension'])) {
     error_log("activarPagoPension: " . $_POST['activarPagoPension']);
     error_log("activarIdPension: " . $_POST['activarIdPension']);
-    $activarPago = new AjaxUsuarios();
+    $activarPago = new AjaxLeads();
     $activarPago->activarPago = $_POST['activarPagoPension'];
     $activarPago->activarIdPension = $_POST['activarIdPension'];
     $activarPago->ajaxEstadoPago();
