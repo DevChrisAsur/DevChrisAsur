@@ -285,7 +285,143 @@
         </div>
 
         <!-- MODAL AGREGAR CLIENTE -->
-        <div id="modalAgregarCliente" class="modal fade" role="dialog">
+    <div id="modalAgregarCliente" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form role="form" method="post" enctype="multipart/form-data">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Registrar Cliente</h4>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Contenedor de Información del Cliente -->
+                            <div class="container">
+                                <h5>Información del Cliente</h5>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
+                                                <input type="number" class="form-control" name="nuevoIdCliente" placeholder="Ingresar Identificación">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                <input type="text" class="form-control" name="nuevoNombre" placeholder="Ingresar Nombre">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                <input type="text" class="form-control" name="nuevoApellido" placeholder="Ingresar Apellido">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="container mt-3">
+                            <h5>Tipo de Cliente</h5>
+                            <div class="row">
+                                <div class="col-md-4">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                    <select class="form-control input-lg" name="nuevoTipoCliente" id="tipoCliente">
+                                        <option value="">Seleccione Tipo de Cliente</option>
+                                        <option value="Persona Natural">Persona Natural</option>
+                                        <option value="Empresa">Empresa</option>
+                                    </select>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- Campo adicional para el número de empleados -->
+                                <div class="col-md-4" id="numEmpleadosContainer">
+                                <div class="form-group">
+                                    <h5>Número de Empleados</h5>
+                                    <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                                    <input type="number" class="form-control input-lg" name="nuevoEmpleado" placeholder="Ingresar Número de Empleados">
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="col-md-4" id="AniosContainer">
+                                <div class="form-group">
+                                    <h5>Años de experiencia</h5>
+                                    <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                                    <input type="number" class="form-control input-lg" name="nuevoAnosExperiencia" placeholder="Ingresar Número de Empleados">
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+
+                            
+
+                            <!-- Contenedor de Información de Contacto -->
+                            <div class="container mt-3">
+                                <h5>Información de Contacto</h5>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                <input type="email" class="form-control" name="nuevoEmail" placeholder="Ingresar Correo Electrónico">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                                <input type="text" class="form-control" name="nuevoTelefono" placeholder="Registrar Teléfono">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Contenedor de Información del Sistema -->
+                            <div class="container mt-3">
+                                <h5>Información del Sistema</h5>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-user-circle"></i></span>
+                                                <input type="text" class="form-control" name="nuevoUsuario" placeholder="Ingresar Nombre de Usuario">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
+                            <button type="submit" name="register" class="btn btn-primary">Guardar Cliente</button>
+                        </div>
+                        <?php
+                        $crearCliente = new ControladorClientes();
+                        $crearCliente->ctrCrearCliente();
+                        ?>
+                    </form>
+                </div>
+            </div>
+        </div>        
+
+    </section>
+</div>
+
+<div id="modalAgregarCliente" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form role="form" method="post" enctype="multipart/form-data">
@@ -417,9 +553,6 @@
                 </div>
             </div>
         </div>
-
-    </section>
-</div>
 
 <?php
 
