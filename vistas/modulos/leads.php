@@ -220,6 +220,7 @@
                       <tr>
                         <th style="width:10px">#</th>
                         <th>Status</th>
+                        <th>Identificacion</th>
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>Email</th>
@@ -241,11 +242,12 @@
                           echo ' <tr>
                           <td>'.($key+1).'</td>';
                           if ($value["status_lead"] != 0) {
-                              echo '<td><button class="btn btn-success btn-xs btnAprobarPagoPension" idLeads="' . $value["id_lead"] . '" estadoActualLead="0">Habilitado</button></td>';
+                              echo '<td><button class="btn btn-success btn-xs btnAprobarCliente" idLeads="' . $value["id_lead"] . '" estadoActualLead="0">Habilitado</button></td>';
                           } else {
-                              echo '<td><button class="btn btn-danger btn-xs btnAprobarPagoPension" idLeads="' . $value["id_lead"] . '" estadoActualLead="1">Inhabilitado</button></td>';
+                              echo '<td><button class="btn btn-danger btn-xs btnAprobarCliente" idLeads="' . $value["id_lead"] . '" estadoActualLead="1">Inhabilitado</button></td>';
                           };
                           echo'
+                          <td class="text">'.$value["cc"].'</td>
                           <td class="text">'.$value["first_name"].'</td>
                           <td class="text">'.$value["last_name"].'</td>
                           <td class="text">'.$value["email"].'</td>
@@ -267,6 +269,7 @@
                       <tr>
                         <th style="width:10px">#</th>
                         <th>Status</th>
+                        <th>Identificacion</th>
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>Email</th>
@@ -365,10 +368,7 @@
       </div>
 
       <div class="modal-body">
-        ¿Está seguro de modificar el estado del lead?
-        <br>
-        Para realizar esta accion registre la informacion adicional
-
+        Necesita completar los campos adicionales para cambiar su estado actual
         <div class="container">
           <h5>Información del Cliente</h5>
           <div class="row">
@@ -376,18 +376,101 @@
               <div class="form-group">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
-                  <input type="number" class="form-control" name="nuevoIdCliente" placeholder="Ingresar Identificación">
-                  </div>
+                  <input type="number" class="form-control" name="nuevoIdCliente" id="nuevoIdCliente" placeholder="Ingresar Identificación">
+                  <input type="hidden" name="idLeads" id="idLeads" required>
                 </div>
               </div>
-            </div>              
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
+                  <input type="text" class="form-control" name="nuevoNombre" id="nuevoNombre" placeholder="Ingresar Nombre" required>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
+                  <input type="text" class="form-control" name="nuevoApellido" id="nuevoApellido" placeholder="Ingresar Apellido" required>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container mt-3">
+        <h5>Tipo de Cliente</h5>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <div class="input-group">
+                <select class="form-control input-lg" name="nuevoTipoCliente" id="tipoCliente">
+                  <option value="">Seleccione Tipo de Cliente</option>
+                  <option value="Persona Natural">Persona Natural</option>
+                  <option value="Empresa">Empresa</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <!-- Campo adicional para el número de empleados -->
+          <div class="col-md-4" id="numEmpleadosContainer">
+            <div class="form-group">
+              <h5>Número de Empleados</h5>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                <input type="number" class="form-control input-lg" name="nuevoEmpleado" placeholder="Ingresar Número de Empleados">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4" id="AniosContainer">
+            <div class="form-group">
+              <h5>Años de experiencia</h5>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                <input type="number" class="form-control input-lg" name="nuevoAnosExperiencia" placeholder="Ingresar Número de Empleados">
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      
+      <!-- Contenedor de Información de Contacto -->
+      <div class="container mt-3">
+        <h5>Información de Contacto</h5>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                <input type="email" class="form-control" name="nuevoEmail" id="nuevoEmail" placeholder="Ingresar Correo Electrónico">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                <input type="text" class="form-control" name="nuevoTelefono" id="nuevoTelefono" placeholder="Registrar Teléfono">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         <button type="button" style="background:Black; color:white" id="confirmarAccion">Confirmar</button>
       </div>
+      <?php
+        $editarCategoria = new ControladorLeads();
+        $editarCategoria->ctrActualizarALeadYRegistrarCliente();
+        ?>
     </div>
   </div>
 </div>
@@ -541,7 +624,31 @@
 </div>
 
 
+<script>
 
+$(document).ready(function() {
+        // Detectar cambio en el campo Tipo de Cliente
+        $('#tipoCliente').change(function() {
+            var tipoCliente = $(this).val();
+            
+            if (tipoCliente === 'Persona Natural') {
+                // Asignar "0" a los campos y deshabilitarlos
+                $('#numEmpleadosContainer input').val(0).attr('readonly', true);
+                $('#AniosContainer input').val(0).attr('readonly', true);
+            } else {
+                // Habilitar los campos y vaciarlos si el tipo de cliente no es "Persona Natural"
+                $('#numEmpleadosContainer input').val('').removeAttr('readonly');
+                $('#AniosContainer input').val('').removeAttr('readonly');
+            }
+        });
+    });x
+    $(document).ready(function() {
+    $(".btnAprobarCliente").click(function() {
+        console.log("Se ha clicado en el botón para cambiar el estado");
+        $("#confirmacionModal").modal('show');
+    });
+});
+</script>
 
 
 <?php
