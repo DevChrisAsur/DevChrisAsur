@@ -84,62 +84,21 @@ $(".tablas").on("click", ".btnEditarUsuario", function(){
 /*=============================================
 ACTIVAR USUARIO
 =============================================*/
-$(".tablas").on("click", ".btnActivar", function(){
-
-	var idUsuario = $(this).attr("idUsuario");
-	var estadoUsuario = $(this).attr("estadoUsuario");
-
-	var datos = new FormData();
- 	datos.append("activarId", idUsuario);
-  	datos.append("activarUsuario", estadoUsuario);
-
-  	$.ajax({
-
-	  url:"ajax/usuarios.ajax.php",
-	  method: "POST",
-	  data: datos,
-	  cache: false,
-      contentType: false,
-      processData: false,
-      success: function(respuesta){
-
-      		if(window.matchMedia("(max-width:767px)").matches){
-
-	      		 swal({
-			      title: "El usuario ha sido actualizado",
-			      type: "success",
-			      confirmButtonText: "¡Cerrar!"
-			    }).then(function(result) {
-			        if (result.value) {
-
-			        	window.location = "usuarios";
-
-			        }
-
-
-				});
-
-	      	}
-
-      }
-
-  	})
-
-
-});
 $(document).ready(function() {
-    $(document).on('click', '.btnAprobarPagoPension', function() {
-        var boton = $(this);
-        console.log("Se ha clicado en el botón para cambiar el estado"); // Depuración
-        
-        var idPension = boton.attr("idPension");
+    $(".btnAprobarPagoPension").click(function() {
+        var boton = $(this); // Guardar una referencia al botón
+
+        var idPension = boton.attr("idUsuario");
         var estadoPago = boton.attr("estadoPagoPension");
 
         // Mostrar la modal de confirmación
         $("#confirmacionModal").modal('show');
 
-        // Limpiar cualquier evento previo adjunto al botón #confirmarAccion
-        $("#confirmarAccion").off('click').on('click', function() {
+        // Limpiar cualquier controlador de eventos click previamente adjuntado al botón #confirmarAccion
+        $("#confirmarAccion").off('click');
+
+        // Capturar el clic del botón de confirmación dentro de la modal
+        $("#confirmarAccion").click(function() {
             var datos = new FormData();
             datos.append("activarIdPension", idPension);
             datos.append("activarPagoPension", estadoPago);
@@ -152,16 +111,26 @@ $(document).ready(function() {
                 contentType: false,
                 processData: false,
                 success: function(respuesta) {
-                    if (estadoPago == 0) {
-                        boton.removeClass('btn-success').addClass('btn-danger').html('Inhabilitado').attr('estadoPagoPension', 1);
-                    } else {
-                        boton.removeClass('btn-danger').addClass('btn-success').html('Habilitado').attr('estadoPagoPension', 0);
-                    }
+                    console.log('respuesta: ', respuesta);
+                    // console.log('id_tuition: ', idMatricula);
+                    // console.log('status_payment: ', estadoPago);
 
-                    // Refrescar la página después de la actualización
-                    if (window.location.href.indexOf("ruta=usuarios") !== -1) {
-                        window.location.reload();
+                    // Cambiar la apariencia del botón después de que la solicitud AJAX se complete
+                    if (estadoPago == 0) {
+                        boton.removeClass('btn-success');
+                        boton.addClass('btn-danger');
+                        boton.html('No Habilitado');
+                        boton.attr('estadoPagoPension', 1);
+                    } else {
+                        boton.removeClass('btn-danger');
+                        boton.addClass('btn-success');
+                        boton.html('Habilitado');
+                        boton.attr('estadoPagoPension', 0);
                     }
+                    
+                    // if("index.php?ruta=usuarios"){
+                    //     window.location = "index.php?ruta=usuarios";
+                    // } 
                 }
             });
 
@@ -169,7 +138,10 @@ $(document).ready(function() {
             $("#confirmacionModal").modal('hide');
         });
     });
+
+
 });
+ 
 
 /*=============================================
 REVISAR SI EL USUARIO YA ESTÁ REGISTRADO
