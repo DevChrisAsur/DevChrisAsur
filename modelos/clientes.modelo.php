@@ -12,7 +12,7 @@ class ModeloCliente{
 static public function mdlRegistrarCliente($tabla, $datos) {
 
     // Preparar la consulta SQL para insertar datos en la tabla
-    $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(cc, first_name, last_name, customer_type, employers, experience_years, email, customer_phone, customer_username) VALUES (:cc, :first_name, :last_name, :customer_type, :employers, :experience_years, :email, :customer_phone, :customer_username)");
+    $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(cc, first_name, last_name, customer_type, employers, experience_years, email, phone, customer_username) VALUES (:cc, :first_name, :last_name, :customer_type, :employers, :experience_years, :email, :phone, :customer_username)");
 
     // Enlazar los parámetros con los valores del array $datos
     $stmt->bindParam(":cc", $datos['cc'], PDO::PARAM_STR);
@@ -22,7 +22,7 @@ static public function mdlRegistrarCliente($tabla, $datos) {
     $stmt->bindParam(":employers", $datos['employers'], PDO::PARAM_STR);
     $stmt->bindParam(":experience_years", $datos['experience_years'], PDO::PARAM_STR);
     $stmt->bindParam(":email", $datos['email'], PDO::PARAM_STR);
-    $stmt->bindParam(":customer_phone", $datos['customer_phone'], PDO::PARAM_STR);
+    $stmt->bindParam(":phone", $datos['phone'], PDO::PARAM_STR);
     $stmt->bindParam(":customer_username", $datos['customer_username'], PDO::PARAM_STR);
 
     // Ejecutar la consulta y manejar el resultado
