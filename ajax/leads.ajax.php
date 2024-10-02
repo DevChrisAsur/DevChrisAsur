@@ -35,21 +35,21 @@ class AjaxLeads {
         }
     }
 
-    public $activarPago;
-    public $activarIdPension;
-
+    public $activarEstadoLead; // Cambié activarPago a activarEstadoLead
+    public $activarIdLead; // Cambié activarIdPension a activarIdLead
     
     public function ajaxEstadoPago() {
         $tabla = "leads";
-        $item1 = "status_lead";
-        $valor1 = $this->activarPago;
-        $item2 = "id_lead";
-        $valor2 = $this->activarIdPension;
-
+        $item1 = "status_lead"; // Campo de la base de datos que se está actualizando
+        $valor1 = $this->activarEstadoLead; // Cambié valor1 para referirse a estado del lead
+        $item2 = "id_lead"; // Condición para identificar el lead
+        $valor2 = $this->activarIdLead; // Cambié valor2 para referirse a id_lead
+    
         $respuesta = ModeloLeads::mdlEstadoLead($tabla, $item1, $valor1, $item2, $valor2);
-
+    
         echo json_encode($respuesta);
     }
+    	
 }
 
 /*=============================================
@@ -61,11 +61,9 @@ if (isset($_POST["idLeads"])) {
     $curso->idLeads = $_POST["idLeads"];
     $curso->ajaxEditarLead();
 }
-if (isset($_POST['activarPagoPension'])) {
-    error_log("activarPagoPension: " . $_POST['activarPagoPension']);
-    error_log("activarIdPension: " . $_POST['activarIdPension']);
-    $activarPago = new AjaxLeads();
-    $activarPago->activarPago = $_POST['activarPagoPension'];
-    $activarPago->activarIdPension = $_POST['activarIdPension'];
-    $activarPago->ajaxEstadoPago();
+if (isset($_POST['activarEstadoLead'])) { // Cambié activarPagoPension a activarEstadoLead
+    $activarLead = new AjaxLeads(); // Cambié AjaxUsuarios a AjaxLeads para que sea más coherente
+    $activarLead->activarEstadoLead = $_POST['activarEstadoLead']; // Asigna el estado enviado
+    $activarLead->activarIdLead = $_POST['activarIdLead']; // Asigna el id_lead enviado
+    $activarLead->ajaxEstadoPago(); // Llamamos a la función para ejecutar la actualización
 }
