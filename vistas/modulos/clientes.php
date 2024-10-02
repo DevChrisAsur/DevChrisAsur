@@ -249,7 +249,7 @@
                       <td>' . $value["employers"] . '</td>
                       <td>' . $value["experience_years"] . '</td>
                       <td>' . $value["email"] . '</td>
-                      <td>' . $value["customer_phone"] . '</td>
+                      <td>' . $value["phone"] . '</td>
                       <td>' . $value["customer_username"] . '</td>
                       <td>
                           <div class="btn-group-container">

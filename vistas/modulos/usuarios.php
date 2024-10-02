@@ -323,13 +323,11 @@
               foreach ($usuarios as $key => $value) {
                   echo '<tr>
                         <td>' . ($key + 1) . '</td>';
-                        
-                  if ($value["user_status"] != 0) {
-                      echo '<td><button class="btn btn-success btn-xs btnAprobarPagoPension" idUsuario="' . $value["id"] . '" estadoPagoPension="0">Habilitado</button></td>';
-                  } else {
-                      echo '<td><button class="btn btn-danger btn-xs btnAprobarPagoPension" idUsuario="' . $value["id"] . '" estadoPagoPension="1">Inhabilitado</button></td>';
-                  };
-                  
+                        if($value["user_status"] != 0){
+                          echo '<td><button class="btn btn-success btn-xs btnAprobarPagoPension" idUsuario="'.$value["id"].'" estadoPagoPension="0">Habilitado</button></td>';
+                      } else {
+                          echo '<td><button class="btn btn-danger btn-xs btnAprobarPagoPension" idUsuario="'.$value["id"].'" estadoPagoPension="1">No Habilitado</button></td>';
+                      };
                   echo '<td>' . $value["cc"] . '</td>
                         <td>' . $value["first_name"] . '</td>
                         <td>' . $value["last_name"] . '</td>
@@ -504,6 +502,28 @@ if (in_array($_SESSION["perfil"], ["Coordinador comercial", "Director comercial"
 <script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>
 <script src="vistas/plugins/sweetalert2/sweetalert2.all.js"></script>
 
+
+<div class="modal fade" id="confirmacionModal"role="dialog" >
+  <div class="modal-dialog" >
+    <div class="modal-content">
+       <div class="modal-header" style="background:Gold; color:white">
+
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+          <h4 class="modal-title">Confirmacion</h4>
+
+        </div>
+
+      <div class="modal-body">
+        ¿Está seguro de que desea cambiar el estado del estudiante?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" style="background:Black; color:white" id="confirmarAccion">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!--=====================================
 MODAL AGREGAR USUARIO
@@ -1040,12 +1060,7 @@ $borrarUsuario->ctrBorrarUsuario();
 
   })
 
-  $(document).ready(function() {
-    $(".btnAprobarPagoPension").click(function() {
-        console.log("Se ha clicado en el botón para cambiar el estado");
-        $("#confirmacionModal").modal('show');
-    });
-});
+
 
 
 

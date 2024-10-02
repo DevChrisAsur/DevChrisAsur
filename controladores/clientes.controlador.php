@@ -18,25 +18,25 @@ class ControladorClientes {
 
                 $tabla = "cliente";
 
-                // Verificar si el nombre de usuario ya está registrado
-                $nombreUsuario = $_POST["nuevoUsuario"];
-                $usuarioRegistrado = ModeloCliente::mdlVerificarUsuario($tabla, $nombreUsuario);
+                // // Verificar si el nombre de usuario ya está registrado
+                // $nombreUsuario = $_POST["nuevoUsuario"];
+                // $usuarioRegistrado = ModeloCliente::mdlVerificarUsuario($tabla, $nombreUsuario);
 
-                if ($usuarioRegistrado) {
-                    echo '<script>
-                        swal({
-                            type: "error",
-                            title: "¡El nombre de usuario ya está registrado!",
-                            showConfirmButton: true,
-                            confirmButtonText: "Cerrar"
-                        }).then(function(result){
-                            if (result.value) {
-                                window.location = "clientes";
-                            }
-                        });
-                    </script>';
-                    return; // Salir del método si el usuario ya está registrado
-                }
+                // if ($usuarioRegistrado) {
+                //     echo '<script>
+                //         swal({
+                //             type: "error",
+                //             title: "¡El nombre de usuario ya está registrado!",
+                //             showConfirmButton: true,
+                //             confirmButtonText: "Cerrar"
+                //         }).then(function(result){
+                //             if (result.value) {
+                //                 window.location = "clientes";
+                //             }
+                //         });
+                //     </script>';
+                //     return; // Salir del método si el usuario ya está registrado
+                // }
 
                 // Preparar datos para inserción
                 $datos = array(
@@ -47,7 +47,7 @@ class ControladorClientes {
                     "employers" => $_POST["nuevoEmpleado"],
                     "experience_years" => $_POST["nuevoAnosExperiencia"],
                     "email" => $_POST["nuevoEmail"],
-                    "customer_phone" => $_POST["nuevoTelefono"],
+                    "phone" => $_POST["nuevoTelefono"],
                     "customer_username" => $_POST["nuevoUsuario"]
                 );
                 // echo '<pre>'; print_r($datos); echo '</pre>';

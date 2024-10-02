@@ -242,10 +242,10 @@
                           echo ' <tr>
                           <td>'.($key+1).'</td>';
                           if ($value["status_lead"] != 0) {
-                              echo '<td><button class="btn btn-success btn-xs btnAprobarCliente" idLeads="' . $value["id_lead"] . '" estadoActualLead="0">Habilitado</button></td>';
-                          } else {
-                              echo '<td><button class="btn btn-danger btn-xs btnAprobarCliente" idLeads="' . $value["id_lead"] . '" estadoActualLead="1">Inhabilitado</button></td>';
-                          };
+                            echo '<td><button class="btn btn-success btn-xs btnCambiarEstadoLead" idLead="' . $value["id_lead"] . '" estadoActualLead="0">Habilitado</button></td>';
+                        } else {
+                            echo '<td><button class="btn btn-danger btn-xs btnCambiarEstadoLead" idLead="' . $value["id_lead"] . '" estadoActualLead="1">Inhabilitado</button></td>';
+                        }
                           echo'
                           <td class="text">'.$value["cc"].'</td>
                           <td class="text">'.$value["first_name"].'</td>
@@ -356,7 +356,7 @@
 </div>
 
 <!-- MODAL DE CONFIRMACION PARA EL CAMBIO DE ESTADO -->
-<div class="modal fade" id="confirmacionModal" role="dialog">
+<!-- <div class="modal fade" id="confirmacionModal" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -419,7 +419,7 @@
           </div>
         </div>
         <div class="row">
-          <!-- Campo adicional para el número de empleados -->
+          Campo adicional para el número de empleados
           <div class="col-md-4" id="numEmpleadosContainer">
             <div class="form-group">
               <h5>Número de Empleados</h5>
@@ -441,7 +441,7 @@
         </div>
       </div>
       <!-- Contenedor de Información de Contacto -->
-      <div class="container mt-3">
+      <!-- <div class="container mt-3">
         <h5>Información de Contacto</h5>
         <div class="row">
           <div class="col-md-4">
@@ -466,11 +466,33 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         <button type="button" style="background:Black; color:white" id="confirmarAccion">Confirmar</button>
-      </div>
+      </div> -->
       <?php
-        $editarCategoria = new ControladorLeads();
-        $editarCategoria->ctrActualizarALeadYRegistrarCliente();
+        // $editarCategoria = new ControladorLeads();
+        // $editarCategoria->ctrActualizarALeadYRegistrarCliente();
         ?>
+    <!-- </div>
+  </div>
+</div> --> 
+
+<div class="modal fade" id="confirmacionModal"role="dialog" >
+  <div class="modal-dialog" >
+    <div class="modal-content">
+       <div class="modal-header" style="background:Gold; color:white">
+
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+          <h4 class="modal-title">Confirmacion</h4>
+
+        </div>
+
+      <div class="modal-body">
+        ¿Está seguro de que desea cambiar el estado del estudiante?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" style="background:Black; color:white" id="confirmarAccion">Confirmar</button>
+      </div>
     </div>
   </div>
 </div>

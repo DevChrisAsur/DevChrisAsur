@@ -76,16 +76,9 @@ class AjaxUsuarios{
 
         echo json_encode($respuesta);
     }
+    	
 }
 
-if (isset($_POST['activarPagoPension'])) {
-    error_log("activarPagoPension: " . $_POST['activarPagoPension']);
-    error_log("activarIdPension: " . $_POST['activarIdPension']);
-    $activarPago = new AjaxUsuarios();
-    $activarPago->activarPago = $_POST['activarPagoPension'];
-    $activarPago->activarIdPension = $_POST['activarIdPension'];
-    $activarPago->ajaxEstadoPago();
-}
 
 /*=============================================
 EDITAR USUARIO
@@ -110,7 +103,12 @@ if(isset($_POST["activarUsuario"])){
 	$activarUsuario -> ajaxActivarUsuario();
 
 }
-
+if (isset($_POST['activarPagoPension'])) {
+    $activarPago = new AjaxUsuarios();
+    $activarPago->activarPago = $_POST['activarPagoPension'];
+    $activarPago->activarIdPension = $_POST['activarIdPension'];
+    $activarPago->ajaxEstadoPago();
+}
 /*=============================================
 VALIDAR NO REPETIR USUARIO
 =============================================*/
