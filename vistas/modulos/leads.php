@@ -219,14 +219,17 @@
                     <thead>
                       <tr>
                         <th style="width:10px">#</th>
-                        <th>Status</th>
                         <th>Identificacion</th>
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>Email</th>
                         <th>Telefono</th>
-                        <th>origen</th>
-                        <th>informacion adicional</th>
+                        <th>Status</th>
+                        <th>Creacion</th>
+                        <th>Area de interes</th>
+                        <th>Servicio solicitado</th>
+                        <th>Origen</th>
+                        <th>Informacion adicional</th>
                         <th style="width:80px">Acciones</th>
                       </tr>
                     </thead>
@@ -235,23 +238,27 @@
                         <?php
                         $item = null;
                         $valor = null;
-                        $categorias = ControladorLeads::ctrVerLeadsFrio($item, $valor);
+                        $categorias = ControladorLeads::ctrVerInteresLead($item, $valor);
                        // echo '<pre>'; print_r($clientes); echo '</pre>';
 
                         foreach ($categorias as $key => $value) {
                           echo ' <tr>
                           <td>'.($key+1).'</td>';
-                          if ($value["status_lead"] != 0) {
-                            echo '<td><button class="btn btn-success btn-xs btnCambiarEstadoLead" idLead="' . $value["id_lead"] . '" estadoActualLead="0">Habilitado</button></td>';
-                        } else {
-                            echo '<td><button class="btn btn-danger btn-xs btnCambiarEstadoLead" idLead="' . $value["id_lead"] . '" estadoActualLead="1">Inhabilitado</button></td>';
-                        }
                           echo'
                           <td class="text">'.$value["cc"].'</td>
                           <td class="text">'.$value["first_name"].'</td>
                           <td class="text">'.$value["last_name"].'</td>
                           <td class="text">'.$value["email"].'</td>
-                          <td class="text">'.$value["phone"].'</td>
+                          <td class="text">'.$value["phone"].'</td>';
+                          if ($value["status_lead"] != 0) {
+                            echo '<td><button class="btn btn-success btn-xs btnCambiarEstadoLead" idLead="' . $value["id_lead"] . '" estadoActualLead="0">Habilitado</button></td>';
+                        } else {
+                            echo '<td><button class="btn btn-danger btn-xs btnCambiarEstadoLead" idLead="' . $value["id_lead"] . '" estadoActualLead="1">Inhabilitado</button></td>';
+                        };
+                        echo'
+                          <td class="text">'.$value["creation_date"].'</td>
+                          <td class="text">'.$value["law_area"].'</td>
+                          <td class="text">'.$value["service_name"].'</td> 
                           <td class="text">'.$value["origin"].'</td>
                           <td class="text">'.$value["note"].'</td>                                               
                           <td>
@@ -268,14 +275,17 @@
                     <tfoot>
                       <tr>
                         <th style="width:10px">#</th>
-                        <th>Status</th>
                         <th>Identificacion</th>
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>Email</th>
                         <th>Telefono</th>
-                        <th>origen</th>
-                        <th>informacion adicional</th>
+                        <th>Status</th>
+                        <th>Creacion</th>
+                        <th>Area de interes</th>
+                        <th>Servicio solicitado</th>
+                        <th>Origen</th>
+                        <th>Informacion adicional</th>
                         <th style="width:80px">Acciones</th>
                       </tr>
                     </tfoot>
@@ -517,6 +527,14 @@
             <!-- ENTRADA PARA LA IDENTIFICACION -->
             <div class="container">
               <h5>Informacion del Usuario</h5>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
+                    <input type="number" class="form-control" name="nuevoIdLead" placeholder="Ingresar identificacion">
+                  </div>
+                </div>
+              </div>
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
