@@ -84,7 +84,7 @@ class ControladorLeads {
           $fecha_actual = date('Y-m-d');
       
           $datos =array(
-  
+            "cc" => $_POST["nuevoIdLead"],
             "first_name" => $_POST["nuevoNombre"],
             "last_name" => $_POST["nuevoApellido"],
             "email" => $_POST["nuevoEmail"],
@@ -151,6 +151,10 @@ class ControladorLeads {
 	
 	}
 
+    static public function  ctrVerInteresLead($item, $valor) {
+		$respuesta = ModeloLeads::mdlVerLeadsInteres($item, $valor);
+		return $respuesta;
+	}
 	static public function ctrEditarLead(){
 
 		if(isset($_POST["editarNombre"])){
