@@ -90,7 +90,10 @@ static public function mdlVerLeadfrio($tabla, $item, $valor){
     if ($item != null) {
 
         // Cambiamos la condición para que sea 'frio' en vez de una cadena vacía
-        $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE status_lead = 'Frío' AND $item = :$item");
+        $stmt = Conexion::conectar()->prepare(  
+            "SELECT id_lead,cc,first_name,last_name,email,phone
+                    status_lead,creation_date,origin,note,id_service,id_area
+                         FROM $tabla");
 
         $stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
 
@@ -99,7 +102,7 @@ static public function mdlVerLeadfrio($tabla, $item, $valor){
         return $stmt->fetch();
     } else {
 
-        $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE status_lead = 'Frío'");
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
 
         $stmt->execute();
 
@@ -109,6 +112,27 @@ static public function mdlVerLeadfrio($tabla, $item, $valor){
     $stmt->close();
     $stmt = null;
 }
+
+static public function mdlVerLeadsInteres( $item, $valor){
+        // Cambiamos la condición para que sea 'frio' en vez de una cadena vacía
+        $query = "SELECT l.id_lead, l.cc, l.first_name, l.last_name, l.email,l.phone,
+                    l.status_lead, 
+                    l.creation_date, l.origin, l.note, l.id_service, l.id_area, a.law_area, s.service_name
+                         FROM leads l INNER JOIN area_derecho a ON l.id_area = a.id_area
+                            INNER JOIN servicio s ON l.id_service = s.id_service";	
+
+        $stmt = Conexion::conectar()->prepare($query);	
+		if ($item !== null && $valor !== null) {
+			$stmt->bindParam(":$item", $valor, PDO::PARAM_STR);
+		}	
+		$stmt->execute();
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->close();
+        $stmt = null;
+    }
+
+    
+
 
 static public function mdlEditarLead($tabla, $datos) {
 
