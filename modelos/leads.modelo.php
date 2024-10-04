@@ -3,7 +3,7 @@
 require_once "conexion.php";
 
 class ModeloLeads
-{
+{  
 
     static public function mdlActualizarACLiente($tabla, $datos) {
 
@@ -82,36 +82,27 @@ class ModeloLeads
         $stmt = null;
     }
 
-    /*=============================================
+/*=============================================
 	MOSTRAR CLIENTES
 =============================================*/
 
 static public function mdlVerLeadfrio($tabla, $item, $valor){
     if ($item != null) {
-
-        // Cambiamos la condición para que sea 'frio' en vez de una cadena vacía
+        // Incluimos la cláusula WHERE
         $stmt = Conexion::conectar()->prepare(  
-            "SELECT id_lead,cc,first_name,last_name,email,phone
-                    status_lead,creation_date,origin,note,id_service,id_area
-                         FROM $tabla");
-
+            "SELECT * FROM $tabla WHERE $item = :$item");
         $stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
-
         $stmt->execute();
-
         return $stmt->fetch();
     } else {
-
         $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
-
         $stmt->execute();
-
         return $stmt->fetchAll();
     }
-
     $stmt->close();
     $stmt = null;
 }
+
 
 static public function mdlVerLeadsInteres( $item, $valor){
         // Cambiamos la condición para que sea 'frio' en vez de una cadena vacía
@@ -131,31 +122,31 @@ static public function mdlVerLeadsInteres( $item, $valor){
         $stmt = null;
     }
 
+    static public function mdlEditarLead($tabla, $datos) {
+        try {
+            // Preparamos la consulta para actualizar solo los campos necesarios
+            $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET first_name = :first_name, last_name = :last_name, email = :email, phone = :phone WHERE id_lead = :id_lead");
     
-
-
-static public function mdlEditarLead($tabla, $datos) {
-
-    // Preparar la consulta SQL para actualizar los datos del lead en la tabla
-    $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET first_name = :first_name, last_name = :last_name, email = :email, phone = :phone WHERE id_lead = :id_lead");
-
-    // Vincular parámetros con sus respectivos valores
-    $stmt->bindParam(":first_name", $datos['first_name'], PDO::PARAM_STR);
-    $stmt->bindParam(":last_name", $datos['last_name'], PDO::PARAM_STR);
-    $stmt->bindParam(":email", $datos['email'], PDO::PARAM_STR);
-    $stmt->bindParam(":phone", $datos['phone'], PDO::PARAM_STR);
-    $stmt->bindParam(":id_lead", $datos['id_lead'], PDO::PARAM_INT);
-    // Ejecutar la consulta y manejar el resultado
-    if ($stmt->execute()) {
-        return "ok";
-    } else {
-        return "error";
+            // Vinculamos los parámetros
+            $stmt->bindParam(":first_name", $datos["first_name"], PDO::PARAM_STR);
+            $stmt->bindParam(":last_name", $datos["last_name"], PDO::PARAM_STR);
+            $stmt->bindParam(":email", $datos["email"], PDO::PARAM_STR);
+            $stmt->bindParam(":phone", $datos["phone"], PDO::PARAM_STR);
+            $stmt->bindParam(":id_lead", $datos["id_lead"], PDO::PARAM_INT);
+    
+            // Ejecutamos la consulta
+            if ($stmt->execute()) {
+                return "ok"; // Devuelve "ok" si la actualización es exitosa
+            } else {
+                return "error"; // Devuelve "error" si hay un problema
+            }
+        } catch (PDOException $e) {
+            return "Error: " . $e->getMessage(); // Captura el error para depuración
+        } finally {
+            $stmt = null; // Cierra la conexión
+        }
     }
-
-    // Cerrar la conexión
-    $stmt->close();
-    $stmt = null;
-}
+     
 
     static public function mdlEliminarLead($tabla, $datos)
     {
