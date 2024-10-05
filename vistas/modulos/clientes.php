@@ -227,7 +227,6 @@
                             <th style="width:100px">Años Experiencia</th>
                             <th style="width:100px">email</th>
                             <th style="width:100px">Telefono</th>
-                            <th style="width:100px">Usuario</th>
                             <th style="width:100px" align="center">Acciones</th>
                         </tr>
                     </thead>
@@ -250,7 +249,6 @@
                       <td>' . $value["experience_years"] . '</td>
                       <td>' . $value["email"] . '</td>
                       <td>' . $value["phone"] . '</td>
-                      <td>' . $value["customer_username"] . '</td>
                       <td>
                           <div class="btn-group-container">
                             <div class="btn-group">
@@ -274,7 +272,6 @@
                             <th style="width:100px">Años Experiencia</th>
                             <th style="width:100px">email</th>
                             <th style="width:100px">Teléfono</th>
-                            <th style="width:100px">Usuario</th>
                             <th style="width:100px" align="center">Acciones</th>
                         </tr>
                     </tfoot>
@@ -390,20 +387,6 @@
                                 </div>
                             </div>
 
-                            <!-- Contenedor de Información del Sistema -->
-                            <div class="container mt-3">
-                                <h5>Información del Sistema</h5>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="fa fa-user-circle"></i></span>
-                                                <input type="text" class="form-control" name="nuevoUsuario" placeholder="Ingresar Nombre de Usuario">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>

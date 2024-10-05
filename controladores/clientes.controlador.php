@@ -13,8 +13,7 @@ class ControladorClientes {
                 preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoEmpleado"]) &&
                 preg_match('/^[0-9]+$/', $_POST["nuevoAnosExperiencia"]) &&
                 filter_var($_POST["nuevoEmail"], FILTER_VALIDATE_EMAIL) &&
-                preg_match('/^[0-9+ ]+$/', $_POST["nuevoTelefono"]) &&
-                preg_match('/^[a-zA-Z0-9_]+$/', $_POST["nuevoUsuario"])) {
+                preg_match('/^[0-9+ ]+$/', $_POST["nuevoTelefono"])) {
 
                 $tabla = "cliente";
 
@@ -48,7 +47,7 @@ class ControladorClientes {
                     "experience_years" => $_POST["nuevoAnosExperiencia"],
                     "email" => $_POST["nuevoEmail"],
                     "phone" => $_POST["nuevoTelefono"],
-                    "customer_username" => $_POST["nuevoUsuario"]
+                    "id_lead" => $_POST["idLeads"]
                 );
                 // echo '<pre>'; print_r($datos); echo '</pre>';
                 // return;
