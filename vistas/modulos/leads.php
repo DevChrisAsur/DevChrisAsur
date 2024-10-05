@@ -335,7 +335,7 @@
     <div class="box">
 
       <div class="box-header with-border">
-        <button class="btn btn-primary" data-toggle="modal" data-target="#modalRegistrarLeads">
+        <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarLead">
           Registrar Lead
         </button>
       </div>
@@ -636,7 +636,7 @@
   </div>
 </div>
 
-<div id="modalRegistrarLeads" class="modal fade" role="dialog">
+<div id="modalAgregarLead" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg"> <!-- Cambié modal-lg para darle más espacio horizontal -->
 
     <div class="modal-content">
@@ -655,34 +655,41 @@
 
             <!-- ENTRADA PARA LA IDENTIFICACION -->
             <div class="container">
-              <h5>Informacion del Usuario</h5>
-              <div class="row">
-                <div class="col-md-4">
+            <h5>Informacion del Usuario</h5>
+            <div class="row">
+              <!-- ENTRADA PARA LA IDENTIFICACION -->
+              <div class="col-md-4">
+                <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
-                    <input type="number" class="form-control" name="nuevoIdLead" placeholder="Ingresar identificacion">
+                    <input type="text" class="form-control" name="nuevoIdLead" placeholder="Ingresar Identificación" required>
                   </div>
                 </div>
               </div>
+              </div>
               <div class="row">
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
-                      <input type="text" class="form-control" name="nuevoNombre" placeholder="Ingresar Nombre">
-                    </div>
+              <!-- ENTRADA PARA EL NOMBRE -->
+              <div class="col-md-4">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
+                    <input type="text" class="form-control" name="nuevoNombre" placeholder="Ingresar Nombre">
                   </div>
                 </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
-                      <input type="text" class="form-control" name="nuevoApellido" placeholder="Ingresar Apellido">
-                    </div>
+              </div>
+
+              <!-- ENTRADA PARA EL APELLIDO -->
+              <div class="col-md-4">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
+                    <input type="text" class="form-control" name="nuevoApellido" placeholder="Ingresar Apellido">
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+
 
             <div class="container mt-3">
               <h5>Informacion de Contacto</h5>
@@ -716,47 +723,47 @@
                       <select class="form-control input-lg" name="nuevaArea" required>
                         <option value="">Seleccionar Area de derecho</option>
                         <?php
-                        $item = null;
-                        $valor = null;
-                        $categorias = ControladorAreaDerecho::ctrVerAreasDerecho($item, $valor);
-                        foreach ($categorias as $key => $value) {
-                          echo '<option value="' . $value["id_area"] . '">' . $value["law_area"] . '</option>';
-                        }
+                          $item = null;
+                          $valor = null;
+                          $categorias = ControladorAreaDerecho::ctrVerAreasDerecho($item, $valor);
+                          foreach ($categorias as $key => $value) {
+                            echo '<option value="' . $value["id_area"] . '">' . $value["law_area"] . '</option>';
+                          }
                         ?>
                       </select>
                     </div>
                   </div>
                 </div>
                 <div class="container mt-3">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
-                          <select class="form-control input-lg" name="nuevoServicio">
-                            <option value="">Seleccionar Servicio</option>
-                            <?php
-                            $item = null;
-                            $valor = null;
-                            $categorias = ControladorServicios::ctrVerServicios($item, $valor);
-                            foreach ($categorias as $key => $value) {
-                              echo '<option value="' . $value["id_service"] . '">' . $value["service_name"]  . '</option>';
-                            }
-                            ?>
-                          </select>
-                        </div>
-                      </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
+                      <select class="form-control input-lg" name="nuevoServicio">
+                        <option value="">Seleccionar Servicio</option>
+                        <?php
+                          $item = null;
+                          $valor = null;
+                          $categorias = ControladorServicios::ctrVerServicios($item, $valor);
+                          foreach ($categorias as $key => $value) {
+                            echo '<option value="' . $value["id_service"] . '">' . $value["service_name"]  . '</option>';
+                          }
+                        ?>
+                      </select>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+              </div>
+            </div>
             <div class="container mt-3">
-              <h5>Informacion adicional</h5>
+            <h5>Informacion adicional</h5>
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
-                    <div class="input-group">
+                  <div class="input-group">
                       <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
                       <input type="text" class="form-control" name="origenLead" placeholder="Como se entero del servicio">
                     </div>
@@ -764,26 +771,26 @@
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
-                    <div class="input-group">
+                  <div class="input-group">
                       <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
                       <input type="text" class="form-control" name="observaciones" placeholder="Observaciones del asesor">
                     </div>
                   </div>
                 </div>
               </div>
-            </div> <!-- Cierre del box-body -->
-          </div> <!-- Cierre del modal-body -->
+          </div> <!-- Cierre del box-body -->
+        </div> <!-- Cierre del modal-body -->
 
-          <!-- PIE DEL MODAL -->
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
-            <button type="submit" name="register" class="btn btn-primary">Guardar usuario</button>
-          </div>
+        <!-- PIE DEL MODAL -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
+          <button type="submit" name="register" class="btn btn-primary">Guardar usuario</button>
+        </div>
 
-          <?php
+        <?php
           $crearUsuario = new ControladorLeads();
-          $crearUsuario->ctrEditarLead();
-          ?>
+          $crearUsuario->ctrRegistrarLead();
+        ?>
 
       </form>
 
@@ -791,6 +798,7 @@
 
   </div>
 </div>
+
 
 <script>
   $(document).ready(function() {
