@@ -1,5 +1,5 @@
 <?php
-
+require_once "../controladores/clientes.controlador.php";
 require_once "../controladores/leads.controlador.php";
 require_once "../modelos/leads.modelo.php";
 
@@ -89,8 +89,8 @@ if (isset($_POST["editarNombre"])) { // Verifica si se está enviando el nombre 
 }
 
 if (isset($_POST["nuevoIdCliente"])) {
-    $editarLead = new ControladorLeads();
-    $respuesta = $editarLead->ctrEditarLead();
+    $editarLead = new ControladorClientes();
+    $respuesta = $editarLead->ctrCrearCliente();
     var_dump($_POST); // Verifica qué datos llegan al servidor
     // Luego, continúa con la validación y lógica
 }
