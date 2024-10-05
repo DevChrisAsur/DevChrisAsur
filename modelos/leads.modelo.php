@@ -5,82 +5,36 @@ require_once "conexion.php";
 class ModeloLeads
 {  
 
-    static public function mdlActualizarACLiente($tabla, $datos) {
-
-        // Preparar la consulta SQL para obtener los datos del lead
-        $stmt = Conexion::conectar()->prepare(
-            "SELECT cc, first_name, last_name, email, phone FROM leads WHERE id_lead = :id_lead"
-        );
-        $stmt->bindParam(":id_lead", $datos['id_lead'], PDO::PARAM_INT);
-    
-        // Ejecutar la consulta para obtener los datos del lead
-        if ($stmt->execute()) {
-            // Obtener los datos del lead
-            $leadData = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-            if ($leadData) {
-                // Preparar los datos para registrar al cliente usando los datos obtenidos del lead
-                $clienteDatos = array(
-                    "cc" => $leadData['cc'],  // Cédula del cliente
-                    "first_name" => $leadData['first_name'],
-                    "last_name" => $leadData['last_name'],
-                    "customer_type" => $datos['customer_type'],  // Tipo de cliente
-                    "employers" => $datos['employers'],  // Empleadores del cliente
-                    "experience_years" => $datos['experience_years'],  // Años de experiencia
-                    "email" => $leadData['email'],
-                    "phone" => $leadData['phone'],
-                    "customer_username" => $datos['customer_username']  // Nombre de usuario del cliente
-                );
-    
-                // Registrar al cliente en la tabla correspondiente
-                $resultadoCliente = ModeloCliente::mdlRegistrarCliente("cliente", $clienteDatos);
-    
-                if ($resultadoCliente == "ok") {
-                    return "ok";  // Todo fue exitoso
-                } else {
-                    return "error_registro_cliente";  // Error al registrar al cliente
-                }
-            } else {
-                return "error_no_se_encontraron_datos_del_lead";  // No se encontraron datos del lead
-            }
-        } else {
-            return "error_obtener_datos_lead";  // Error al obtener los datos del lead
-        }
-    
-        // Cerrar la conexión
-        $stmt->close();
-        $stmt = null;
-    }
 /*=============================================
 	CREAR CLIENTE
 =============================================*/
-    static public function mdlRegistrarLead($tabla, $datos){
+static public function mdlRegistrarLead($tabla, $datos){
 
-        // Preparar la consulta SQL para insertar datos en la tabla
-        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla( cc, first_name, last_name, email, phone, status_lead,creation_date, origin, note, id_service, id_area) VALUES (:cc, :first_name, :last_name, :email, :phone, :status_lead, :creation_date, :origin, :note, :id_service, :id_area)");
-        $stmt->bindParam(":cc", $datos['cc'], PDO::PARAM_STR);
-        $stmt->bindParam(":first_name", $datos['first_name'], PDO::PARAM_STR);
-        $stmt->bindParam(":last_name", $datos['last_name'], PDO::PARAM_STR);
-        $stmt->bindParam(":email", $datos['email'], PDO::PARAM_STR);
-        $stmt->bindParam(":phone", $datos['phone'], PDO::PARAM_STR);
-        $stmt->bindParam(":status_lead", $datos['status_lead'], PDO::PARAM_STR);
-        $stmt->bindParam(":creation_date", $datos['creation_date'], PDO::PARAM_STR);
-        $stmt->bindParam(":origin", $datos['origin'], PDO::PARAM_STR);
-        $stmt->bindParam(":note", $datos['note'], PDO::PARAM_STR);
-        $stmt->bindParam(":id_service", $datos['id_service'], PDO::PARAM_INT);
-        $stmt->bindParam(":id_area", $datos['id_area'], PDO::PARAM_INT);
+    // Preparar la consulta SQL para insertar datos en la tabla
+    $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla( cc, first_name, last_name, email, phone, status_lead,creation_date, origin, note, id_service, id_area) VALUES ( :cc, :first_name, :last_name, :email, :phone, :status_lead, :creation_date, :origin, :note, :id_service, :id_area)");
+    $stmt->bindParam(":cc", $datos['cc'], PDO::PARAM_STR);
+    $stmt->bindParam(":first_name", $datos['first_name'], PDO::PARAM_STR);
+    $stmt->bindParam(":last_name", $datos['last_name'], PDO::PARAM_STR);
+    $stmt->bindParam(":email", $datos['email'], PDO::PARAM_STR);
+    $stmt->bindParam(":phone", $datos['phone'], PDO::PARAM_STR);
+    $stmt->bindParam(":status_lead", $datos['status_lead'], PDO::PARAM_STR);
+    $stmt->bindParam(":creation_date", $datos['creation_date'], PDO::PARAM_STR);
+    $stmt->bindParam(":origin", $datos['origin'], PDO::PARAM_STR);
+    $stmt->bindParam(":note", $datos['note'], PDO::PARAM_STR);
+    $stmt->bindParam(":id_service", $datos['id_service'], PDO::PARAM_INT);
+    $stmt->bindParam(":id_area", $datos['id_area'], PDO::PARAM_INT);
 
-        // Ejecutar la consulta y manejar el resultado
-        if ($stmt->execute()) {
-            return "ok";
-        } else {
-            return "error";
-        }
-
-        // Cerrar la conexión
-        $stmt->close();
-        $stmt = null;
+    // Ejecutar la consulta y manejar el resultado
+    if ($stmt->execute()) {
+        return "ok";
+    } else {
+        return "error";
     }
+
+    // Cerrar la conexión
+    $stmt->close();
+    $stmt = null;
+}
 
 /*=============================================
 	MOSTRAR CLIENTES
