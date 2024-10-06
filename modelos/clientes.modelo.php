@@ -69,24 +69,21 @@ static public function mdlRegistrarCliente($tabla, $datos) {
 	}
 
     static public function mdlVerificarUsuario($tabla, $usuario) {
-        // Preparar la consulta SQL para contar el número de registros con el nombre de usuario dado
-        $stmt = Conexion::conectar()->prepare("SELECT COUNT(*) FROM $tabla WHERE customer_username = :customer_username");
-    
-        // Enlazar el parámetro
-        $stmt->bindParam(":customer_username", $usuario, PDO::PARAM_STR);
-    
-        // Ejecutar la consulta
-        $stmt->execute();
-    
-        // Obtener el resultado
-        $count = $stmt->fetchColumn();
-    
-        // No es necesario cerrar explícitamente la conexión. Solo liberamos el objeto.
-        $stmt = null;
-    
-        // Retornar verdadero si ya existe un usuario con ese nombre, falso en caso contrario
-        return $count > 0;
+        try {
+            $stmt = Conexion::conectar()->prepare("SELECT COUNT(*) FROM $tabla WHERE cc = :cc");
+            $stmt->bindParam(":cc", $usuario, PDO::PARAM_STR);
+            $stmt->execute();
+            $count = $stmt->fetchColumn();
+            error_log("Consulta ejecutada correctamente. Resultado: " . $count); // Depuración
+            $stmt = null;
+            return $count;
+        } catch (PDOException $e) {
+            error_log("Error en la consulta: " . $e->getMessage()); // Depuración de errores de la consulta
+            return 0;
+        }
     }
+    
+    
     
     
     static public function mdlEliminarCliente($tabla, $datos){
