@@ -511,7 +511,7 @@
               </div>
             </div>
             <div id="tab2" class="tab">
-            <a href="#tab2" idLeads="<?php echo $value['id_lead']; ?>">Cliente</a>
+            <a href="#tab2">Cliente</a>
 
               <div class="tab-content">
                 <div class="box-body">
