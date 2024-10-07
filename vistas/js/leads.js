@@ -79,6 +79,9 @@ $(".tablas").on("click", ".btnEditarLead", function() {
         // Mostrar la modal de confirmación
         $("#confirmacionModal").modal('show');
 
+         // Asignar el idLead al atributo idLeads en el tab2
+        $('#tab2 a').attr('idLeads', idLead); // Esto asegura que el idLeads sea correcto para el tab "Cliente"
+    
         // Limpiar cualquier evento previo adjunto al botón #confirmarAccion
         $("#confirmarAccion").off('click').on('click', function() {
             var datos = new FormData();
@@ -119,7 +122,7 @@ $(".tablas").on("click", ".btnEditarLead", function() {
 $(document).on('click', '#tab2 a', function() {
     console.log("Se ha clicado en el botón para cambiar el estado del lead"); // Depuración
 
-    var idLeads = $(this).attr("idLeads");
+    var idLeads = $(this).attr("idLeads"); // Aquí recogemos el atributo idLeads
     console.log("idLeads:", idLeads); // Depuración
 
     if (!idLeads) {
@@ -143,7 +146,7 @@ $(document).on('click', '#tab2 a', function() {
         success: function(respuesta) {
             console.log(respuesta);
             // Si hay un error en la respuesta, mostrarlo
-            if (respuesta.error) { // Usa respuesta en lugar de data
+            if (respuesta.error) {
                 console.error("Error:", respuesta.error);
                 alert("Error: " + respuesta.error); // Muestra un mensaje si ocurre un error
             } else {
@@ -161,5 +164,4 @@ $(document).on('click', '#tab2 a', function() {
         }
     });
 });
-
 
