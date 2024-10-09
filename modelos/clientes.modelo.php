@@ -10,9 +10,8 @@ class ModeloCliente{
     
     
 static public function mdlRegistrarCliente($tabla, $datos) {
-
     // Preparar la consulta SQL para insertar datos en la tabla
-    $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(cc, first_name, last_name, customer_type, employers, experience_years, email, phone,id_lead) VALUES (:cc, :first_name, :last_name, :customer_type, :employers, :experience_years, :email, :phone, :id_lead)");
+    $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(cc, first_name, last_name, customer_type, employers, experience_years, email, phone, id_lead, country, state, city) VALUES (:cc, :first_name, :last_name, :customer_type, :employers, :experience_years, :email, :phone, :id_lead, :country, :state, :city)");
 
     // Enlazar los parámetros con los valores del array $datos
     $stmt->bindParam(":cc", $datos['cc'], PDO::PARAM_STR);
@@ -23,7 +22,11 @@ static public function mdlRegistrarCliente($tabla, $datos) {
     $stmt->bindParam(":experience_years", $datos['experience_years'], PDO::PARAM_STR);
     $stmt->bindParam(":email", $datos['email'], PDO::PARAM_STR);
     $stmt->bindParam(":phone", $datos['phone'], PDO::PARAM_STR);
-    $stmt->bindParam(":id_lead",$datos['id_lead'], PDO::PARAM_INT);
+    $stmt->bindParam(":id_lead", $datos['id_lead'], PDO::PARAM_INT);
+    $stmt->bindParam(":country", $datos['country'], PDO::PARAM_STR);
+    $stmt->bindParam(":state", $datos['state'], PDO::PARAM_STR);
+    $stmt->bindParam(":city", $datos['city'], PDO::PARAM_STR);
+
     // Ejecutar la consulta y manejar el resultado
     if ($stmt->execute()) {
         return "ok";
