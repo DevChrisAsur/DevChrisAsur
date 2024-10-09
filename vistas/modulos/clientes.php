@@ -151,7 +151,10 @@
 
 </style>
 
-<!-- selectize search  -->
+<head>
+    <!-- Importar la última versión de Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- selectize search  -->
 <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css"
@@ -162,6 +165,9 @@
 <!-- filtrar fechas -->
 <link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.3.1/css/dataTables.dateTime.min.css">
 <!-- Datatables librerias -->
+</head>
+
+
 
 <script
     src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"
@@ -219,12 +225,14 @@
                     <thead>
                         <tr>
                             <th style="width:10px">#</th>
+                            <th style="width:100px">Lead</th>
                             <th style="width:100px">Identificación</th>
+                            <th style="width:100px">Pais</th>
                             <th style="width:100px">Nombre</th>
                             <th style="width:100px">Apellido</th>
+                            <th style="width:100px">Estado</th>
+                            <th style="width:100px">Ciudad</th>                            
                             <th style="width:100px">Tipo Cliente</th>
-                            <th style="width:100px">No. Empleados</th>
-                            <th style="width:100px">Años Experiencia</th>
                             <th style="width:100px">email</th>
                             <th style="width:100px">Telefono</th>
                             <th style="width:100px" align="center">Acciones</th>
@@ -240,13 +248,20 @@
 
                         foreach ($clientes as $key => $value) {
                             echo '<tr>
-                      <td>' . ($key + 1) . '</td>
+                      <td>' . ($key + 1) . '</td>';
+                      echo'
+                      <td>
+                        <button class="btn btn-info btn" idCliente="' . $value["id_customer"] . '" style="margin-left: 8px;"><i class="fa-solid fa-info"></i></button>  
+                      </td>
+                      echo';
+                      echo'
                       <td>' . $value["cc"] . '</td>
+                      <td>' . $value["country"] . '</td>
                       <td>' . $value["first_name"] . '</td>
                       <td>' . $value["last_name"] . '</td>
+                      <td>' . $value["state"] . '</td>
+                      <td>' . $value["city"] . '</td>
                       <td>' . $value["customer_type"] . '</td>
-                      <td>' . $value["employers"] . '</td>
-                      <td>' . $value["experience_years"] . '</td>
                       <td>' . $value["email"] . '</td>
                       <td>' . $value["phone"] . '</td>
                       <td>
@@ -262,16 +277,18 @@
                         ?>
                     </tbody>
                     <tfoot>
-                        <tr>
+                    <tr>
                             <th style="width:10px">#</th>
+                            <th style="width:100px">Lead</th>
                             <th style="width:100px">Identificación</th>
+                            <th style="width:100px">Pais</th>
                             <th style="width:100px">Nombre</th>
                             <th style="width:100px">Apellido</th>
+                            <th style="width:100px">Estado</th>
+                            <th style="width:100px">Ciudad</th>                            
                             <th style="width:100px">Tipo Cliente</th>
-                            <th style="width:100px">No. Empleados</th>
-                            <th style="width:100px">Años Experiencia</th>
                             <th style="width:100px">email</th>
-                            <th style="width:100px">Teléfono</th>
+                            <th style="width:100px">Telefono</th>
                             <th style="width:100px" align="center">Acciones</th>
                         </tr>
                     </tfoot>
