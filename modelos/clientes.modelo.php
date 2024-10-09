@@ -43,33 +43,20 @@ static public function mdlRegistrarCliente($tabla, $datos) {
 	MOSTRAR CLIENTES
 =============================================*/
 
-	static public function mdlVerClientes($tabla, $item, $valor){
+static public function mdlVerClientes($tabla){
 
-		if($item != null){
+        $stmt = Conexion::conectar()->prepare(
+            "SELECT id_customer, cc, country, first_name, last_name, state, city, customer_type, email, phone, id_lead FROM $tabla");
 
-			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :$item");
+        $stmt -> execute();
 
-			$stmt -> bindParam(":".$item, $valor, PDO::PARAM_STR);
+        return $stmt -> fetchAll();
 
-			$stmt -> execute();
+    $stmt -> close();
+    $stmt = null;
 
-			return $stmt -> fetch();
+}
 
-		}else{
-
-			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
-
-			$stmt -> execute();
-
-			return $stmt -> fetchAll();
-
-		}
-
-		$stmt -> close();
-
-		$stmt = null;
-
-	}
 
     static public function mdlVerificarUsuario($tabla, $usuario) {
         try {
