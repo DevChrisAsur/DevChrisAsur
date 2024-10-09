@@ -353,8 +353,6 @@
               <th>Telefono</th>
               <th>Status</th>
               <th>Creacion</th>
-              <th>Area de interes</th>
-              <th>Servicio solicitado</th>
               <th>Origen</th>
               <th>Informacion adicional</th>
               <th style="width:80px">Acciones</th>
@@ -377,15 +375,13 @@
                           <td class="text">' . $value["last_name"] . '</td>
                           <td class="text">' . $value["email"] . '</td>
                           <td class="text">' . $value["phone"] . '</td>';
-              if ($value["status_lead"] != 0) {
-                echo '<td><button class="btn btn-success btn-xs btnCambiarEstadoLead" idLead="' . $value["id_lead"] . '" estadoActualLead="0">Habilitado</button></td>';
-              } else {
-                echo '<td><button class="btn btn-danger btn-xs btnCambiarEstadoLead" idLead="' . $value["id_lead"] . '" estadoActualLead="1">Inhabilitado</button></td>';
-              };
-              echo '
+                          if ($value["status_lead"] != 0) {
+                            echo '<td><button class="btn btn-success btn-xs btnCambiarEstadoLead" idLead="' . $value["id_lead"] . '" estadoActualLead="0">Cliente</button></td>';
+                          } else {
+                            echo '<td><button class="btn btn-info btn-xs btnCambiarEstadoLead" idLead="' . $value["id_lead"] . '" estadoActualLead="1">Lead</button></td>';
+                          };
+                          echo '
                           <td class="text">' . $value["creation_date"] . '</td>
-                          <td class="text">' . $value["law_area"] . '</td>
-                          <td class="text">' . $value["service_name"] . '</td> 
                           <td class="text">' . $value["origin"] . '</td>
                           <td class="text">' . $value["note"] . '</td>                                               
                           <td>
@@ -408,8 +404,6 @@
               <th>Telefono</th>
               <th>Status</th>
               <th>Creacion</th>
-              <th>Area de interes</th>
-              <th>Servicio solicitado</th>
               <th>Origen</th>
               <th>Informacion adicional</th>
               <th style="width:80px">Acciones</th>
@@ -511,8 +505,7 @@
               </div>
             </div>
             <div id="tab2" class="tab">
-            <a href="#tab2">Cliente</a>
-
+              <a href="#tab2">Cliente</a>
               <div class="tab-content">
                 <div class="box-body">
                   <form id="formularioCliente" method="POST">
@@ -553,6 +546,42 @@
                         </div>
                       </div>
 
+                      <!-- Dropdowns para País, Estado y Ciudad -->
+                      <div class="container mt-3">
+                        <h5>Dirección</h5>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="countryValue">País</label>
+                                    <select id="countryValue" class="form-control">
+                                        <option value="">Seleccionar País</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="stateValue">Estado</label>
+                                    <select id="stateValue" class="form-control" disabled>
+                                        <option value="">Seleccionar Estado</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="cityValue">Ciudad</label>
+                                    <select id="cityValue" class="form-control" disabled>
+                                        <option value="">Seleccionar Ciudad</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Campos ocultos para enviar datos al servidor -->
+                        <input type="hidden" name="nuevoPais" id="nuevoPais">
+                        <input type="hidden" name="nuevoEstado" id="nuevoEstado">
+                        <input type="hidden" name="nuevoCiudad" id="nuevoCiudad">
+                    </div>
+
+
                       <div class="container mt-3">
                         <h5>Tipo de Cliente</h5>
                         <div class="row">
@@ -569,7 +598,6 @@
                           </div>
                         </div>
                         <div class="row">
-
                           <div class="col-md-4" id="numEmpleadosContainer">
                             <div class="form-group">
                               <h5>Número de Empleados</h5>
@@ -584,7 +612,7 @@
                               <h5>Años de experiencia</h5>
                               <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-users"></i></span>
-                                <input type="number" class="form-control input-lg" name="nuevoAnosExperiencia" placeholder="Ingresar Número de Empleados">
+                                <input type="number" class="form-control input-lg" name="nuevoAnosExperiencia" placeholder="Ingresar Número de Años de Experiencia">
                               </div>
                             </div>
                           </div>
@@ -615,7 +643,7 @@
                     </div>
                     <!-- Botón de enviar -->
                     <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" id="guardarCambios">Guardar Cambios</button>
+                      <button type="submit" class="btn btn-primary" id="guardarCambios">Guardar Cambios</button>
                     </div>
                     <?php
                       $crearCliente = new ControladorClientes();
@@ -625,7 +653,6 @@
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
