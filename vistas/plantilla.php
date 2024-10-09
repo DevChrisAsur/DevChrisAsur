@@ -181,6 +181,6 @@ CUERPO DOCUMENTO
 <script src="vistas/js/areas.js"></script>
 <script src="vistas/js/servicios.js"></script>
 <script src="vistas/js/leads.js"></script>
-
+<script src="vistas/js/cities.js"></script>
 </body>
 </html>

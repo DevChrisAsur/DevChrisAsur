@@ -100,9 +100,9 @@ $(".tablas").on("click", ".btnEditarLead", function() {
                 success: function(respuesta) {
                     console.log("respuesta es", respuesta);
                     if (estadoActualLead == 0) {
-                        boton.removeClass('btn-success').addClass('btn-danger').html('Inhabilitado').attr('estadoActualLead', 1);
+                        boton.removeClass('btn-success').addClass('btn-info').html('Lead').attr('estadoActualLead', 1);
                     } else {
-                        boton.removeClass('btn-danger').addClass('btn-success').html('Habilitado').attr('estadoActualLead', 0);
+                        boton.removeClass('btn-info').addClass('btn-success').html('Cliente').attr('estadoActualLead', 0);
                     }
 
                     // Refrescar la página después de la actualización

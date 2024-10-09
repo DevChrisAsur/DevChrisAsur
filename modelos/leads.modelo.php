@@ -60,11 +60,10 @@ static public function mdlVerLeadfrio($tabla, $item, $valor){
 
 static public function mdlVerLeadsInteres( $item, $valor){
         // Cambiamos la condición para que sea 'frio' en vez de una cadena vacía
-        $query = "SELECT l.id_lead, l.cc, l.first_name, l.last_name, l.email,l.phone,
-                    l.status_lead, 
-                    l.creation_date, l.origin, l.note, l.id_service, l.id_area, a.law_area, s.service_name
-                         FROM leads l INNER JOIN area_derecho a ON l.id_area = a.id_area
-                            INNER JOIN servicio s ON l.id_service = s.id_service";	
+        $query = "SELECT id_lead, cc, first_name, last_name, email,phone,
+                    status_lead, 
+                    creation_date, origin, note
+                         FROM leads";	
 
         $stmt = Conexion::conectar()->prepare($query);	
 		if ($item !== null && $valor !== null) {
