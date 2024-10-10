@@ -172,6 +172,26 @@
                 </li>';
             }
             ?>
+            <?php
+            if($comparar == 'Asesor comercial'){
+
+                echo '
+                  <li class="treeview">
+                    <li>
+                            <a href="clientes">
+                                <i class="fa fa-address-book"></i>
+                                <span>clientes</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="leads">
+                                <i class="fa fa-exclamation"></i>
+                                <span>Leads</span>
+                            </a>
+                        </li>
+                </li>';
+            }
+            ?>
         </ul>
     </section>
 </aside>
