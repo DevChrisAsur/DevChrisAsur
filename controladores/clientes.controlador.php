@@ -84,6 +84,15 @@ class ControladorClientes {
 		return $respuesta;
 	
 	}
+    static public function ctrInfoCliente($item, $valor){
+
+		$tabla = "cliente";
+
+		$respuesta = ModeloCliente::mdlVerInfoCliente($tabla, $item, $valor);
+
+		return $respuesta;
+	
+	}
 
     /*=============================================
                 ELIMINAR CLIENTE
