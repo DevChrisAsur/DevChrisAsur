@@ -601,7 +601,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="countryValue">País</label>
-                                    <select id="countryValue" class="form-control">
+                                    <select id="countryValue" class="form-control input-lg">
                                         <option value="">Seleccionar País</option>
                                     </select>
                                 </div>
@@ -611,7 +611,7 @@
                         <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="stateValue">Estado</label>
-                                    <select id="stateValue" class="form-control" disabled>
+                                    <select id="stateValue" class="form-control input-lg" disabled>
                                         <option value="">Seleccionar Estado</option>
                                     </select>
                                 </div>
@@ -619,7 +619,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="cityValue">Ciudad</label>
-                                    <select id="cityValue" class="form-control" disabled>
+                                    <select id="cityValue" class="form-control input-lg" disabled>
                                         <option value="">Seleccionar Ciudad</option>
                                     </select>
                                 </div>

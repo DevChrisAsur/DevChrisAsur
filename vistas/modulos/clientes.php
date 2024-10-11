@@ -1,4 +1,98 @@
 <style>
+      .tabs {
+    padding: 10px;
+    color: var(--tabs-text-color);
+    margin-left: 10;
+    /* Cambia el valor según sea necesario */
+  }
+
+  .tab-content {
+    padding: 20px;
+    border: var(--tabs-border-size) solid #f0f0f0;
+    /* Borde gris */
+    border-radius: 0 0 10px 10px;
+    position: relative;
+    /* Cambia a 'relative' para que esté contenido en el contenedor */
+    top: 0;
+    /* Ajusta según sea necesario */
+    z-index: 100;
+    display: none;
+    /* Asegúrate de que esté oculto por defecto */
+  }
+
+
+  .tab>a {
+    background-color: #f0f0f0;
+    /* Color neutro para las pestañas */
+    padding: 10px;
+    border: none;
+    border-radius: 10px 10px 0 0;
+    border-bottom: 0;
+    color: var(--tabs-text-color);
+    /* Color del texto */
+    position: absolute;
+    /* Asegúrate de que el tab sea posicionado absolutamente */
+    top: 10px;
+    /* Ajusta la posición superior */
+    left: 10px;
+    /* Ajusta la posición izquierda */
+    right: 10px;
+    /* Ajusta la posición derecha */
+    bottom: 10px;
+    /* Ajusta la posición inferior */
+  }
+
+  .tab-container {
+    position: relative;
+    padding-top: var(--tabs-height);
+    /* Espaciado para las pestañas */
+  }
+
+
+  .tab:target>a,
+  .tab:last-of-type>a {
+    background-color: #f0f0f0;
+    /* Mantener el mismo color neutro en la pestaña seleccionada */
+    z-index: 200;
+  }
+
+
+  #tab1>a {
+    --tabs-position: 0;
+  }
+
+  #tab2>a {
+    --tabs-position: 1;
+  }
+
+  .tab>a {
+    text-align: center;
+    position: absolute;
+    width: calc(var(--tabs-width));
+    height: calc(var(--tabs-height) + var(--tabs-border-size));
+    top: 0;
+    left: calc(var(--tabs-width) * var(--tabs-position));
+    /* posición de cada pestaña */
+  }
+
+  :root {
+    --tabs-border-color: #cccccc;
+    /* Color gris para los bordes */
+    --tabs-border-size: 3px;
+    --tabs-text-color: black;
+    --tabs-dark-color: #f0f0f0;
+    /* Color neutro, puedes ajustarlo si es necesario */
+    --tabs-lite-color: #f0f0f0;
+    /* Color neutro para mantener la consistencia */
+    --tabs-width: 120px;
+    --tabs-height: 40px;
+  }
+
+  /* aspecto básico */
+  body {
+    font-family: sans-serif;
+    line-height: 1.2;
+  }
     #boxBodySecundario .parent {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -13,14 +107,14 @@
     }
     /* Estilos para div1 */
     .div1 {
-        grid-area: 1 / 1 / 4 / 3;
+        grid-area: 1 / 1 / 3 / 2;
         padding: 10px;
         margin: 2px 10px 0 2px;
     }
 
     /* Estilos para div2 */
     .div2 {
-        grid-area: 1 / 3 / 6 / 6;
+        grid-area: 1 / 2 / 6 / 6;
         padding: 10px;
         margin-top: 2px;
         position: relative;
@@ -41,7 +135,7 @@
 
     /* Estilos para div3 */
     .div3 {
-        grid-area: 4 / 1 / 6 / 3;
+        grid-area: 3 / 1 / 6 / 2;
         padding: 10px;
         padding-top: 0px;
         margin-top: -2px;
@@ -245,13 +339,14 @@
         border: 1px solid #ced4da;
         /* Asegurar que el borde sea igual al de los campos de texto */
         border-radius: .25rem;
+        padding: 8px 20px;
         /* Radio de borde para las esquinas redondeadas */
     }
 
     .input-group-addon {
     background-color: #e9ecef;
     border: 1px solid #ced4da;
-    padding: 6px 12px; /* Reduce el padding para que el ícono tenga más espacio */
+    padding: 8px 20px; /* Reduce el padding para que el ícono tenga más espacio */
     font-size: 16px;   /* Ajusta el tamaño del ícono */
     border-radius: 0.25rem;
     }
@@ -412,28 +507,29 @@
                             <input type="hidden" name="infoIdCliente" id="infoIdCliente">
                             <label for="infoAsesor">Asesor asociado:</label>
                             <span id="infoAsesor" name="infoAsesor" class="info-display"></span> <!-- Cambiado a span -->
-
-                            <div class="photo-container">
-                                <!-- Aquí puedes insertar la foto -->
-                                <img src="ruta/a/la/foto.jpg" alt="Foto del asesor">
-                            </div>
-
-                            <label for="infoStatus">Status:</label>
-                            <span id="infoStatus" class="info-display"></span> <!-- Cambiado a span -->
-
-                            <div class="container">
-                                <h5>Información del Cliente</h5>
-
-                                <div class="row mb-2">
-                                    <div class="col-md-4">
-                                        <label for="infoNombreApellido">Nombre:</label>
+                            <br><br>
+                            <div class="row mb-2 text-center">
+                                    <div class="col-md-12">
+                                        <label for="infoIdLeads">No. Cliente</label>
+                                        <span id="infoIdLeads" name="infoIdLeads" class="info-display"></span> <!-- Cambiado a span -->
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-md-12">
                                         <span id="infoNombreApellido" class="info-display"></span> <!-- Aquí irán ambos concatenados -->
                                     </div>
-                                </div>
-
-
+                                    
+                            </div>
+                            <br>
+                            <div class="row mb-2 text-center">
+                            <div class="col-md-12">
+                                    <label for="infoTipoCliente">Tipo de cliente</label>
+                                        <span id="infoTipoCliente" name="infoTipoCliente" class="info-display"></span> <!-- Cambiado a span -->
+                                    </div>
+                            </div>
+                            <div class="container text-center"> 
+                            <div class="row mb-2 text-center"> <!-- Añadido text-center -->
+                                
+                            </div>
+                            <br>
                                 <div class="row mb-2">
                                     <div class="col-md-4">
                                         <label for="infoEmail">Email:</label>
@@ -442,10 +538,20 @@
                                         <span id="infoEmail" name="infoEmail" class="info-display"></span> <!-- Cambiado a span -->
                                     </div>
                                 </div>
+                            <br>
+                            <div class="row mb-2">
+                                <div class="col-md-4">
+                                    <label for="infoCity">País:</label> <!-- Cambiado el label -->
+                                </div>
+                                <div class="col-md-8">
+                                    <span id="infoCity" name="infoCity" class="info-display"></span> <!-- Aquí se mostrará el país y ciudad -->
+                                </div>
+                            </div>
 
+                            <br>
                                 <div class="row mb-2">
                                     <div class="col-md-4">
-                                        <label for="infoTelefono">Teléfono:</label>
+                                        <label for="infoTelefono">Telefono</label>
                                     </div>
                                     <div class="col-md-8">
                                         <span id="infoTelefono" name="infoTelefono" class="info-display"></span> <!-- Cambiado a span -->
@@ -454,56 +560,179 @@
                             </div>
                         </div>
 
-                        <div class="div2">hola 2</div>
+                        <div class="div2">
+                        <div class="tabs">
+          <div class="tab-container">
+            <div id="tab1" class="tab">
+              <a href="#tab1">Productos</a>
+              <div class="tab-content">
+                <h5>¿Está seguro de que desea cambiar el estado de lead a cliente?</h5>
+                <br>
+                <h5>Necesita completar algunos campos adicionales en la siguiente pestaña</h5>
+                <button type="button" class="btn btn-secondary" style="background: Black; color: white; position: absolute; bottom: 10px; right: 10px;" id="confirmarAccion">Confirmar</button>
+              </div>
+            </div>
+            <div id="tab2" class="tab">
+              <a href="#tab2">Cliente</a>
+              <div class="tab-content">
+                <div class="box-body">
+                  <form id="formularioCliente" method="POST">
+                    <div class="container">
+                      <div class="container">
+                        <h5>Información del Cliente</h5>
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
+                                <input type="text" class="form-control" name="nuevoIdCliente" id="nuevoIdCliente" placeholder="Ingresar Identificación">
+                                <input type="hidden" name="idLeads" id="idLeads" required>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
 
-                        <div class="div3">
-                            <div class="container">
-                                <h5>Más Información del Cliente</h5>
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
+                                <input type="text" class="form-control" name="nuevoNombre" id="nuevoNombre" placeholder="Ingresar Nombre">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
+                                <input type="text" class="form-control" name="nuevoApellido" id="nuevoApellido" placeholder="Ingresar Apellido">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
 
-                                <div class="row mb-2">
-                                    <div class="col-md-4">
-                                        <label for="infoAsesor1">Asesor 1:</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <span id="infoAsesor1" name="infoAsesor1" class="info-display"></span> <!-- Cambiado a span -->
-                                    </div>
+                      <!-- Dropdowns para País, Estado y Ciudad -->
+                      <div class="container mt-3">
+                        <h5>Dirección</h5>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="countryValue">País</label>
+                                    <select id="countryValue" class="form-control input-lg">
+                                        <option value="">Seleccionar País</option>
+                                    </select>
                                 </div>
-
-                                <div class="row mb-2">
-                                    <div class="col-md-4">
-                                        <label for="infoAsesor2">Asesor 2:</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <span id="infoAsesor2" name="infoAsesor2" class="info-display"></span> <!-- Cambiado a span -->
-                                    </div>
+                            </div>  
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="stateValue">Estado</label>
+                                    <select id="stateValue" class="form-control input-lg" disabled>
+                                        <option value="">Seleccionar Estado</option>
+                                    </select>
                                 </div>
-
-                                <div class="row mb-2">
-                                    <div class="col-md-4">
-                                        <label for="infoAsesor3">Asesor 3:</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <span id="infoAsesor3" name="infoAsesor3" class="info-display"></span> <!-- Cambiado a span -->
-                                    </div>
-                                </div>
-
-                                <div class="row mb-2">
-                                    <div class="col-md-4">
-                                        <label for="infoAsesor4">Asesor 4:</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <span id="infoAsesor4" name="infoAsesor4" class="info-display"></span> <!-- Cambiado a span -->
-                                    </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="cityValue">Ciudad</label>
+                                    <select id="cityValue" class="form-control input-lg" disabled>
+                                        <option value="">Seleccionar Ciudad</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        <!-- Campos ocultos para enviar datos al servidor -->
+                        <input type="hidden" name="nuevoPais" id="nuevoPais">
+                        <input type="hidden" name="nuevoEstado" id="nuevoEstado">
+                        <input type="hidden" name="nuevoCiudad" id="nuevoCiudad">
+                      </div>
 
-                    <div class="container">
-                        <button class="btn btn-primary" id="btnVolver">Volver al Principal</button>
+
+                      <div class="container mt-3">
+                        <h5>Tipo de Cliente</h5>
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <div class="input-group">
+                                <select class="form-control input-lg" name="nuevoTipoCliente" id="tipoCliente">
+                                  <option value="">Seleccione Tipo de Cliente</option>
+                                  <option value="Persona Natural">Persona Natural</option>
+                                  <option value="Empresa">Empresa</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-4" id="numEmpleadosContainer">
+                            <div class="form-group">
+                              <h5>Número de Empleados</h5>
+                              <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                                <input type="number" class="form-control input-lg" name="nuevoEmpleado" placeholder="Ingresar Número de Empleados">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4" id="AniosContainer">
+                            <div class="form-group">
+                              <h5>Años de experiencia</h5>
+                              <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                                <input type="number" class="form-control input-lg" name="nuevoAnosExperiencia" placeholder="Ingresar Número de Años de Experiencia">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="container mt-3">
+                        <h5>Información de Contacto</h5>
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                <input type="email" class="form-control" name="nuevoEmail" id="nuevoEmail" placeholder="Ingresar Correo Electrónico">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                <input type="text" class="form-control" name="nuevoTelefono" id="nuevoTelefono" placeholder="Registrar Teléfono">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Botón de enviar -->
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary" id="guardarCambios">Guardar Cambios</button>
+                    </div>
+                    <?php
+                      $crearCliente = new ControladorClientes();
+                      $crearCliente->ctrCrearCliente();
+                    ?>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+                        </div>
+                        <div class="div3">
+                            <div class="container">
+                                <button class="btn btn-primary" id="btnVolver">x</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
         </div>
 
         <!-- MODAL AGREGAR CLIENTE -->
@@ -555,7 +784,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="countryValue">País</label>
-                                        <select id="countryValue" class="form-control">
+                                        <select id="countryValue" class="form-control input-lg">
                                             <option value="">Seleccionar País</option>
                                         </select>
                                     </div>
@@ -565,7 +794,7 @@
                             <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="stateValue">Estado</label>
-                                        <select id="stateValue" class="form-control" disabled>
+                                        <select id="stateValue" class="form-control input-lg" disabled>
                                             <option value="">Seleccionar Estado</option>
                                         </select>
                                     </div>
@@ -573,7 +802,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="cityValue">Ciudad</label>
-                                        <select id="cityValue" class="form-control" disabled>
+                                        <select id="cityValue" class="form-control input-lg" disabled>
                                             <option value="">Seleccionar Ciudad</option>
                                         </select>
                                     </div>
@@ -715,4 +944,22 @@ $eliminarCliente->ctrEliminarCliente();
             $('#boxBodyPrincipal').slideToggle(); // Muestra el box-body principal
         });
     });
+
+    document.querySelectorAll('.tab a').forEach(tab => {
+    tab.addEventListener('click', function(e) {
+      e.preventDefault();
+      // Ocultar todas las pestañas
+      document.querySelectorAll('.tab-content').forEach(content => {
+        content.style.display = 'none';
+      });
+      // Mostrar la pestaña seleccionada
+      const activeTabContent = document.querySelector(this.getAttribute('href'));
+      if (activeTabContent) {
+        activeTabContent.style.display = 'block';
+      }
+    });
+  });
+
+  // Inicializar la primera pestaña como activa
+  document.querySelector('.tab-content').style.display = 'block';
 </script>
