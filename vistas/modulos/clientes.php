@@ -84,12 +84,9 @@
     }
 
     .input-group {
-        display: flex;
-        /* Establece el contenedor como flexbox */
-        align-items: center;
-        /* Alinea los elementos verticalmente al centro */
-        margin-bottom: 10px;
-        /* Espacio entre cada grupo */
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
     }
 
     /* Estilo para el label */
@@ -252,12 +249,11 @@
     }
 
     .input-group-addon {
-        background-color: #e9ecef;
-        /* Asegurar el mismo color de fondo */
-        border: 1px solid #ced4da;
-        /* Borde del addon igual al de los campos de texto */
-        border-radius: .25rem;
-        /* Radio de borde para las esquinas redondeadas */
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    padding: 6px 12px; /* Reduce el padding para que el ícono tenga más espacio */
+    font-size: 16px;   /* Ajusta el tamaño del ícono */
+    border-radius: 0.25rem;
     }
 </style>
 
@@ -554,38 +550,40 @@
                             </div>
                             <!-- Dropdowns para País, Estado y Ciudad -->
                             <div class="container mt-3">
-                                <h5>Dirección</h5>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="countryValue">País</label>
-                                            <select id="countryValue" class="form-control">
-                                                <option value="">Seleccionar País</option>
-                                            </select>
-                                        </div>
+                            <h5>Dirección</h5>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="countryValue">País</label>
+                                        <select id="countryValue" class="form-control">
+                                            <option value="">Seleccionar País</option>
+                                        </select>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="stateValue">Estado</label>
-                                            <select id="stateValue" class="form-control" disabled>
-                                                <option value="">Seleccionar Estado</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="cityValue">Ciudad</label>
-                                            <select id="cityValue" class="form-control" disabled>
-                                                <option value="">Seleccionar Ciudad</option>
-                                            </select>
-                                        </div>
+                                </div>  
+                            </div>
+                            <div class="row">
+                            <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="stateValue">Estado</label>
+                                        <select id="stateValue" class="form-control" disabled>
+                                            <option value="">Seleccionar Estado</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <!-- Campos ocultos para enviar datos al servidor -->
-                                <input type="hidden" name="nuevoPais" id="nuevoPais">
-                                <input type="hidden" name="nuevoEstado" id="nuevoEstado">
-                                <input type="hidden" name="nuevoCiudad" id="nuevoCiudad">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="cityValue">Ciudad</label>
+                                        <select id="cityValue" class="form-control" disabled>
+                                            <option value="">Seleccionar Ciudad</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
+                            <!-- Campos ocultos para enviar datos al servidor -->
+                            <input type="hidden" name="nuevoPais" id="nuevoPais">
+                            <input type="hidden" name="nuevoEstado" id="nuevoEstado">
+                            <input type="hidden" name="nuevoCiudad" id="nuevoCiudad">
+                        </div>
 
                             <div class="container mt-3">
                                 <h5>Tipo de Cliente</h5>
