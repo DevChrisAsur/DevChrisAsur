@@ -245,13 +245,14 @@
         border: 1px solid #ced4da;
         /* Asegurar que el borde sea igual al de los campos de texto */
         border-radius: .25rem;
+        padding: 8px 20px;
         /* Radio de borde para las esquinas redondeadas */
     }
 
     .input-group-addon {
     background-color: #e9ecef;
     border: 1px solid #ced4da;
-    padding: 6px 12px; /* Reduce el padding para que el ícono tenga más espacio */
+    padding: 8px 20px; /* Reduce el padding para que el ícono tenga más espacio */
     font-size: 16px;   /* Ajusta el tamaño del ícono */
     border-radius: 0.25rem;
     }
@@ -555,7 +556,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="countryValue">País</label>
-                                        <select id="countryValue" class="form-control">
+                                        <select id="countryValue" class="form-control input-lg">
                                             <option value="">Seleccionar País</option>
                                         </select>
                                     </div>
@@ -565,7 +566,7 @@
                             <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="stateValue">Estado</label>
-                                        <select id="stateValue" class="form-control" disabled>
+                                        <select id="stateValue" class="form-control input-lg" disabled>
                                             <option value="">Seleccionar Estado</option>
                                         </select>
                                     </div>
@@ -573,7 +574,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="cityValue">Ciudad</label>
-                                        <select id="cityValue" class="form-control" disabled>
+                                        <select id="cityValue" class="form-control input-lg" disabled>
                                             <option value="">Seleccionar Ciudad</option>
                                         </select>
                                     </div>
