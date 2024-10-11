@@ -56,11 +56,16 @@ $(document).on('click', '#btnInformacionAdicional', function() {
                 alert("Error: " + respuesta.error);
             } else {
                 var nombreCompleto = respuesta.first_name + ' ' + respuesta.last_name;
-                $('#infoIdCliente').val(respuesta.cc);
+                
+                $('#infoIdCCliente').val(respuesta.cc);
                 $('#infoNombreApellido').text(nombreCompleto);
                 $('#infoEmail').text(respuesta.email);
                 $('#infoTelefono').text(respuesta.phone);
-                $('#infoIdLeads').text(respuesta.id_lead);
+                var paisCiudad = (respuesta.country || 'Desconocido') + '/' + (respuesta.city || 'Desconocida');
+                $('#infoCity').text(paisCiudad);
+                $('#infoIdLeads').text(respuesta.id_customer);
+                $('#infoTipoCliente').text(respuesta.customer_type);
+                
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {
