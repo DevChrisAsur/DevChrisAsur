@@ -2,70 +2,66 @@
 
 class ControladorLeads {
 
-  static public function ctrRegistrarLead(){
+	static public function ctrRegistrarLead(){
 
-    if(isset($_POST["nuevoNombre"])){
-             
-        $tabla = "leads";
-        $fecha_actual = date('Y-m-d');
-    
-        $datos =array(
-          "cc" => $_POST["nuevoIdLead"],
-          "first_name" => $_POST["nuevoNombre"],
-          "last_name" => $_POST["nuevoApellido"],
-          "email" => $_POST["nuevoEmail"],
-          "phone" => $_POST["nuevoTelefono"],
-          "status_lead" => 0,
-          "creation_date" => $fecha_actual,
-          "origin" => $_POST["origenLead"],
-          "note" => $_POST["observaciones"],
-          "id_service" => $_POST["nuevoServicio"],
-          "id_area" => $_POST["nuevaArea"],
-          
-        );
-
-        $respuesta = ModeloLeads::mdlRegistrarLead($tabla, $datos);
-
-        if($respuesta == "ok"){
-  
-          echo'<script>
-    
-          swal({
-              type: "success",
-              title: "Un nuevo Lead ha sido registrado",
-              showConfirmButton: true,
-              confirmButtonText: "Cerrar"
-              }).then(function(result){
-                  if (result.value) {
-    
-                  window.location = "leads";
-    
-                  }
-                })
-    
-          </script>';
-    
-        } else {
-    
-          echo'<script>
-    
-          swal({
-              type: "error",
-              title: "¡Error al registrar al usuario!",
-              showConfirmButton: true,
-              confirmButtonText: "Cerrar"
-              }).then(function(result){
-                  if (result.value) {
-    
-                  window.location = "leads";
-    
-                  }
-                })
-    
-          </script>';    
-        }
-    }    
-  }	
+		if(isset($_POST["nuevoNombre"])){
+	
+			$tabla = "leads";
+			$fecha_actual = date('Y-m-d');
+			
+			// Obtener el ID del usuario de la sesión
+			$id_usuario = isset($_SESSION["id"]) ? (int) $_SESSION["id"] : 0; // Asegurarse de que sea un entero
+	
+			$datos = array(
+				"cc" => $_POST["nuevoIdLead"],
+				"first_name" => $_POST["nuevoNombre"],
+				"last_name" => $_POST["nuevoApellido"],
+				"email" => $_POST["nuevoEmail"],
+				"phone" => $_POST["nuevoTelefono"],
+				"status_lead" => 0,
+				"creation_date" => $fecha_actual,
+				"origin" => $_POST["origenLead"],
+				"note" => $_POST["observaciones"],
+				"id_service" => $_POST["nuevoServicio"],
+				"id_area" => $_POST["nuevaArea"],
+				"id_usuario" => $id_usuario  // Se pasa el ID de la sesión
+			);
+	
+			$respuesta = ModeloLeads::mdlRegistrarLead($tabla, $datos);
+	
+			if($respuesta == "ok"){
+	
+				echo'<script>
+				swal({
+					type: "success",
+					title: "Un nuevo Lead ha sido registrado",
+					showConfirmButton: true,
+					confirmButtonText: "Cerrar"
+					}).then(function(result){
+						if (result.value) {
+							window.location = "leads";
+						}
+					})
+				</script>';
+	
+			} else {
+	
+				echo'<script>
+				swal({
+					type: "error",
+					title: "¡Error al registrar al usuario!",
+					showConfirmButton: true,
+					confirmButtonText: "Cerrar"
+					}).then(function(result){
+						if (result.value) {
+							window.location = "leads";
+						}
+					})
+				</script>';
+			}
+		}    
+	}
+	
 
     static public function ctrVerLeadsFrio($item, $valor){
 
@@ -81,6 +77,19 @@ class ControladorLeads {
 		$respuesta = ModeloLeads::mdlVerLeadsInteres($item, $valor);
 		return $respuesta;
 	}
+
+	static public function ctrVerLeadAsesor($id_asesor){
+
+		$tablaLeads = "leads";
+		$tablaUsuarios = "usuarios";
+	
+		// Llamamos al modelo para obtener los leads del asesor
+		$respuesta = ModeloLeads::mdlMostrarLeadsPorAsesor($tablaLeads, $tablaUsuarios, $id_asesor);
+	
+		return $respuesta;
+	}
+	
+
 	static public function ctrEditarLead(){
 
 		if(isset($_POST["editarNombre"])){
