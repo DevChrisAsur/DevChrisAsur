@@ -130,14 +130,6 @@
     /* No permite que los botones se envuelvan en una nueva línea */
   }
 
-  /* Asegura que los botones se alineen de manera horizontal */
-  .btn-group .btn {
-    margin: 0 5px;
-    /* Espacio entre botones */
-    white-space: nowrap;
-    /* Evita que el texto del botón se rompa */
-  }
-
   /* Ajusta el tamaño de los botones para que sean más pequeños si es necesario */
   .btn-group .btn {
     font-size: 14px;
@@ -261,6 +253,25 @@
     /* Ajustar el radio de borde */
   }
 
+  .form-control.input-lg {
+    height: calc(1.5em + .75rem + 4px);
+    /* Ajustar la altura del select */
+    padding: .75rem 1.25rem;
+    /* Asegurar el mismo relleno que los campos de texto */
+    font-size: 1.25rem;
+    /* Asegurar el mismo tamaño de fuente */
+    line-height: 1.5;
+    /* Ajustar la línea de altura */
+    border-radius: .3rem;
+    /* Ajustar el radio de borde */
+  }
+
+  .input-group {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+
   .input-group .form-control {
     border: 1px solid #ced4da;
     /* Asegurar que el borde sea igual al de los campos de texto */
@@ -269,13 +280,14 @@
   }
 
   .input-group-addon {
-    background-color: #e9ecef;
-    /* Asegurar el mismo color de fondo */
-    border: 1px solid #ced4da;
-    /* Borde del addon igual al de los campos de texto */
-    border-radius: .25rem;
-    /* Radio de borde para las esquinas redondeadas */
+  background-color: #e9ecef;
+  border: 1px solid #ced4da;
+  padding: 6px 12px;
+  padding-right: 30px;
+  font-size: 16px;
+  border-radius: 0.25rem;
   }
+
 </style>
 
 <!-- selectize search  -->
@@ -346,13 +358,13 @@
           <thead>
             <tr>
               <th style="width:10px">#</th>
+              <th>Fecha Lead</th>
               <th>Identificacion</th>
               <th>Nombre</th>
               <th>Apellido</th>
-              <th>Email</th>
               <th>Telefono</th>
+              <th>Asesor</th>
               <th>Status</th>
-              <th>Creacion</th>
               <th>Origen</th>
               <th>Informacion adicional</th>
               <th style="width:80px">Acciones</th>
@@ -360,50 +372,86 @@
           </thead>
 
           <tbody>
-            <?php
-            $item = null;
-            $valor = null;
-            $categorias = ControladorLeads::ctrVerInteresLead($item, $valor);
-            // echo '<pre>'; print_r($clientes); echo '</pre>';
+    <?php
+    // Primero verificamos si el perfil es "Asesor comercial"
+    if ($_SESSION["perfil"] === "Asesor comercial") {
+        // Obtenemos el id del asesor a partir de la sesión
+    $id_asesor = $_SESSION["id"];
+    
+    // Llamamos al controlador para obtener los leads registrados por el asesor
+    $leads = ControladorLeads::ctrVerLeadAsesor($id_asesor);
 
-            foreach ($categorias as $key => $value) {
-              echo ' <tr>
-                          <td>' . ($key + 1) . '</td>';
-              echo '
-                          <td class="text">' . $value["cc"] . '</td>
-                          <td class="text">' . $value["first_name"] . '</td>
-                          <td class="text">' . $value["last_name"] . '</td>
-                          <td class="text">' . $value["email"] . '</td>
-                          <td class="text">' . $value["phone"] . '</td>';
-                          if ($value["status_lead"] != 0) {
-                            echo '<td><button class="btn btn-success btn-xs btnCambiarEstadoLead" idLead="' . $value["id_lead"] . '" estadoActualLead="0">Cliente</button></td>';
-                          } else {
-                            echo '<td><button class="btn btn-info btn-xs btnCambiarEstadoLead" idLead="' . $value["id_lead"] . '" estadoActualLead="1">Lead</button></td>';
-                          };
-                          echo '
-                          <td class="text">' . $value["creation_date"] . '</td>
-                          <td class="text">' . $value["origin"] . '</td>
-                          <td class="text">' . $value["note"] . '</td>                                               
-                          <td>
-                            <div class="btn-group">
-                              <button class="btn btn-warning btnEditarLead" idLeads="' . $value["id_lead"] . '" data-toggle="modal" data-target="#modalActualizarLead"><i class="fa fa-pencil"></i></button>
-                              <button class="btn btn-danger btnEliminarLead" idLeads="' . $value["id_lead"] . '" style="margin-left: 8px;"><i class="fa fa-times"></i></button>
-                            </div>
-                          </td>
-                        </tr>';
+    // Iteramos sobre los leads y los mostramos en la tabla
+    foreach ($leads as $key => $lead) {
+        echo '<tr>
+                <td>' . ($key + 1) . '</td>
+                <td class="text">' . htmlspecialchars($lead["creation_date"]) . '</td>
+                <td class="text">' . htmlspecialchars($lead["cc"]) . '</td>
+                <td class="text">' . htmlspecialchars($lead["first_name"]) . '</td>
+                <td class="text">' . htmlspecialchars($lead["last_name"]) . '</td>
+                <td class="text">' . htmlspecialchars($lead["phone"]) . '</td>
+                <td>' . htmlspecialchars($lead["asesor_first_name"]) . ' ' . htmlspecialchars($lead["asesor_last_name"]) . '</td>';
+                if ($lead["status_lead"] != 0) {
+                  echo '<td><button class="btn btn-success btn-xs btnCambiarEstadoLead" idLead="' . $lead["id_lead"] . '" estadoActualLead="0">Cliente</button></td>';
+              } else {
+                  echo '<td><button class="btn btn-info btn-xs btnCambiarEstadoLead" idLead="' . $lead["id_lead"] . '" estadoActualLead="1">Lead</button></td>';
+              }
+              echo'
+              <td class="text">' . htmlspecialchars($lead["origin"]) . '</td>
+              <td class="text">' . htmlspecialchars($lead["note"]) . '</td>
+              <td>
+                    <div class="btn-group">
+                      <button class="btn btn-warning btnEditarLead" idLeads="' . $lead["id_lead"] . '" data-toggle="modal" data-target="#modalActualizarLead"><i class="fa fa-pencil"></i></button>
+                    </div>
+                  </td>
+              </tr>';
+    }
+    } 
+    // Ahora verificamos si el perfil es "Super Administrador" o "Administrador"
+    else if ($_SESSION["perfil"] === "Super Administrador" || $_SESSION["perfil"] === "Administrador") {
+        $item = null;
+        $valor = null;
+        $categorias = ControladorLeads::ctrVerInteresLead($item, $valor);
+
+        foreach ($categorias as $key => $value) {
+            echo '<tr>
+                      <td>' . ($key + 1) . '</td>
+                      <td class="text">' . htmlspecialchars($value["creation_date"]) . '</td>
+                      <td class="text">' . htmlspecialchars($value["cc"]) . '</td>
+                      <td class="text">' . htmlspecialchars($value["first_name"]) . '</td>
+                      <td class="text">' . htmlspecialchars($value["last_name"]) . '</td>
+                      <td class="text">' . htmlspecialchars($value["phone"]) . '</td>
+                      <td>' . htmlspecialchars($value["asesor_first_name"]) . ' ' . htmlspecialchars($value["asesor_last_name"]) . '</td>';
+            if ($value["status_lead"] != 0) {
+                echo '<td><button class="btn btn-success btn-xs btnCambiarEstadoLead" idLead="' . $value["id_lead"] . '" estadoActualLead="0">Cliente</button></td>';
+            } else {
+                echo '<td><button class="btn btn-info btn-xs btnCambiarEstadoLead" idLead="' . $value["id_lead"] . '" estadoActualLead="1">Lead</button></td>';
             }
-            ?>
-          </tbody>
+            echo '
+                  <td class="text">' . htmlspecialchars($value["origin"]) . '</td>
+                  <td class="text">' . htmlspecialchars($value["note"]) . '</td>
+                  <td>
+                    <div class="btn-group">
+                      <button class="btn btn-warning btnEditarLead" idLeads="' . $value["id_lead"] . '" data-toggle="modal" data-target="#modalActualizarLead"><i class="fa fa-pencil"></i></button>
+                      <button class="btn btn-danger btnEliminarLead" idLeads="' . $value["id_lead"] . '" style="margin-left: 8px;"><i class="fa fa-times"></i></button>
+                    </div>
+                  </td>
+              </tr>';
+        }
+    }
+    ?>
+</tbody>
+
           <tfoot>
             <tr>
               <th style="width:10px">#</th>
+              <th>Fecha Lead</th>
               <th>Identificacion</th>
               <th>Nombre</th>
               <th>Apellido</th>
-              <th>Email</th>
               <th>Telefono</th>
+              <th>Asesor</th>
               <th>Status</th>
-              <th>Creacion</th>
               <th>Origen</th>
               <th>Informacion adicional</th>
               <th style="width:80px">Acciones</th>
@@ -557,8 +605,10 @@
                                         <option value="">Seleccionar País</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
+                            </div>  
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="stateValue">Estado</label>
                                     <select id="stateValue" class="form-control" disabled>
@@ -579,7 +629,7 @@
                         <input type="hidden" name="nuevoPais" id="nuevoPais">
                         <input type="hidden" name="nuevoEstado" id="nuevoEstado">
                         <input type="hidden" name="nuevoCiudad" id="nuevoCiudad">
-                    </div>
+                      </div>
 
 
                       <div class="container mt-3">
@@ -689,7 +739,7 @@
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
-                    <input type="text" class="form-control" name="nuevoIdLead" placeholder="Ingresar Identificación" required>
+                    <input type="text" class="form-control" name="nuevoIdLead" placeholder="Ingresar Identificación" >
                   </div>
                 </div>
               </div>
@@ -725,7 +775,7 @@
                   <div class="form-group">
                     <div class="input-group">
                       <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
-                      <input type="email" class="form-control input-lg" name="nuevoEmail" placeholder="Ingresar Correo" required>
+                      <input type="email" class="form-control input-lg" name="nuevoEmail" placeholder="Ingresar Correo" >
                     </div>
                   </div>
                 </div>
@@ -733,7 +783,7 @@
                   <div class="form-group">
                     <div class="input-group">
                       <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
-                      <input type="text" class="form-control input-lg" name="nuevoTelefono" placeholder="Ingresar telefono de Contacto" required>
+                      <input type="text" class="form-control input-lg" name="nuevoTelefono" placeholder="Ingresar telefono de Contacto" >
                     </div>
                   </div>
                 </div>
@@ -747,7 +797,7 @@
                   <div class="form-group">
                     <div class="input-group">
                       <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
-                      <select class="form-control input-lg" name="nuevaArea" required>
+                      <select class="form-control input-lg" name="nuevaArea" >
                         <option value="">Seleccionar Area de derecho</option>
                         <?php
                           $item = null;
