@@ -11,7 +11,7 @@ class ModeloLeads
 static public function mdlRegistrarLead($tabla, $datos){
 
     // Preparar la consulta SQL para insertar datos en la tabla
-    $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla( cc, first_name, last_name, email, phone, status_lead,creation_date, origin, note, id_service, id_area) VALUES ( :cc, :first_name, :last_name, :email, :phone, :status_lead, :creation_date, :origin, :note, :id_service, :id_area)");
+    $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla( cc, first_name, last_name, email, phone, status_lead,creation_date, origin, note, id_service, id_area,id_usuario) VALUES ( :cc, :first_name, :last_name, :email, :phone, :status_lead, :creation_date, :origin, :note, :id_service, :id_area, :id_usuario)");
     $stmt->bindParam(":cc", $datos['cc'], PDO::PARAM_STR);
     $stmt->bindParam(":first_name", $datos['first_name'], PDO::PARAM_STR);
     $stmt->bindParam(":last_name", $datos['last_name'], PDO::PARAM_STR);
@@ -23,6 +23,7 @@ static public function mdlRegistrarLead($tabla, $datos){
     $stmt->bindParam(":note", $datos['note'], PDO::PARAM_STR);
     $stmt->bindParam(":id_service", $datos['id_service'], PDO::PARAM_INT);
     $stmt->bindParam(":id_area", $datos['id_area'], PDO::PARAM_INT);
+    $stmt->bindParam(":id_usuario", $datos['id_usuario'], PDO::PARAM_INT);
 
     // Ejecutar la consulta y manejar el resultado
     if ($stmt->execute()) {
@@ -58,21 +59,44 @@ static public function mdlVerLeadfrio($tabla, $item, $valor){
 }
 
 
-static public function mdlVerLeadsInteres( $item, $valor){
-        // Cambiamos la condición para que sea 'frio' en vez de una cadena vacía
-        $query = "SELECT id_lead, cc, first_name, last_name, email,phone,
-                    status_lead, 
-                    creation_date, origin, note
-                         FROM leads";	
+static public function mdlVerLeadsInteres($item, $valor) {
+    // Cambiamos la condición para que sea 'frio' en vez de una cadena vacía
+    $query = "SELECT l.id_lead, l.cc, l.first_name, l.last_name, l.email, l.phone,
+                l.status_lead, l.id_usuario,  -- Agregar la coma aquí
+                l.creation_date, l.origin, l.note,
+                u.id, u.first_name AS asesor_first_name, u.last_name AS asesor_last_name
+             FROM leads l 
+             INNER JOIN usuarios u ON l.id_usuario = u.id";  
 
-        $stmt = Conexion::conectar()->prepare($query);	
-		if ($item !== null && $valor !== null) {
-			$stmt->bindParam(":$item", $valor, PDO::PARAM_STR);
-		}	
-		$stmt->execute();
-		return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $stmt->close();
-        $stmt = null;
+    $stmt = Conexion::conectar()->prepare($query);	
+    if ($item !== null && $valor !== null) {
+        $stmt->bindParam(":$item", $valor, PDO::PARAM_STR);
+    }	
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->close();
+    $stmt = null;
+}
+
+
+    static public function mdlMostrarLeadsPorAsesor($tablaLeads, $tablaUsuarios, $id_asesor) {
+        // Preparamos la consulta para seleccionar los leads registrados por un asesor
+        $stmt = Conexion::conectar()->prepare("
+            SELECT l.id_lead, l.status_lead, l.cc, l.first_name, l.last_name, l.sector, l.email, l.phone, l.creation_date, l.origin, l.note,
+            u.id, u.first_name AS asesor_first_name, u.last_name AS asesor_last_name
+            FROM $tablaLeads l
+            INNER JOIN $tablaUsuarios u ON l.id_usuario = u.id
+            WHERE l.id_usuario = :id
+        ");
+        
+        // Pasamos el parámetro id_asesor a la consulta
+        $stmt->bindParam(":id", $id_asesor, PDO::PARAM_INT);
+    
+        // Ejecutamos la consulta
+        $stmt->execute();
+    
+        // Retornamos los resultados
+        return $stmt->fetchAll();
     }
 
     static public function mdlEditarLead($tabla, $datos) {
