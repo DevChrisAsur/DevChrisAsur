@@ -26,10 +26,10 @@ $(".tablas").on("click", ".btnEliminarLead", function(){
 $(".tablas").on("click", ".btnEditarLead", function() {
     // Obtener el valor de idLeads
     var idLeads = $(this).attr("idLeads");
-    console.log("idLeads:", idLeads); // Verificar si se captura correctamente
+    //console.log("idLeads:", idLeads); // Verificar si se captura correctamente
 
     if (!idLeads) {
-        console.error("No se encontró idLeads en el botón.");
+        //console.error("No se encontró idLeads en el botón.");
         return;
     }
 
@@ -49,7 +49,7 @@ $(".tablas").on("click", ".btnEditarLead", function() {
         success: function(respuesta) {
             // Verificar si la respuesta tiene un error
             if (respuesta.error) {
-                console.error("Error:", respuesta.error);
+                //console.error("Error:", respuesta.error);
                 alert("Error: " + respuesta.error); // Muestra un mensaje si ocurre un error
             } else {
                 // Si no hay error, proceder con los datos del lead
@@ -61,7 +61,7 @@ $(".tablas").on("click", ".btnEditarLead", function() {
             }
         },
         error: function(xhr, status, error) {
-            console.error("Error en la solicitud AJAX: ", status, error);
+            //console.error("Error en la solicitud AJAX: ", status, error);
         }
     });
 });
@@ -71,7 +71,7 @@ $(".tablas").on("click", ".btnEditarLead", function() {
     // Adjuntamos el evento click usando delegación para los botones de cambio de estado de pago de leads
     $(document).on('click', '.btnCambiarEstadoLead', function() {
         var boton = $(this);
-        console.log("Se ha clicado en el botón para cambiar el estado del lead"); // Depuración
+        //console.log("Se ha clicado en el botón para cambiar el estado del lead"); // Depuración
         
         var idLead = boton.attr("idLead"); 
         var estadoActualLead = boton.attr("estadoActualLead"); 
@@ -98,7 +98,7 @@ $(".tablas").on("click", ".btnEditarLead", function() {
                 processData: false,
                 dataType: "json",
                 success: function(respuesta) {
-                    console.log("respuesta es", respuesta);
+                    //console.log("respuesta es", respuesta);
                     if (estadoActualLead == 0) {
                         boton.removeClass('btn-success').addClass('btn-info').html('Lead').attr('estadoActualLead', 1);
                     } else {
@@ -111,7 +111,7 @@ $(".tablas").on("click", ".btnEditarLead", function() {
                     }
                 },
                 error: function(xhr, status, error) {
-                    console.error("Error en la solicitud AJAX: ", status, error);
+                    //console.error("Error en la solicitud AJAX: ", status, error);
                 }
             });
 
@@ -120,13 +120,13 @@ $(".tablas").on("click", ".btnEditarLead", function() {
 });
 
 $(document).on('click', '#tab2 a', function() {
-    console.log("Se ha clicado en el botón para cambiar el estado del lead"); // Depuración
+    //console.log("Se ha clicado en el botón para cambiar el estado del lead"); // Depuración
 
     var idLeads = $(this).attr("idLeads"); // Aquí recogemos el atributo idLeads
-    console.log("idLeads:", idLeads); // Depuración
+    //console.log("idLeads:", idLeads); // Depuración
 
     if (!idLeads) {
-        console.error("No se encontró idLeads en el botón.");
+        //console.error("No se encontró idLeads en el botón.");
         return;
     }
 
@@ -144,10 +144,10 @@ $(document).on('click', '#tab2 a', function() {
         processData: false,
         dataType: 'json',
         success: function(respuesta) {
-            console.log(respuesta);
+            //console.log(respuesta);
             // Si hay un error en la respuesta, mostrarlo
             if (respuesta.error) {
-                console.error("Error:", respuesta.error);
+                //console.error("Error:", respuesta.error);
                 alert("Error: " + respuesta.error); // Muestra un mensaje si ocurre un error
             } else {
                 // Rellenar los campos del formulario con los datos obtenidos del lead

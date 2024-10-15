@@ -107,13 +107,13 @@
                                                     $("#cityValue").html(cityOptions);
                                                 },
                                                 error: function (e) {
-                                                    console.log("Error al obtener ciudades: " + e);
+                                                    //console.log("Error al obtener ciudades: " + e);
                                                 }
                                             });
                                         });
                                     },
                                     error: function (e) {
-                                        console.log("Error al obtener estados: " + e);
+                                        //console.log("Error al obtener estados: " + e);
                                     }
                                 });
                             });
@@ -126,20 +126,20 @@
                                 var selectedCountryPhone = $("#countryValue").find("option:selected").data("phone");
 
                                 // Imprimir en consola
-                                console.log("Estado seleccionado:", selectedState);
-                                console.log("Ciudad seleccionada:", selectedCity);
-                                console.log("País seleccionado:", selectedCountry);
-                                console.log("Código país:", selectedCountryPhone); // Imprimir el número de país
+                                // console.log("Estado seleccionado:", selectedState);
+                                // console.log("Ciudad seleccionada:", selectedCity);
+                                // console.log("País seleccionado:", selectedCountry);
+                                // console.log("Código país:", selectedCountryPhone); // Imprimir el número de país
                             });
                         },
                         error: function (e) {
-                            console.log("Error al obtener países: " + e);
+                            //console.log("Error al obtener países: " + e);
                         }
                     });
                 }
             },
             error: function (e) {
-                console.log("Error al obtener el token: " + e);
+                //console.log("Error al obtener el token: " + e);
             }
         });
     });

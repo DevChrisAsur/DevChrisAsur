@@ -29,10 +29,10 @@ $(".tablas").on("click", ".btnEliminarCliente", function(){
 $(document).on('click', '#btnInformacionAdicional', function() {
 
     var idCliente = $(this).attr("idCliente"); // Recogemos el atributo idCliente
-    console.log("idCliente:", idCliente); // Depuración
+    //console.log("idCliente:", idCliente); // Depuración
 
     if (!idCliente) {
-        console.error("No se encontró idCliente en el botón.");
+        //console.error("No se encontró idCliente en el botón.");
         return;
     }
 
@@ -50,7 +50,7 @@ $(document).on('click', '#btnInformacionAdicional', function() {
         processData: false,
         dataType: 'json',
         success: function(respuesta) {
-            console.log(respuesta);
+            //console.log(respuesta);
             if (respuesta.error) {
                 console.error("Error:", respuesta.error);
                 alert("Error: " + respuesta.error);
