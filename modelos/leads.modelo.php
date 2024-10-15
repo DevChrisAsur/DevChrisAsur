@@ -63,10 +63,8 @@ static public function mdlVerLeadsInteres($item, $valor) {
     // Cambiamos la condición para que sea 'frio' en vez de una cadena vacía
     $query = "SELECT l.id_lead, l.cc, l.first_name, l.last_name, l.email, l.phone,
                 l.status_lead, l.id_usuario,  -- Agregar la coma aquí
-                l.creation_date, l.origin, l.note,
-                u.id, u.first_name AS asesor_first_name, u.last_name AS asesor_last_name
-             FROM leads l 
-             INNER JOIN usuarios u ON l.id_usuario = u.id";  
+                l.creation_date, l.origin, l.note
+             FROM leads l ";  
 
     $stmt = Conexion::conectar()->prepare($query);	
     if ($item !== null && $valor !== null) {
