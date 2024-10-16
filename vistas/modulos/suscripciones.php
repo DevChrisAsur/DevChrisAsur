@@ -131,22 +131,32 @@
 
     /* Asegurarse de que el select tenga el mismo tamaño y estilo que los campos de texto */
     .form-control.input-lg {
-    height: calc(1.5em + .75rem + 4px); /* Ajustar la altura del select */
-    padding: .75rem 1.25rem; /* Asegurar el mismo relleno que los campos de texto */
-    font-size: 1.25rem; /* Asegurar el mismo tamaño de fuente */
-    line-height: 1.5; /* Ajustar la línea de altura */
-    border-radius: .3rem; /* Ajustar el radio de borde */
+        height: calc(1.5em + .75rem + 4px);
+        /* Ajustar la altura del select */
+        padding: .75rem 1.25rem;
+        /* Asegurar el mismo relleno que los campos de texto */
+        font-size: 1.25rem;
+        /* Asegurar el mismo tamaño de fuente */
+        line-height: 1.5;
+        /* Ajustar la línea de altura */
+        border-radius: .3rem;
+        /* Ajustar el radio de borde */
     }
 
     .input-group .form-control {
-    border: 1px solid #ced4da; /* Asegurar que el borde sea igual al de los campos de texto */
-    border-radius: .25rem; /* Radio de borde para las esquinas redondeadas */
+        border: 1px solid #ced4da;
+        /* Asegurar que el borde sea igual al de los campos de texto */
+        border-radius: .25rem;
+        /* Radio de borde para las esquinas redondeadas */
     }
 
     .input-group-addon {
-    background-color: #e9ecef; /* Asegurar el mismo color de fondo */
-    border: 1px solid #ced4da; /* Borde del addon igual al de los campos de texto */
-    border-radius: .25rem; /* Radio de borde para las esquinas redondeadas */
+        background-color: #e9ecef;
+        /* Asegurar el mismo color de fondo */
+        border: 1px solid #ced4da;
+        /* Borde del addon igual al de los campos de texto */
+        border-radius: .25rem;
+        /* Radio de borde para las esquinas redondeadas */
     }
 </style>
 
@@ -240,8 +250,8 @@
                       <td>' . $value["suscripcion_status"] . '</td>
                       <td>' . $value["start_date"] . '</td>
                       <td>' . $value["end_date"] . '</td>';
-                      echo '<td>' . $value["first_name"] . " " . $value["last_name"]. '</td>';
-                      echo '
+                            echo '<td>' . $value["first_name"] . " " . $value["last_name"] . '</td>';
+                            echo '
                       <td>' . $value["service_name"] . '</td>
                       <td>
                           <div class="btn-group-container">
@@ -254,13 +264,13 @@
                         ?>
                     </tbody>
                     <tfoot>
-                            <th style="width:10px">#</th>
-                            <th style="width:50px">Status</th>
-                            <th style="width:100px">Fecha de suscipcion</th>
-                            <th style="width:40px">Terminacion de suscripcion</th>
-                            <th style="width:100px">Cliente Asociado</th>
-                            <th style="width:100px">Servicio Asociado</th>
-                            <th style="width:80px" align="center">Acciones</th>
+                        <th style="width:10px">#</th>
+                        <th style="width:50px">Status</th>
+                        <th style="width:100px">Fecha de suscipcion</th>
+                        <th style="width:40px">Terminacion de suscripcion</th>
+                        <th style="width:100px">Cliente Asociado</th>
+                        <th style="width:100px">Servicio Asociado</th>
+                        <th style="width:80px" align="center">Acciones</th>
                     </tfoot>
                 </table>
 
@@ -269,87 +279,77 @@
         </div>
 
         <!-- MODAL AGREGAR CLIENTE -->
-<div id="modalAgregarSuscripcion" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form role="form" method="post" enctype="multipart/form-data">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Registrar Suscripción</h4>
-                </div>
-                <div class="modal-body">
-                    <!-- Contenedor de Información de la Suscripción -->
-                    <div class="container mt-3">
-                        <h5>Información de Suscripción</h5>
-                        <div class="row">
-                            <!-- Selección de Servicio -->
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-cogs"></i></span>
-                                        <select class="form-control input-lg" name="nuevoServicio" id="nuevoServicio" required>
-                                            <option value="">Seleccione Servicio</option>
-                                            <?php
-                                            $item = null;
-                                            $valor = null;
-                                            $servicios = ControladorServicios::ctrVerServicios($item, $valor);
-                                            foreach ($servicios as $key => $value) {
-                                                echo '<option value="' . $value["id_service"] . '">' . $value["service_name"] . '</option>';
-                                            }
-                                            ?>
-                                        </select>
+        <div id="modalAgregarSuscripcion" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form role="form" method="post" enctype="multipart/form-data">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Registrar Suscripción</h4>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Contenedor de Información de la Suscripción -->
+                            <div class="container mt-3">
+                                <h5>Información de Suscripción</h5>
+                                <div class="row">
+                                    <!-- Selección de Servicio -->
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-cogs"></i></span>
+                                                <select class="form-control input-lg" name="nuevoServicio" id="nuevoServicio" required>
+                                                    <option value="">Seleccione Servicio</option>
+                                                    <?php
+                                                    $item = null;
+                                                    $valor = null;
+                                                    $servicios = ControladorServicios::ctrVerServicios($item, $valor);
+                                                    foreach ($servicios as $key => $value) {
+                                                        echo '<option value="' . $value["id_service"] . '">' . $value["service_name"] . '</option>';
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
 
-                            <!-- Selección de Cliente -->
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                        <select class="form-control input-lg" name="nuevaSuscripcion" required>
-                                            <option value="">Seleccione Cliente</option>
-                                            <?php
-                                            $item = null;
-                                            $valor = null;
-                                            $clientes = ControladorClientes::ctrVerClientes($item, $valor);
-                                            foreach ($clientes as $key => $value) {
-                                                echo '<option value="' . $value["id_customer"] . '">' . $value["first_name"] . " " . $value["last_name"] . '</option>';
-                                            }
-                                            ?>
-                                        </select>
+                                    <!-- Selección de Cliente -->
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                <select class="form-control input-lg" name="nuevaSuscripcion" required>
+                                                    <option value="">Seleccione Cliente</option>
+                                                    <?php
+                                                    $item = null;
+                                                    $valor = null;
+                                                    $clientes = ControladorClientes::ctrVerClientes($item, $valor);
+                                                    foreach ($clientes as $key => $value) {
+                                                        echo '<option value="' . $value["id_customer"] . '">' . $value["first_name"] . " " . $value["last_name"] . '</option>';
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <!-- Fecha de Finalización de la Suscripción -->
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                        <input type="text" class="form-control input-lg" name="FechaCierre" placeholder="Fecha de Finalización" onfocus="(this.type='date')" onblur="(this.type='text')" required>
-                                    </div>
-                                </div>
-                            </div>
+
+                        <!-- Pie de la Modal -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
+                            <button type="submit" name="register" class="btn btn-primary">Registrar Suscripción</button>
                         </div>
-                    </div>
-                </div>
 
-                <!-- Pie de la Modal -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
-                    <button type="submit" name="register" class="btn btn-primary">Registrar Suscripción</button>
+                        <?php
+                        $crearSuscripcion = new ControladorSuscripcion();
+                        $crearSuscripcion->ctrCrearSuscripcion();
+                        ?>
+                    </form>
                 </div>
-
-                <?php
-                $crearSuscripcion = new ControladorSuscripcion();
-                $crearSuscripcion->ctrCrearSuscripcion();
-                ?>
-            </form>
+            </div>
         </div>
-    </div>
-</div>
+
 
 
     </section>
