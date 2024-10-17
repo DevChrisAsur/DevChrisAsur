@@ -559,115 +559,90 @@
                         <div class="div2">
                             <div class="tabs">
                                 <div class="tab-container">
-                                    <div id="tab1" class="tab">
-                                        <a href="#tab1">Productos</a>
-                                        <div class="tab-content">
-                                            <form id="formularioProducto" method="POST">
-                                                <div class="container">
-                                                    <!-- Primera fila: Producto -->
-                                                    <h5>Información del Producto</h5>
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <div class="row">
-                                                                    <?php
-                                                                    $item = null;
-                                                                    $valor = null;
-                                                                    $servicios = ControladorServicios::ctrVerServicios($item, $valor);
-                                                                    foreach ($servicios as $key => $value) {
-                                                                        echo '
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-check">
-                                                                                <input type="checkbox" class="form-check-input" name="servicios[]" value="' . $value["id_service"] . '" id="servicio' . $value["id_service"] . '" data-price="' . $value["service_price"] . '">
-                                                                                <span class="form-check-text">' . $value["service_name"] . '</span>
-                                                                            </div>
-                                                                        </div>';
-                                                                    }
-                                                                    ?>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-                                                    <!-- Segunda fila: Información financiera -->
-                                                    <h5>Información Financiera</h5>
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <div class="input-group">
-                                                                    <input type="text" class="form-control" name="banco" id="banco" placeholder="Banco">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <div class="input-group">
-                                                                    <input type="text" class="form-control" name="titular" id="titular" placeholder="Titular">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <div class="input-group">
-                                                                    <input type="text" class="form-control" name="numeroCuenta" id="numeroCuenta" placeholder="Número de Cuenta">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Tercera fila: Tipo de cuenta y valor total -->
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <div class="input-group">
-                                                                    <input type="text" class="form-control" name="tipoCuenta" id="tipoCuenta" placeholder="Tipo de Cuenta">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <!-- Campo de Valor Total -->
-                                                            <div class="form-group">
-                                                                <input type="text" id="valorTotal" name="valorTotal" class="form-control" value="0" readonly>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Cuarta fila: Número de Cuotas -->
-                                                    <h5>Cuotas</h5>
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <select class="form-control input-lg" id="numCuotas" name="numCuotas">
-                                                                    <option value="">Seleccione total de Cuotas</option>
-                                                                    <option value="1">1</option>
-                                                                    <option value="2">2</option>
-                                                                    <option value="3">3</option>
-                                                                    <option value="4">4</option>
-                                                                    <option value="5">5</option>
-                                                                    <option value="6">6</option>
-                                                                    <option value="7">7</option>
-                                                                    <option value="8">8</option>
-                                                                    <option value="9">9</option>
-                                                                    <option value="10">10</option>
-                                                                    <option value="11">11</option>
-                                                                    <option value="12">12</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Aquí se generarán dinámicamente los campos de valor y fecha de cuota -->
-                                                    <div id="camposCuotas"></div>
-
-                                                    <!-- Footer con el botón de envío -->
-                                                    <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-primary" id="guardarProducto">Guardar Producto</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
+                                <div id="tab1" class="tab">
+    <a href="#tab1">Productos</a>
+    <div class="tab-content">
+    <!-- Formulario Unificado -->
+    <form id="formularioProductoYFactura" method="POST">
+        <div class="container">
+            <!-- Información del Producto -->
+            <h5>Información del Producto</h5>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="row">
+                            <?php
+                            $item = null;
+                            $valor = null;
+                            $servicios = ControladorServicios::ctrVerServicios($item, $valor);
+                            foreach ($servicios as $key => $value) {
+                                echo '
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" name="servicios[]" value="' . $value["id_service"] . '" id="servicio' . $value["id_service"] . '" data-price="' . $value["service_price"] . '">
+                                        <span class="form-check-text">' . $value["service_name"] . '</span>
                                     </div>
+                                </div>';
+                            }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Información Financiera -->
+            <h5>Información Financiera</h5>
+            <!-- Campo oculto para idCliente -->
+            <input type="hidden" name="idCliente" id="idCliente" value="">
+            <!-- Campo oculto para idSuscripcion -->
+            <input type="hidden" name="idSuscripcion" id="idSuscripcion" value="">
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="banco" id="banco" placeholder="Banco">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="titular" id="titular" placeholder="Titular">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="numeroCuenta" id="numeroCuenta" placeholder="Número de Cuenta">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="tipoCuenta" id="tipoCuenta" placeholder="Tipo de Cuenta">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="monto" id="valorTotal" placeholder="Monto">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="date" class="form-control" name="fecha_limite" id="fecha_limite">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botón Unificado para crear la suscripción y la factura -->
+            <div class="modal-footer">
+                <button type="submit" id="guardarProductoYCrearFactura" class="btn btn-primary">Guardar Producto y Crear Factura</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+</div>
+
 
                                     <div id="tab2" class="tab">
                                         <a href="#tab2">Notas</a>
@@ -923,7 +898,7 @@
             });
         });
     </script>
-<!-- evento para desplegar la modal -->
+<!-- evento para desplegar el box body secundario -->
     <script>
         $(document).ready(function() {
             // Inicialmente el segundo box-body está oculto
@@ -969,35 +944,10 @@
     </script>
 <!-- evento para desplegar el numero de cuotas-->   
 <script>
-    $(document).ready(function() {
-        // Función para dividir el valor total entre el número de cuotas seleccionadas
-        $('#numCuotas').change(function() {
-            let numCuotas = $(this).val(); // Obtener el número de cuotas seleccionadas
-            let total = parseFloat($('#valorTotal').val()); // Obtener el valor total
-            let valorCuota = total / numCuotas; // Dividir el valor total entre el número de cuotas
-            let camposCuotas = $('#camposCuotas');
 
-            camposCuotas.empty(); // Limpiar campos anteriores
 
-            // Generar los campos dinámicamente para cada cuota
-            for (let i = 1; i <= numCuotas; i++) {
-                camposCuotas.append(`
-                    <div class="row mb-2">
-                        <div class="col-md-6">
-                            <label for="valorCuota${i}">Valor de la Cuota ${i}:</label>
-                            <input type="text" class="form-control" name="valorCuota${i}" id="valorCuota${i}" value="${valorCuota.toFixed(2)}" readonly>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="fechaCuota${i}">Fecha de la Cuota ${i}:</label>
-                            <input type="date" class="form-control" name="fechaCuota${i}" id="fechaCuota${i}">
-                        </div>
-                    </div>
-                `);
-            }
-        });
-
-        // Usar jQuery para detectar cambios en los checkboxes
-        $('.form-check-input').change(function() {
+            // Usar jQuery para detectar cambios en los checkboxes
+            $('.form-check-input').change(function() {
             // Desmarcar todos los checkboxes
             $('.form-check-input').prop('checked', false);
 
@@ -1010,5 +960,4 @@
             // Actualizar el valor total
             $('#valorTotal').val(price.toFixed(2)); // Actualizar el valor total en el campo
         });
-    });
 </script>
