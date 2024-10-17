@@ -25,13 +25,26 @@ class ControladorSuscripcion{
 	
 			$respuesta = ModeloSuscripcion::mdlRegistrarSuscripcion($tabla, $datos);
 	
-			if($respuesta == "ok"){  // Asegúrate de que la respuesta sea "ok"
-				return "ok";
+			if ($respuesta != "error") {
+				// Devuelve el ID de la suscripción creada
+				return $respuesta;
 			} else {
 				return "error";
 			}
 		}
 	}
+	
+	public static function ctrObtenerUltimaSuscripcionCliente($id_customer) {
+		$tabla = "suscripcion";
+		$respuesta = ModeloSuscripcion::mdlObtenerUltimaSuscripcion($tabla, $id_customer);
+	
+		if ($respuesta) {
+			return $respuesta['id_suscripcion'];
+		} else {
+			return null;  // Si no se encontró un id_suscripcion
+		}
+	}
+	
 	
 	
 
