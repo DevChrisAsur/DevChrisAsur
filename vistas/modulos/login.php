@@ -8,19 +8,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Incluye algún estilo personalizado si es necesario -->
     <style>
-        /* Estilos generales del cuerpo */
-        body {
-            background: linear-gradient(to bottom, #000, #444); /* Gradiente negro a gris oscuro */
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh; /* Asegura que el body ocupe al menos toda la altura de la ventana */
-        }
-
         /* Estilos para el encabezado */
         header {
-            background: #000; /* Color de fondo sólido negro para el encabezado */
+            background: rgba(0, 0, 0, 0.01); /* Fondo casi transparente */
             color: #fff; /* Color del texto del encabezado */
             padding: 10px;
             text-align: center;
@@ -72,12 +62,12 @@
         }
     </style>
 </head>
+
+<header>
+        <img src="vistas/img/plantilla/legaltech_logo.png" alt="Logo"> <!-- Ajusta la ruta y extensión aquí -->
+    </header>
 <body>
 
-    <header>
-        <br>
-        <img src="vistas/img/plantilla/legaltech_logo.jpeg" alt="Logo"> <!-- Ajusta la ruta y extensión aquí -->
-    </header>
 
     <div class="main-content">
         <div class="login-box">
@@ -106,9 +96,6 @@
         ?>
     </div>
 
-    <footer>
-        <img src="vistas/img/plantilla/AsurLogo.png" alt="Logo"> <!-- Ajusta la ruta y extensión aquí -->
-    </footer>
 
     <!-- Incluye Bootstrap JS, Popper.js, y jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -116,4 +103,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
+
+
+<footer>
+        <img src="vistas/img/plantilla/AsurLogo.png" alt="Logo"> <!-- Ajusta la ruta y extensión aquí -->
+    </footer>
 </html>

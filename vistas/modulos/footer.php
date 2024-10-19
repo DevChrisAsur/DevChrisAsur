@@ -1,14 +1,14 @@
 <style>
 	.main-footer {
-		background: linear-gradient( #353037, 30%,#101111 );
+		background: #b2babb;
 		padding: 15px;
-		color: #fffdfd;
-		border-top: 1px;
-		font-style: italic;
+		color: #100f0f;		
+		border-top: 1px ; /* Asegúrate de que el borde sea visible */
+		font-weight: bold; /* Aplica negrita a todo el texto */
+		font-style: italic; /* Mantiene el estilo en cursiva */
 	}
 </style>
-<footer class="main-footer text-center">
-	
-	<strong>De la justicia y la tecnología, a sus manos</a>.</strong>
 
+<footer class="main-footer text-center">
+	<strong>De la justicia y la tecnología, a sus manos.</strong>
 </footer>

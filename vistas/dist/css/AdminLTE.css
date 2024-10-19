@@ -170,7 +170,7 @@ h6,
 }
 /* General Links */
 a {
-  color: #337ab7;
+  color: #ffffff;
 }
 a:hover,
 a:active,
@@ -3394,9 +3394,12 @@ table.text-center th {
 }
 .login-page,
 .register-page {
-  background: linear-gradient(rgba(0,0,0,1), rgba(0,30,50,1));
+  background-image: url('../../img/plantilla/login.jpeg') !important;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
-
 .login-page #back{
   position: absolute;
   top:0;

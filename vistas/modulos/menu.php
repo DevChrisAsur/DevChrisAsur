@@ -30,7 +30,7 @@
 /* Aplica el mismo fondo de gradiente al sidebar */
 .main-sidebar {
     padding-top: 50px;
-    background: linear-gradient(to bottom, #353037, #101111); /* Mismo gradiente que el main-header */
+    background: #b2babb;/* Mismo gradiente que el main-header */
     color: #ffffff; /* Asegura que el texto sea legible */
     border: none;
 }
@@ -45,17 +45,18 @@
 
 /* Ajuste para los elementos de la sidebar */
 .main-sidebar .sidebar-menu > li > a {
-    color: #ffffff; /* Color blanco para el texto de los enlaces */
+    color: black; /* Color blanco para el texto de los enlaces */
 }
 
 .main-sidebar .sidebar-menu > li > a:hover {
-    background: #353037; /* Fondo un poco más claro en hover para mejor visibilidad */
-    color: #ffffff;
+    background: #595b5d; /* Fondo más oscuro en hover para mejor visibilidad */
+    color: #ffffff; /* Texto blanco en hover */
 }
 
 /* Ajuste para los submenús */
 .main-sidebar .treeview-menu {
-    background: #2a292e; /* Un tono ligeramente más claro para los submenús */
+    background: #d0d3d4; /* Un tono más claro para los submenús */
+    color: #353037; /* Texto oscuro para los submenús */
 }
 
 </style>

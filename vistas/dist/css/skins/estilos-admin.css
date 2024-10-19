@@ -41,13 +41,13 @@ background: linear-gradient(to bottom, #101111, #353037);
  background: linear-gradient(to bottom, #101111, #353037)  }
 }
 .skin-blue .main-header .logo {
- background: linear-gradient(to bottom, #101111, #353037);
+  background: #b2babb;
   color: #333333;
   border-bottom: 0 solid transparent;
   border-right: 1px solid linear-gradient(to bottom, #101111, #353037)  ;
 }
 .skin-blue .main-header .logo:hover {
-  background-color: #357ca5;
+  background: #b2babb;
 }
 .skin-blue .main-header li.user-header {
   background-color: #3c8dbc;
@@ -56,14 +56,15 @@ background: linear-gradient(to bottom, #101111, #353037);
   background: transparent;
 }
 .skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side {
-  background-color: linear-gradient(to bottom, #101111, #353037); 
+  background: #b2babb;
+
 }
 .skin-blue .user-panel > .info,
 .skin-blue .user-panel > .info > a {
   color: #fff;
 }
 .skin-blue .sidebar-menu > li.header {
-  color: #4b646f;
+  color: #000000;
   background: #1a2226;
 }
 .skin-blue .sidebar-menu > li > a {
@@ -80,7 +81,7 @@ background: linear-gradient(to bottom, #101111, #353037);
 }
 .skin-blue .sidebar-menu > li > .treeview-menu {
   margin: 0 1px;
-  background: #2c3b41;
+  background: #b2babb;
 }
 .skin-blue .sidebar a {
   color: #b8c7ce;
@@ -89,7 +90,7 @@ background: linear-gradient(to bottom, #101111, #353037);
   text-decoration: none;
 }
 .skin-blue .sidebar-menu .treeview-menu > li > a {
-  color: #8aa4af;
+  color: #000000;
 }
 .skin-blue .sidebar-menu .treeview-menu > li.active > a,
 .skin-blue .sidebar-menu .treeview-menu > li > a:hover {
@@ -381,7 +382,8 @@ background: linear-gradient(to bottom, #101111, #353037);
 .skin-black .wrapper,
 .skin-black .main-sidebar,
 .skin-black .left-side {
-  background-color: linear-gradient(to bottom, #101111, #353037);;
+  background: #f2f4f4;
+
 }
 .skin-black .user-panel > .info,
 .skin-black .user-panel > .info > a {
@@ -693,7 +695,8 @@ background: linear-gradient(to bottom, #101111, #353037);
 .skin-green .wrapper,
 .skin-green .main-sidebar,
 .skin-green .left-side {
-  background-color: linear-gradient(to bottom, #101111, #353037);;
+  background: #f2f4f4;
+
 }
 .skin-green .user-panel > .info,
 .skin-green .user-panel > .info > a {

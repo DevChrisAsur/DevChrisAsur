@@ -8,7 +8,7 @@
 
 /* Estilos para la cabecera y la barra de navegación */
 .skin-blue .main-header .logo {
-    background: linear-gradient(to bottom, #101111, #353037);
+    background: #b2babb;
     color: #ffffff;
     border-bottom: 0 solid transparent;
     border-right: 1px solid transparent; /* Corrige el borde derecho */
@@ -16,22 +16,22 @@
 
 /* Estilo del botón sidebar-toggle para que coincida con el main-header */
 .skin-blue .main-header .navbar .sidebar-toggle {
-    background: linear-gradient(to bottom, #101111, #353037); /* Aplica el mismo gradiente */
+    background: #b2babb; /* Invertir gradiente al hacer hover */
     border: none; /* Elimina cualquier borde por defecto */
     color: #ffffff; /* Asegura que el ícono o texto sea visible */
 }
 
 .skin-blue .main-header .navbar {
-    background: linear-gradient(to bottom, #101111, #353037);
+    background: #b2babb;
 }
 
 .skin-blue .main-header .navbar .sidebar-toggle:hover {
-    background: linear-gradient(to bottom, #353037, #101111); /* Invertir gradiente al hacer hover */
+    background: #b2babb; /* Invertir gradiente al hacer hover */
 }
 
 /* Estilo para el dropdown-menu */
 .navbar-custom-menu .dropdown-menu {
-    background: linear-gradient(to bottom, #101111, #353037); /* Gradiente similar al sidebar-toggle */
+    background: #b2babb; /* Gradiente similar al sidebar-toggle */
     border: none; /* Elimina el borde predeterminado */
     border-radius: 4px; /* Bordes ligeramente redondeados */
     padding: 10px; /* Espaciado interno */
@@ -50,7 +50,7 @@
 
 /* Estilo para los elementos dentro del dropdown-menu */
 .navbar-custom-menu .dropdown-menu .user-body { 
-    background: linear-gradient(to bottom, #101111, #353037); /* Aplica el gradiente de fondo */
+    background: #b2babb; /* Aplica el gradiente de fondo */
     color: #ffffff; /* Color del texto */
     border: none; /* Elimina cualquier borde */
     border-radius: 0; /* Asegura que no haya bordes redondeados */
@@ -67,7 +67,7 @@
 
 /* Hover state para .user-body */
 .navbar-custom-menu .dropdown-menu .user-body:hover {
-    background: linear-gradient(to bottom, #353037, #101111); /* Inversión del gradiente en hover */
+    background: #b2babb; /* Inversión del gradiente en hover */
     color: #ffffff; /* Asegura que el texto se mantenga blanco en hover */
     border: none; /* Asegura que no aparezcan bordes en hover */
 }
@@ -166,7 +166,7 @@
 
         <!-- Logo normal -->
         <span class="logo-lg">
-            <img src="vistas/img/plantilla/AsurLogo.png" width="150">
+            <img src="vistas/img/plantilla/Logo.jpeg" width="150">
         </span>
     </a>
 

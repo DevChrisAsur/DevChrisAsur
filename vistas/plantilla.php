@@ -7,7 +7,8 @@ session_start();
 <!DOCTYPE html>
 <html>
 <head>
-
+<style>
+</style>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -200,5 +201,3 @@ CUERPO DOCUMENTO
 <script src="vistas/js/servicios.js"></script>
 <script src="vistas/js/leads.js"></script>
 <script src="vistas/js/cities.js"></script>
-</body>
-</html>
