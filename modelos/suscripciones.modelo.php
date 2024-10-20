@@ -10,28 +10,64 @@ class ModeloSuscripcion{
 
 	static public function mdlRegistrarSuscripcion($tabla, $datos){
 
-		// Prepara la consulta para insertar los datos en la tabla
-		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla (suscripcion_status, start_date, end_date, id_customer, id_service) 
-											   VALUES (1, :start_date, :end_date, :id_customer, :id_service)");
-
-		// Asigna los parámetros correctamente
-		$stmt->bindParam(":start_date", $datos['start_date'], PDO::PARAM_STR);
-		$stmt->bindParam(":end_date", $datos['end_date'], PDO::PARAM_STR);
-		$stmt->bindParam(":id_customer", $datos['id_customer'], PDO::PARAM_INT);
-		$stmt->bindParam(":id_service", $datos['id_service'], PDO::PARAM_INT);
-
-		// Ejecuta la consulta y verifica si fue exitosa
-		if($stmt->execute()){
-			return "ok";
-		} else {
-			return "error";
+		try {
+			// Crear una conexión a la base de datos
+			$conexion = Conexion::conectar();
+	
+			// Prepara la consulta para insertar los datos en la tabla
+			$stmt = $conexion->prepare("INSERT INTO $tabla (suscripcion_status, start_date, end_date, id_customer, id_service) 
+												   VALUES (1, :start_date, :end_date, :id_customer, :id_service)");
+	
+			// Asigna los parámetros correctamente
+			$stmt->bindParam(":start_date", $datos['start_date'], PDO::PARAM_STR);
+			$stmt->bindParam(":end_date", $datos['end_date'], PDO::PARAM_STR);
+			$stmt->bindParam(":id_customer", $datos['id_customer'], PDO::PARAM_INT);
+			$stmt->bindParam(":id_service", $datos['id_service'], PDO::PARAM_INT);
+	
+			// Ejecuta la consulta y verifica si fue exitosa
+			if ($stmt->execute()) {
+				// Usar la conexión para obtener el último ID insertado
+				return $conexion->lastInsertId();
+			} else {
+				return "error";
+			}
+	
+		} catch (Exception $e) {
+			// Capturar cualquier excepción y devolver el error
+			return "error: " . $e->getMessage();
 		}
-
+	
 		// Cierra la declaración
 		$stmt->close();
 		$stmt = null;
 	}
+	
 
+	public static function mdlObtenerUltimaSuscripcion($tabla, $id_customer) {
+		// Prepara la consulta para obtener el último registro de suscripción del cliente
+		$stmt = Conexion::conectar()->prepare("SELECT id_suscripcion FROM $tabla WHERE id_customer = :id_customer ORDER BY id_suscripcion DESC LIMIT 1");
+		
+		// Asigna el parámetro del cliente
+		$stmt->bindParam(":id_customer", $id_customer, PDO::PARAM_INT);
+	
+		// Ejecuta la consulta
+		$stmt->execute();
+		
+		// Obtiene el resultado
+		$resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+	
+		// Verifica si se encontró un resultado
+		if ($resultado) {
+			return $resultado;
+		} else {
+			return null;  // Devolver null si no se encuentra ningún registro
+		}
+	
+		// Cierra la declaración
+		$stmt->close();
+		$stmt = null;
+	}
+	
 
 	/*=============================================
 	MOSTRAR CATEGORIAS

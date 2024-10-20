@@ -4,19 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="587e209a-0ed8-489d-88f0-5135e4fcacea" name="Changes" comment="feacture-leads:ajuste de rutas">
+    <list default="true" id="d1f258ee-b36f-465c-b369-682882a5d30d" name="Changes" comment="actualizacion de estilos">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vistas/js/clientes.js" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/js/clientes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vistas/modulos/clientes.php" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/modulos/clientes.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="ChangesViewManager" show_ignored="true">
-    <option name="groupingKeys">
-      <option value="directory" />
-      <option value="module" />
-    </option>
   </component>
   <component name="Git.Settings">
     <favorite-branches>
@@ -38,455 +34,456 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
+  &quot;history&quot;: [
+    {
+      &quot;state&quot;: &quot;OPEN&quot;,
+      &quot;assignee&quot;: &quot;DevChrisAsur&quot;,
+      &quot;author&quot;: &quot;DevChrisAsur&quot;
+    }
+  ],
   &quot;lastFilter&quot;: {
     &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;ViajaCris&quot;
+    &quot;assignee&quot;: &quot;DevChrisAsur&quot;,
+    &quot;author&quot;: &quot;DevChrisAsur&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/DevChrisAsur/DevChrisAsur.git",
-    "accountId": "49a6a0de-fd25-4086-8faf-9a7f9e93e9a1"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/DevChrisAsur/DevChrisAsur.git&quot;,
+    &quot;accountId&quot;: &quot;49a6a0de-fd25-4086-8faf-9a7f9e93e9a1&quot;
   },
-  "recentNewPullRequestHead": {
-    "server": {
-      "useHttp": false,
-      "host": "github.com",
-      "port": null,
-      "suffix": null
+  &quot;recentNewPullRequestHead&quot;: {
+    &quot;server&quot;: {
+      &quot;useHttp&quot;: false,
+      &quot;host&quot;: &quot;github.com&quot;,
+      &quot;port&quot;: null,
+      &quot;suffix&quot;: null
     },
-    "owner": "DevChrisAsur",
-    "repository": "DevChrisAsur"
+    &quot;owner&quot;: &quot;DevChrisAsur&quot;,
+    &quot;repository&quot;: &quot;DevChrisAsur&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 0
 }</component>
-  <component name="ProjectId" id="2gEm8ZNeQaUiXcTGyMwWx5zXQFe" />
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2m7tHYYxQld24Xo55XSZuEH8NkN" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "#4 on Develop",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/xampp/htdocs/parcial 1/tienda-anonima"
-  },
-  "keyToStringList": {
-    "ChangesTree.GroupingKeys": [
-      "directory",
-      "module"
-    ]
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/tiendaVirtual&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="587e209a-0ed8-489d-88f0-5135e4fcacea" name="Changes" comment="" />
-      <created>1715270956159</created>
+      <changelist id="d1f258ee-b36f-465c-b369-682882a5d30d" name="Changes" comment="fixs" />
+      <created>1726439356860</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1715270956159</updated>
+      <updated>1726439356860</updated>
     </task>
-    <task id="LOCAL-00039" summary="feacture-cliente: generacion del modelo clientes">
+    <task id="LOCAL-00063" summary="feacture-leads:(actualizado) eventos para el cambio de informacion de los tabs">
       <option name="closed" value="true" />
-      <created>1725484900254</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1725484900254</updated>
-    </task>
-    <task id="LOCAL-00040" summary="feacture-cliente: generacion del controlador clientes">
-      <option name="closed" value="true" />
-      <created>1725484948708</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1725484948708</updated>
-    </task>
-    <task id="LOCAL-00041" summary="feacture-cliente: generacion de la vista clientes. &#10;TO DO: modal editar usuario, borrar usuario">
-      <option name="closed" value="true" />
-      <created>1725490919283</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1725490919283</updated>
-    </task>
-    <task id="LOCAL-00042" summary="feacture-cliente: rutas de acceso">
-      <option name="closed" value="true" />
-      <created>1725490938237</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1725490938237</updated>
-    </task>
-    <task id="LOCAL-00043" summary="feacture-cliente: rutas de acceso">
-      <option name="closed" value="true" />
-      <created>1725490945339</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1725490945339</updated>
-    </task>
-    <task id="LOCAL-00044" summary="feacture-menu:actualizacion de estilos del menu">
-      <option name="closed" value="true" />
-      <created>1725491008859</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1725491008859</updated>
-    </task>
-    <task id="LOCAL-00045" summary="feacture-areas: ajuste de tipo de letra">
-      <option name="closed" value="true" />
-      <created>1725491086513</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1725491086513</updated>
-    </task>
-    <task id="LOCAL-00046" summary="ajustes">
-      <option name="closed" value="true" />
-      <created>1725491719465</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1725491719465</updated>
-    </task>
-    <task id="LOCAL-00047" summary="ajustes de letra">
-      <option name="closed" value="true" />
-      <created>1725492179100</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1725492179100</updated>
-    </task>
-    <task id="LOCAL-00048" summary="feacture-login: ajuste de logo legaltech">
-      <option name="closed" value="true" />
-      <created>1725568610344</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1725568610344</updated>
-    </task>
-    <task id="LOCAL-00049" summary="feacture-login: logo legaltech">
-      <option name="closed" value="true" />
-      <created>1725568663645</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1725568663645</updated>
-    </task>
-    <task id="LOCAL-00050" summary="feacture-cliente: modelo eliminar cliente">
-      <option name="closed" value="true" />
-      <created>1725569666898</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1725569666898</updated>
-    </task>
-    <task id="LOCAL-00051" summary="feacture-cliente: controlador eliminar cliente">
-      <option name="closed" value="true" />
-      <created>1725569676167</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1725569676167</updated>
-    </task>
-    <task id="LOCAL-00052" summary="feacture-cliente: actualizacion vista, controlador eliminar cliente">
-      <option name="closed" value="true" />
-      <created>1725569705292</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1725569705292</updated>
-    </task>
-    <task id="LOCAL-00053" summary="feacture-cliente: boton de accion eliminar cliente">
-      <option name="closed" value="true" />
-      <created>1725569725519</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1725569725519</updated>
-    </task>
-    <task id="LOCAL-00054" summary="feacture-cliente: actualizacion ruta js cliente">
-      <option name="closed" value="true" />
-      <created>1725569749742</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1725569749742</updated>
-    </task>
-    <task id="LOCAL-00055" summary="feacture-usuarios: registro de usuarios">
-      <option name="closed" value="true" />
-      <created>1725600698856</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1725600698856</updated>
-    </task>
-    <task id="LOCAL-00056" summary="feacture-usuarios: ajuste consulta crear usuario, se eliminan las validaciones de caracteres">
-      <option name="closed" value="true" />
-      <created>1725605519806</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1725605519806</updated>
-    </task>
-    <task id="LOCAL-00057" summary="feacture-usuarios: ajuste estado usuario">
-      <option name="closed" value="true" />
-      <created>1725605538190</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1725605538190</updated>
-    </task>
-    <task id="LOCAL-00058" summary="feacture-usuarios: ajuste campos para registrar usuario">
-      <option name="closed" value="true" />
-      <created>1725605564828</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
-      <option name="project" value="LOCAL" />
-      <updated>1725605564828</updated>
-    </task>
-    <task id="LOCAL-00059" summary="feacture-usuarios: actualizacion de modulo clientes">
-      <option name="closed" value="true" />
-      <created>1725605583500</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1725605583500</updated>
-    </task>
-    <task id="LOCAL-00060" summary="feacture-usuarios: actualizacion de modulo usuarios">
-      <option name="closed" value="true" />
-      <created>1725605609503</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
-      <option name="project" value="LOCAL" />
-      <updated>1725605609503</updated>
-    </task>
-    <task id="LOCAL-00061" summary="feacture-index: actualizacion de rutas">
-      <option name="closed" value="true" />
-      <created>1725642846597</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
-      <option name="project" value="LOCAL" />
-      <updated>1725642846599</updated>
-    </task>
-    <task id="LOCAL-00062" summary="feacture-usuario:actualizacion tabla cliente">
-      <option name="closed" value="true" />
-      <created>1725642877052</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
-      <option name="project" value="LOCAL" />
-      <updated>1725642877052</updated>
-    </task>
-    <task id="LOCAL-00063" summary="feacture-area_derecho: modelos de area de derecho">
-      <option name="closed" value="true" />
-      <created>1725731487561</created>
+      <created>1728026327776</created>
       <option name="number" value="00063" />
       <option name="presentableId" value="LOCAL-00063" />
       <option name="project" value="LOCAL" />
-      <updated>1725731487561</updated>
+      <updated>1728026327776</updated>
     </task>
-    <task id="LOCAL-00064" summary="feacture-area_derecho: controladores de area de derecho">
+    <task id="LOCAL-00064" summary="feacture-leads:(actualizado) integracion tabs en modulo leads">
       <option name="closed" value="true" />
-      <created>1725731497380</created>
+      <created>1728026602161</created>
       <option name="number" value="00064" />
       <option name="presentableId" value="LOCAL-00064" />
       <option name="project" value="LOCAL" />
-      <updated>1725731497380</updated>
+      <updated>1728026602161</updated>
     </task>
-    <task id="LOCAL-00065" summary="feacture-area: Actualizacion de modulo area. modulu area-derecho">
+    <task id="LOCAL-00065" summary="feacture-clientes:(cambio) se omite el campo de usuario para tener consistencia en lso datos del lead">
       <option name="closed" value="true" />
-      <created>1725731524881</created>
+      <created>1728026762823</created>
       <option name="number" value="00065" />
       <option name="presentableId" value="LOCAL-00065" />
       <option name="project" value="LOCAL" />
-      <updated>1725731524881</updated>
+      <updated>1728026762823</updated>
     </task>
-    <task id="LOCAL-00066" summary="feacture-area_derecho: actualizacion de rutas">
+    <task id="LOCAL-00066" summary="feacture-leads:(en prueba) se necesita realizar prueba para el envio del controlador del cliente">
       <option name="closed" value="true" />
-      <created>1725731547923</created>
+      <created>1728026921598</created>
       <option name="number" value="00066" />
       <option name="presentableId" value="LOCAL-00066" />
       <option name="project" value="LOCAL" />
-      <updated>1725731547923</updated>
+      <updated>1728026921598</updated>
     </task>
-    <task id="LOCAL-00067" summary="feacture-area: ajuste">
+    <task id="LOCAL-00067" summary="feacture-leads:(model-fixed) el modelo de registrar leads ha sido corregido, debido aun bug al realizar el envio de datos">
       <option name="closed" value="true" />
-      <created>1725733027523</created>
+      <created>1728169346367</created>
       <option name="number" value="00067" />
       <option name="presentableId" value="LOCAL-00067" />
       <option name="project" value="LOCAL" />
-      <updated>1725733027523</updated>
+      <updated>1728169346367</updated>
     </task>
-    <task id="LOCAL-00068" summary="feacture-servicios: modelo de servicios">
+    <task id="LOCAL-00068" summary="feacture-leads:(controler-fixed) el controlador de registrar leads ha sido corregido, debido aun bug al realizar el envio de datos">
       <option name="closed" value="true" />
-      <created>1725979526990</created>
+      <created>1728169381656</created>
       <option name="number" value="00068" />
       <option name="presentableId" value="LOCAL-00068" />
       <option name="project" value="LOCAL" />
-      <updated>1725979526990</updated>
+      <updated>1728169381656</updated>
     </task>
-    <task id="LOCAL-00069" summary="feacture-servicios: controlador de servicios">
+    <task id="LOCAL-00069" summary="feacture-leads:(ajax) logica para el envio de los datos del lead a lciente">
       <option name="closed" value="true" />
-      <created>1725979541513</created>
+      <created>1728169424911</created>
       <option name="number" value="00069" />
       <option name="presentableId" value="LOCAL-00069" />
       <option name="project" value="LOCAL" />
-      <updated>1725979541513</updated>
+      <updated>1728169424911</updated>
     </task>
-    <task id="LOCAL-00070" summary="feacture-servicios: modulo de servicios">
+    <task id="LOCAL-00070" summary="feacture-leads:(modal-fixed) modal de agregarlead ha sido corregida para el envio de los datos del lead">
       <option name="closed" value="true" />
-      <created>1725979557966</created>
+      <created>1728169458595</created>
       <option name="number" value="00070" />
       <option name="presentableId" value="LOCAL-00070" />
       <option name="project" value="LOCAL" />
-      <updated>1725979557966</updated>
+      <updated>1728169458595</updated>
     </task>
-    <task id="LOCAL-00071" summary="feacture-servicios: evento eliminar servicios">
+    <task id="LOCAL-00071" summary="feacture-clientes:(actualizado) metodo para verificar la identificacion unica de cliente">
       <option name="closed" value="true" />
-      <created>1725979577147</created>
+      <created>1728189325560</created>
       <option name="number" value="00071" />
       <option name="presentableId" value="LOCAL-00071" />
       <option name="project" value="LOCAL" />
-      <updated>1725979577147</updated>
+      <updated>1728189325560</updated>
     </task>
-    <task id="LOCAL-00072" summary="feacture-servicios: ajustes de ruta para servicios">
+    <task id="LOCAL-00072" summary="feacture-clientes:(actualizado) integracion de busqueda de identificacion la registrar un cliente">
       <option name="closed" value="true" />
-      <created>1725979602621</created>
+      <created>1728189358693</created>
       <option name="number" value="00072" />
       <option name="presentableId" value="LOCAL-00072" />
       <option name="project" value="LOCAL" />
-      <updated>1725979602621</updated>
+      <updated>1728189358693</updated>
     </task>
-    <task id="LOCAL-00073" summary="feacture-suscripcion: modelo suscripcion">
+    <task id="LOCAL-00073" summary="feacture-clientes:(fixed) cambio de id estatico del registro del lead cliente, ahora se obtiene dinamicamente el id del lead que se convertira en cliente">
       <option name="closed" value="true" />
-      <created>1726005909289</created>
+      <created>1728326026187</created>
       <option name="number" value="00073" />
       <option name="presentableId" value="LOCAL-00073" />
       <option name="project" value="LOCAL" />
-      <updated>1726005909290</updated>
+      <updated>1728326026187</updated>
     </task>
-    <task id="LOCAL-00074" summary="feacture-suscripcion: controlador suscripcion">
+    <task id="LOCAL-00074" summary="feacture-clientes:(fixed) id dinamico para el lead">
       <option name="closed" value="true" />
-      <created>1726005925814</created>
+      <created>1728326062053</created>
       <option name="number" value="00074" />
       <option name="presentableId" value="LOCAL-00074" />
       <option name="project" value="LOCAL" />
-      <updated>1726005925814</updated>
+      <updated>1728326062053</updated>
     </task>
-    <task id="LOCAL-00075" summary="feacture-suscripcion: modulo suscripcion">
+    <task id="LOCAL-00075" summary="feacture-cities:(new) integracion API de ciudades.">
       <option name="closed" value="true" />
-      <created>1726005939382</created>
+      <created>1728450036337</created>
       <option name="number" value="00075" />
       <option name="presentableId" value="LOCAL-00075" />
       <option name="project" value="LOCAL" />
-      <updated>1726005939383</updated>
+      <updated>1728450036338</updated>
     </task>
-    <task id="LOCAL-00076" summary="feacture-servicios: ajuste de ruta servicios">
+    <task id="LOCAL-00076" summary="feacture-clientes:(actualizado) campos correspondientes al pais, ciudad y estado">
       <option name="closed" value="true" />
-      <created>1726006005488</created>
+      <created>1728450098924</created>
       <option name="number" value="00076" />
       <option name="presentableId" value="LOCAL-00076" />
       <option name="project" value="LOCAL" />
-      <updated>1726006005488</updated>
+      <updated>1728450098924</updated>
     </task>
-    <task id="LOCAL-00077" summary="feacture-servicios: ajuste de ruta suscripcion">
+    <task id="LOCAL-00077" summary="feacture-leads:(actualizado) cambios en la consulta a la base de datos ajustada a la documentacion BDD ASJURFIN">
       <option name="closed" value="true" />
-      <created>1726006037384</created>
+      <created>1728450212029</created>
       <option name="number" value="00077" />
       <option name="presentableId" value="LOCAL-00077" />
       <option name="project" value="LOCAL" />
-      <updated>1726006037384</updated>
+      <updated>1728450212029</updated>
     </task>
-    <task id="LOCAL-00078" summary="feacture-menu">
+    <task id="LOCAL-00078" summary="feacture-leads:(actualizado) estilo de botones">
       <option name="closed" value="true" />
-      <created>1726161335755</created>
+      <created>1728450429667</created>
       <option name="number" value="00078" />
       <option name="presentableId" value="LOCAL-00078" />
       <option name="project" value="LOCAL" />
-      <updated>1726161335755</updated>
+      <updated>1728450429667</updated>
     </task>
-    <task id="LOCAL-00079" summary="UPDATE DATABASE:">
+    <task id="LOCAL-00079" summary="feacture-platilla:(actualizado) agregacion de ruta para las ciudades">
       <option name="closed" value="true" />
-      <created>1726161949563</created>
+      <created>1728450460655</created>
       <option name="number" value="00079" />
       <option name="presentableId" value="LOCAL-00079" />
       <option name="project" value="LOCAL" />
-      <updated>1726161949563</updated>
+      <updated>1728450460655</updated>
     </task>
     <task id="LOCAL-00080" summary="trash">
       <option name="closed" value="true" />
-      <created>1726162857577</created>
+      <created>1728450505289</created>
       <option name="number" value="00080" />
       <option name="presentableId" value="LOCAL-00080" />
       <option name="project" value="LOCAL" />
-      <updated>1726162857577</updated>
+      <updated>1728450505289</updated>
     </task>
-    <task id="LOCAL-00081" summary="feacture-suscripcion">
+    <task id="LOCAL-00081" summary="feacture-leads:(actualizado) los datos de area de interes y servicio solicitado han sido eliminados">
       <option name="closed" value="true" />
-      <created>1726171337576</created>
+      <created>1728450695732</created>
       <option name="number" value="00081" />
       <option name="presentableId" value="LOCAL-00081" />
       <option name="project" value="LOCAL" />
-      <updated>1726171337576</updated>
+      <updated>1728450695732</updated>
     </task>
-    <task id="LOCAL-00082" summary="feacture-suscripcion">
+    <task id="LOCAL-00082" summary="feacture-clientes:(actualizado) actualizacion de consulta para ver el cliente">
       <option name="closed" value="true" />
-      <created>1726171370331</created>
+      <created>1728455406689</created>
       <option name="number" value="00082" />
       <option name="presentableId" value="LOCAL-00082" />
       <option name="project" value="LOCAL" />
-      <updated>1726171370332</updated>
+      <updated>1728455406689</updated>
     </task>
-    <task id="LOCAL-00083" summary="feacture-suscripcion">
+    <task id="LOCAL-00083" summary="feacture-clientes:(actualizado) actualizacion en datatable datos del cliente">
       <option name="closed" value="true" />
-      <created>1726171421505</created>
+      <created>1728455444441</created>
       <option name="number" value="00083" />
       <option name="presentableId" value="LOCAL-00083" />
       <option name="project" value="LOCAL" />
-      <updated>1726171421505</updated>
+      <updated>1728455444441</updated>
     </task>
-    <task id="LOCAL-00084" summary="feacture-leads:modelo para cada tipo de lead">
+    <task id="LOCAL-00084" summary="feacture-clientes:(actualizado) box-body para la informacion adicional del usuario">
       <option name="closed" value="true" />
-      <created>1726173154583</created>
+      <created>1728506692945</created>
       <option name="number" value="00084" />
       <option name="presentableId" value="LOCAL-00084" />
       <option name="project" value="LOCAL" />
-      <updated>1726173154583</updated>
+      <updated>1728506692945</updated>
     </task>
-    <task id="LOCAL-00085" summary="feacture-leads:controlador para cada lead">
+    <task id="LOCAL-00085" summary="feacture-clientes:(actualizado) modelo para ver la informacion adicional del cliente">
       <option name="closed" value="true" />
-      <created>1726173173551</created>
+      <created>1728534413410</created>
       <option name="number" value="00085" />
       <option name="presentableId" value="LOCAL-00085" />
       <option name="project" value="LOCAL" />
-      <updated>1726173173551</updated>
+      <updated>1728534413410</updated>
     </task>
-    <task id="LOCAL-00086" summary="feacture-leads:modulo leads segregado">
+    <task id="LOCAL-00086" summary="feacture-clientes:(actualizado) controlador para ver la informacion adicional del cliente">
       <option name="closed" value="true" />
-      <created>1726173188746</created>
+      <created>1728534421063</created>
       <option name="number" value="00086" />
       <option name="presentableId" value="LOCAL-00086" />
       <option name="project" value="LOCAL" />
-      <updated>1726173188746</updated>
+      <updated>1728534421063</updated>
     </task>
-    <task id="LOCAL-00087" summary="feacture-leads:ajuste de rutas">
+    <task id="LOCAL-00087" summary="feacture-clientes:(actualizado) evento para activar el box-body secundario con la informacion adicional del usuario">
       <option name="closed" value="true" />
-      <created>1726173220374</created>
+      <created>1728534444006</created>
       <option name="number" value="00087" />
       <option name="presentableId" value="LOCAL-00087" />
       <option name="project" value="LOCAL" />
-      <updated>1726173220374</updated>
+      <updated>1728534444006</updated>
     </task>
-    <option name="localTasksCounter" value="88" />
+    <task id="LOCAL-00088" summary="feacture-clientes:(actualizado) box-body para la informacion adicional del usuario, grid style para el box-body">
+      <option name="closed" value="true" />
+      <created>1728534480680</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1728534480680</updated>
+    </task>
+    <task id="LOCAL-00089" summary="feacture-clientes:(new) logica para obtnerer la informacion del cliente">
+      <option name="closed" value="true" />
+      <created>1728534521162</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1728534521162</updated>
+    </task>
+    <task id="LOCAL-00090" summary="feacture-menu:(actualizado) rutas y modulos activos para el asesor">
+      <option name="closed" value="true" />
+      <created>1728534577270</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1728534577270</updated>
+    </task>
+    <task id="LOCAL-00091" summary="trash">
+      <option name="closed" value="true" />
+      <created>1728622265703</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1728622265703</updated>
+    </task>
+    <task id="LOCAL-00092" summary="trash">
+      <option name="closed" value="true" />
+      <created>1728622269301</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1728622269301</updated>
+    </task>
+    <task id="LOCAL-00093" summary="feacture-leads:(actualizado) asesor asociado al registro de lead, vistas para asesores con leads asociados y para admin">
+      <option name="closed" value="true" />
+      <created>1728622341929</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1728622341929</updated>
+    </task>
+    <task id="LOCAL-00094" summary="feacture-leads:(actualizado) asesor asociado al registro de lead, vistas para asesores con leads asociados y para admin">
+      <option name="closed" value="true" />
+      <created>1728622557131</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1728622557131</updated>
+    </task>
+    <task id="LOCAL-00095" summary="feacture-leads:(fixed) contenedor de paises y estados arreglado, ya no se desborda de la modal">
+      <option name="closed" value="true" />
+      <created>1728622602297</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1728622602297</updated>
+    </task>
+    <task id="LOCAL-00096" summary="feacture-leads:(fixed) contenedor de paises y estados arreglado, ya no se desborda de la modal">
+      <option name="closed" value="true" />
+      <created>1728622650101</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1728622650101</updated>
+    </task>
+    <task id="LOCAL-00097" summary="fixes">
+      <option name="closed" value="true" />
+      <created>1728623576857</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1728623576857</updated>
+    </task>
+    <task id="LOCAL-00098" summary="feacture-clientes:(actaulizado) informacion adicional del cliente">
+      <option name="closed" value="true" />
+      <created>1728667084832</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1728667084832</updated>
+    </task>
+    <task id="LOCAL-00099" summary="manajo de logs">
+      <option name="closed" value="true" />
+      <created>1729035929921</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1729035929922</updated>
+    </task>
+    <task id="LOCAL-00100" summary="feacture-lead (corregido): consulta para ver los leads por perfil">
+      <option name="closed" value="true" />
+      <created>1729035973276</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1729035973276</updated>
+    </task>
+    <task id="LOCAL-00101" summary="format">
+      <option name="closed" value="true" />
+      <created>1729041058712</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1729041058712</updated>
+    </task>
+    <task id="LOCAL-00102" summary="feacture-suscripcion (actualizado): agregacion de la fecha de cierre de suscripcion">
+      <option name="closed" value="true" />
+      <created>1729041106579</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1729041106579</updated>
+    </task>
+    <task id="LOCAL-00103" summary="feacture-suscripcion (actualizado): modal para crear suscripcion manual">
+      <option name="closed" value="true" />
+      <created>1729041149871</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1729041149871</updated>
+    </task>
+    <task id="LOCAL-00104" summary="feacture-suscripcion (new): ajax para la ejecucion de la creacion de suscripcion">
+      <option name="closed" value="true" />
+      <created>1729041177081</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1729041177081</updated>
+    </task>
+    <task id="LOCAL-00105" summary="feacture-suscripcion (actualizado): box para la informacion adicional del cliente, tab productos en proceso">
+      <option name="closed" value="true" />
+      <created>1729041210582</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1729041210583</updated>
+    </task>
+    <task id="LOCAL-00106" summary="feacture-suscripcion (new): evento para la creacion de la suscripcion del cliente.">
+      <option name="closed" value="true" />
+      <created>1729041276231</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1729041276231</updated>
+    </task>
+    <task id="LOCAL-00107" summary="feacture-factura (new): modelo, controlador y logica para manejar la suscripcion y la factura">
+      <option name="closed" value="true" />
+      <created>1729203376070</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1729203376071</updated>
+    </task>
+    <task id="LOCAL-00108" summary="feacture-cliente (actualizado): evento para crear la suscripcion y la factura del producto">
+      <option name="closed" value="true" />
+      <created>1729203408528</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1729203408529</updated>
+    </task>
+    <task id="LOCAL-00109" summary="feacture-cliente (actualizado): modelo y controlador de la suscripcion para el manejo de errores en la suscripcion">
+      <option name="closed" value="true" />
+      <created>1729203440796</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1729203440796</updated>
+    </task>
+    <task id="LOCAL-00110" summary="trash">
+      <option name="closed" value="true" />
+      <created>1729203455758</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1729203455758</updated>
+    </task>
+    <task id="LOCAL-00111" summary="actualizacion de estilos">
+      <option name="closed" value="true" />
+      <created>1729315435674</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1729315435674</updated>
+    </task>
+    <option name="localTasksCounter" value="112" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -497,27 +494,7 @@
             <list>
               <RecentGroup>
                 <option name="FILTER_VALUES">
-                  <option value="Develop" />
-                </option>
-              </RecentGroup>
-              <RecentGroup>
-                <option name="FILTER_VALUES">
-                  <option value="main" />
-                </option>
-              </RecentGroup>
-              <RecentGroup>
-                <option name="FILTER_VALUES">
-                  <option value="origin/main" />
-                </option>
-              </RecentGroup>
-              <RecentGroup>
-                <option name="FILTER_VALUES">
                   <option value="develop" />
-                </option>
-              </RecentGroup>
-              <RecentGroup>
-                <option name="FILTER_VALUES">
-                  <option value="origin/Develop" />
                 </option>
               </RecentGroup>
             </list>
@@ -532,19 +509,8 @@
             <State>
               <option name="COLUMN_ID_WIDTH">
                 <map>
-                  <entry key="Table.Default.Author.ColumnIdWidth" value="101" />
-                  <entry key="Table.Default.Date.ColumnIdWidth" value="100" />
-                </map>
-              </option>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="Develop" />
-                      </list>
-                    </value>
-                  </entry>
+                  <entry key="Table.Default.Author.ColumnIdWidth" value="75" />
+                  <entry key="Table.Default.Date.ColumnIdWidth" value="75" />
                 </map>
               </option>
             </State>
@@ -554,31 +520,31 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feacture-index: actualizacion de rutas" />
-    <MESSAGE value="feacture-usuario:actualizacion tabla cliente" />
-    <MESSAGE value="feacture-area_derecho: modelos de area de derecho" />
-    <MESSAGE value="feacture-area_derecho: controladores de area de derecho" />
-    <MESSAGE value="feacture-area: Actualizacion de modulo area. modulu area-derecho" />
-    <MESSAGE value="feacture-area_derecho: actualizacion de rutas" />
-    <MESSAGE value="feacture-area: ajuste" />
-    <MESSAGE value="feacture-servicios: modelo de servicios" />
-    <MESSAGE value="feacture-servicios: controlador de servicios" />
-    <MESSAGE value="feacture-servicios: modulo de servicios" />
-    <MESSAGE value="feacture-servicios: evento eliminar servicios" />
-    <MESSAGE value="feacture-servicios: ajustes de ruta para servicios" />
-    <MESSAGE value="feacture-suscripcion: modelo suscripcion" />
-    <MESSAGE value="feacture-suscripcion: controlador suscripcion" />
-    <MESSAGE value="feacture-suscripcion: modulo suscripcion" />
-    <MESSAGE value="feacture-servicios: ajuste de ruta servicios" />
-    <MESSAGE value="feacture-servicios: ajuste de ruta suscripcion" />
-    <MESSAGE value="feacture-menu" />
-    <MESSAGE value="UPDATE DATABASE:" />
+    <MESSAGE value="feacture-clientes:(actualizado) box-body para la informacion adicional del usuario" />
+    <MESSAGE value="feacture-clientes:(actualizado) modelo para ver la informacion adicional del cliente" />
+    <MESSAGE value="feacture-clientes:(actualizado) controlador para ver la informacion adicional del cliente" />
+    <MESSAGE value="feacture-clientes:(actualizado) evento para activar el box-body secundario con la informacion adicional del usuario" />
+    <MESSAGE value="feacture-clientes:(actualizado) box-body para la informacion adicional del usuario, grid style para el box-body" />
+    <MESSAGE value="feacture-clientes:(new) logica para obtnerer la informacion del cliente" />
+    <MESSAGE value="feacture-menu:(actualizado) rutas y modulos activos para el asesor" />
+    <MESSAGE value="feacture-leads:(actualizado) asesor asociado al registro de lead, vistas para asesores con leads asociados y para admin" />
+    <MESSAGE value="feacture-leads:(fixed) contenedor de paises y estados arreglado, ya no se desborda de la modal" />
+    <MESSAGE value="fixes" />
+    <MESSAGE value="feacture-clientes:(actaulizado) informacion adicional del cliente" />
+    <MESSAGE value="manejo de logs" />
+    <MESSAGE value="manejo de logs" />
+    <MESSAGE value="feacture-lead (corregido): consulta para ver los leads por perfil" />
+    <MESSAGE value="format" />
+    <MESSAGE value="feacture-suscripcion (actualizado): agregacion de la fecha de cierre de suscripcion" />
+    <MESSAGE value="feacture-suscripcion (actualizado): modal para crear suscripcion manual" />
+    <MESSAGE value="feacture-suscripcion (new): ajax para la ejecucion de la creacion de suscripcion" />
+    <MESSAGE value="feacture-suscripcion (actualizado): box para la informacion adicional del cliente, tab productos en proceso" />
+    <MESSAGE value="feacture-suscripcion (new): evento para la creacion de la suscripcion del cliente." />
+    <MESSAGE value="feacture-factura (new): modelo, controlador y logica para manejar la suscripcion y la factura" />
+    <MESSAGE value="feacture-cliente (actualizado): evento para crear la suscripcion y la factura del producto" />
+    <MESSAGE value="feacture-cliente (actualizado): modelo y controlador de la suscripcion para el manejo de errores en la suscripcion" />
     <MESSAGE value="trash" />
-    <MESSAGE value="feacture-suscripcion" />
-    <MESSAGE value="feacture-leads:modelo para cada tipo de lead" />
-    <MESSAGE value="feacture-leads:controlador para cada lead" />
-    <MESSAGE value="feacture-leads:modulo leads segregado" />
-    <MESSAGE value="feacture-leads:ajuste de rutas" />
-    <option name="LAST_COMMIT_MESSAGE" value="feacture-leads:ajuste de rutas" />
+    <MESSAGE value="actualizacion de estilos" />
+    <option name="LAST_COMMIT_MESSAGE" value="actualizacion de estilos" />
   </component>
 </project>

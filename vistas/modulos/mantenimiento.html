@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="vistas/img/plantilla/AsurLogo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página en Mantenimiento</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('vistas/img/plantilla/Fondo.jpeg'); /* Background image from the uploaded file */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .logo {
+            max-width: 150px;
+            height: auto;
+        }
+
+        .content {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 2rem;
+            border-radius: 10px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .custom-img {
+            max-width: 100%;
+            height: auto;
+            mix-blend-mode: multiply;
+        }
+
+        .login-box {
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-left: 20px;
+            background-color: #fff;
+        }
+
+        .login-box a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .login-box a:hover {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand">
+                <img src="vistas/img/plantilla/Logo.jpeg" alt="logo" class="logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active">INICIO</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">QUIENES SOMOS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#imageModal">SERVICIOS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">CONTACTO</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid d-flex justify-content-center align-items-center vh-100">
+        <div class="content text-center">
+            <h1 class="display-4">¡Estamos en mantenimiento!</h1>
+            <p class="lead">Volveremos pronto. Gracias por tu paciencia.</p>
+            <p class="lead">Click <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal">aquí</a> para obtener información de nuestros servicios</p>
+        </div>
+    </div>
+
+    <div class="modal fade" id="imageModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <img src="vistas/img/plantilla/QR.jpeg" alt="Imagen de Servicio" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Si necesitas asesoría, contáctanos al correo <a href="mailto:registro@asjurfinlegaltech.com">registro@asjurfinlegaltech.com</a></p>
+        <p>O comunícate a nuestro WhatsApp <a href="https://wa.me/3057131652">3057131652</a></p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
