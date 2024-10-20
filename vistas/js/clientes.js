@@ -113,7 +113,6 @@ $(document).on('click', '#guardarProductoYCrearFactura', function(e) {
       processData: false,
       dataType: "json", // Esperamos una respuesta en formato JSON
       success: function(respuesta) {
-          console.log("Respuesta del servidor (suscripción):", respuesta);
           if (respuesta.success && respuesta.idSuscripcion) {
               var idSuscripcion = parseInt(respuesta.idSuscripcion, 10);
               window.idSuscripcionSeleccionada = idSuscripcion;
@@ -175,4 +174,3 @@ $(document).on('click', '#guardarProductoYCrearFactura', function(e) {
       },
   });
 });
-

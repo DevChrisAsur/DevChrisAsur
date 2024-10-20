@@ -559,90 +559,91 @@
                         <div class="div2">
                             <div class="tabs">
                                 <div class="tab-container">
-                                <div id="tab1" class="tab">
-    <a href="#tab1">Productos</a>
-    <div class="tab-content">
-    <!-- Formulario Unificado -->
-    <form id="formularioProductoYFactura" method="POST">
-        <div class="container">
-            <!-- Información del Producto -->
-            <h5>Información del Producto</h5>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <div class="row">
-                            <?php
-                            $item = null;
-                            $valor = null;
-                            $servicios = ControladorServicios::ctrVerServicios($item, $valor);
-                            foreach ($servicios as $key => $value) {
-                                echo '
-                                <div class="col-md-4">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" name="servicios[]" value="' . $value["id_service"] . '" id="servicio' . $value["id_service"] . '" data-price="' . $value["service_price"] . '">
-                                        <span class="form-check-text">' . $value["service_name"] . '</span>
+                                    <div id="tab1" class="tab">
+                                        <a href="#tab1">Productos</a>
+
+                                        <div class="tab-content">
+                                            <!-- Formulario Unificado -->
+                                            <form id="formularioProductoYFactura" method="POST">
+                                                <div class="container">
+                                                    <!-- Información del Producto -->
+                                                    <h5>Información del Producto</h5>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                    <?php
+                                                                    $item = null;
+                                                                    $valor = null;
+                                                                    $servicios = ControladorServicios::ctrVerServicios($item, $valor);
+                                                                    foreach ($servicios as $key => $value) {
+                                                                        echo '
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-check">
+                                                                            <input type="checkbox" class="form-check-input" name="servicios[]" value="' . $value["id_service"] . '" id="servicio' . $value["id_service"] . '" data-price="' . $value["service_price"] . '">
+                                                                            <span class="form-check-text">' . $value["service_name"] . '</span>
+                                                                        </div>
+                                                                    </div>';
+                                                                    }
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Información Financiera -->
+                                                    <h5>Información Financiera</h5>
+                                                    <!-- Campo oculto para idCliente -->
+                                                    <input type="hidden" name="idCliente" id="idCliente" value="">
+                                                    <!-- Campo oculto para idSuscripcion -->
+                                                    <input type="hidden" name="idSuscripcion" id="idSuscripcion" value="">
+                                                    
+                                                    <input type="hidden" name="idFactura" id="idFactura" value="">
+
+
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" name="banco" id="banco" placeholder="Banco">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" name="titular" id="titular" placeholder="Titular">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" name="numeroCuenta" id="numeroCuenta" placeholder="Número de Cuenta">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" name="tipoCuenta" id="tipoCuenta" placeholder="Tipo de Cuenta">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control" name="monto" id="valorTotal" placeholder="Monto" disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <input type="date" class="form-control" name="fecha_limite" id="fecha_limite">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Botón Unificado para crear la suscripción y la factura -->
+                                                    <div class="modal-footer">
+                                                        <button type="submit" id="guardarProductoYCrearFactura" class="btn btn-primary">Guardar Producto y Crear Factura</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
-                                </div>';
-                            }
-                            ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Información Financiera -->
-            <h5>Información Financiera</h5>
-            <!-- Campo oculto para idCliente -->
-            <input type="hidden" name="idCliente" id="idCliente" value="">
-            <!-- Campo oculto para idSuscripcion -->
-            <input type="hidden" name="idSuscripcion" id="idSuscripcion" value="">
-
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="banco" id="banco" placeholder="Banco">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="titular" id="titular" placeholder="Titular">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="numeroCuenta" id="numeroCuenta" placeholder="Número de Cuenta">
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="tipoCuenta" id="tipoCuenta" placeholder="Tipo de Cuenta">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="monto" id="valorTotal" placeholder="Monto">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <input type="date" class="form-control" name="fecha_limite" id="fecha_limite">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Botón Unificado para crear la suscripción y la factura -->
-            <div class="modal-footer">
-                <button type="submit" id="guardarProductoYCrearFactura" class="btn btn-primary">Guardar Producto y Crear Factura</button>
-            </div>
-        </div>
-    </form>
-</div>
-
-</div>
-
 
                                     <div id="tab2" class="tab">
                                         <a href="#tab2">Notas</a>
@@ -898,7 +899,7 @@
             });
         });
     </script>
-<!-- evento para desplegar el box body secundario -->
+    <!-- evento para desplegar el box body secundario -->
     <script>
         $(document).ready(function() {
             // Inicialmente el segundo box-body está oculto
@@ -942,12 +943,10 @@
             });
         });
     </script>
-<!-- evento para desplegar el numero de cuotas-->   
-<script>
-
-
-            // Usar jQuery para detectar cambios en los checkboxes
-            $('.form-check-input').change(function() {
+    <!-- evento para desplegar el numero de cuotas-->
+    <script>
+        // Usar jQuery para detectar cambios en los checkboxes
+        $('.form-check-input').change(function() {
             // Desmarcar todos los checkboxes
             $('.form-check-input').prop('checked', false);
 
