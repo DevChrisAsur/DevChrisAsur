@@ -20,18 +20,16 @@ class ControladorFacturas
                 "fecha_limite"    => $_POST["fecha_limite"] // Fecha límite de la cuota
             );
         
-            // Ver los datos recibidos para depuración
-            error_log(print_r($datos, true));
-        
             // Llamar al modelo para registrar la factura
             $respuesta = ModeloFacturas::mdlRegistrarFactura($tabla, $datos);
         
-            // Devolver el resultado de la operación
-            if ($respuesta != "ok") {
-                return "error: " . $respuesta;  // Detener el proceso si una factura falla
-            }
+            if ($respuesta != "error") {
+				// Devuelve el ID de la suscripción creada
+				return $respuesta;
+			} else {
+				return "error";
+			}
         
-            return "ok";  // Si todo fue bien, retornar "ok"
         }
         
 

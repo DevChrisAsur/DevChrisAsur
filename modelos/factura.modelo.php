@@ -8,7 +8,8 @@ class ModeloFacturas {
     =============================================*/
     static public function mdlRegistrarFactura($tabla, $datos) {
         try {
-            $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla 
+            $conexion = Conexion::conectar();
+            $stmt = $conexion->prepare("INSERT INTO $tabla 
                 (fecha_emision, id_customer, id_suscripcion, bank, titular, account_number, account_type, monto, status_factura, fecha_limite) 
                 VALUES (:fecha_emision, :id_customer, :id_suscripcion, :bank, :titular, :account_number, :account_type, :monto, :status_factura, :fecha_limite)");
     
@@ -25,7 +26,7 @@ class ModeloFacturas {
     
             // Ejecutar la consulta
             if($stmt->execute()) {
-                return "ok";
+                return $conexion->lastInsertId();
             } else {
                 error_log("Error en la creación de factura: " . print_r($stmt->errorInfo(), true)); // Agregar esto para registrar el error
                 return "error: " . $stmt->errorInfo()[2]; // Devolver el error específico de SQL
