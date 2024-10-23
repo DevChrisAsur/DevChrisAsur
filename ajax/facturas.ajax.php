@@ -3,6 +3,8 @@ require_once "../controladores/suscripciones.controlador.php";
 require_once "../modelos/suscripciones.modelo.php";
 require_once "../controladores/factura.controlador.php";
 require_once "../modelos/factura.modelo.php";
+require_once "../controladores/cuotas.controlador.php";  // Asegúrate de incluir el controlador de cuotas
+require_once "../modelos/cuotas.modelo.php";  // Asegúrate de incluir el modelo de cuotas
 
 // Verificar si se va a crear una suscripción
 if (isset($_POST["action"]) && $_POST["action"] == "crearSuscripcion") {
@@ -29,10 +31,29 @@ if (isset($_POST["action"]) && $_POST["action"] == "crearSuscripcion") {
 // Verificar si se van a crear facturas (cuando ya tienes idCliente y idSuscripcion)
 if (isset($_POST['idCliente']) && isset($_POST['idSuscripcion'])) {
     // Código para crear la factura
-    $respuesta = ControladorFacturas::ctrCrearFactura();
+    $idFactura = ControladorFacturas::ctrCrearFactura();
+
+    if (is_numeric($idFactura)) {
+        // Devolver el ID de la factura creada
+        echo json_encode(['success' => true, 'idFactura' => $idFactura]);
+    } else {
+        echo json_encode(['success' => false, 'error' => "Error al crear la factura"]);
+    }
+    exit; // Termina aquí para evitar seguir con el flujo
+}
+// Verificar si se van a crear las cuotas (cuando ya tienes idFactura)
+if (isset($_POST['idFactura'])) {
+    // Verifica si llega este bloque correctamente
+    error_log("Procesando la creación de cuotas para la factura ID: " . $_POST['idFactura']);
+
+    $respuesta = ControladorCuotas::ctrCrearCuotas();
+
     if ($respuesta === "ok") {
         echo json_encode(['success' => true]);
     } else {
-        echo json_encode(['success' => false, 'error' => $respuesta]);
+        error_log("Error al crear cuotas: " . $respuesta);
+        echo json_encode(['success' => false, 'error' => "Error al crear las cuotas: " . $respuesta]);
     }
+    exit; 
 }
+
