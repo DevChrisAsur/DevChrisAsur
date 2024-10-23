@@ -578,12 +578,12 @@
                                                                     $servicios = ControladorServicios::ctrVerServicios($item, $valor);
                                                                     foreach ($servicios as $key => $value) {
                                                                         echo '
-                                                                    <div class="col-md-4">
-                                                                        <div class="form-check">
-                                                                            <input type="checkbox" class="form-check-input" name="servicios[]" value="' . $value["id_service"] . '" id="servicio' . $value["id_service"] . '" data-price="' . $value["service_price"] . '">
-                                                                            <span class="form-check-text">' . $value["service_name"] . '</span>
-                                                                        </div>
-                                                                    </div>';
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-check">
+                                                                                <input type="checkbox" class="form-check-input servicio-checkbox" name="servicios[]" value="' . $value["id_service"] . '" id="servicio' . $value["id_service"] . '" data-price="' . $value["service_price"] . '">
+                                                                                <span class="form-check-text">' . $value["service_name"] . '</span>
+                                                                            </div>
+                                                                        </div>';
                                                                     }
                                                                     ?>
                                                                 </div>
@@ -593,13 +593,10 @@
 
                                                     <!-- Información Financiera -->
                                                     <h5>Información Financiera</h5>
-                                                    <!-- Campo oculto para idCliente -->
+                                                    <!-- Campos ocultos -->
                                                     <input type="hidden" name="idCliente" id="idCliente" value="">
-                                                    <!-- Campo oculto para idSuscripcion -->
                                                     <input type="hidden" name="idSuscripcion" id="idSuscripcion" value="">
-                                                    
                                                     <input type="hidden" name="idFactura" id="idFactura" value="">
-
 
                                                     <div class="row">
                                                         <div class="col-md-4">
@@ -636,9 +633,26 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <!-- Botón Unificado para crear la suscripción y la factura -->
+
+                                                    <!-- Sección para cuotas -->
+                                                    <h5>Cuotas</h5>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <select class="form-control" id="numCuotas" name="numCuotas">
+                                                                <option value="1">1 Cuota</option>
+                                                                <option value="2">2 Cuotas</option>
+                                                                <option value="3">3 Cuotas</option>
+                                                                <option value="4">4 Cuotas</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Contenedor para los campos de cuotas -->
+                                                    <div id="cuotasContainer"></div>
+
+                                                    <!-- Botón para guardar -->
                                                     <div class="modal-footer">
-                                                        <button type="submit" id="guardarProductoYCrearFactura" class="btn btn-primary">Guardar Producto y Crear Factura</button>
+                                                        <button type="submit" id="guardarProductoYCrearFactura" class="btn btn-primary">Crear Prodcuto</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -959,4 +973,67 @@
             // Actualizar el valor total
             $('#valorTotal').val(price.toFixed(2)); // Actualizar el valor total en el campo
         });
-</script>
+    </script>
+
+    <script>
+        // Función para calcular el monto total basado en los servicios seleccionados
+        function calcularMontoTotal() {
+            let montoTotal = 0;
+            $('.servicio-checkbox:checked').each(function() {
+                montoTotal += parseFloat($(this).data('price'));
+            });
+            return montoTotal;
+        }
+
+        // Función para generar los campos de cuotas
+        function generarCamposCuotas(numCuotas, montoTotal) {
+            const container = $('#cuotasContainer');
+            container.empty(); // Limpiar campos anteriores
+
+            const montoCuota = (montoTotal / numCuotas).toFixed(2);
+            let ajuste = montoTotal - (montoCuota * numCuotas);
+
+            for (let i = 1; i <= numCuotas; i++) {
+                let montoFinal = (i === numCuotas) ? (parseFloat(montoCuota) + ajuste).toFixed(2) : montoCuota;
+
+                container.append(`
+                    <div class="row cuota-row">
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="estado_pago_${i}" name="estado_pago_${i}" value="Pendiente" readonly>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="date" class="form-control" id="fecha_vencimiento_${i}" name="fecha_vencimiento_${i}" required>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="monto_${i}" name="monto_${i}" value="${montoFinal}" readonly>
+                        </div>
+                    </div>
+                `);
+            }
+        }
+
+        // Evento para calcular monto total en base a los servicios seleccionados
+        $('.servicio-checkbox').on('change', function() {
+            const montoTotal = calcularMontoTotal();
+            $('#valorTotal').val(montoTotal.toFixed(2)); // Actualiza el campo de monto total
+
+            const numCuotas = $('#numCuotas').val();
+            generarCamposCuotas(numCuotas, montoTotal);
+        });
+
+        // Evento para recalcular las cuotas cuando cambia el número de cuotas
+        $('#numCuotas').on('change', function() {
+            const montoTotal = calcularMontoTotal();
+            const numCuotas = $(this).val();
+            generarCamposCuotas(numCuotas, montoTotal);
+        });
+
+        // Inicialización: calcular el monto total al cargar la página
+        $(document).ready(function() {
+            const montoTotal = calcularMontoTotal();
+            $('#valorTotal').val(montoTotal.toFixed(2)); // Inicializa el campo de monto total
+
+            const numCuotas = $('#numCuotas').val();
+            generarCamposCuotas(numCuotas, montoTotal);
+        });
+    </script>

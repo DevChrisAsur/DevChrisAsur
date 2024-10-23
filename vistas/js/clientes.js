@@ -97,15 +97,15 @@ $(document).on('click', '#guardarProductoYCrearFactura', function(e) {
   datos.append("action", "crearSuscripcion"); // Agregar la acción para crear suscripción
 
   // Mostrar los datos que se van a enviar al servidor
-  console.log("Datos enviados:", {
-      nuevoServicio: servicioSeleccionado,
-      nuevaSuscripcion: idCliente,
-      action: "crearSuscripcion"
-  });
+  // console.log("Datos enviados (suscripción):", {
+  //     nuevoServicio: servicioSeleccionado,
+  //     nuevaSuscripcion: idCliente,
+  //     action: "crearSuscripcion"
+  // });
 
   // Hacer la solicitud AJAX para crear la suscripción
   $.ajax({
-      url: "ajax/facturas.ajax.php", // Archivo que maneja ambas acciones
+      url: "ajax/facturas.ajax.php",
       method: "POST",
       data: datos,
       cache: false,
@@ -128,38 +128,107 @@ $(document).on('click', '#guardarProductoYCrearFactura', function(e) {
               facturaDatos.append("monto", $("#valorTotal").val());
               facturaDatos.append("fecha_limite", $("#fecha_limite").val());
 
+              // Mostrar los datos de la factura que se van a enviar
+              // console.log("Datos enviados (factura):", {
+              //     idCliente: idCliente,
+              //     idSuscripcion: idSuscripcion,
+              //     banco: $("#banco").val(),
+              //     titular: $("#titular").val(),
+              //     numeroCuenta: $("#numeroCuenta").val(),
+              //     tipoCuenta: $("#tipoCuenta").val(),
+              //     monto: $("#valorTotal").val(),
+              //     fecha_limite: $("#fecha_limite").val()
+              // });
+
               // Hacer una nueva solicitud AJAX para crear la factura
               $.ajax({
-                  url: "ajax/facturas.ajax.php",
-                  method: "POST",
-                  data: facturaDatos,
-                  cache: false,
-                  contentType: false,
-                  processData: false,
-                  dataType: "json",
-                  success: function(respuestaFactura) {
-                      console.log("Respuesta del servidor (factura):", respuestaFactura);
-                      if (respuestaFactura.success) {
-                          swal({
-                              type: "success",
-                              title: "Suscripción y factura creadas correctamente",
-                              showConfirmButton: true,
-                              confirmButtonText: "Cerrar",
-                          });
-                      } else {
-                          swal({
-                              type: "error",
-                              title: "¡Error al crear la factura!",
-                              showConfirmButton: true,
-                              confirmButtonText: "Cerrar",
-                          });
-                      }
-                  },
-                  error: function(jqXHR, textStatus, errorThrown) {
-                      console.error("Error en la solicitud AJAX para crear la factura:", textStatus, errorThrown);
-                  },
-              });
-
+                url: "ajax/facturas.ajax.php",
+                method: "POST",
+                data: facturaDatos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function(respuestaFactura) {
+                  if (respuestaFactura.success && respuestaFactura.idFactura) {
+                    var idFactura = parseInt(respuestaFactura.idFactura, 10);
+                    //console.log("Factura creada correctamente, ID de la factura:", idFactura);
+                
+                    var numCuotas = $('#numCuotas').val(); // Obtener número de cuotas
+                    var montoTotal = $("#valorTotal").val(); // Obtener monto total
+                
+                    // Preparar los datos de las cuotas
+                    var cuotasDatos = new FormData();
+                    cuotasDatos.append("idFactura", idFactura); // Aquí pasamos el ID de la factura generada
+                    cuotasDatos.append("numCuotas", numCuotas); // Pasar número de cuotas
+                    cuotasDatos.append("montoTotal", montoTotal); // Pasar monto total
+                
+                    // Iterar sobre el número de cuotas
+                    for (var i = 1; i <= numCuotas; i++) {
+                        var estadoPago = $("#estado_pago_" + i).val();
+                        var fechaVencimiento = $("#fecha_vencimiento_" + i).val();
+                        var montoCuota = $("#monto_" + i).val();
+                
+                        // Añadir los datos de cada cuota a FormData
+                        cuotasDatos.append("estado_pago_" + i, estadoPago);
+                        cuotasDatos.append("fecha_vencimiento_" + i, fechaVencimiento);
+                        cuotasDatos.append("monto_" + i, montoCuota);
+                
+                        // Mostrar los datos de cada cuota
+                        // console.log(`Datos enviados para la cuota ${i}:`, {
+                        //     estado_pago: estadoPago,
+                        //     fecha_vencimiento: fechaVencimiento,
+                        //     monto: montoCuota,
+                        //     idFactura: idFactura
+                        // });
+                    }
+                
+                    // Hacer la solicitud AJAX para registrar las cuotas
+                    $.ajax({
+                        url: "ajax/facturas.ajax.php",  // Asegúrate de que esta URL esté correcta
+                        method: "POST",
+                        data: cuotasDatos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        dataType: "json",
+                        success: function(respuestaCuotas) {
+                            //console.log("Respuesta del servidor (cuotas):", respuestaCuotas);
+                            if (respuestaCuotas.success) {
+                                swal({
+                                    type: "success",
+                                    title: "Suscripción, factura y cuotas creadas correctamente",
+                                    showConfirmButton: true,
+                                    confirmButtonText: "Cerrar",
+                                });
+                            } else {
+                                console.error("Error al registrar las cuotas.");
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.error("Error en la solicitud AJAX para crear las cuotas:", textStatus, errorThrown);
+                            console.log("Respuesta completa del servidor:", jqXHR.responseText);
+                        }
+                    });
+                
+                } else {
+                    swal({
+                        type: "error",
+                        title: "¡Error al crear la factura!",
+                        showConfirmButton: true,
+                        confirmButtonText: "Cerrar",
+                    });
+                }
+                
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error("Error en la solicitud AJAX para crear la factura:", textStatus, errorThrown);
+                    console.log("Respuesta completa del servidor:", jqXHR.responseText); // Verifica la respuesta completa
+                },
+            });
+            
+            
+    
           } else {
               swal({
                   type: "error",
