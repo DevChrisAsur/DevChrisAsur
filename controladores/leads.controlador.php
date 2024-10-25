@@ -66,6 +66,15 @@ class ControladorLeads {
 	}
 	
 
+	static public function ctrContarLeadsDiarios() {
+
+        // Llamamos al modelo que hace la consulta de leads diarios
+        $respuesta = ModeloLeads::mdlContarLeadsDiarios();
+
+        // Retornamos la respuesta del modelo, que contiene el conteo de leads
+        return $respuesta;
+    }
+	
     static public function ctrVerLeadsFrio($item, $valor){
 
 		$tabla = "leads";

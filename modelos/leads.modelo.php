@@ -77,6 +77,21 @@ static public function mdlVerLeadsInteres($item, $valor) {
     $stmt = null;
 }
 
+static public function mdlContarLeadsDiarios(){
+    // Preparamos la consulta para contar los leads registrados hoy
+    $stmt = Conexion::conectar()->prepare("
+        SELECT COUNT(*) AS total_leads
+        FROM leads
+        WHERE creation_date = CURDATE()
+    ");
+    
+    // Ejecutamos la consulta
+    $stmt->execute();
+    
+    // Retornamos el resultado
+    return $stmt->fetch()['total_leads'];
+}
+
 
     static public function mdlMostrarLeadsPorAsesor($tablaLeads, $tablaUsuarios, $id_asesor) {
         // Preparamos la consulta para seleccionar los leads registrados por un asesor
