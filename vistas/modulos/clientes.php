@@ -553,6 +553,15 @@
                                         <span id="infoTelefono" name="infoTelefono" class="info-display"></span> <!-- Cambiado a span -->
                                     </div>
                                 </div>
+                                <br>
+                                <div class="row mb-2">
+                                    <div class="col-md-4">
+                                        <label for="infofecha">fecha de creacion</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <span id="infofecha" name="infofecha" class="info-display"></span> <!-- Cambiado a span -->
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -563,88 +572,101 @@
                                         <a href="#tab1">Productos</a>
 
                                         <div class="tab-content">
-                                            <!-- Formulario Unificado -->
-                                            <form id="formularioProductoYFactura" method="POST">
+                                            <!-- Botón para activar el formulario -->
+                                            <button id="toggleFormulario" class="btn btn-primary">crear nuevo producto</button>
+
+                                            <!-- Contenedor del formulario que estará oculto inicialmente -->
+                                            <div id="formularioContainer" style="display: none;">
+                                            <div class="tab-content">
+                                                <!-- Formulario Unificado -->
+                                                <form id="formularioProductoYFactura" method="POST">
                                                 <div class="container">
                                                     <!-- Información del Producto -->
                                                     <h5>Información del Producto</h5>
                                                     <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <div class="row">
-                                                                    <?php
-                                                                    $item = null;
-                                                                    $valor = null;
-                                                                    $servicios = ControladorServicios::ctrVerServicios($item, $valor);
-                                                                    foreach ($servicios as $key => $value) {
-                                                                        echo '
-                                                                        <div class="col-md-4">
-                                                                            <div class="form-check">
-                                                                                <input type="checkbox" class="form-check-input servicio-checkbox" name="servicios[]" value="' . $value["id_service"] . '" id="servicio' . $value["id_service"] . '" data-price="' . $value["service_price"] . '">
-                                                                                <span class="form-check-text">' . $value["service_name"] . '</span>
-                                                                            </div>
-                                                                        </div>';
-                                                                    }
-                                                                    ?>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                        <div class="row">
+                                                            <?php
+                                                            $item = null;
+                                                            $valor = null;
+                                                            $servicios = ControladorServicios::ctrVerServicios($item, $valor);
+                                                            foreach ($servicios as $key => $value) {
+                                                            echo '
+                                                            <div class="col-md-4">
+                                                                <div class="form-check">
+                                                                <input type="checkbox" class="form-check-input servicio-checkbox" name="servicios[]" value="' . $value["id_service"] . '" id="servicio' . $value["id_service"] . '" data-price="' . $value["service_price"] . '">
+                                                                <span class="form-check-text">' . $value["service_name"] . '</span>
                                                                 </div>
-                                                            </div>
+                                                            </div>';
+                                                            }
+                                                            ?>
                                                         </div>
+                                                        </div>
+                                                    </div>
                                                     </div>
 
                                                     <!-- Información Financiera -->
                                                     <h5>Información Financiera</h5>
-                                                    <!-- Campos ocultos -->
                                                     <input type="hidden" name="idCliente" id="idCliente" value="">
                                                     <input type="hidden" name="idSuscripcion" id="idSuscripcion" value="">
                                                     <input type="hidden" name="idFactura" id="idFactura" value="">
 
                                                     <div class="row">
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <input type="text" class="form-control" name="banco" id="banco" placeholder="Banco">
-                                                            </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                        <input type="text" class="form-control" name="banco" id="banco" placeholder="Banco">
                                                         </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <input type="text" class="form-control" name="titular" id="titular" placeholder="Titular">
-                                                            </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                        <input type="text" class="form-control" name="titular" id="titular" placeholder="Titular">
                                                         </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <input type="text" class="form-control" name="numeroCuenta" id="numeroCuenta" placeholder="Número de Cuenta">
-                                                            </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                        <input type="text" class="form-control" name="numeroCuenta" id="numeroCuenta" placeholder="Número de Cuenta">
                                                         </div>
+                                                    </div>
                                                     </div>
 
                                                     <div class="row">
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <input type="text" class="form-control" name="tipoCuenta" id="tipoCuenta" placeholder="Tipo de Cuenta">
-                                                            </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                        <input type="text" class="form-control" name="tipoCuenta" id="tipoCuenta" placeholder="Tipo de Cuenta">
                                                         </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <input type="text" class="form-control" name="monto" id="valorTotal" placeholder="Monto" disabled>
-                                                            </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                        <input type="text" class="form-control" name="monto" id="valorTotal" placeholder="Monto" disabled>
                                                         </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <input type="date" class="form-control" name="fecha_limite" id="fecha_limite">
-                                                            </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                        <input type="date" class="form-control" name="fecha_limite" id="fecha_limite">
                                                         </div>
+                                                    </div>
                                                     </div>
 
                                                     <!-- Sección para cuotas -->
                                                     <h5>Cuotas</h5>
                                                     <div class="row">
-                                                        <div class="col-md-4">
-                                                            <select class="form-control" id="numCuotas" name="numCuotas">
-                                                                <option value="1">1 Cuota</option>
-                                                                <option value="2">2 Cuotas</option>
-                                                                <option value="3">3 Cuotas</option>
-                                                                <option value="4">4 Cuotas</option>
-                                                            </select>
-                                                        </div>
+                                                    <div class="col-md-4">
+                                                        <select class="form-control" id="numCuotas" name="numCuotas">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
+                                                        <option value="10">10</option>
+                                                        <option value="11">11</option>
+                                                        <option value="12">12</option>
+                                                        </select>
+                                                    </div>
                                                     </div>
 
                                                     <!-- Contenedor para los campos de cuotas -->
@@ -652,10 +674,13 @@
 
                                                     <!-- Botón para guardar -->
                                                     <div class="modal-footer">
-                                                        <button type="submit" id="guardarProductoYCrearFactura" class="btn btn-primary">Crear Prodcuto</button>
+                                                    <button type="submit" id="guardarProductoYCrearFactura" class="btn btn-primary">Crear Prodcuto</button>
                                                     </div>
                                                 </div>
-                                            </form>
+                                                </form>
+                                            </div>
+                                            </div>
+
                                         </div>
                                     </div>
 
@@ -1036,4 +1061,26 @@
             const numCuotas = $('#numCuotas').val();
             generarCamposCuotas(numCuotas, montoTotal);
         });
+    </script>
+
+    <script>
+                $(document).ready(function () {
+        // Al hacer clic en el botón de mostrar/ocultar formulario
+        $("#toggleFormulario").on("click", function () {
+            // Comprobar si el formulario está visible o no
+            if ($("#formularioContainer").is(":visible")) {
+            // Si el formulario está visible, lo ocultamos
+            $("#formularioContainer").hide();
+            // Cambiamos el texto del botón a "Mostrar Formulario"
+            $(this).text("Mostrar Formulario");
+            } else {
+            // Si el formulario está oculto, lo mostramos
+            $("#formularioContainer").show();
+            // Cambiamos el texto del botón a "Ocultar Formulario"
+            $(this).text("Ocultar Formulario");
+            }
+        });
+        });
+
+
     </script>

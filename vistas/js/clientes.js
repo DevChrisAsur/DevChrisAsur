@@ -61,6 +61,7 @@ $(document).on("click", "#btnInformacionAdicional", function () {
         $("#infoCity").text(paisCiudad);
         $("#infoIdLeads").text(respuesta.id_customer); // Este será el id_customer
         $("#infoTipoCliente").text(respuesta.customer_type);
+        $("#infofecha").text(respuesta.creation_date);
 
         // Guardar el ID del cliente en una variable global para su uso posterior
         window.idClienteSeleccionado = respuesta.id_customer;

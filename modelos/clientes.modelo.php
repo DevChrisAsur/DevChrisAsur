@@ -59,20 +59,28 @@ static public function mdlVerClientes($tabla){
 
 static public function mdlVerInfoCliente($tabla, $item, $valor){
     if ($item != null) {
-        // Incluimos la cláusula WHERE
+        // Incluimos la cláusula WHERE y el INNER JOIN con leads
         $stmt = Conexion::conectar()->prepare(  
-            "SELECT id_customer, cc, country, first_name, last_name, state, city, customer_type, email, phone, id_lead FROM $tabla WHERE $item = :$item");
+            "SELECT c.id_customer, c.cc, c.country, c.first_name, c.last_name, c.state, c.city, c.customer_type, c.email, c.phone, c.id_lead, l.creation_date 
+             FROM $tabla AS c 
+             INNER JOIN leads AS l ON c.id_lead = l.id_lead 
+             WHERE c.$item = :$item");
         $stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
         $stmt->execute();
         return $stmt->fetch();
     } else {
-        $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
+        // Si no hay filtro, obtenemos todos los registros con el JOIN
+        $stmt = Conexion::conectar()->prepare(
+            "SELECT c.*, l.creation_date 
+             FROM $tabla AS c 
+             INNER JOIN leads AS l ON c.id_lead = l.id_lead");
         $stmt->execute();
         return $stmt->fetchAll();
     }
     $stmt->close();
     $stmt = null;
 }
+
 
     static public function mdlVerificarUsuario($tabla, $usuario) {
         try {
