@@ -20,12 +20,17 @@
     <!-- Dashboard cards -->
     <div class="container mt-4">
       <div class="row">
-        <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-          <div class="card leads">
-            <h5>15 Leads</h5>
-            <p>Hoy</p>
-          </div>
+      <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+        <div class="card leads">
+          <?php
+            // Llamamos al controlador para obtener el número de leads registrados hoy
+            $totalLeadsHoy = ControladorLeads::ctrContarLeadsDiarios();
+          ?>
+          <h5><?php echo $totalLeadsHoy; ?> Leads</h5>
+          <p>Hoy</p>
         </div>
+      </div>
+
         <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
           <div class="card notificaciones-pendientes">
             <h5>0</h5>
