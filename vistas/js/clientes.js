@@ -13,7 +13,7 @@ $(".tablas").on("click", ".btnEliminarCliente", function () {
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
     cancelButtonText: "Cancelar",
-    confirmButtonText: "Si, borrar Curso!",
+    confirmButtonText: "Si, eliminar cliente!",
   }).then(function (result) {
     if (result.value) {
       window.location = "index.php?ruta=clientes&idCliente=" + idCategoria;
@@ -197,7 +197,7 @@ $(document).on('click', '#guardarProductoYCrearFactura', function(e) {
                             if (respuestaCuotas.success) {
                                 swal({
                                     type: "success",
-                                    title: "Suscripción, factura y cuotas creadas correctamente",
+                                    title: "Un nuevo producto ha sido creado",
                                     showConfirmButton: true,
                                     confirmButtonText: "Cerrar",
                                 });

@@ -4,13 +4,15 @@ class ControladorLeads {
 
 	static public function ctrRegistrarLead(){
 
+		date_default_timezone_set('America/Bogota');
+
 		if(isset($_POST["nuevoNombre"])){
 	
 			$tabla = "leads";
 			$fecha_actual = date('Y-m-d');
 			
 			// Obtener el ID del usuario de la sesión
-			$id_usuario = isset($_SESSION["id"]) ? (int) $_SESSION["id"] : 0; // Asegurarse de que sea un entero
+			$id_usuario = isset($_SESSION["id"]) ? (int) $_SESSION["id"] : 0; 
 	
 			$datos = array(
 				"cc" => $_POST["nuevoIdLead"],
@@ -24,6 +26,7 @@ class ControladorLeads {
 				"note" => $_POST["observaciones"],
 				"id_service" => $_POST["nuevoServicio"],
 				"id_area" => $_POST["nuevaArea"],
+				"sector" => $_POST["nuevoSector"],
 				"id_usuario" => $id_usuario  // Se pasa el ID de la sesión
 			);
 	
@@ -174,7 +177,7 @@ class ControladorLeads {
 
 					swal({
 						  type: "success",
-						  title: "El cliente ha sido eliminado de la base de datos",
+						  title: "El lead ha sido eliminado de la base de datos",
 						  showConfirmButton: true,
 						  confirmButtonText: "Cerrar"
 						  }).then(function(result){

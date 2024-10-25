@@ -11,7 +11,7 @@ class ModeloLeads
 static public function mdlRegistrarLead($tabla, $datos){
 
     // Preparar la consulta SQL para insertar datos en la tabla
-    $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla( cc, first_name, last_name, email, phone, status_lead,creation_date, origin, note, id_service, id_area,id_usuario) VALUES ( :cc, :first_name, :last_name, :email, :phone, :status_lead, :creation_date, :origin, :note, :id_service, :id_area, :id_usuario)");
+    $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla( cc, first_name, last_name, email, phone, status_lead,creation_date, origin, note, id_service, id_area,id_usuario, sector) VALUES ( :cc, :first_name, :last_name, :email, :phone, :status_lead, :creation_date, :origin, :note, :id_service, :id_area, :id_usuario, :sector)");
     $stmt->bindParam(":cc", $datos['cc'], PDO::PARAM_STR);
     $stmt->bindParam(":first_name", $datos['first_name'], PDO::PARAM_STR);
     $stmt->bindParam(":last_name", $datos['last_name'], PDO::PARAM_STR);
@@ -24,6 +24,7 @@ static public function mdlRegistrarLead($tabla, $datos){
     $stmt->bindParam(":id_service", $datos['id_service'], PDO::PARAM_INT);
     $stmt->bindParam(":id_area", $datos['id_area'], PDO::PARAM_INT);
     $stmt->bindParam(":id_usuario", $datos['id_usuario'], PDO::PARAM_INT);
+    $stmt->bindParam(":sector", $datos['sector'], PDO::PARAM_STR);
 
     // Ejecutar la consulta y manejar el resultado
     if ($stmt->execute()) {
@@ -61,7 +62,7 @@ static public function mdlVerLeadfrio($tabla, $item, $valor){
 
 static public function mdlVerLeadsInteres($item, $valor) {
     // Cambiamos la condición para que sea 'frio' en vez de una cadena vacía
-    $query = "SELECT l.id_lead, l.cc, l.first_name, l.last_name, l.email, l.phone,
+    $query = "SELECT l.id_lead, l.cc, l.sector, l.first_name, l.last_name, l.email, l.phone,
                 l.status_lead, l.id_usuario,  -- Agregar la coma aquí
                 l.creation_date, l.origin, l.note
              FROM leads l ";  

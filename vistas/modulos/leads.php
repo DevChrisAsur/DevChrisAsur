@@ -360,6 +360,7 @@
               <th style="width:10px">#</th>
               <th>Fecha Lead</th>
               <th>Identificacion</th>
+              <th>sector</th>
               <th>Nombre</th>
               <th>Apellido</th>
               <th>Telefono</th>
@@ -382,13 +383,14 @@
     
     // Llamamos al controlador para obtener los leads registrados por el asesor
     $leads = ControladorLeads::ctrVerLeadAsesor($id_asesor);
-
+ 
     // Iteramos sobre los leads y los mostramos en la tabla
     foreach ($leads as $key => $lead) {
         echo '<tr>
                 <td>' . ($key + 1) . '</td>
                 <td class="text">' . htmlspecialchars($lead["creation_date"]) . '</td>
                 <td class="text">' . htmlspecialchars($lead["cc"]) . '</td>
+                <td class="text">' . htmlspecialchars($lead["sector"]) . '</td>
                 <td class="text">' . htmlspecialchars($lead["first_name"]) . '</td>
                 <td class="text">' . htmlspecialchars($lead["last_name"]) . '</td>
                 <td class="text">' . htmlspecialchars($lead["phone"]) . '</td>
@@ -420,6 +422,7 @@
                       <td>' . ($key + 1) . '</td>
                       <td class="text">' . htmlspecialchars($value["creation_date"]) . '</td>
                       <td class="text">' . htmlspecialchars($value["cc"]) . '</td>
+                      <td class="text">' . htmlspecialchars($value["sector"]) . '</td>
                       <td class="text">' . htmlspecialchars($value["first_name"]) . '</td>
                       <td class="text">' . htmlspecialchars($value["last_name"]) . '</td>
                       <td class="text">' . htmlspecialchars($value["phone"]) . '</td>';
@@ -448,6 +451,7 @@
               <th style="width:10px">#</th>
               <th>Fecha Lead</th>
               <th>Identificacion</th>
+              <th>sector</th>
               <th>Nombre</th>
               <th>Apellido</th>
               <th>Telefono</th>
@@ -857,6 +861,20 @@
                     </div>
                   </div>
                 </div>
+              </div>
+          </div> <!-- Cierre del box-body -->
+          <div class="container mt-3">
+            <h5>Grupo poblacional</h5>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                  <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
+                      <input type="text" class="form-control" name="NuevoSector" placeholder="grupo poblacional">
+                    </div>
+                  </div>
+                </div>
+
               </div>
           </div> <!-- Cierre del box-body -->
         </div> <!-- Cierre del modal-body -->

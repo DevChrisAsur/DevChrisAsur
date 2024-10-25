@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d1f258ee-b36f-465c-b369-682882a5d30d" name="Changes" comment="actualizacion de estilos">
+    <list default="true" id="d1f258ee-b36f-465c-b369-682882a5d30d" name="Changes" comment="feacture-clientes (actualizado): evento para la creacion de suscripcion factura y cuotas">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vistas/js/clientes.js" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/js/clientes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vistas/modulos/clientes.php" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/modulos/clientes.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,14 +73,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/tiendaVirtual&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "develop",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/xampp/htdocs/tiendaVirtual"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -90,38 +89,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1726439356860</updated>
-    </task>
-    <task id="LOCAL-00063" summary="feacture-leads:(actualizado) eventos para el cambio de informacion de los tabs">
-      <option name="closed" value="true" />
-      <created>1728026327776</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
-      <option name="project" value="LOCAL" />
-      <updated>1728026327776</updated>
-    </task>
-    <task id="LOCAL-00064" summary="feacture-leads:(actualizado) integracion tabs en modulo leads">
-      <option name="closed" value="true" />
-      <created>1728026602161</created>
-      <option name="number" value="00064" />
-      <option name="presentableId" value="LOCAL-00064" />
-      <option name="project" value="LOCAL" />
-      <updated>1728026602161</updated>
-    </task>
-    <task id="LOCAL-00065" summary="feacture-clientes:(cambio) se omite el campo de usuario para tener consistencia en lso datos del lead">
-      <option name="closed" value="true" />
-      <created>1728026762823</created>
-      <option name="number" value="00065" />
-      <option name="presentableId" value="LOCAL-00065" />
-      <option name="project" value="LOCAL" />
-      <updated>1728026762823</updated>
-    </task>
-    <task id="LOCAL-00066" summary="feacture-leads:(en prueba) se necesita realizar prueba para el envio del controlador del cliente">
-      <option name="closed" value="true" />
-      <created>1728026921598</created>
-      <option name="number" value="00066" />
-      <option name="presentableId" value="LOCAL-00066" />
-      <option name="project" value="LOCAL" />
-      <updated>1728026921598</updated>
     </task>
     <task id="LOCAL-00067" summary="feacture-leads:(model-fixed) el modelo de registrar leads ha sido corregido, debido aun bug al realizar el envio de datos">
       <option name="closed" value="true" />
@@ -483,7 +450,39 @@
       <option name="project" value="LOCAL" />
       <updated>1729315435674</updated>
     </task>
-    <option name="localTasksCounter" value="112" />
+    <task id="LOCAL-00112" summary="feacture-factura (actualizado): modificacion de la respuesta para obtener el id de la factura al crear una factura">
+      <option name="closed" value="true" />
+      <created>1729644352797</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1729644352799</updated>
+    </task>
+    <task id="LOCAL-00113" summary="feacture-cuotas (actualizado): modificacion para el correcto funcionamiento del ciclo de las facturas, donde se itera sobre el numero de cuotas que se difiere la factura">
+      <option name="closed" value="true" />
+      <created>1729644440849</created>
+      <option name="number" value="00113" />
+      <option name="presentableId" value="LOCAL-00113" />
+      <option name="project" value="LOCAL" />
+      <updated>1729644440850</updated>
+    </task>
+    <task id="LOCAL-00114" summary="feacture-facturas (actualizado): logica encargada de obtener los items necesarios de la suscripcion, la factura y la cuota para su registro">
+      <option name="closed" value="true" />
+      <created>1729644500659</created>
+      <option name="number" value="00114" />
+      <option name="presentableId" value="LOCAL-00114" />
+      <option name="project" value="LOCAL" />
+      <updated>1729644500659</updated>
+    </task>
+    <task id="LOCAL-00115" summary="feacture-clientes (actualizado): evento para la creacion de suscripcion factura y cuotas">
+      <option name="closed" value="true" />
+      <created>1729645456325</created>
+      <option name="number" value="00115" />
+      <option name="presentableId" value="LOCAL-00115" />
+      <option name="project" value="LOCAL" />
+      <updated>1729645456325</updated>
+    </task>
+    <option name="localTasksCounter" value="116" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -520,10 +519,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feacture-clientes:(actualizado) box-body para la informacion adicional del usuario" />
-    <MESSAGE value="feacture-clientes:(actualizado) modelo para ver la informacion adicional del cliente" />
-    <MESSAGE value="feacture-clientes:(actualizado) controlador para ver la informacion adicional del cliente" />
-    <MESSAGE value="feacture-clientes:(actualizado) evento para activar el box-body secundario con la informacion adicional del usuario" />
     <MESSAGE value="feacture-clientes:(actualizado) box-body para la informacion adicional del usuario, grid style para el box-body" />
     <MESSAGE value="feacture-clientes:(new) logica para obtnerer la informacion del cliente" />
     <MESSAGE value="feacture-menu:(actualizado) rutas y modulos activos para el asesor" />
@@ -545,6 +540,10 @@
     <MESSAGE value="feacture-cliente (actualizado): modelo y controlador de la suscripcion para el manejo de errores en la suscripcion" />
     <MESSAGE value="trash" />
     <MESSAGE value="actualizacion de estilos" />
-    <option name="LAST_COMMIT_MESSAGE" value="actualizacion de estilos" />
+    <MESSAGE value="feacture-factura (actualizado): modificacion de la respuesta para obtener el id de la factura al crear una factura" />
+    <MESSAGE value="feacture-cuotas (actualizado): modificacion para el correcto funcionamiento del ciclo de las facturas, donde se itera sobre el numero de cuotas que se difiere la factura" />
+    <MESSAGE value="feacture-facturas (actualizado): logica encargada de obtener los items necesarios de la suscripcion, la factura y la cuota para su registro" />
+    <MESSAGE value="feacture-clientes (actualizado): evento para la creacion de suscripcion factura y cuotas" />
+    <option name="LAST_COMMIT_MESSAGE" value="feacture-clientes (actualizado): evento para la creacion de suscripcion factura y cuotas" />
   </component>
 </project>

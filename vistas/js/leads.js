@@ -10,7 +10,7 @@ $(".tablas").on("click", ".btnEliminarLead", function(){
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         cancelButtonText: 'Cancelar',
-        confirmButtonText: 'Si, borrar Curso!'
+        confirmButtonText: 'Si, eliminar Lead!'
     }).then(function(result){
 
         if(result.value){
