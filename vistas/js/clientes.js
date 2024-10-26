@@ -176,12 +176,12 @@ $(document).on('click', '#guardarProductoYCrearFactura', function(e) {
                         cuotasDatos.append("monto_" + i, montoCuota);
                 
                         // Mostrar los datos de cada cuota
-                        // console.log(`Datos enviados para la cuota ${i}:`, {
-                        //     estado_pago: estadoPago,
-                        //     fecha_vencimiento: fechaVencimiento,
-                        //     monto: montoCuota,
-                        //     idFactura: idFactura
-                        // });
+                        console.log(`Datos enviados para la cuota ${i}:`, {
+                            estado_pago: estadoPago,
+                            fecha_vencimiento: fechaVencimiento,
+                            monto: montoCuota,
+                            idFactura: idFactura
+                        });
                     }
                 
                     // Hacer la solicitud AJAX para registrar las cuotas
