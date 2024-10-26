@@ -46,27 +46,32 @@ class ModeloFacturas {
     /*=============================================
     MOSTRAR FACTURAS
     =============================================*/
-    static public function mdlVerFacturas($tabla, $item, $valor){
+    static public function mdlVerFacturasPorCliente($tabla, $item, $valor){
 
         if($item != null){
-            $stmt = Conexion::conectar()->prepare("SELECT fecha_emision, id_customer, id_suscripcion, banck, titular, account_number, account_type, monto, status_factura, fecha_limite 
-                                                        FROM $tabla WHERE $item = :$item");
-
+            // Filtrar por cliente y obtener la factura más reciente con estado 'pendiente'
+            $stmt = Conexion::conectar()->prepare(
+                "SELECT id_factura,fecha_emision, bank, titular, account_number, account_type, monto, status_factura, fecha_limite 
+                 FROM $tabla 
+                 WHERE $item = :$item 
+                 AND status_factura = 'pendiente' 
+                 ORDER BY fecha_emision DESC 
+                 LIMIT 1");
+    
             $stmt->bindParam(":".$item, $valor, PDO::PARAM_STR);
-
             $stmt->execute();
-
+    
             return $stmt->fetch();
-
         } else {
+            // Obtener todas las facturas sin filtro
             $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
-
             $stmt->execute();
-
+    
             return $stmt->fetchAll();
         }
-
+    
         $stmt->close();
         $stmt = null;
     }
+    
 }

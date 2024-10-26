@@ -36,13 +36,18 @@ class ControladorFacturas
     /*=============================================
         MOSTRAR FACTURAS
         =============================================*/
-    static public function ctrMostrarFacturas($item, $valor)
-    {
+        static public function ctrInfoFactura($item, $valor){
 
-        $tabla = "factura";
-
-        $respuesta = ModeloFacturas::mdlVerFacturas($tabla, $item, $valor);
-
-        return $respuesta;
-    }
+            $tabla = "factura";  // Especifica la tabla que contiene las facturas
+    
+            // Llamada al modelo para obtener la información de la factura
+            $respuesta = ModeloFacturas::mdlVerFacturasPorCliente($tabla, $item, $valor);
+    
+            // Puedes manejar aquí errores o procesar la respuesta si es necesario
+            if ($respuesta) {
+                return $respuesta;  // Devuelve la respuesta si todo salió bien
+            } else {
+                return null;  // Retorna null si no se encontró información o hubo un problema
+            }
+        }
 }
