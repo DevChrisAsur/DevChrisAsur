@@ -275,3 +275,5 @@ CUERPO DOCUMENTO
 <script src="vistas/js/leads.js"></script>
 <script src="vistas/js/cities.js"></script>
 <script src="vistas/js/facturas.js"></script>
+<script src="vistas/js/suscripciones.js"></script>
+<script src="vistas/js/cuotas.js"></script>
