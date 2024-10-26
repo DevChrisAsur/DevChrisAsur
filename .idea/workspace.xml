@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d1f258ee-b36f-465c-b369-682882a5d30d" name="Changes" comment="feacture-clientes (actualizado): evento para la creacion de suscripcion factura y cuotas">
+    <list default="true" id="d1f258ee-b36f-465c-b369-682882a5d30d" name="Changes" comment="feacture-suscripciones(actualizado): eliminar suscripcion del cliente">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controladores/cuotas.controlador.php" beforeDir="false" afterPath="$PROJECT_DIR$/controladores/cuotas.controlador.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modelos/cuotas.modelo.php" beforeDir="false" afterPath="$PROJECT_DIR$/modelos/cuotas.modelo.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vistas/js/clientes.js" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/js/clientes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vistas/js/facturas.js" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/js/facturas.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vistas/modulos/clientes.php" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/modulos/clientes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vistas/plantilla.php" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/plantilla.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,14 +78,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "develop",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/xampp/htdocs/tiendaVirtual"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/tiendaVirtual&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -89,38 +94,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1726439356860</updated>
-    </task>
-    <task id="LOCAL-00067" summary="feacture-leads:(model-fixed) el modelo de registrar leads ha sido corregido, debido aun bug al realizar el envio de datos">
-      <option name="closed" value="true" />
-      <created>1728169346367</created>
-      <option name="number" value="00067" />
-      <option name="presentableId" value="LOCAL-00067" />
-      <option name="project" value="LOCAL" />
-      <updated>1728169346367</updated>
-    </task>
-    <task id="LOCAL-00068" summary="feacture-leads:(controler-fixed) el controlador de registrar leads ha sido corregido, debido aun bug al realizar el envio de datos">
-      <option name="closed" value="true" />
-      <created>1728169381656</created>
-      <option name="number" value="00068" />
-      <option name="presentableId" value="LOCAL-00068" />
-      <option name="project" value="LOCAL" />
-      <updated>1728169381656</updated>
-    </task>
-    <task id="LOCAL-00069" summary="feacture-leads:(ajax) logica para el envio de los datos del lead a lciente">
-      <option name="closed" value="true" />
-      <created>1728169424911</created>
-      <option name="number" value="00069" />
-      <option name="presentableId" value="LOCAL-00069" />
-      <option name="project" value="LOCAL" />
-      <updated>1728169424911</updated>
-    </task>
-    <task id="LOCAL-00070" summary="feacture-leads:(modal-fixed) modal de agregarlead ha sido corregida para el envio de los datos del lead">
-      <option name="closed" value="true" />
-      <created>1728169458595</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
-      <option name="project" value="LOCAL" />
-      <updated>1728169458595</updated>
     </task>
     <task id="LOCAL-00071" summary="feacture-clientes:(actualizado) metodo para verificar la identificacion unica de cliente">
       <option name="closed" value="true" />
@@ -482,7 +455,39 @@
       <option name="project" value="LOCAL" />
       <updated>1729645456325</updated>
     </task>
-    <option name="localTasksCounter" value="116" />
+    <task id="LOCAL-00116" summary="feacture-facturas(actualizado): informacion de la factura actual">
+      <option name="closed" value="true" />
+      <created>1729912758721</created>
+      <option name="number" value="00116" />
+      <option name="presentableId" value="LOCAL-00116" />
+      <option name="project" value="LOCAL" />
+      <updated>1729912758721</updated>
+    </task>
+    <task id="LOCAL-00117" summary="feacture-facturas(actualizado): informacion de la factura actual">
+      <option name="closed" value="true" />
+      <created>1729913424886</created>
+      <option name="number" value="00117" />
+      <option name="presentableId" value="LOCAL-00117" />
+      <option name="project" value="LOCAL" />
+      <updated>1729913424886</updated>
+    </task>
+    <task id="LOCAL-00118" summary="feacture-suscripciones(actualizado): eliminar suscripcion del cliente">
+      <option name="closed" value="true" />
+      <created>1729917511782</created>
+      <option name="number" value="00118" />
+      <option name="presentableId" value="LOCAL-00118" />
+      <option name="project" value="LOCAL" />
+      <updated>1729917511782</updated>
+    </task>
+    <task id="LOCAL-00119" summary="feacture-suscripciones(actualizado): eliminar suscripcion del cliente">
+      <option name="closed" value="true" />
+      <created>1729917577657</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1729917577657</updated>
+    </task>
+    <option name="localTasksCounter" value="120" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -519,8 +524,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feacture-clientes:(actualizado) box-body para la informacion adicional del usuario, grid style para el box-body" />
-    <MESSAGE value="feacture-clientes:(new) logica para obtnerer la informacion del cliente" />
     <MESSAGE value="feacture-menu:(actualizado) rutas y modulos activos para el asesor" />
     <MESSAGE value="feacture-leads:(actualizado) asesor asociado al registro de lead, vistas para asesores con leads asociados y para admin" />
     <MESSAGE value="feacture-leads:(fixed) contenedor de paises y estados arreglado, ya no se desborda de la modal" />
@@ -544,6 +547,8 @@
     <MESSAGE value="feacture-cuotas (actualizado): modificacion para el correcto funcionamiento del ciclo de las facturas, donde se itera sobre el numero de cuotas que se difiere la factura" />
     <MESSAGE value="feacture-facturas (actualizado): logica encargada de obtener los items necesarios de la suscripcion, la factura y la cuota para su registro" />
     <MESSAGE value="feacture-clientes (actualizado): evento para la creacion de suscripcion factura y cuotas" />
-    <option name="LAST_COMMIT_MESSAGE" value="feacture-clientes (actualizado): evento para la creacion de suscripcion factura y cuotas" />
+    <MESSAGE value="feacture-facturas(actualizado): informacion de la factura actual" />
+    <MESSAGE value="feacture-suscripciones(actualizado): eliminar suscripcion del cliente" />
+    <option name="LAST_COMMIT_MESSAGE" value="feacture-suscripciones(actualizado): eliminar suscripcion del cliente" />
   </component>
 </project>

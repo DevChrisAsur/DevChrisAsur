@@ -49,5 +49,10 @@ class ControladorCuotas
             return "ok";  // Si todo fue exitoso, retornar "ok"
         }
         
+
+        static public function ctrVerCuotasPorFactura($idFactura) {
+            $tabla = "cuota";  // Nombre de la tabla en la base de datos
+            return ModeloCuotas::mdlVerCuotasPorFactura($tabla, 'id_factura', $idFactura);
+        }
              
 }

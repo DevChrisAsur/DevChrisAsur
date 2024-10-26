@@ -43,6 +43,20 @@ class ModeloCuotas {
         }
     }
     
+static public function mdlVerCuotasPorFactura($tabla, $item, $valor) {
+
+        $stmt = Conexion::conectar()->prepare(
+            "SELECT id_cuota, id_factura, monto, fecha_vencimiento, estado_pago, fecha_pago 
+             FROM $tabla 
+             WHERE $item = :$item 
+             ORDER BY fecha_vencimiento ASC"
+        );
+
+        $stmt->bindParam(":" . $item, $valor, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
     
     
 
