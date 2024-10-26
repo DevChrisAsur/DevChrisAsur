@@ -725,6 +725,38 @@
                                                 </div>
                                             </div>
                                             
+                                            <div class="container" style="margin-top: 20px;">
+                                        <table class="table table-bordered text-center">
+                                            <thead style="background-color: #e6f3e8;">
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Fecha</th>
+                                                    <th>Valor</th>
+                                                    <th>Estado</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td><input type="text" class="form-control text-center" value="24/10/2024" readonly></td>
+                                                    <td><input type="text" class="form-control text-center" value="100,00" readonly></td>
+                                                    <td><input type="text" class="form-control text-center" value="Proceso" readonly></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td><input type="text" class="form-control text-center" value="15/11/2024" readonly></td>
+                                                    <td><input type="text" class="form-control text-center" value="100,00" readonly></td>
+                                                    <td><input type="text" class="form-control text-center" value="R0" readonly></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td><input type="text" class="form-control text-center" value="20/12/2024" readonly></td>
+                                                    <td><input type="text" class="form-control text-center" value="250,00" readonly></td>
+                                                    <td><input type="text" class="form-control text-center" value="R0" readonly></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
 
                                         </div>
                                     </div>
