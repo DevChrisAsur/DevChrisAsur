@@ -111,4 +111,24 @@ class ModeloSuscripcion{
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+
+	static public function mdlEliminarSuscripcion($tabla, $datos)
+    {
+
+        $stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id_suscripcion = :id_suscripcion");
+
+        $stmt->bindParam(":id_suscripcion", $datos, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+
+            return "ok";
+        } else {
+
+            return "error";
+        }
+
+        $stmt->close();
+
+        $stmt = null;
+    }
 }

@@ -256,7 +256,7 @@
                       <td>
                           <div class="btn-group-container">
                             <div class="btn-group">
-                                <button class="btn btn-danger btnEliminarServicio" idServicio="' . $value["id_service"] . '" style="margin-left: 8px;"><i class="fa fa-times"></i></button>                            </div>
+                                <button class="btn btn-danger btnEliminarSuscripcion" idSuscripcion="' . $value["id_suscripcion"] . '" style="margin-left: 8px;"><i class="fa fa-times"></i></button>                            </div>
                             </div>
                       </td>
                   </tr>';
@@ -357,7 +357,7 @@
 
 <?php
 
-$eliminarServicio = new ControladorServicios();
-$eliminarServicio->ctrEliminarServicio();
+$eliminarServicio = new ControladorSuscripcion();
+$eliminarServicio->ctrEliminarSuscripcion();
 
 ?>

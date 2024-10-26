@@ -67,4 +67,36 @@ class ControladorSuscripcion{
 		return $respuesta;
 	}
 
+
+	static public function ctrEliminarSuscripcion(){
+
+		if(isset($_GET["idSuscripcion"])){
+
+			$tabla ="suscripcion";
+			$datos = $_GET["idSuscripcion"];
+
+			$respuesta = ModeloSuscripcion::mdlEliminarSuscripcion($tabla, $datos);
+
+			if($respuesta == "ok"){
+
+				echo'<script>
+
+					swal({
+						  type: "success",
+						  title: "La suscripcion ha sido eliminado de la base de datos",
+						  showConfirmButton: true,
+						  confirmButtonText: "Cerrar"
+						  }).then(function(result){
+									if (result.value) {
+
+									window.location = "suscripciones";
+									}
+								})
+
+					</script>';
+			}
+		}
+		
+	}
+
 }
