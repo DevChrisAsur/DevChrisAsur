@@ -684,7 +684,7 @@
                                                 <div class="row">
                                                     <!-- Columna 1 (Información del Producto) -->
                                                     <div class="col-md-6">
-                                                        
+
                                                         <div class="mb-2">
                                                             <label for="InfoBanco">Banco:</label>
                                                             <span id="InfoBanco" class="info-display"></span>
@@ -700,12 +700,12 @@
                                                         <div class="mb-2">
                                                             <label for="InfoTitular">Titular:</label>
                                                             <span id="InfoTitular" class="info-display"></span>
-                                                        </div> 
+                                                        </div>
                                                     </div>
 
                                                     <!-- Columna 2 (Información Financiera) -->
                                                     <div class="col-md-6">
-                                                    <div class="mb-2">
+                                                        <div class="mb-2">
                                                             <label for="InfoFechaEmision">Fecha de Emisión:</label>
                                                             <span id="InfoFechaEmision" class="info-display"></span>
                                                         </div>
@@ -724,39 +724,23 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="container" style="margin-top: 20px;">
-                                        <table class="table table-bordered text-center">
-                                            <thead style="background-color: #e6f3e8;">
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Fecha</th>
-                                                    <th>Valor</th>
-                                                    <th>Estado</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td><input type="text" class="form-control text-center" value="24/10/2024" readonly></td>
-                                                    <td><input type="text" class="form-control text-center" value="100,00" readonly></td>
-                                                    <td><input type="text" class="form-control text-center" value="Proceso" readonly></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td><input type="text" class="form-control text-center" value="15/11/2024" readonly></td>
-                                                    <td><input type="text" class="form-control text-center" value="100,00" readonly></td>
-                                                    <td><input type="text" class="form-control text-center" value="R0" readonly></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3</td>
-                                                    <td><input type="text" class="form-control text-center" value="20/12/2024" readonly></td>
-                                                    <td><input type="text" class="form-control text-center" value="250,00" readonly></td>
-                                                    <td><input type="text" class="form-control text-center" value="R0" readonly></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                                <table class="table table-bordered text-center">
+                                                    <thead style="background-color: #e6f3e8;">
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Fecha</th>
+                                                            <th>Valor</th>
+                                                            <th>Estado</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="table-cuotas">
+                                                        <!-- Las filas de cuotas se añadirán aquí dinámicamente -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
 
                                         </div>
                                     </div>

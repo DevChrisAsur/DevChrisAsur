@@ -6,42 +6,6 @@ require_once "../modelos/factura.modelo.php";
 require_once "../controladores/cuotas.controlador.php";  // Asegúrate de incluir el controlador de cuotas
 require_once "../modelos/cuotas.modelo.php";  // Asegúrate de incluir el modelo de cuotas
 
-class AjaxFacturas {
-    public $idCliente;
-
-    public function ajaxObtenerInfoFacturaCliente(){
-
-        if (is_numeric($this->idCliente)) {
-            $item = "id_customer";
-            $valor = $this->idCliente;
-            try{
-                // Obtener la respuesta del controlador
-                $respuesta = ControladorFacturas::ctrInfoFactura($item, $valor);
-
-                // Si se encuentra un cliente, enviamos los datos
-                if ($respuesta) {
-                    echo json_encode($respuesta);
-                } else {
-                    // Enviar un mensaje si no se encuentra el cliente
-                    echo json_encode(array("error" => "No se encontró el cliente con el ID proporcionado."));
-                }
-            } catch (Exception $e) {
-                // Manejo de cualquier error que ocurra durante la ejecución
-                echo json_encode(array("error" => "Hubo un error en el servidor: " . $e->getMessage()));
-            }
-        } else {
-            // Respuesta en caso de ID de cliente no válido
-            echo json_encode(array("error" => "ID de cliente no válido."));
-        }
-    }
-}
-
-if (isset($_POST["idCliente"])) {
-    $cliente = new AjaxFacturas();
-    $cliente->idCliente = $_POST["idCliente"];
-    $cliente->ajaxObtenerInfoFacturaCliente();
-}
-
 // Verificar si se va a crear una suscripción
 if (isset($_POST["action"]) && $_POST["action"] == "crearSuscripcion") {
 
@@ -93,3 +57,31 @@ if (isset($_POST['idFactura'])) {
     exit; 
 }
 
+if (isset($_POST["idCliente"])) {
+    $idCliente = $_POST["idCliente"];
+
+    if (is_numeric($idCliente)) {
+        $item = "id_customer";
+        $valor = $idCliente;
+        
+        try {
+            // Obtener la respuesta del controlador
+            $respuesta = ControladorFacturas::ctrInfoFactura($item, $valor);
+
+            // Si se encuentra un cliente, enviamos los datos
+            if ($respuesta) {
+                echo json_encode($respuesta);
+            } else {
+                // Enviar un mensaje si no se encuentra el cliente
+                echo json_encode(array("error" => "No se encontró el cliente con el ID proporcionado."));
+            }
+        } catch (Exception $e) {
+            // Manejo de cualquier error que ocurra durante la ejecución
+            echo json_encode(array("error" => "Hubo un error en el servidor: " . $e->getMessage()));
+        }
+    } else {
+        // Respuesta en caso de ID de cliente no válido
+        echo json_encode(array("error" => "ID de cliente no válido."));
+    }
+    exit; // Finalizar aquí para evitar que siga ejecutando las demás acciones
+}
