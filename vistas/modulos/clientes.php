@@ -751,16 +751,15 @@
                                             <form id="formularioNotas" method="POST" enctype="multipart/form-data">
                                                 <div class="container">
                                                     <h5>Agregar Nota</h5>
+
+                                                    <!-- Campo oculto para id_customer -->
+                                                    <input type="hidden" name="idCliente" id="idCliente" value="">
+
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="tituloNota">Título:</label>
-                                                                <select class="form-control input-lg" name="tituloNota" id="tituloNota">
-                                                                    <option value="">Seleccionar Título</option>
-                                                                    <option value="Nota 1">Nota 1</option>
-                                                                    <option value="Nota 2">Nota 2</option>
-                                                                    <!-- Agrega más opciones según lo necesario -->
-                                                                </select>
+                                                                <label for="nuevoTituloNota">Título:</label>
+                                                                <input type="text" class="form-control input-lg" name="nuevoTituloNota" id="nuevoTituloNota" placeholder="Ingresar Título de la Nota" required>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -769,19 +768,7 @@
                                                         <div class="col-md-12">
                                                             <div class="form-group">
                                                                 <label for="contenidoNota">Nota:</label>
-                                                                <textarea class="form-control" name="contenidoNota" id="contenidoNota" rows="5" placeholder="No copie código HTML en este campo."></textarea>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row mt-3">
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label for="imagenSoporte">Imagen/Foto:</label>
-                                                                <div class="custom-file">
-                                                                    <input type="file" class="custom-file-input" name="imagenSoporte" id="imagenSoporte">
-                                                                    <label class="custom-file-label" for="imagenSoporte">Arrastre y suelte un archivo aquí o haga clic</label>
-                                                                </div>
+                                                                <textarea class="form-control" name="contenidoNota" id="contenidoNota" rows="5" placeholder="No copie código HTML en este campo." required></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -792,6 +779,7 @@
                                                 </div>
                                             </form>
                                         </div>
+
                                     </div>
 
                                 </div>

@@ -3,60 +3,37 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <style>
-
-.treeview-menu:hover {
-    display: block; /* Asegura que se mantenga abierto al hacer hover */
-}
-
-.treeview-menu {
-    position: relative;
-}
-
-.treeview-menu::before {
-    content: "";
-    position: absolute;
-    top: -10px; /* Ajusta estos valores según lo necesario */
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
-    z-index: -1; /* Coloca este pseudo-elemento detrás */
-}
-
-
-.treeview-menu:hover {
-    display: block;
-}
-
-/* Aplica el mismo fondo de gradiente al sidebar */
+/* Estructura del sidebar y colores */
 .main-sidebar {
     padding-top: 50px;
-    background: #b2babb;/* Mismo gradiente que el main-header */
-    color: #ffffff; /* Asegura que el texto sea legible */
-    border: none;
+    background: #b2babb;
+    color: #ffffff;
 }
 
-/* Ajusta el padding y tamaño de la imagen en el sidebar */
-.main-sidebar .logo .logo-lg img {
-    padding: 5px 15px; /* Reduce el padding de la imagen */
-    max-width: 200px; /* Ajusta el tamaño de la imagen */
-    height: auto; /* Mantiene la proporción de la imagen */
-    background-color: transparent; /* Fondo transparente para la imagen */
-}
-
-/* Ajuste para los elementos de la sidebar */
+/* Colores de los enlaces en el sidebar */
 .main-sidebar .sidebar-menu > li > a {
-    color: black; /* Color blanco para el texto de los enlaces */
+    color: #353037;
+    padding: 10px 15px;
 }
 
 .main-sidebar .sidebar-menu > li > a:hover {
-    background: #595b5d; /* Fondo más oscuro en hover para mejor visibilidad */
-    color: #ffffff; /* Texto blanco en hover */
+    background: #595b5d;
+    color: #ffffff;
 }
 
-/* Ajuste para los submenús */
+/* Submenús ocultos por defecto */
 .main-sidebar .treeview-menu {
-    background: #d0d3d4; /* Un tono más claro para los submenús */
-    color: #353037; /* Texto oscuro para los submenús */
+    background: #d0d3d4;
+    color: #353037;
+    padding-left: 15px;
+    display: none;
+}
+
+/* En resoluciones grandes, se permite mostrar submenús en hover */
+@media (min-width: 769px) {
+    .main-sidebar .treeview:hover .treeview-menu {
+        display: block;
+    }
 }
 
 </style>
@@ -199,28 +176,42 @@
 
 <!-- JavaScript -->
 <script>
-
 document.addEventListener('DOMContentLoaded', function() {
-    const treeviewMenu = document.querySelector('.treeview-menu');
-    const adjacentElements = document.querySelectorAll('.treeview-menu + li, .some-adjacent-selector'); // Selecciona los elementos adyacentes
+    const treeviewItems = document.querySelectorAll('.treeview');
 
-    // Mantén el menú desplegado mientras el ratón esté sobre él
-    treeviewMenu.addEventListener('mouseenter', function() {
-        treeviewMenu.style.display = 'block';
-    });
+    treeviewItems.forEach(item => {
+        const submenu = item.querySelector('.treeview-menu');
 
-    // Cuando el ratón sale del menú, oculta tras un retraso
-    treeviewMenu.addEventListener('mouseleave', function() {
-        setTimeout(function() {
-            treeviewMenu.style.display = 'none';
-        }, 500);
-    });
+        // Solo activa el despliegue en clic si la resolución es menor a 769px
+        item.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
 
-    // Desactiva el treeview cuando pasa por los elementos adyacentes
-    adjacentElements.forEach(function(element) {
-        element.addEventListener('mouseenter', function() {
-            treeviewMenu.style.display = 'none'; // Cierra el menú al pasar sobre los adyacentes
+                // Cierra otros submenús abiertos
+                treeviewItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.treeview-menu').style.display = 'none';
+                    }
+                });
+
+                // Alterna la visualización del submenú actual
+                const isVisible = submenu.style.display === 'block';
+                submenu.style.display = isVisible ? 'none' : 'block';
+                item.classList.toggle('active', !isVisible);
+            }
         });
+    });
+
+    // Asegura que los submenús estén ocultos cuando la ventana se redimensiona a resoluciones mayores
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+            treeviewItems.forEach(item => {
+                const submenu = item.querySelector('.treeview-menu');
+                submenu.style.display = 'none';
+                item.classList.remove('active');
+            });
+        }
     });
 });
 
