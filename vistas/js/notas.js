@@ -1,23 +1,20 @@
 $(document).on('click', '#guardarNota', function(e) {
     e.preventDefault(); // Evitar la recarga de la página
 
-    // Obtener el ID del cliente seleccionado
     var idCliente = window.idClienteSeleccionado;
     if (!idCliente) {
         alert("Primero debe seleccionar un cliente.");
         return;
     }
 
-    // Obtener los valores del formulario
     var nuevoTituloNota = $('#nuevoTituloNota').val();
     var contenidoNota = $('#contenidoNota').val();
 
-    // Crear un FormData para enviar los datos
     var formData = new FormData();
     formData.append('idCliente', idCliente);
     formData.append('nuevoTituloNota', nuevoTituloNota);
     formData.append('contenidoNota', contenidoNota);
-    formData.append("action", "crearNota"); // Especificar la acción para el AJAX
+    formData.append("action", "crearNota");
 
     console.log("Datos enviados (nota):", {
         idCliente: idCliente,
@@ -25,9 +22,8 @@ $(document).on('click', '#guardarNota', function(e) {
         contenidoNota: contenidoNota,
     });
 
-    // Enviar los datos al archivo de procesamiento mediante AJAX
     $.ajax({
-        url: 'ajax/notas.ajax.php', // Ruta del archivo PHP que procesará la solicitud
+        url: 'ajax/notas.ajax.php',
         method: 'POST',
         data: formData,
         cache: false,
@@ -44,7 +40,7 @@ $(document).on('click', '#guardarNota', function(e) {
                     showConfirmButton: true,
                     confirmButtonText: "Cerrar"
                 }).then(function() {
-                    $('#tituloNota').val('');
+                    $('#nuevoTituloNota').val('');
                     $('#contenidoNota').val('');
                 });
             } else if (respuesta.error) {

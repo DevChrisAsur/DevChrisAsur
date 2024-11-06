@@ -1,6 +1,6 @@
 <?php
-require_once "../controladores/notas.controlador.php"; // Asegúrate de incluir el controlador de notas
-require_once "../modelos/notas.modelo.php"; // Asegúrate de incluir el modelo de notas
+require_once "../controladores/notas.controlador.php";
+require_once "../modelos/notas.modelo.php";
 
 /*=============================================
 CREAR UNA NUEVA NOTA
@@ -14,7 +14,7 @@ if (isset($_POST["idCliente"]) && isset($_POST['nuevoTituloNota'])) {
         echo json_encode(['success' => true]);
     } else {
         error_log("Error al crear la nota: " . $respuesta);
-        echo json_encode(['success' => false, 'error' => "Error al crear la nota: " . $respuesta]);
+        echo json_encode(['success' => false, 'error' => $respuesta]);
     }
     exit; 
 }

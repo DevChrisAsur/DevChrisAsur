@@ -6,74 +6,32 @@ class ControladorNotas {
 	CREAR NOTA
 	=============================================*/
 
-    static public function ctrCrearNota() {
-
+	static public function ctrCrearNota() {
 		if (isset($_POST["nuevoTituloNota"])) {
-
-			if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoTituloNota"])) {
-
-				$tabla = "nota";
-
-				// Obtener el ID del usuario desde la sesión
-                session_start();
-				$idUsuario = $_SESSION["id"];
-
-				$datos = array(
-					"id_customer" => $_POST["idCliente"],
-					"id" => $idUsuario,  // ID del usuario desde la sesión
-					"titulo" => $_POST["nuevoTituloNota"],
-					"contenido" => $_POST["contenidoNota"],
-					"fecha_creacion" => date("Y-m-d H:i:s")
-				);
-
-				$respuesta = ModeloNotas::mdlIngresarNota($tabla, $datos);
-
-				if ($respuesta != "error") {
-					// Devuelve el ID de la suscripción creada
-					echo '<script>
-					swal({
-						type: "success",
-						title: "La nota ha sido guardada correctamente",
-						showConfirmButton: true,
-						confirmButtonText: "Cerrar"
-					}).then(function(result) {
-						if (result.value) {
-							window.location = "notas";
-						}
-					});
-					</script>';
-
-				} else {
-					echo '<script>
-					swal({
-						type: "success",
-						title: "La nota ha sido guardada correctamente",
-						showConfirmButton: true,
-						confirmButtonText: "Cerrar"
-					}).then(function(result) {
-						if (result.value) {
-							window.location = "notas";
-						}
-					});
-					</script>';
-				}
-
+			// Lógica para crear la nota en la base de datos y devolver un estado
+	
+			$tabla = "nota";
+			session_start();
+			$idUsuario = $_SESSION["id"];
+	
+			$datos = array(
+				"id_customer" => $_POST["idCliente"],
+				"id" => $idUsuario,
+				"titulo" => $_POST["nuevoTituloNota"],
+				"contenido" => $_POST["contenidoNota"],
+				"fecha_creacion" => date("Y-m-d H:i:s")
+			);
+	
+			$respuesta = ModeloNotas::mdlIngresarNota($tabla, $datos);
+	
+			if ($respuesta === "ok") {
+				return "ok"; // Aquí simplemente devolvemos "ok"
 			} else {
-				echo '<script>
-				swal({
-					type: "error",
-					title: "¡El título de la nota no puede ir vacío o llevar caracteres especiales!",
-					showConfirmButton: true,
-					confirmButtonText: "Cerrar"
-				}).then(function(result) {
-					if (result.value) {
-						window.location = "notas";
-					}
-				});
-				</script>';
+				return "Error al crear la nota: " . $respuesta; // Devolvemos el error específico
 			}
 		}
 	}
+	
 
 	/*=============================================
 	MOSTRAR NOTAS

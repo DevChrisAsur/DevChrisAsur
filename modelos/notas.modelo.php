@@ -18,18 +18,19 @@ class ModeloNotas {
             $stmt->bindParam(":titulo", $datos['titulo'], PDO::PARAM_STR);
             $stmt->bindParam(":contenido", $datos['contenido'], PDO::PARAM_STR);
             $stmt->bindParam(":fecha_creacion", $datos['fecha_creacion'], PDO::PARAM_STR);
-
+    
             if($stmt->execute()) {
                 return "ok";
             } else {
-                error_log("Error en la creación de la nota: " . print_r($stmt->errorInfo(), true)); // Agregar esto para registrar el error
-                return "error: " . $stmt->errorInfo()[2]; // Devolver el error específico de SQL
+                error_log("Error en la creación de la nota: " . print_r($stmt->errorInfo(), true)); // Registro del error
+                return "error: " . $stmt->errorInfo()[2]; // Devolver error SQL específico
             }
-
+    
         } catch (Exception $e) {
-            return "Exception: " . $e->getMessage(); // Devolver la excepción en caso de error
+            error_log("Exception al crear la nota: " . $e->getMessage()); // Registrar excepción
+            return "Exception: " . $e->getMessage(); // Devolver mensaje de excepción
         }
-
+    
         $stmt->close();
         $stmt = null;
     }
