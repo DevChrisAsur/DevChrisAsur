@@ -4,14 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d1f258ee-b36f-465c-b369-682882a5d30d" name="Changes" comment="feacture-suscripciones(actualizado): eliminar suscripcion del cliente">
+    <list default="true" id="d1f258ee-b36f-465c-b369-682882a5d30d" name="Changes" comment="feacture-notas(bug corregido): las notas se crean correctamente, anteriormente se creaban las notas pero saltaba un error en la respuesta del servidor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controladores/cuotas.controlador.php" beforeDir="false" afterPath="$PROJECT_DIR$/controladores/cuotas.controlador.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modelos/cuotas.modelo.php" beforeDir="false" afterPath="$PROJECT_DIR$/modelos/cuotas.modelo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vistas/js/clientes.js" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/js/clientes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vistas/js/facturas.js" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/js/facturas.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ajax/leads.ajax.php" beforeDir="false" afterPath="$PROJECT_DIR$/ajax/leads.ajax.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controladores/clientes.controlador.php" beforeDir="false" afterPath="$PROJECT_DIR$/controladores/clientes.controlador.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controladores/leads.controlador.php" beforeDir="false" afterPath="$PROJECT_DIR$/controladores/leads.controlador.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vistas/js/leads.js" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/js/leads.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vistas/modulos/clientes.php" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/modulos/clientes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vistas/plantilla.php" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/plantilla.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vistas/modulos/leads.php" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/modulos/leads.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +34,7 @@
     </favorite-branches>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="develop" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -81,7 +81,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/tiendaVirtual&quot;
   }
@@ -94,14 +94,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1726439356860</updated>
-    </task>
-    <task id="LOCAL-00071" summary="feacture-clientes:(actualizado) metodo para verificar la identificacion unica de cliente">
-      <option name="closed" value="true" />
-      <created>1728189325560</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
-      <option name="project" value="LOCAL" />
-      <updated>1728189325560</updated>
     </task>
     <task id="LOCAL-00072" summary="feacture-clientes:(actualizado) integracion de busqueda de identificacion la registrar un cliente">
       <option name="closed" value="true" />
@@ -487,7 +479,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729917577657</updated>
     </task>
-    <option name="localTasksCounter" value="120" />
+    <task id="LOCAL-00120" summary="feacture-notas(bug corregido): las notas se crean correctamente, anteriormente se creaban las notas pero saltaba un error en la respuesta del servidor">
+      <option name="closed" value="true" />
+      <created>1730874308579</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
+      <option name="project" value="LOCAL" />
+      <updated>1730874308579</updated>
+    </task>
+    <option name="localTasksCounter" value="121" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -517,6 +517,24 @@
                   <entry key="Table.Default.Date.ColumnIdWidth" value="75" />
                 </map>
               </option>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="develop" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="text">
+                    <value>
+                      <list>
+                        <option value="leads" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
             </State>
           </value>
         </entry>
@@ -524,7 +542,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feacture-menu:(actualizado) rutas y modulos activos para el asesor" />
     <MESSAGE value="feacture-leads:(actualizado) asesor asociado al registro de lead, vistas para asesores con leads asociados y para admin" />
     <MESSAGE value="feacture-leads:(fixed) contenedor de paises y estados arreglado, ya no se desborda de la modal" />
     <MESSAGE value="fixes" />
@@ -549,6 +566,7 @@
     <MESSAGE value="feacture-clientes (actualizado): evento para la creacion de suscripcion factura y cuotas" />
     <MESSAGE value="feacture-facturas(actualizado): informacion de la factura actual" />
     <MESSAGE value="feacture-suscripciones(actualizado): eliminar suscripcion del cliente" />
-    <option name="LAST_COMMIT_MESSAGE" value="feacture-suscripciones(actualizado): eliminar suscripcion del cliente" />
+    <MESSAGE value="feacture-notas(bug corregido): las notas se crean correctamente, anteriormente se creaban las notas pero saltaba un error en la respuesta del servidor" />
+    <option name="LAST_COMMIT_MESSAGE" value="feacture-notas(bug corregido): las notas se crean correctamente, anteriormente se creaban las notas pero saltaba un error en la respuesta del servidor" />
   </component>
 </project>

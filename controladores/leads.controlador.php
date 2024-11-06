@@ -24,11 +24,12 @@ class ControladorLeads {
 				"creation_date" => $fecha_actual,
 				"origin" => $_POST["origenLead"],
 				"note" => $_POST["observaciones"],
-				"id_service" => $_POST["nuevoServicio"],
-				"id_area" => $_POST["nuevaArea"],
+				"id_service" => !empty($_POST["nuevoServicio"]) ? $_POST["nuevoServicio"] : null,
+				"id_area" => !empty($_POST["nuevaArea"]) ? $_POST["nuevaArea"] : null,
 				"sector" => $_POST["nuevoSector"],
-				"id_usuario" => $id_usuario  // Se pasa el ID de la sesión
+				"id_usuario" => $id_usuario
 			);
+			
 	
 			$respuesta = ModeloLeads::mdlRegistrarLead($tabla, $datos);
 	

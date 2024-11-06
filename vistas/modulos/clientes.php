@@ -750,8 +750,6 @@
                                         <div class="tab-content">
                                             <form id="formularioNotas" method="POST" enctype="multipart/form-data">
                                                 <div class="container">
-                                                    <h5>Agregar Nota</h5>
-
                                                     <!-- Campo oculto para id_customer -->
                                                     <input type="hidden" name="idCliente" id="idCliente" value="">
 

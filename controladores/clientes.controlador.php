@@ -5,28 +5,20 @@ class ControladorClientes {
     static public function ctrCrearCliente() {
         if (isset($_POST["nuevoIdCliente"])) {
             $tabla = "cliente";
-    
-            // Verificar si el nombre de usuario ya está registrado
+            
+            // Verificar si el cliente ya está registrado
             $nombreUsuario = $_POST["nuevoIdCliente"];
             $usuarioRegistrado = ModeloCliente::mdlVerificarUsuario($tabla, $nombreUsuario);
-    
+            
             if ($usuarioRegistrado) {
-                echo '<script>
-                    swal({
-                        type: "error",
-                        title: "¡el cliente ya ha sido registrado!",
-                        showConfirmButton: true,
-                        confirmButtonText: "Cerrar"
-                    }).then(function(result){
-                        if (result.value) {
-                            window.location = "clientes";
-                        }
-                    });
-                </script>';
-                return; // Salir del método si el usuario ya está registrado
+                echo json_encode([
+                    "success" => false,
+                    "mensaje" => "¡El cliente ya ha sido registrado!"
+                ]);
+                exit; // Detener ejecución para evitar múltiples respuestas
             }
-    
-            // Preparar datos para inserción
+            
+            // Preparar datos para la inserción
             $datos = array(
                 "cc" => $_POST["nuevoIdCliente"],
                 "first_name" => $_POST["nuevoNombre"],
@@ -36,44 +28,29 @@ class ControladorClientes {
                 "experience_years" => $_POST["nuevoAnosExperiencia"],
                 "email" => $_POST["nuevoEmail"],
                 "phone" => $_POST["nuevoTelefono"],
-                "country" => $_POST["nuevoPais"],  // Agregar país
-                "state" => $_POST["nuevoEstado"],    // Agregar estado
-                "city" => $_POST["nuevoCiudad"]      // Agregar ciudad
+                "country" => $_POST["nuevoPais"],
+                "state" => $_POST["nuevoEstado"],
+                "city" => $_POST["nuevoCiudad"],
+                "id_lead" => $_POST["idLeads"]
             );
     
             $respuesta = ModeloCliente::mdlRegistrarCliente($tabla, $datos);
     
             if ($respuesta == "ok") {
-                echo '<script>
-                    swal({
-                        type: "success",
-                        title: "¡El cliente ha sido registrado correctamente!",
-                        showConfirmButton: true,
-                        confirmButtonText: "Cerrar"
-                    }).then(function(result){
-                        if (result.value) {
-                            window.location = "clientes";
-                        }
-                    });
-                </script>';
+                echo json_encode([
+                    "success" => true,
+                    "mensaje" => "¡El cliente ha sido registrado correctamente!"
+                ]);
             } else {
-                echo '<script>
-                    swal({
-                        type: "error",
-                        title: "¡Hubo un error al registrar el cliente!",
-                        showConfirmButton: true,
-                        confirmButtonText: "Cerrar"
-                    }).then(function(result){
-                        if (result.value) {
-                            window.location = "clientes";
-                        }
-                    });
-                </script>';
+                echo json_encode([
+                    "success" => false,
+                    "mensaje" => "Error al registrar el cliente"
+                ]);
             }
+            exit; // Detener ejecución para evitar múltiples respuestas
         }
     }
-    
-    
+     
 
     static public function ctrVerClientes($item, $valor){
 

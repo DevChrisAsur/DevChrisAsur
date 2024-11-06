@@ -71,7 +71,7 @@ $(".tablas").on("click", ".btnEditarLead", function() {
     // Adjuntamos el evento click usando delegación para los botones de cambio de estado de pago de leads
     $(document).on('click', '.btnCambiarEstadoLead', function() {
         var boton = $(this);
-        //console.log("Se ha clicado en el botón para cambiar el estado del lead"); // Depuración
+        console.log("Se ha clicado en el botón para cambiar el estado del lead"); // Depuración
         
         var idLead = boton.attr("idLead"); 
         var estadoActualLead = boton.attr("estadoActualLead"); 
@@ -144,7 +144,7 @@ $(document).on('click', '#tab2 a', function() {
         processData: false,
         dataType: 'json',
         success: function(respuesta) {
-            //console.log(respuesta);
+            console.log(respuesta);
             // Si hay un error en la respuesta, mostrarlo
             if (respuesta.error) {
                 //console.error("Error:", respuesta.error);
@@ -164,4 +164,97 @@ $(document).on('click', '#tab2 a', function() {
         }
     });
 });
+
+$(document).on('click', '#creaCliente', function(e) {
+    e.preventDefault(); // Evita que el formulario se envíe de forma predeterminada
+
+    // Obtén los valores de los campos del formulario
+    var idLeads = $("#idLeads").val();
+    var nuevoIdCliente = $("#nuevoIdCliente").val();
+    var nuevoNombre = $("#nuevoNombre").val();
+    var nuevoApellido = $("#nuevoApellido").val();
+    var nuevoTipoCliente = $("#tipoCliente").val();
+    var nuevoEmpleado = $("#numEmpleadosContainer input").val();
+    var nuevoAnosExperiencia = $("#AniosContainer input").val();
+    var nuevoEmail = $("#nuevoEmail").val();
+    var nuevoTelefono = $("#nuevoTelefono").val();
+    var nuevoPais = $("#countryValue").val();
+    var nuevoEstado = $("#stateValue").val();
+    var nuevoCiudad = $("#cityValue").val();
+
+    // Crear un FormData con los datos del formulario
+    var datos = new FormData();
+    datos.append("idLeads", idLeads);
+    datos.append("nuevoIdCliente", nuevoIdCliente);
+    datos.append("nuevoNombre", nuevoNombre);
+    datos.append("nuevoApellido", nuevoApellido);
+    datos.append("nuevoTipoCliente", nuevoTipoCliente);
+    datos.append("nuevoEmpleado", nuevoEmpleado);
+    datos.append("nuevoAnosExperiencia", nuevoAnosExperiencia);
+    datos.append("nuevoEmail", nuevoEmail);
+    datos.append("nuevoTelefono", nuevoTelefono);
+    datos.append("nuevoPais", nuevoPais);
+    datos.append("nuevoEstado", nuevoEstado);
+    datos.append("nuevoCiudad", nuevoCiudad);
+    datos.append("action", 'crearCliente');
+
+    // Mostrar los datos en el console log
+    console.log("Datos enviados:", {
+        idLeads: idLeads,
+        nuevoIdCliente: nuevoIdCliente,
+        nuevoNombre: nuevoNombre,
+        nuevoApellido: nuevoApellido,
+        nuevoTipoCliente: nuevoTipoCliente,
+        nuevoEmpleado: nuevoEmpleado,
+        nuevoAnosExperiencia: nuevoAnosExperiencia,
+        nuevoEmail: nuevoEmail,
+        nuevoTelefono: nuevoTelefono,
+        nuevoPais: nuevoPais,
+        nuevoEstado: nuevoEstado,
+        nuevoCiudad: nuevoCiudad,
+        action: 'crearCliente'
+    });
+
+    // Realizar la solicitud AJAX para enviar los datos al servidor
+    $.ajax({
+        url: "ajax/leads.ajax.php", // Cambia esto a la URL correcta del controlador
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(respuesta) {
+            try {
+                // Parsear la respuesta si es un string para asegurarse de que sea JSON
+                const jsonResponse = typeof respuesta === 'string' ? JSON.parse(respuesta) : respuesta;
+                console.log("Respuesta del servidor:", jsonResponse);
+                if (jsonResponse.success) {
+                    swal({
+                        type: "success",
+                        title: jsonResponse.mensaje,
+                        showConfirmButton: true,
+                        confirmButtonText: "Cerrar",
+                    });
+                } else {
+                    console.error("Error al registrar al cliente lead.");
+                    swal({
+                        type: "error",
+                        title: jsonResponse.mensaje,
+                        showConfirmButton: true,
+                        confirmButtonText: "Cerrar",
+                    });
+                }
+            } catch (error) {
+                console.error("La respuesta no es JSON válido:", error);
+            }
+        }        
+        ,
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
+            console.log("Respuesta completa del servidor:", jqXHR.responseText);
+
+        }
+    });
+});
+
 

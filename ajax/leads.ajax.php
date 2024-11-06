@@ -2,6 +2,7 @@
 require_once "../controladores/clientes.controlador.php";
 require_once "../controladores/leads.controlador.php";
 require_once "../modelos/leads.modelo.php";
+require_once "../modelos/clientes.modelo.php";
 
 class AjaxLeads {
 
@@ -88,9 +89,18 @@ if (isset($_POST["editarNombre"])) { // Verifica si se está enviando el nombre 
     }
 }
 
-if (isset($_POST["nuevoIdCliente"])) {
-    $editarLead = new ControladorClientes();
-    $respuesta = $editarLead->ctrCrearCliente();
-    var_dump($_POST); // Verifica qué datos llegan al servidor
-    // Luego, continúa con la validación y lógica
+// Verifica si los datos clave están presentes
+if (isset($_POST["nuevoIdCliente"]) && isset($_POST["idLeads"])) {
+    // Instancia el controlador de clientes
+    $crearCliente = new ControladorClientes();
+
+    // Llama a la función para crear el cliente y guarda la respuesta
+    $respuesta = $crearCliente->ctrCrearCliente();
+
+    // Devuelve solo la respuesta en formato JSON
+    echo json_encode([
+        "success" => !empty($respuesta),
+        "mensaje" => $respuesta ? "Cliente registrado con éxito" : "Error al registrar el cliente"
+    ]);
+    exit; // Asegura que no se envíe nada después de esta línea
 }

@@ -269,7 +269,7 @@
   .input-group {
     display: flex;
     margin-bottom: 10px;
-}
+  }
 
 
   .input-group .form-control {
@@ -280,14 +280,13 @@
   }
 
   .input-group-addon {
-  background-color: #e9ecef;
-  border: 1px solid #ced4da;
-  padding: 6px 12px;
-  padding-right: 30px;
-  font-size: 16px;
-  border-radius: 0.25rem;
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    padding: 6px 12px;
+    padding-right: 30px;
+    font-size: 16px;
+    border-radius: 0.25rem;
   }
-
 </style>
 
 <!-- selectize search  -->
@@ -375,18 +374,18 @@
           </thead>
 
           <tbody>
-    <?php
-    // Primero verificamos si el perfil es "Asesor comercial"
-    if ($_SESSION["perfil"] === "Asesor comercial") {
-        // Obtenemos el id del asesor a partir de la sesión
-    $id_asesor = $_SESSION["id"];
-    
-    // Llamamos al controlador para obtener los leads registrados por el asesor
-    $leads = ControladorLeads::ctrVerLeadAsesor($id_asesor);
- 
-    // Iteramos sobre los leads y los mostramos en la tabla
-    foreach ($leads as $key => $lead) {
-        echo '<tr>
+            <?php
+            // Primero verificamos si el perfil es "Asesor comercial"
+            if ($_SESSION["perfil"] === "Asesor comercial") {
+              // Obtenemos el id del asesor a partir de la sesión
+              $id_asesor = $_SESSION["id"];
+
+              // Llamamos al controlador para obtener los leads registrados por el asesor
+              $leads = ControladorLeads::ctrVerLeadAsesor($id_asesor);
+
+              // Iteramos sobre los leads y los mostramos en la tabla
+              foreach ($leads as $key => $lead) {
+                echo '<tr>
                 <td>' . ($key + 1) . '</td>
                 <td class="text">' . htmlspecialchars($lead["creation_date"]) . '</td>
                 <td class="text">' . htmlspecialchars($lead["cc"]) . '</td>
@@ -397,10 +396,10 @@
                 <td>' . htmlspecialchars($lead["asesor_first_name"]) . ' ' . htmlspecialchars($lead["asesor_last_name"]) . '</td>';
                 if ($lead["status_lead"] != 0) {
                   echo '<td><button class="btn btn-success btn-xs btnCambiarEstadoLead" idLead="' . $lead["id_lead"] . '" estadoActualLead="0">Cliente</button></td>';
-              } else {
+                } else {
                   echo '<td><button class="btn btn-info btn-xs btnCambiarEstadoLead" idLead="' . $lead["id_lead"] . '" estadoActualLead="1">Lead</button></td>';
-              }
-              echo'
+                }
+                echo '
               <td class="text">' . htmlspecialchars($lead["origin"]) . '</td>
               <td class="text">' . htmlspecialchars($lead["note"]) . '</td>
               <td>
@@ -409,16 +408,16 @@
                     </div>
                   </td>
               </tr>';
-    }
-    } 
-    // Ahora verificamos si el perfil es "Super Administrador" o "Administrador"
-    else if ($_SESSION["perfil"] === "Super Administrador" || $_SESSION["perfil"] === "Administrador") {
-        $item = null;
-        $valor = null;
-        $categorias = ControladorLeads::ctrVerInteresLead($item, $valor);
+              }
+            }
+            // Ahora verificamos si el perfil es "Super Administrador" o "Administrador"
+            else if ($_SESSION["perfil"] === "Super Administrador" || $_SESSION["perfil"] === "Administrador") {
+              $item = null;
+              $valor = null;
+              $categorias = ControladorLeads::ctrVerInteresLead($item, $valor);
 
-        foreach ($categorias as $key => $value) {
-            echo '<tr>
+              foreach ($categorias as $key => $value) {
+                echo '<tr>
                       <td>' . ($key + 1) . '</td>
                       <td class="text">' . htmlspecialchars($value["creation_date"]) . '</td>
                       <td class="text">' . htmlspecialchars($value["cc"]) . '</td>
@@ -426,12 +425,12 @@
                       <td class="text">' . htmlspecialchars($value["first_name"]) . '</td>
                       <td class="text">' . htmlspecialchars($value["last_name"]) . '</td>
                       <td class="text">' . htmlspecialchars($value["phone"]) . '</td>';
-            if ($value["status_lead"] != 0) {
-                echo '<td><button class="btn btn-success btn-xs btnCambiarEstadoLead" idLead="' . $value["id_lead"] . '" estadoActualLead="0">Cliente</button></td>';
-            } else {
-                echo '<td><button class="btn btn-info btn-xs btnCambiarEstadoLead" idLead="' . $value["id_lead"] . '" estadoActualLead="1">Lead</button></td>';
-            }
-            echo '
+                if ($value["status_lead"] != 0) {
+                  echo '<td><button class="btn btn-success btn-xs btnCambiarEstadoLead" idLead="' . $value["id_lead"] . '" estadoActualLead="0">Cliente</button></td>';
+                } else {
+                  echo '<td><button class="btn btn-info btn-xs btnCambiarEstadoLead" idLead="' . $value["id_lead"] . '" estadoActualLead="1">Lead</button></td>';
+                }
+                echo '
                   <td class="text">' . htmlspecialchars($value["origin"]) . '</td>
                   <td class="text">' . htmlspecialchars($value["note"]) . '</td>
                   <td>
@@ -441,10 +440,10 @@
                     </div>
                   </td>
               </tr>';
-        }
-    }
-    ?>
-</tbody>
+              }
+            }
+            ?>
+          </tbody>
 
           <tfoot>
             <tr>
@@ -605,32 +604,32 @@
                       <div class="container mt-3">
                         <h5>Dirección</h5>
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="countryValue">País</label>
-                                    <select id="countryValue" class="form-control input-lg">
-                                        <option value="">Seleccionar País</option>
-                                    </select>
-                                </div>
-                            </div>  
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="countryValue">País</label>
+                              <select id="countryValue" class="form-control input-lg">
+                                <option value="">Seleccionar País</option>
+                              </select>
+                            </div>
+                          </div>
                         </div>
                         <div class="row">
-                        <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="stateValue">Estado</label>
-                                    <select id="stateValue" class="form-control input-lg" disabled>
-                                        <option value="">Seleccionar Estado</option>
-                                    </select>
-                                </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="stateValue">Estado</label>
+                              <select id="stateValue" class="form-control input-lg" disabled>
+                                <option value="">Seleccionar Estado</option>
+                              </select>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="cityValue">Ciudad</label>
-                                    <select id="cityValue" class="form-control input-lg" disabled>
-                                        <option value="">Seleccionar Ciudad</option>
-                                    </select>
-                                </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="cityValue">Ciudad</label>
+                              <select id="cityValue" class="form-control input-lg" disabled>
+                                <option value="">Seleccionar Ciudad</option>
+                              </select>
                             </div>
+                          </div>
                         </div>
                         <!-- Campos ocultos para enviar datos al servidor -->
                         <input type="hidden" name="nuevoPais" id="nuevoPais">
@@ -700,12 +699,9 @@
                     </div>
                     <!-- Botón de enviar -->
                     <div class="modal-footer">
-                      <button type="submit" class="btn btn-primary" id="guardarCambios">Guardar Cambios</button>
+                      <button type="submit" class="btn btn-primary" id="creaCliente">Guardar Cambios</button>
                     </div>
-                    <?php
-                      $crearCliente = new ControladorClientes();
-                      $crearCliente->ctrCrearCliente();
-                    ?>
+
                   </form>
                 </div>
               </div>
@@ -739,21 +735,21 @@
             <!-- Información del Usuario -->
             <h5>Información del Usuario</h5>
             <div class="row">
-            <div class="col-md-4">
+              <div class="col-md-4">
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
-                    <input type="text" class="form-control" name="nuevoIdLead" placeholder="Ingresar Identificación">
+                    <input type="text" class="form-control" name="nuevoIdLead" id="nuevoIdLead" placeholder="Ingresar Identificación">
                   </div>
                 </div>
               </div>
             </div>
-            <div class="row">              
+            <div class="row">
               <div class="col-md-4">
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                    <input type="text" class="form-control" name="nuevoNombre" placeholder="Ingresar Nombre">
+                    <input type="text" class="form-control" name="nuevoNombre" id="nuevoNombre" placeholder="Ingresar Nombre">
                   </div>
                 </div>
               </div>
@@ -761,7 +757,7 @@
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                    <input type="text" class="form-control" name="nuevoApellido" placeholder="Ingresar Apellido">
+                    <input type="text" class="form-control" name="nuevoApellido" id="nuevoApellido" placeholder="Ingresar Apellido">
                   </div>
                 </div>
               </div>
@@ -774,7 +770,7 @@
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
-                    <input type="email" class="form-control" name="nuevoEmail" placeholder="Ingresar Correo">
+                    <input type="email" class="form-control" name="nuevoEmail" id="nuevoEmail" placeholder="Ingresar Correo">
                   </div>
                 </div>
               </div>
@@ -782,7 +778,7 @@
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                    <input type="text" class="form-control" name="nuevoTelefono" placeholder="Ingresar Teléfono">
+                    <input type="text" class="form-control" name="nuevoTelefono" id="nuevoTelefono" placeholder="Ingresar Teléfono">
                   </div>
                 </div>
               </div>
@@ -795,15 +791,15 @@
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
-                    <select class="form-control" name="nuevaArea">
+                    <select class="form-control" name="nuevaArea" id="nuevaArea">
                       <option value="">Seleccionar Área de Derecho</option>
                       <?php
-                        $item = null;
-                        $valor = null;
-                        $categorias = ControladorAreaDerecho::ctrVerAreasDerecho($item, $valor);
-                        foreach ($categorias as $key => $value) {
-                          echo '<option value="' . $value["id_area"] . '">' . $value["law_area"] . '</option>';
-                        }
+                      $item = null;
+                      $valor = null;
+                      $categorias = ControladorAreaDerecho::ctrVerAreasDerecho($item, $valor);
+                      foreach ($categorias as $key => $value) {
+                        echo '<option value="' . $value["id_area"] . '">' . $value["law_area"] . '</option>';
+                      }
                       ?>
                     </select>
                   </div>
@@ -813,15 +809,15 @@
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
-                    <select class="form-control" name="nuevoServicio">
+                    <select class="form-control" name="nuevoServicio" id="nuevoServicio">
                       <option value="">Seleccionar Servicio</option>
                       <?php
-                        $item = null;
-                        $valor = null;
-                        $servicios = ControladorServicios::ctrVerServicios($item, $valor);
-                        foreach ($servicios as $key => $value) {
-                          echo '<option value="' . $value["id_service"] . '">' . $value["service_name"] . '</option>';
-                        }
+                      $item = null;
+                      $valor = null;
+                      $servicios = ControladorServicios::ctrVerServicios($item, $valor);
+                      foreach ($servicios as $key => $value) {
+                        echo '<option value="' . $value["id_service"] . '">' . $value["service_name"] . '</option>';
+                      }
                       ?>
                     </select>
                   </div>
@@ -836,7 +832,7 @@
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-info-circle"></i></span>
-                    <input type="text" class="form-control" name="origenLead" placeholder="Cómo se enteró del servicio">
+                    <input type="text" class="form-control" name="origenLead" id="origenLead" placeholder="Cómo se enteró del servicio">
                   </div>
                 </div>
               </div>
@@ -844,7 +840,7 @@
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-info-circle"></i></span>
-                    <input type="text" class="form-control" name="observaciones" placeholder="Observaciones del asesor">
+                    <input type="text" class="form-control" name="observaciones" id="observaciones" placeholder="Observaciones del asesor">
                   </div>
                 </div>
               </div>
@@ -857,7 +853,7 @@
                 <div class="form-group">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-users"></i></span>
-                    <input type="text" class="form-control" name="NuevoSector" placeholder="Grupo poblacional">
+                    <input type="text" class="form-control" name="nuevoSector" id="nuevoSector" placeholder="Grupo poblacional">
                   </div>
                 </div>
               </div>
@@ -872,8 +868,8 @@
         </div>
 
         <?php
-          $crearLead = new ControladorLeads();
-          $crearLead->ctrRegistrarLead();
+        $crearLead = new ControladorLeads();
+        $crearLead->ctrRegistrarLead();
         ?>
 
       </form>
@@ -901,7 +897,7 @@
       }
     });
   });
-  
+
   $(document).ready(function() {
     $(".btnAprobarCliente").click(function() {
       //console.log("Se ha clicado en el botón para cambiar el estado");
@@ -910,22 +906,23 @@
   });
 
   document.querySelectorAll('.tab a').forEach(tab => {
-    tab.addEventListener('click', function(e) {
-      e.preventDefault();
-      // Ocultar todas las pestañas
-      document.querySelectorAll('.tab-content').forEach(content => {
-        content.style.display = 'none';
-      });
-      // Mostrar la pestaña seleccionada
-      const activeTabContent = document.querySelector(this.getAttribute('href'));
-      if (activeTabContent) {
-        activeTabContent.style.display = 'block';
-      }
+  tab.addEventListener('click', function(e) {
+    e.preventDefault();
+    // Ocultar todas las pestañas
+    document.querySelectorAll('.tab-content').forEach(content => {
+      content.style.display = 'none';
     });
+    // Mostrar la pestaña seleccionada
+    const activeTabContent = document.querySelector(this.getAttribute('href') + ' .tab-content');
+    if (activeTabContent) {
+      activeTabContent.style.display = 'block';
+    }
   });
+});
 
-  // Inicializar la primera pestaña como activa
-  document.querySelector('.tab-content').style.display = 'block';
+// Inicializar la primera pestaña como activa
+document.querySelector('#tab1 .tab-content').style.display = 'block';
+
 </script>
 
 
