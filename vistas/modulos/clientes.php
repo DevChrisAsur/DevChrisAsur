@@ -346,6 +346,63 @@
             /* Ajusta el tamaño del ícono */
             border-radius: 0.25rem;
         }
+
+
+        #formularioNotas {
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    #formularioNotas .form-group label {
+        font-weight: bold;
+        color: #333;
+    }
+
+    #formularioNotas .form-control {
+        border-radius: 6px;
+    }
+
+    #guardarNota {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: #fff;
+        font-weight: bold;
+        border-radius: 6px;
+        padding: 10px 20px;
+    }
+
+    #guardarNota:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+    /* Estilo personalizado para el campo de carga de documento */
+.form-group input[type="file"] {
+    display: none; /* Ocultar el campo de archivo original */
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.custom-file-upload:hover {
+    background-color: #0056b3;
+}
+
+#file-name {
+    margin-left: 10px;
+    font-style: italic;
+    color: #555;
+}
+
     </style>
 
     <head>
@@ -748,34 +805,54 @@
                                     <div id="tab2" class="tab">
                                         <a href="#tab2">Notas</a>
                                         <div class="tab-content">
-                                            <form id="formularioNotas" method="POST" enctype="multipart/form-data">
-                                                <div class="container">
-                                                    <!-- Campo oculto para id_customer -->
-                                                    <input type="hidden" name="idCliente" id="idCliente" value="">
+                                        <form id="formularioNotas" method="POST" enctype="multipart/form-data">
+    <div class="container">
+        <!-- Campo oculto para id_customer -->
+        <input type="hidden" name="idCliente" id="idCliente" value="">
 
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="nuevoTituloNota">Título:</label>
-                                                                <input type="text" class="form-control input-lg" name="nuevoTituloNota" id="nuevoTituloNota" placeholder="Ingresar Título de la Nota" required>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+        <!-- Título -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="nuevoTituloNota">Título:</label>
+                    <input type="text" class="form-control input-lg" name="nuevoTituloNota" id="nuevoTituloNota" placeholder="Ingresar Título de la Nota" required>
+                </div>
+            </div>
+        </div>
 
-                                                    <div class="row mt-3">
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label for="contenidoNota">Nota:</label>
-                                                                <textarea class="form-control" name="contenidoNota" id="contenidoNota" rows="5" placeholder="No copie código HTML en este campo." required></textarea>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+        <!-- Nota -->
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="contenidoNota">Nota:</label>
+                    <textarea class="form-control" name="contenidoNota" id="contenidoNota" rows="5" placeholder="No copie código HTML en este campo." required></textarea>
+                </div>
+            </div>
+        </div>
 
-                                                    <div class="modal-footer mt-3">
-                                                        <button type="submit" class="btn btn-primary" id="guardarNota">Guardar Nota</button>
-                                                    </div>
-                                                </div>
-                                            </form>
+        <!-- Campo de carga de documento -->
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="archivoNota">Subir Documento o Imagen (opcional):</label>
+                    <label class="custom-file-upload">
+                        <input type="file" name="archivoNota" id="archivoNota" accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.gif">
+                        Seleccionar archivo
+                    </label>
+                    <span id="file-name">Ningún archivo seleccionado</span>
+                    <small class="form-text text-muted">Formatos permitidos: PDF, DOC, DOCX, TXT, JPG, PNG, GIF</small>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Botón de enviar -->
+        <div class="modal-footer mt-3">
+            <button type="submit" class="btn" id="guardarNota">Guardar Nota</button>
+        </div>
+    </div>
+</form>
                                         </div>
 
                                     </div>
@@ -1028,6 +1105,12 @@
                 });
             });
         });
+
+        document.getElementById('archivoNota').addEventListener('change', function() {
+            var fileName = this.files[0] ? this.files[0].name : 'Ningún archivo seleccionado';
+            document.getElementById('file-name').textContent = fileName;
+        });
+
     </script>
     <!-- evento para desplegar el numero de cuotas-->
     <script>

@@ -12,28 +12,37 @@ class ModeloNotas {
 
         try {
             $conexion = Conexion::conectar();
-            $stmt = $conexion->prepare("INSERT INTO $tabla(id_customer, id, titulo, contenido, fecha_creacion) VALUES (:id_customer, :id, :titulo, :contenido, :fecha_creacion)");
+    
+            // Consulta preparada para insertar en la tabla
+            $stmt = $conexion->prepare("INSERT INTO $tabla(id_customer, id, titulo, contenido, fecha_creacion, nombre_archivo) 
+                                        VALUES (:id_customer, :id, :titulo, :contenido, :fecha_creacion, :nombre_archivo)");
+    
+            // Enlazar los parámetros con los datos recibidos
             $stmt->bindParam(":id_customer", $datos['id_customer'], PDO::PARAM_INT);
             $stmt->bindParam(":id", $datos['id'], PDO::PARAM_INT);
             $stmt->bindParam(":titulo", $datos['titulo'], PDO::PARAM_STR);
             $stmt->bindParam(":contenido", $datos['contenido'], PDO::PARAM_STR);
             $stmt->bindParam(":fecha_creacion", $datos['fecha_creacion'], PDO::PARAM_STR);
+            $stmt->bindParam(":nombre_archivo", $datos['nombre_archivo'], PDO::PARAM_STR);
     
-            if($stmt->execute()) {
+            if ($stmt->execute()) {
                 return "ok";
             } else {
-                error_log("Error en la creación de la nota: " . print_r($stmt->errorInfo(), true)); // Registro del error
-                return "error: " . $stmt->errorInfo()[2]; // Devolver error SQL específico
+                error_log("Error en la creación de la nota: " . print_r($stmt->errorInfo(), true));
+                return "error: " . $stmt->errorInfo()[2];
             }
     
         } catch (Exception $e) {
-            error_log("Exception al crear la nota: " . $e->getMessage()); // Registrar excepción
-            return "Exception: " . $e->getMessage(); // Devolver mensaje de excepción
+            error_log("Exception al crear la nota: " . $e->getMessage());
+            return "Exception: " . $e->getMessage();
         }
     
+        // Cerrar conexión
         $stmt->close();
         $stmt = null;
     }
+    
+    
 
     /*=============================================
     MOSTRAR NOTAS
