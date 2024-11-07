@@ -138,7 +138,7 @@ CUERPO DOCUMENTO
           /**
            * Definimos las rutas permitidas para cada perfil.
            */
-          $rutasAdmin = ["inicio", "usuarios", "areas", "clientes", "servicios", "suscripciones", "leads", "salir"];
+          $rutasAdmin = ["inicio", "usuarios", "areas", "clientes", "servicios", "suscripciones", "leads", "facturas", "salir"];
           $rutasCoordinador = ["inicio", "usuarios", "clientes", "cartera", "salir"];
           $rutasAsesor = ["inicio", "clientes", "leads", "salir"];
 

@@ -36,6 +36,21 @@ class ControladorFacturas
     /*=============================================
         MOSTRAR FACTURAS
         =============================================*/
+
+        static public function ctrVerFacturas($item, $valor){
+
+            $tabla = "factura";  // Especifica la tabla que contiene las facturas
+    
+            // Llamada al modelo para obtener la información de la factura
+            $respuesta = ModeloFacturas::mdlVerFacturas($tabla, $item, $valor);
+    
+            // Puedes manejar aquí errores o procesar la respuesta si es necesario
+            if ($respuesta) {
+                return $respuesta;  // Devuelve la respuesta si todo salió bien
+            } else {
+                return null;  // Retorna null si no se encontró información o hubo un problema
+            }
+        }
         static public function ctrInfoFactura($item, $valor){
 
             $tabla = "factura";  // Especifica la tabla que contiene las facturas
@@ -50,4 +65,23 @@ class ControladorFacturas
                 return null;  // Retorna null si no se encontró información o hubo un problema
             }
         }
+
+        static public function ctrVerTransfer() {
+            $tabla = "factura";
+            $respuesta = ModeloFacturas::mdlVerTransfer($tabla);
+        
+            // Tasa de cambio
+            $tasaDeCambio = 4000;
+        
+            if ($respuesta && isset($respuesta['monto_total'])) {
+                $montoUSD = $respuesta['monto_total'] / $tasaDeCambio;
+                return [
+                    'monto_cop' => $respuesta['monto_total'],
+                    'monto_usd' => $montoUSD
+                ];
+            } else {
+                return null;
+            }
+        }
+               
 }

@@ -46,6 +46,30 @@ class ModeloFacturas {
     /*=============================================
     MOSTRAR FACTURAS
     =============================================*/
+    static public function mdlVerFacturas($tabla, $item, $valor){
+
+        if($item != null){
+            // Filtrar por cliente y obtener la factura más reciente con estado 'pendiente'
+            $stmt = Conexion::conectar()->prepare(
+                "SELECT id_factura,fecha_emision, bank, titular, account_number, account_type, monto, status_factura, fecha_limite 
+                 FROM $tabla ");
+    
+            $stmt->bindParam(":".$item, $valor, PDO::PARAM_STR);
+            $stmt->execute();
+    
+            return $stmt->fetch();
+        } else {
+            // Obtener todas las facturas sin filtro
+            $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
+            $stmt->execute();
+    
+            return $stmt->fetchAll();
+        }
+    
+        $stmt->close();
+        $stmt = null;
+    }
+
     static public function mdlVerFacturasPorCliente($tabla, $item, $valor){
 
         if($item != null){
@@ -72,6 +96,14 @@ class ModeloFacturas {
     
         $stmt->close();
         $stmt = null;
+    }
+
+    static public function mdlVerTransfer($tabla) {
+        // Consulta para sumar los valores de la columna 'monto' sin ningún filtro
+        $stmt = Conexion::conectar()->prepare("SELECT SUM(monto) AS monto_total FROM $tabla");
+    
+        $stmt->execute();
+        return $stmt->fetch();
     }
     
 }

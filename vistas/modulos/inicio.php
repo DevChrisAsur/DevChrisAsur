@@ -1,27 +1,21 @@
 <div class="content-wrapper">
-
   <section class="content-header">
-    
     <h1>
       Inicio
       <small>Panel de Control</small>
     </h1>
-
     <ol class="breadcrumb">
       <li><a href="inicio"><i class="fa fa-dashboard"></i> Inicio</a></li>
       <li class="active">Inicio</li>
     </ol>
-
   </section>
 
-  <!-- Main content -->
   <section class="content">
-
-    <!-- Dashboard cards -->
+    <!-- Sección de tarjetas principales -->
     <div class="container mt-4">
       <div class="row">
-      <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-        <div class="card leads">
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+          <div class="card leads">
           <?php
             // Llamamos al controlador para obtener el número de leads registrados hoy
             $totalLeadsHoy = ControladorLeads::ctrContarLeadsDiarios();
@@ -30,7 +24,6 @@
           <p>Hoy</p>
         </div>
       </div>
-
         <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
           <div class="card notificaciones-pendientes">
             <h5>0</h5>
@@ -66,53 +59,124 @@
       </div>
     </div>
 
-  </section>
-  <!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
+    <!-- Filtro de rango de fechas con estilo especial -->
+    <div class="container mt-4">
+      <div class="row filtro-fechas-row mb-4"> <!-- Clase especial para el tamaño -->
+        <div class="col-12">
+            <h5 class="text-center">Seleccione Rango de Fechas</h5>
+            <form>
+            <div class="form-row align-items-center">
+              <div class="col-md-5 mb-2">
+                <input type="date" class="form-control" placeholder="Fecha inicio">
+              </div>
+              <div class="col-md-5 mb-2">
+                <input type="date" class="form-control" placeholder="Fecha fin">
+              </div>
+              <div class="col-md-2 text-center text-md-left">
+                <button type="submit" class="btn btn-primary w-100">Consultar</button>
+              </div>
+            </div>
+            </form>
+        </div>
+      </div>
 
-<!-- Agrega los scripts de Bootstrap y el estilo personalizado -->
+      <!-- Nueva fila de tarjetas de detalle -->
+      <div class="row">
+      <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+          <div class="card detalle transfer">
+              <?php
+                  $montosTransfer = ControladorFacturas::ctrVerTransfer("estado", "pendiente");
+                  $montoCOP = $montosTransfer ? number_format($montosTransfer['monto_cop'], 2) : 0;
+                  $montoUSD = $montosTransfer ? number_format($montosTransfer['monto_usd'], 2) : 0;
+              ?>
+              <h5>Transfer: $<?php echo $montoCOP; ?> COP</h5>
+              <h5>Equivalent: $<?php echo $montoUSD; ?> USD</h5>
+              <p>De: 16 Oct 2024 A 31 Oct 2024</p>
+              <button class="btn btn-light">Ver Detalle</button>
+          </div>
+      </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+          <div class="card detalle proceso">
+            <h5>Proceso: $590</h5>
+            <p>De: 16 Oct 2024 A 31 Oct 2024</p>
+            <button class="btn btn-light">Ver Detalle</button>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+          <div class="card detalle recaudo">
+            <h5>Recaudo: $380</h5>
+            <p>De: 16 Oct 2024 A 31 Oct 2024</p>
+            <button class="btn btn-light">Ver Detalle</button>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+          <div class="card detalle caida">
+            <h5>Caída: $529</h5>
+            <p>De: 16 Oct 2024 A 31 Oct 2024</p>
+            <button class="btn btn-light">Ver Detalle</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
 
 <style>
+  .row {
+    border-bottom-width: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+
+  /* Estilo especial para el row de filtro de fechas */
+  .filtro-fechas-row {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
   .card {
     text-align: center;
-    font-size: 1.2rem;
     padding: 20px;
     color: white;
     transition: all 0.3s ease;
   }
-  .card.leads {
+
+  .card.leads { background-color: #f8f9fa; color: black; }
+  .card.notificaciones-pendientes { background-color: #dc3545; }
+  .card.notificaciones-ejecutadas { background-color: #28a745; }
+  .card.recursos-ventas { background-color: #17a2b8; }
+  .card.ventas { background-color: #007bff; }
+  .card.total { background-color: #dc3545; }
+  .card.transfer { background-color: #000066; }
+  .card.proceso { background-color: #000066; }
+  .card.recaudo { background-color: #000066; }
+  .card.caida { background-color: #000066; }
+  .detalle { padding: 15px; }
+
+  .filtro-fechas {
     background-color: #f8f9fa;
-    color: black;
+    color: #343a40;
   }
-  .card.notificaciones-pendientes {
-    background-color: #dc3545;
+
+  /* Ajustes de tamaño de las tarjetas para mantener consistencia */
+  .card h5 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
   }
-  .card.notificaciones-ejecutadas {
-    background-color: #28a745;
-  }
-  .card.ventas {
-    background-color: #007bff;
-  }
-  .card.total {
-    background-color: #dc3545;
-  }
-  .card.recursos-ventas {
-    background-color: #17a2b8;
+
+  .card p {
+    font-size: 1rem;
   }
 
   /* Ajustes para pantallas pequeñas */
   @media (max-width: 576px) {
-    .card {
-      font-size: 1rem;
-      padding: 15px;
-    }
+    .card { font-size: 0.9rem; padding: 15px; }
   }
 
   @media (max-width: 768px) {
-    .card {
-      font-size: 1.1rem;
-      padding: 18px;
-    }
+    .card { font-size: 1rem; padding: 18px; }
   }
 </style>

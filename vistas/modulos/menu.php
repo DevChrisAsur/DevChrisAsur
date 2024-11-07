@@ -132,6 +132,12 @@
                             </a>
                         </li>
                     </ul>
+                    <li>
+                            <a href="facturas">
+                                <i class="fa fa-address-card"></i>
+                                <span>facturas</span>
+                            </a>
+                        </li>
                 </li>
                 ';
             }
