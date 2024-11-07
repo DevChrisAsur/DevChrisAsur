@@ -10,7 +10,6 @@ class ModeloCliente{
     
     
 static public function mdlRegistrarCliente($tabla, $datos) {
-    // Preparar la consulta SQL para insertar datos en la tabla
     $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(cc, first_name, last_name, customer_type, employers, experience_years, email, phone, id_lead, country, state, city) VALUES (:cc, :first_name, :last_name, :customer_type, :employers, :experience_years, :email, :phone, :id_lead, :country, :state, :city)");
 
     // Enlazar los parámetros con los valores del array $datos
@@ -61,9 +60,8 @@ static public function mdlVerInfoCliente($tabla, $item, $valor){
     if ($item != null) {
         // Incluimos la cláusula WHERE y el INNER JOIN con leads
         $stmt = Conexion::conectar()->prepare(  
-            "SELECT c.id_customer, c.cc, c.country, c.first_name, c.last_name, c.state, c.city, c.customer_type, c.email, c.phone, c.id_lead, l.creation_date 
+            "SELECT c.id_customer, c.cc, c.country, c.first_name, c.last_name, c.state, c.city, c.customer_type, c.email, c.phone
              FROM $tabla AS c 
-             INNER JOIN leads AS l ON c.id_lead = l.id_lead 
              WHERE c.$item = :$item");
         $stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
         $stmt->execute();
@@ -71,9 +69,8 @@ static public function mdlVerInfoCliente($tabla, $item, $valor){
     } else {
         // Si no hay filtro, obtenemos todos los registros con el JOIN
         $stmt = Conexion::conectar()->prepare(
-            "SELECT c.*, l.creation_date 
-             FROM $tabla AS c 
-             INNER JOIN leads AS l ON c.id_lead = l.id_lead");
+            "SELECT c.id_customer, c.cc, c.country, c.first_name, c.last_name, c.state, c.city, c.customer_type, c.email, c.phone
+             FROM $tabla AS c");
         $stmt->execute();
         return $stmt->fetchAll();
     }

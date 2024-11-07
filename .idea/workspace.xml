@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d1f258ee-b36f-465c-b369-682882a5d30d" name="Changes" comment="feacture-notas(bug corregido): las notas se crean correctamente, anteriormente se creaban las notas pero saltaba un error en la respuesta del servidor">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ajax/leads.ajax.php" beforeDir="false" afterPath="$PROJECT_DIR$/ajax/leads.ajax.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controladores/clientes.controlador.php" beforeDir="false" afterPath="$PROJECT_DIR$/controladores/clientes.controlador.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controladores/leads.controlador.php" beforeDir="false" afterPath="$PROJECT_DIR$/controladores/leads.controlador.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vistas/js/leads.js" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/js/leads.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vistas/modulos/clientes.php" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/modulos/clientes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vistas/modulos/leads.php" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/modulos/leads.php" afterDir="false" />
-    </list>
+    <list default="true" id="d1f258ee-b36f-465c-b369-682882a5d30d" name="Changes" comment="feacture(en proceso: bug) correcion de la creacion del cliente lead, ya que se envia la respuesta pero no se muestra el evento" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -94,14 +86,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1726439356860</updated>
-    </task>
-    <task id="LOCAL-00072" summary="feacture-clientes:(actualizado) integracion de busqueda de identificacion la registrar un cliente">
-      <option name="closed" value="true" />
-      <created>1728189358693</created>
-      <option name="number" value="00072" />
-      <option name="presentableId" value="LOCAL-00072" />
-      <option name="project" value="LOCAL" />
-      <updated>1728189358693</updated>
     </task>
     <task id="LOCAL-00073" summary="feacture-clientes:(fixed) cambio de id estatico del registro del lead cliente, ahora se obtiene dinamicamente el id del lead que se convertira en cliente">
       <option name="closed" value="true" />
@@ -487,7 +471,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730874308579</updated>
     </task>
-    <option name="localTasksCounter" value="121" />
+    <task id="LOCAL-00121" summary="feacture(en proceso: bug) correcion de la creacion del cliente lead, ya que se envia la respuesta pero no se muestra el evento">
+      <option name="closed" value="true" />
+      <created>1730874827763</created>
+      <option name="number" value="00121" />
+      <option name="presentableId" value="LOCAL-00121" />
+      <option name="project" value="LOCAL" />
+      <updated>1730874827763</updated>
+    </task>
+    <option name="localTasksCounter" value="122" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -517,24 +509,6 @@
                   <entry key="Table.Default.Date.ColumnIdWidth" value="75" />
                 </map>
               </option>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="develop" />
-                      </list>
-                    </value>
-                  </entry>
-                  <entry key="text">
-                    <value>
-                      <list>
-                        <option value="leads" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
             </State>
           </value>
         </entry>
@@ -542,7 +516,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feacture-leads:(actualizado) asesor asociado al registro de lead, vistas para asesores con leads asociados y para admin" />
     <MESSAGE value="feacture-leads:(fixed) contenedor de paises y estados arreglado, ya no se desborda de la modal" />
     <MESSAGE value="fixes" />
     <MESSAGE value="feacture-clientes:(actaulizado) informacion adicional del cliente" />
@@ -567,6 +540,7 @@
     <MESSAGE value="feacture-facturas(actualizado): informacion de la factura actual" />
     <MESSAGE value="feacture-suscripciones(actualizado): eliminar suscripcion del cliente" />
     <MESSAGE value="feacture-notas(bug corregido): las notas se crean correctamente, anteriormente se creaban las notas pero saltaba un error en la respuesta del servidor" />
-    <option name="LAST_COMMIT_MESSAGE" value="feacture-notas(bug corregido): las notas se crean correctamente, anteriormente se creaban las notas pero saltaba un error en la respuesta del servidor" />
+    <MESSAGE value="feacture(en proceso: bug) correcion de la creacion del cliente lead, ya que se envia la respuesta pero no se muestra el evento" />
+    <option name="LAST_COMMIT_MESSAGE" value="feacture(en proceso: bug) correcion de la creacion del cliente lead, ya que se envia la respuesta pero no se muestra el evento" />
   </component>
 </project>

@@ -165,7 +165,7 @@ $(document).on('click', '#tab2 a', function() {
     });
 });
 
-$(document).on('click', '#creaCliente', function(e) {
+$(document).on('submit', '#formularioCliente', function(e) {
     e.preventDefault(); // Evita que el formulario se envíe de forma predeterminada
 
     // Obtén los valores de los campos del formulario
@@ -217,7 +217,7 @@ $(document).on('click', '#creaCliente', function(e) {
 
     // Realizar la solicitud AJAX para enviar los datos al servidor
     $.ajax({
-        url: "ajax/leads.ajax.php", // Cambia esto a la URL correcta del controlador
+        url: "ajax/clientes.ajax.php",
         method: "POST",
         data: datos,
         cache: false,
@@ -225,36 +225,38 @@ $(document).on('click', '#creaCliente', function(e) {
         processData: false,
         success: function(respuesta) {
             try {
-                // Parsear la respuesta si es un string para asegurarse de que sea JSON
                 const jsonResponse = typeof respuesta === 'string' ? JSON.parse(respuesta) : respuesta;
                 console.log("Respuesta del servidor:", jsonResponse);
                 if (jsonResponse.success) {
-                    swal({
-                        type: "success",
+                    Swal.fire({
+                        icon: "success",
                         title: jsonResponse.mensaje,
-                        showConfirmButton: true,
                         confirmButtonText: "Cerrar",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location = "clientes";
+                        }
                     });
                 } else {
-                    console.error("Error al registrar al cliente lead.");
-                    swal({
-                        type: "error",
-                        title: jsonResponse.mensaje,
-                        showConfirmButton: true,
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: jsonResponse.mensaje,
                         confirmButtonText: "Cerrar",
                     });
                 }
             } catch (error) {
                 console.error("La respuesta no es JSON válido:", error);
             }
-        }        
-        ,
+        },
         error: function(jqXHR, textStatus, errorThrown) {
-            console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
-            console.log("Respuesta completa del servidor:", jqXHR.responseText);
-
+            Swal.fire({
+                icon: "error",
+                title: "Error en la solicitud",
+                text: "Hubo un problema al comunicar con el servidor: " + textStatus,
+                confirmButtonText: "Cerrar"
+            });
         }
     });
+    
 });
-
-

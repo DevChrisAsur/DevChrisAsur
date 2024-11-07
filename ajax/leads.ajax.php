@@ -89,18 +89,3 @@ if (isset($_POST["editarNombre"])) { // Verifica si se está enviando el nombre 
     }
 }
 
-// Verifica si los datos clave están presentes
-if (isset($_POST["nuevoIdCliente"]) && isset($_POST["idLeads"])) {
-    // Instancia el controlador de clientes
-    $crearCliente = new ControladorClientes();
-
-    // Llama a la función para crear el cliente y guarda la respuesta
-    $respuesta = $crearCliente->ctrCrearCliente();
-
-    // Devuelve solo la respuesta en formato JSON
-    echo json_encode([
-        "success" => !empty($respuesta),
-        "mensaje" => $respuesta ? "Cliente registrado con éxito" : "Error al registrar el cliente"
-    ]);
-    exit; // Asegura que no se envíe nada después de esta línea
-}

@@ -11,11 +11,20 @@ class ControladorClientes {
             $usuarioRegistrado = ModeloCliente::mdlVerificarUsuario($tabla, $nombreUsuario);
             
             if ($usuarioRegistrado) {
-                echo json_encode([
-                    "success" => false,
-                    "mensaje" => "¡El cliente ya ha sido registrado!"
-                ]);
-                exit; // Detener ejecución para evitar múltiples respuestas
+                echo '<script>
+                        Swal.fire({
+                            icon: "error",
+                            title: "¡El cliente ya ha sido registrado!",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar"
+                        }).then(function(result) {
+                            if (result.isConfirmed) {
+                                window.location = "clientes";
+                            }
+                        });
+
+                      </script>';
+                exit;
             }
             
             // Preparar datos para la inserción
@@ -34,6 +43,74 @@ class ControladorClientes {
                 "id_lead" => $_POST["idLeads"]
             );
     
+            // Intentar registrar al cliente
+            $respuesta = ModeloCliente::mdlRegistrarCliente($tabla, $datos);
+    
+            if ($respuesta == "ok") {
+                echo '<script>
+                        swal.fire({
+                            type: "success",
+                            title: "¡El cliente ha sido registrado correctamente!",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar"
+                        }).then(function(result){
+                            if (result.value) {
+                                window.location = "clientes";
+                            }
+                        });
+                      </script>';
+            } else {
+                echo '<script>
+                        swal.fire({
+                            type: "error",
+                            title: "Error al registrar el cliente",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar"
+                        }).then(function(result){
+                            if (result.value) {
+                                window.location = "clientes";
+                            }
+                        });
+                      </script>';
+            }
+            exit;
+        } 
+    }
+    
+    static public function ctrCrearClienteLead() {
+        if (isset($_POST["nuevoIdCliente"])) {
+            $tabla = "cliente";
+    
+            // Verificar si el cliente ya está registrado
+            $nombreUsuario = $_POST["nuevoIdCliente"];
+            $usuarioRegistrado = ModeloCliente::mdlVerificarUsuario($tabla, $nombreUsuario);
+    
+            if ($usuarioRegistrado) {
+                // Enviar respuesta JSON en caso de que el cliente ya esté registrado
+                echo json_encode([
+                    "success" => false,
+                    "mensaje" => "¡El cliente ya ha sido registrado!"
+                ]);
+                exit;
+            }
+    
+            // Preparar datos para la inserción
+            $datos = array(
+                "cc" => $_POST["nuevoIdCliente"],
+                "first_name" => $_POST["nuevoNombre"],
+                "last_name" => $_POST["nuevoApellido"],
+                "customer_type" => $_POST["nuevoTipoCliente"],
+                "employers" => $_POST["nuevoEmpleado"],
+                "experience_years" => $_POST["nuevoAnosExperiencia"],
+                "email" => $_POST["nuevoEmail"],
+                "phone" => $_POST["nuevoTelefono"],
+                "country" => $_POST["nuevoPais"],
+                "state" => $_POST["nuevoEstado"],
+                "city" => $_POST["nuevoCiudad"],
+                "id_lead" => $_POST["idLeads"]
+            );
+    
+            // Intentar registrar al cliente
             $respuesta = ModeloCliente::mdlRegistrarCliente($tabla, $datos);
     
             if ($respuesta == "ok") {
@@ -47,9 +124,16 @@ class ControladorClientes {
                     "mensaje" => "Error al registrar el cliente"
                 ]);
             }
-            exit; // Detener ejecución para evitar múltiples respuestas
+            exit;
+        } else {
+            echo json_encode([
+                "success" => false,
+                "mensaje" => "Datos incompletos para el registro"
+            ]);
+            exit;
         }
     }
+    
      
 
     static public function ctrVerClientes($item, $valor){
