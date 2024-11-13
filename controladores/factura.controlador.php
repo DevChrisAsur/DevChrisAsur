@@ -65,23 +65,5 @@ class ControladorFacturas
                 return null;  // Retorna null si no se encontró información o hubo un problema
             }
         }
-
-        static public function ctrVerTransfer() {
-            $tabla = "factura";
-            $respuesta = ModeloFacturas::mdlVerTransfer($tabla);
-        
-            // Tasa de cambio
-            $tasaDeCambio = 4000;
-        
-            if ($respuesta && isset($respuesta['monto_total'])) {
-                $montoUSD = $respuesta['monto_total'] / $tasaDeCambio;
-                return [
-                    'monto_cop' => $respuesta['monto_total'],
-                    'monto_usd' => $montoUSD
-                ];
-            } else {
-                return null;
-            }
-        }
                
 }
