@@ -46,8 +46,12 @@
       <div class="row">
         <div class="col-lg-6 col-md-12 col-sm-12 mb-4">
           <div class="card ventas">
-            <h5>1 Ventas</h5>
-            <p>24 Oct 2024</p>
+            <?php
+                // Llamada al controlador para obtener el total de ventas en proceso
+                $totalVentas = ControladorCuotas::ctrContarVentasDiarios();
+            ?>
+            <h5><?php echo $totalVentas; ?> Ventas</h5>
+            <p><?php echo date("d M Y"); ?></p> <!-- Fecha actual -->
           </div>
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12 mb-4">
@@ -83,30 +87,48 @@
       <!-- Nueva fila de tarjetas de detalle -->
       <div class="row">
       <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-          <div class="card detalle transfer">
-              <?php
-                  $montosTransfer = ControladorFacturas::ctrVerTransfer("estado", "pendiente");
-                  $montoCOP = $montosTransfer ? number_format($montosTransfer['monto_cop'], 2) : 0;
-                  $montoUSD = $montosTransfer ? number_format($montosTransfer['monto_usd'], 2) : 0;
-              ?>
-              <h5>Transfer: $<?php echo $montoCOP; ?> COP</h5>
-              <h5>Equivalent: $<?php echo $montoUSD; ?> USD</h5>
-              <p>De: 16 Oct 2024 A 31 Oct 2024</p>
-              <button class="btn btn-light">Ver Detalle</button>
-          </div>
+      <div class="card detalle transfer">
+          <?php
+              $montosTransfer = ControladorCuotas::ctrVerTransfer();
+              $montoCOPTransfer = $montosTransfer ? number_format($montosTransfer['monto_cop'], 2) : 0;
+              $montoUSDTransfer = $montosTransfer ? number_format($montosTransfer['monto_usd'], 2) : 0;
+              $rangoFechaTransfer = $montosTransfer ? $montosTransfer['rango_fecha'] : '';
+          ?>
+          <h5>Transfer: $<?php echo $montoCOPTransfer; ?> COP</h5>
+          <h5>Equivalent: $<?php echo $montoUSDTransfer; ?> USD</h5>
+          <p>De: <?php echo $rangoFechaTransfer; ?></p>
+          <button class="btn btn-light">Ver Detalle</button>
+      </div>
+
       </div>
 
         <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-          <div class="card detalle proceso">
-            <h5>Proceso: $590</h5>
-            <p>De: 16 Oct 2024 A 31 Oct 2024</p>
+        <div class="card detalle proceso">
+            <?php
+                $montosProceso = ControladorCuotas::ctrVerProceso();
+                $montoCOPProceso = $montosProceso ? number_format($montosProceso['monto_cop'], 2) : 0;
+                $montoUSDProceso = $montosProceso ? number_format($montosProceso['monto_usd'], 2) : 0;
+                $rangoFechaProceso = $montosProceso ? $montosProceso['rango_fecha'] : '';
+            ?>
+            <h5>Proceso: $<?php echo $montoCOPProceso; ?> COP</h5>
+            <h5>Equivalent: $<?php echo $montoUSDProceso; ?> USD</h5>
+            <p>De: <?php echo $rangoFechaProceso; ?></p>
             <button class="btn btn-light">Ver Detalle</button>
-          </div>
+        </div>
+
+
         </div>
         <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
           <div class="card detalle recaudo">
-            <h5>Recaudo: $380</h5>
-            <p>De: 16 Oct 2024 A 31 Oct 2024</p>
+            <?php
+                $montosRecaudo = ControladorCuotas::ctrVerRecaudo();
+                $montoCOPRecaudo = $montosRecaudo ? number_format($montosRecaudo['monto_cop'], 2) : 0;
+                $montoUSDRecaudo = $montosRecaudo ? number_format($montosRecaudo['monto_usd'], 2) : 0;
+                $rangoFechaRecaudo = $montosRecaudo ? $montosRecaudo['rango_fecha'] : '';
+            ?>
+            <h5>Recaudo: $<?php echo $montoCOPRecaudo; ?> COP</h5>
+            <h5>Equivalent: $<?php echo $montoUSDRecaudo; ?> USD</h5>
+            <p>De: <?php echo $rangoFechaRecaudo; ?></p>
             <button class="btn btn-light">Ver Detalle</button>
           </div>
         </div>
