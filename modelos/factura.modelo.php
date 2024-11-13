@@ -97,13 +97,5 @@ class ModeloFacturas {
         $stmt->close();
         $stmt = null;
     }
-
-    static public function mdlVerTransfer($tabla) {
-        // Consulta para sumar los valores de la columna 'monto' sin ningún filtro
-        $stmt = Conexion::conectar()->prepare("SELECT SUM(monto) AS monto_total FROM $tabla");
-    
-        $stmt->execute();
-        return $stmt->fetch();
-    }
-    
+   
 }
