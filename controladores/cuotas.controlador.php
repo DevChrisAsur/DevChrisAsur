@@ -29,7 +29,7 @@ class ControladorCuotas
                     "id_factura" => $_POST["idFactura"],
                     "monto" => $montoCuota,
                     "fecha_vencimiento" => $_POST["fecha_vencimiento_" . $i], // Fecha de vencimiento de cada cuota
-                    "estado_pago" => "Pendiente", // Estado de pago inicial
+                    "estado_pago" => $_POST["estado_pago_" . $i], // Estado de pago inicial
                     "fecha_pago" => NULL // Inicialmente, la fecha de pago está vacía
                 );
         
@@ -54,5 +54,161 @@ class ControladorCuotas
             $tabla = "cuota";  // Nombre de la tabla en la base de datos
             return ModeloCuotas::mdlVerCuotasPorFactura($tabla, 'id_factura', $idFactura);
         }
-             
+            
+        static public function ctrVerTransfer() {
+            $tabla = "cuota";
+        
+            // Obtener la fecha actual
+            $fechaActual = new DateTime();
+            $año = $fechaActual->format("Y");
+            $mes = $fechaActual->format("m");
+        
+            // Determinar el rango de fechas basado en el día actual
+            $dia = $fechaActual->format("d");
+        
+            if ($dia >= 1 && $dia <= 15) {
+                // Rango del 1 al 15
+                $fechaInicio = "$año-$mes-01";
+                $fechaFin = "$año-$mes-15";
+                $rangoFecha = "1 al 15 de " . $fechaActual->format("M Y");
+            } else {
+                // Rango del 16 al último día del mes
+                $fechaInicio = "$año-$mes-16";
+                $fechaFin = "$año-$mes-" . $fechaActual->format("t"); // 't' da el último día del mes
+                $rangoFecha = "16 al " . $fechaActual->format("t") . " de " . $fechaActual->format("M Y");
+            }
+        
+            // Llamar al método mdlVerTransfer con las fechas calculadas
+            $respuesta = ModeloCuotas::mdlVerTransfer($tabla, $fechaInicio, $fechaFin);
+        
+            // Tasa de cambio
+            $tasaDeCambio = 4000;
+        
+            if ($respuesta && isset($respuesta['monto_total'])) {
+                $montoUSD = $respuesta['monto_total'] / $tasaDeCambio;
+                return [
+                    'monto_cop' => $respuesta['monto_total'],
+                    'monto_usd' => $montoUSD,
+                    'rango_fecha' => $rangoFecha
+                ];
+            } else {
+                return [
+                    'monto_cop' => 0,
+                    'monto_usd' => 0,
+                    'rango_fecha' => $rangoFecha
+                ];
+            }
+        }
+        
+
+        static public function ctrVerProceso() {
+            $tabla = "cuota";
+        
+            // Obtener la fecha actual
+            $fechaActual = new DateTime();
+            $año = $fechaActual->format("Y");
+            $mes = $fechaActual->format("m");
+        
+            // Determinar el rango de fechas basado en el día actual
+            $dia = $fechaActual->format("d");
+        
+            if ($dia >= 1 && $dia <= 15) {
+                // Rango del 1 al 15
+                $fechaInicio = "$año-$mes-01";
+                $fechaFin = "$año-$mes-15";
+                $rangoFecha = "1 al 15 de " . $fechaActual->format("M Y");
+            } else {
+                // Rango del 16 al último día del mes
+                $fechaInicio = "$año-$mes-16";
+                $fechaFin = "$año-$mes-" . $fechaActual->format("t"); // 't' da el último día del mes
+                $rangoFecha = "16 al " . $fechaActual->format("t") . " de " . $fechaActual->format("M Y");
+            }
+        
+            // Llamar al método mdlVerProceso con las fechas calculadas
+            $respuesta = ModeloCuotas::mdlVerProceso($tabla, $fechaInicio, $fechaFin);
+        
+            // Tasa de cambio
+            $tasaDeCambio = 4000;
+        
+            if ($respuesta && isset($respuesta['monto_total'])) {
+                $montoUSD = $respuesta['monto_total'] / $tasaDeCambio;
+                return [
+                    'monto_cop' => $respuesta['monto_total'],
+                    'monto_usd' => $montoUSD,
+                    'rango_fecha' => $rangoFecha
+                ];
+            } else {
+                return [
+                    'monto_cop' => 0,
+                    'monto_usd' => 0,
+                    'rango_fecha' => $rangoFecha
+                ];
+            }
+        }
+        
+
+        static public function ctrContarVentasDiarios() {
+            $tabla = "cuota"; 
+            
+            $respuesta = ModeloCuotas::mdlContarCuotasEnProceso($tabla);
+            return $respuesta;
+        }
+ 
+        static public function ctrVerRecaudo() {
+            $tabla = "cuota";
+        
+            // Obtener la fecha actual
+            $fechaActual = new DateTime();
+            $año = $fechaActual->format("Y");
+            $mes = $fechaActual->format("m");
+        
+            // Determinar el rango de fechas basado en el día actual
+            $dia = $fechaActual->format("d");
+        
+            if ($dia >= 1 && $dia <= 15) {
+                // Rango del 1 al 15
+                $fechaInicio = "$año-$mes-01";
+                $fechaFin = "$año-$mes-15";
+                $rangoFecha = "1 al 15 de " . $fechaActual->format("M Y");
+            } else {
+                // Rango del 16 al último día del mes
+                $fechaInicio = "$año-$mes-16";
+                $fechaFin = "$año-$mes-" . $fechaActual->format("t"); // 't' da el último día del mes
+                $rangoFecha = "16 al " . $fechaActual->format("t") . " de " . $fechaActual->format("M Y");
+            }
+        
+            // Llamar al método mdlVerProceso con las fechas calculadas
+            $respuesta = ModeloCuotas::mdlVerProceso($tabla, $fechaInicio, $fechaFin);
+        
+            // Tasa de cambio
+            $tasaDeCambio = 4000;
+        
+            if ($respuesta && isset($respuesta['monto_total'])) {
+                $montoUSD = $respuesta['monto_total'] / $tasaDeCambio;
+                return [
+                    'monto_cop' => $respuesta['monto_total'],
+                    'monto_usd' => $montoUSD,
+                    'rango_fecha' => $rangoFecha
+                ];
+            } else {
+                return [
+                    'monto_cop' => 0,
+                    'monto_usd' => 0,
+                    'rango_fecha' => $rangoFecha
+                ];
+            }
+        }
+        static public function ctrEditarCuota($datos) {
+            // Validación de datos
+            if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $datos["fecha_vencimiento"]) && !empty($datos["estado_pago"])) {
+                $tabla = "cuota";
+    
+                $respuesta = ModeloCuotas::mdlEditarCuota($tabla, $datos);
+    
+                return $respuesta == "ok" ? "ok" : "error";
+            } else {
+                return "error";
+            }
+        }
+        
 }
