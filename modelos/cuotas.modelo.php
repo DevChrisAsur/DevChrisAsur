@@ -58,6 +58,83 @@ static public function mdlVerCuotasPorFactura($tabla, $item, $valor) {
         return $stmt->fetchAll();
     }
     
+    static public function mdlVerTransfer($tabla, $fechaInicio, $fechaFin) {
+        $stmt = Conexion::conectar()->prepare("SELECT SUM(monto) AS monto_total FROM $tabla 
+                                               WHERE fecha_vencimiento >= :fechaInicio AND fecha_vencimiento <= :fechaFin");   
+        $stmt->bindParam(":fechaInicio", $fechaInicio, PDO::PARAM_STR);
+        $stmt->bindParam(":fechaFin", $fechaFin, PDO::PARAM_STR);
+    
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    static public function mdlVerProceso($tabla, $fechaInicio, $fechaFin) {
+        $stmt = Conexion::conectar()->prepare("SELECT SUM(monto) AS monto_total FROM $tabla 
+                                               WHERE estado_pago = 'En proceso'
+                                               AND fecha_vencimiento >= :fechaInicio 
+                                               AND fecha_vencimiento <= :fechaFin");
+        
+        $stmt->bindParam(":fechaInicio", $fechaInicio, PDO::PARAM_STR);
+        $stmt->bindParam(":fechaFin", $fechaFin, PDO::PARAM_STR);
+    
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+    
+    static public function mdlContarCuotasEnProceso($tabla) {
+        $stmt = Conexion::conectar()->prepare("
+            SELECT COUNT(*) AS total_cuotas
+            FROM $tabla
+            WHERE estado_pago = 'En proceso'
+        ");
+        
+        // Ejecutamos la consulta
+        $stmt->execute();
+        
+        // Retornamos el resultado
+        return $stmt->fetch()['total_cuotas'];
+    }
+    
+    static public function mdlVerRecaudo($tabla, $fechaInicio, $fechaFin) {
+        $stmt = Conexion::conectar()->prepare("SELECT SUM(monto) AS monto_total FROM $tabla 
+                                               WHERE estado_pago = 'Aprobado'
+                                               AND fecha_vencimiento >= :fechaInicio 
+                                               AND fecha_vencimiento <= :fechaFin");
+        
+        $stmt->bindParam(":fechaInicio", $fechaInicio, PDO::PARAM_STR);
+        $stmt->bindParam(":fechaFin", $fechaFin, PDO::PARAM_STR);
+    
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    static public function mdlEditarCuota($tabla, $datos) {
+        try {
+            // Preparamos la consulta para actualizar solo los campos necesarios
+            $stmt = Conexion::conectar()->prepare("UPDATE $tabla 
+                                                   SET fecha_vencimiento = :fecha_vencimiento, 
+                                                       estado_pago = :estado_pago, 
+                                                       fecha_pago = :fecha_pago 
+                                                   WHERE id_cuota = :id_cuota");
+    
+            // Vinculamos los parámetros
+            $stmt->bindParam(":fecha_vencimiento", $datos["fecha_vencimiento"], PDO::PARAM_STR);
+            $stmt->bindParam(":estado_pago", $datos["estado_pago"], PDO::PARAM_STR);
+            $stmt->bindParam(":fecha_pago", $datos["fecha_pago"], PDO::PARAM_STR);
+            $stmt->bindParam(":id_cuota", $datos["id_cuota"], PDO::PARAM_INT);
+    
+            // Ejecutamos la consulta
+            if ($stmt->execute()) {
+                return "ok"; // Devuelve "ok" si la actualización es exitosa
+            } else {
+                return "error"; // Devuelve "error" si hay un problema
+            }
+        } catch (PDOException $e) {
+            return "Error: " . $e->getMessage(); // Captura el error para depuración
+        } finally {
+            $stmt = null; // Cierra la conexión
+        }
+    }
     
 
 }
