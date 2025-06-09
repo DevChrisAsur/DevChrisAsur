@@ -97,6 +97,46 @@
             display: table-row;
         }
 
+        .table-cuotas td {
+        vertical-align: middle; /* Centra verticalmente el contenido */
+        }
+
+        .table-cuotas input.form-control {
+            height: auto; /* Ajuste automático de la altura */
+            padding: 5px; /* Espacio interno */
+            text-align: center;
+            font-size: 14px; /* Tamaño de fuente más pequeño para integrarse con el botón */
+            border: none; /* Sin bordes */
+            background-color: transparent; /* Fondo transparente */
+        }
+
+        .btn-accion {
+    padding: 5px 10px; /* Ajustar el tamaño del botón */
+    font-size: 14px;
+}
+
+.table {
+    border-radius: 8px; /* Bordes redondeados */
+    overflow: hidden; /* Quita los bordes superpuestos */
+}
+
+.table thead th, .table tbody td {
+    padding: 10px;
+}
+
+/* Color personalizado para el botón */
+.btn-accion {
+    background-color: #4e73df; /* Color azul personalizado */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-accion:hover {
+    background-color: #375a7f; /* Color azul oscuro al pasar el ratón */
+}
+
         /* Estilos para div1 */
         .div1 {
             grid-area: 1 / 1 / 3 / 2;
@@ -402,7 +442,6 @@
     font-style: italic;
     color: #555;
 }
-
     </style>
 
     <head>
@@ -740,6 +779,7 @@
                                             <div class="container" style="margin-top: 20px; padding: 20px; background-color: #f9f4d1; border-radius: 8px;">
                                                 <div class="row">
                                                     <!-- Columna 1 (Información del Producto) -->
+
                                                     <div class="col-md-6">
 
                                                         <div class="mb-2">
@@ -783,20 +823,22 @@
                                             </div>
 
                                             <div class="container" style="margin-top: 20px;">
-                                                <table class="table table-bordered text-center">
-                                                    <thead style="background-color: #e6f3e8;">
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>Fecha</th>
-                                                            <th>Valor</th>
-                                                            <th>Estado</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="table-cuotas">
-                                                        <!-- Las filas de cuotas se añadirán aquí dinámicamente -->
-                                                    </tbody>
-                                                </table>
-                                            </div>
+    <table class="table table-bordered text-center table-sm">
+        <thead style="background-color: #e6f3e8;">
+            <tr>
+                <th>#</th>
+                <th>Fecha</th>
+                <th>Valor</th>
+                <th>Estado</th>
+                <th>Acción</th> <!-- Añadir encabezado para la columna de acción -->
+            </tr>
+        </thead>
+        <tbody class="table-cuotas">
+            <!-- Las filas de cuotas se añadirán aquí dinámicamente -->
+        </tbody>
+    </table>
+</div>
+
 
 
                                         </div>
@@ -805,54 +847,54 @@
                                     <div id="tab2" class="tab">
                                         <a href="#tab2">Notas</a>
                                         <div class="tab-content">
-                                        <form id="formularioNotas" method="POST" enctype="multipart/form-data">
-    <div class="container">
-        <!-- Campo oculto para id_customer -->
-        <input type="hidden" name="idCliente" id="idCliente" value="">
+                                            <form id="formularioNotas" method="POST" enctype="multipart/form-data">
+                                                <div class="container">
+                                                    <!-- Campo oculto para id_customer -->
+                                                    <input type="hidden" name="idCliente" id="idCliente" value="">
 
-        <!-- Título -->
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="nuevoTituloNota">Título:</label>
-                    <input type="text" class="form-control input-lg" name="nuevoTituloNota" id="nuevoTituloNota" placeholder="Ingresar Título de la Nota" required>
-                </div>
-            </div>
-        </div>
+                                                    <!-- Título -->
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="nuevoTituloNota">Título:</label>
+                                                                <input type="text" class="form-control input-lg" name="nuevoTituloNota" id="nuevoTituloNota" placeholder="Ingresar Título de la Nota" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-        <!-- Nota -->
-        <div class="row mt-3">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label for="contenidoNota">Nota:</label>
-                    <textarea class="form-control" name="contenidoNota" id="contenidoNota" rows="5" placeholder="No copie código HTML en este campo." required></textarea>
-                </div>
-            </div>
-        </div>
+                                                    <!-- Nota -->
+                                                    <div class="row mt-3">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label for="contenidoNota">Nota:</label>
+                                                                <textarea class="form-control" name="contenidoNota" id="contenidoNota" rows="5" placeholder="No copie código HTML en este campo." required></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-        <!-- Campo de carga de documento -->
-        <div class="row mt-3">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="archivoNota">Subir Documento o Imagen (opcional):</label>
-                    <label class="custom-file-upload">
-                        <input type="file" name="archivoNota" id="archivoNota" accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.gif">
-                        Seleccionar archivo
-                    </label>
-                    <span id="file-name">Ningún archivo seleccionado</span>
-                    <small class="form-text text-muted">Formatos permitidos: PDF, DOC, DOCX, TXT, JPG, PNG, GIF</small>
-                </div>
-            </div>
-        </div>
+                                                    <!-- Campo de carga de documento -->
+                                                    <div class="row mt-3">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="archivoNota">Subir Documento o Imagen (opcional):</label>
+                                                                <label class="custom-file-upload">
+                                                                    <input type="file" name="archivoNota" id="archivoNota" accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.gif">
+                                                                    Seleccionar archivo
+                                                                </label>
+                                                                <span id="file-name">Ningún archivo seleccionado</span>
+                                                                <small class="form-text text-muted">Formatos permitidos: PDF, DOC, DOCX, TXT, JPG, PNG, GIF</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
 
 
-        <!-- Botón de enviar -->
-        <div class="modal-footer mt-3">
-            <button type="submit" class="btn" id="guardarNota">Guardar Nota</button>
-        </div>
-    </div>
-</form>
+                                                    <!-- Botón de enviar -->
+                                                    <div class="modal-footer mt-3">
+                                                        <button type="submit" class="btn" id="guardarNota">Guardar Nota</button>
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </div>
 
                                     </div>
@@ -868,6 +910,56 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="editarCuota" tabindex="-1" role="dialog" aria-labelledby="editarCuotaLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editarCuotaLabel">Editar Cuota</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <!-- Campo de ID Cuota (oculto) -->
+                                <input type="hidden" id="idCuota" name="idCuota">
+
+                                <!-- Campo de Fecha de Vencimiento -->
+                                <div class="form-group">
+                                    <label for="fechaVencimiento">Fecha de Vencimiento</label>
+                                    <input type="date" class="form-control" id="fechaVencimiento" name="fechaVencimiento">
+                                </div>
+
+                                <!-- Campo de Estado de Pago -->
+                                <div class="form-group">
+                                    <label for="estadoPago">Estado de Pago</label>
+                                    <select class="form-control" id="estadoPago" name="estadoPago">
+                                        <option value="Aprobado">Aprobado</option>
+                                        <option value="Pendiente">Pendiente</option>
+                                        <option value="dv0">dv0</option>
+                                        <!-- Agrega más opciones según sea necesario -->
+                                    </select>
+                                </div>
+
+                                <!-- Otro Campo (Fecha de Pago) -->
+                                <div class="form-group">
+                                    <label for="fechaPago">Fecha de Pago</label>
+                                    <input type="date" class="form-control" id="fechaPago" name="fechaPago">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary" id="guardarCambios">Guardar Cambios</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
 
             <!-- MODAL AGREGAR CLIENTE -->
             <div id="modalAgregarCliente" class="modal fade" role="dialog">
@@ -1110,7 +1202,6 @@
             var fileName = this.files[0] ? this.files[0].name : 'Ningún archivo seleccionado';
             document.getElementById('file-name').textContent = fileName;
         });
-
     </script>
     <!-- evento para desplegar el numero de cuotas-->
     <script>
@@ -1140,6 +1231,20 @@
             return montoTotal;
         }
 
+        // Función para generar las fechas de vencimiento de las cuotas
+        function generarFechasVencimiento(numCuotas) {
+            let fechas = [];
+            let today = new Date();
+            let fechaLimite = new Date(today.setFullYear(today.getFullYear() + 1));
+            let intervalo = (fechaLimite - new Date()) / numCuotas;
+
+            for (let i = 0; i < numCuotas; i++) {
+                let fechaCuota = new Date(new Date().getTime() + intervalo * i);
+                fechas.push(fechaCuota.toISOString().split('T')[0]);
+            }
+            return fechas;
+        }
+
         // Función para generar los campos de cuotas
         function generarCamposCuotas(numCuotas, montoTotal) {
             const container = $('#cuotasContainer');
@@ -1147,17 +1252,30 @@
 
             const montoCuota = (montoTotal / numCuotas).toFixed(2);
             let ajuste = montoTotal - (montoCuota * numCuotas);
+            const fechasVencimiento = generarFechasVencimiento(numCuotas);
 
             for (let i = 1; i <= numCuotas; i++) {
                 let montoFinal = (i === numCuotas) ? (parseFloat(montoCuota) + ajuste).toFixed(2) : montoCuota;
+                let fechaVencimiento = fechasVencimiento[i - 1];
 
                 container.append(`
                     <div class="row cuota-row">
                         <div class="col-md-4">
-                            <input type="text" class="form-control" id="estado_pago_${i}" name="estado_pago_${i}" value="Pendiente" readonly>
+                            <select class="form-control" id="estado_pago_${i}" name="estado_pago_${i}">
+                                <option value="dv0">dv0: No se ha ejecutado el cobro</option>
+                                <option value="En proceso">En proceso</option>
+                                <option value="dv1">dv1: Link de pago inactivo</option>
+                                <option value="dv2">dv2: Fondos insuficientes</option>
+                                <option value="dv3">dv3: Cuenta no localizada</option>
+                                <option value="dv4">dv4: El cliente solicita devolución</option>
+                                <option value="dv5">dv5: Rebota el pago por entidad</option>
+                                <option value="dv6">dv6: Titular de la cuenta fallecido</option>
+                                <option value="Aprobado">Aprobado</option>
+    
+                            </select>
                         </div>
                         <div class="col-md-4">
-                            <input type="date" class="form-control" id="fecha_vencimiento_${i}" name="fecha_vencimiento_${i}" required>
+                            <input type="date" class="form-control" id="fecha_vencimiento_${i}" name="fecha_vencimiento_${i}" value="${fechaVencimiento}"  required>
                         </div>
                         <div class="col-md-4">
                             <input type="text" class="form-control" id="monto_${i}" name="monto_${i}" value="${montoFinal}" readonly>
@@ -1191,6 +1309,23 @@
             const numCuotas = $('#numCuotas').val();
             generarCamposCuotas(numCuotas, montoTotal);
         });
+
+        // Evento para establecer la fecha limite 
+
+        $(document).ready(function() {
+            // Obtén la fecha actual
+            let today = new Date();
+            
+            // Suma un año a la fecha actual
+            let nextYear = new Date(today.setFullYear(today.getFullYear() + 1));
+            
+            // Formatea la fecha en el formato YYYY-MM-DD
+            let formattedDate = nextYear.toISOString().split('T')[0];
+            
+            // Establece el valor de la fecha límite en el campo
+            $('#fecha_limite').val(formattedDate);
+        });
+
     </script>
 
     <script>

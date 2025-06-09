@@ -57,6 +57,14 @@ static public function mdlVerCuotasPorFactura($tabla, $item, $valor) {
 
         return $stmt->fetchAll();
     }
+
+    static public function mdlVerCuota($tabla, $idCuota) {
+        $stmt = Conexion::conectar()->prepare("SELECT fecha_vencimiento, estado_pago, fecha_pago FROM $tabla WHERE id_cuota = :id_cuota");
+        $stmt->bindParam(":id_cuota", $idCuota, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    
     
     static public function mdlVerTransfer($tabla, $fechaInicio, $fechaFin) {
         $stmt = Conexion::conectar()->prepare("SELECT SUM(monto) AS monto_total FROM $tabla 

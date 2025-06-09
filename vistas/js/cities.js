@@ -119,7 +119,7 @@ $(document).ready(function() {
             }
         },
         error: function (e) {
-            //console.log("Error al obtener el token: " + e);
+            //}console.log("Error al obtener el token: " + e);
         }
     });
 });

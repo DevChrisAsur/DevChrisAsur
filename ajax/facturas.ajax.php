@@ -73,7 +73,7 @@ if (isset($_POST["idCliente"])) {
                 echo json_encode($respuesta);
             } else {
                 // Enviar un mensaje si no se encuentra el cliente
-                echo json_encode(array("error" => "No se encontró el cliente con el ID proporcionado."));
+                echo json_encode(array("error" => "El cliente no tiene facturas registradas"));
             }
         } catch (Exception $e) {
             // Manejo de cualquier error que ocurra durante la ejecución

@@ -37,10 +37,10 @@ class ControladorClientes {
                 "experience_years" => $_POST["nuevoAnosExperiencia"],
                 "email" => $_POST["nuevoEmail"],
                 "phone" => $_POST["nuevoTelefono"],
-                "country" => $_POST["nuevoPais"],
-                "state" => $_POST["nuevoEstado"],
-                "city" => $_POST["nuevoCiudad"],
-                "id_lead" => $_POST["idLeads"]
+                "country" => "Colombia",
+                "state" => "Cundinamarca",
+                "city" => "Bogotá",
+                "id_lead" => 19
             );
     
             // Intentar registrar al cliente

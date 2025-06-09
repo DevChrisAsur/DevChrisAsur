@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d1f258ee-b36f-465c-b369-682882a5d30d" name="Changes" comment="feacture(en proceso: bug) correcion de la creacion del cliente lead, ya que se envia la respuesta pero no se muestra el evento" />
+    <list default="true" id="d1f258ee-b36f-465c-b369-682882a5d30d" name="Changes" comment="feacture-cuotas(en proceso: edicion de cuota) metodos relacionados con las tarjetas del inicio">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ajax/cuotas.ajax.php" beforeDir="false" afterPath="$PROJECT_DIR$/ajax/cuotas.ajax.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controladores/cuotas.controlador.php" beforeDir="false" afterPath="$PROJECT_DIR$/controladores/cuotas.controlador.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modelos/cuotas.modelo.php" beforeDir="false" afterPath="$PROJECT_DIR$/modelos/cuotas.modelo.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vistas/js/facturas.js" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/js/facturas.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vistas/modulos/clientes.php" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/modulos/clientes.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,7 +33,7 @@
     </favorite-branches>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="develop" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -73,7 +80,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/tiendaVirtual&quot;
   }
@@ -86,86 +93,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1726439356860</updated>
-    </task>
-    <task id="LOCAL-00073" summary="feacture-clientes:(fixed) cambio de id estatico del registro del lead cliente, ahora se obtiene dinamicamente el id del lead que se convertira en cliente">
-      <option name="closed" value="true" />
-      <created>1728326026187</created>
-      <option name="number" value="00073" />
-      <option name="presentableId" value="LOCAL-00073" />
-      <option name="project" value="LOCAL" />
-      <updated>1728326026187</updated>
-    </task>
-    <task id="LOCAL-00074" summary="feacture-clientes:(fixed) id dinamico para el lead">
-      <option name="closed" value="true" />
-      <created>1728326062053</created>
-      <option name="number" value="00074" />
-      <option name="presentableId" value="LOCAL-00074" />
-      <option name="project" value="LOCAL" />
-      <updated>1728326062053</updated>
-    </task>
-    <task id="LOCAL-00075" summary="feacture-cities:(new) integracion API de ciudades.">
-      <option name="closed" value="true" />
-      <created>1728450036337</created>
-      <option name="number" value="00075" />
-      <option name="presentableId" value="LOCAL-00075" />
-      <option name="project" value="LOCAL" />
-      <updated>1728450036338</updated>
-    </task>
-    <task id="LOCAL-00076" summary="feacture-clientes:(actualizado) campos correspondientes al pais, ciudad y estado">
-      <option name="closed" value="true" />
-      <created>1728450098924</created>
-      <option name="number" value="00076" />
-      <option name="presentableId" value="LOCAL-00076" />
-      <option name="project" value="LOCAL" />
-      <updated>1728450098924</updated>
-    </task>
-    <task id="LOCAL-00077" summary="feacture-leads:(actualizado) cambios en la consulta a la base de datos ajustada a la documentacion BDD ASJURFIN">
-      <option name="closed" value="true" />
-      <created>1728450212029</created>
-      <option name="number" value="00077" />
-      <option name="presentableId" value="LOCAL-00077" />
-      <option name="project" value="LOCAL" />
-      <updated>1728450212029</updated>
-    </task>
-    <task id="LOCAL-00078" summary="feacture-leads:(actualizado) estilo de botones">
-      <option name="closed" value="true" />
-      <created>1728450429667</created>
-      <option name="number" value="00078" />
-      <option name="presentableId" value="LOCAL-00078" />
-      <option name="project" value="LOCAL" />
-      <updated>1728450429667</updated>
-    </task>
-    <task id="LOCAL-00079" summary="feacture-platilla:(actualizado) agregacion de ruta para las ciudades">
-      <option name="closed" value="true" />
-      <created>1728450460655</created>
-      <option name="number" value="00079" />
-      <option name="presentableId" value="LOCAL-00079" />
-      <option name="project" value="LOCAL" />
-      <updated>1728450460655</updated>
-    </task>
-    <task id="LOCAL-00080" summary="trash">
-      <option name="closed" value="true" />
-      <created>1728450505289</created>
-      <option name="number" value="00080" />
-      <option name="presentableId" value="LOCAL-00080" />
-      <option name="project" value="LOCAL" />
-      <updated>1728450505289</updated>
-    </task>
-    <task id="LOCAL-00081" summary="feacture-leads:(actualizado) los datos de area de interes y servicio solicitado han sido eliminados">
-      <option name="closed" value="true" />
-      <created>1728450695732</created>
-      <option name="number" value="00081" />
-      <option name="presentableId" value="LOCAL-00081" />
-      <option name="project" value="LOCAL" />
-      <updated>1728450695732</updated>
-    </task>
-    <task id="LOCAL-00082" summary="feacture-clientes:(actualizado) actualizacion de consulta para ver el cliente">
-      <option name="closed" value="true" />
-      <created>1728455406689</created>
-      <option name="number" value="00082" />
-      <option name="presentableId" value="LOCAL-00082" />
-      <option name="project" value="LOCAL" />
-      <updated>1728455406689</updated>
     </task>
     <task id="LOCAL-00083" summary="feacture-clientes:(actualizado) actualizacion en datatable datos del cliente">
       <option name="closed" value="true" />
@@ -479,7 +406,87 @@
       <option name="project" value="LOCAL" />
       <updated>1730874827763</updated>
     </task>
-    <option name="localTasksCounter" value="122" />
+    <task id="LOCAL-00122" summary="feacture(crear cliente lead corregido) correcion de la creacion del cliente lead,la respuesta del servidor no requeria de una respuesta con swal, debido a que el evento estaba generando dichaa respuesta swal">
+      <option name="closed" value="true" />
+      <created>1730941627536</created>
+      <option name="number" value="00122" />
+      <option name="presentableId" value="LOCAL-00122" />
+      <option name="project" value="LOCAL" />
+      <updated>1730941627539</updated>
+    </task>
+    <task id="LOCAL-00123" summary="feacture-notas(crear notas- terminado): la creacion de una nota con un archivo adjunto es aceptada en el servidor">
+      <option name="closed" value="true" />
+      <created>1731008159488</created>
+      <option name="number" value="00123" />
+      <option name="presentableId" value="LOCAL-00123" />
+      <option name="project" value="LOCAL" />
+      <updated>1731008159488</updated>
+    </task>
+    <task id="LOCAL-00124" summary="feacture-facturas(modulo facturas): modulo para ver las facturas">
+      <option name="closed" value="true" />
+      <created>1731010695658</created>
+      <option name="number" value="00124" />
+      <option name="presentableId" value="LOCAL-00124" />
+      <option name="project" value="LOCAL" />
+      <updated>1731010695658</updated>
+    </task>
+    <task id="LOCAL-00125" summary="feacture-facturas(facturas y transfer): se visualizan todas las facturas en el modulo facturas y el transfer con su equivalente en dolares">
+      <option name="closed" value="true" />
+      <created>1731010751503</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
+      <option name="project" value="LOCAL" />
+      <updated>1731010751503</updated>
+    </task>
+    <task id="LOCAL-00126" summary="feacture-inicio(tarjetas)">
+      <option name="closed" value="true" />
+      <created>1731474550377</created>
+      <option name="number" value="00126" />
+      <option name="presentableId" value="LOCAL-00126" />
+      <option name="project" value="LOCAL" />
+      <updated>1731474550377</updated>
+    </task>
+    <task id="LOCAL-00127" summary="ajuste de rutas">
+      <option name="closed" value="true" />
+      <created>1731474560783</created>
+      <option name="number" value="00127" />
+      <option name="presentableId" value="LOCAL-00127" />
+      <option name="project" value="LOCAL" />
+      <updated>1731474560783</updated>
+    </task>
+    <task id="LOCAL-00128" summary="delegacion de ejecucion para las cuotas">
+      <option name="closed" value="true" />
+      <created>1731474653084</created>
+      <option name="number" value="00128" />
+      <option name="presentableId" value="LOCAL-00128" />
+      <option name="project" value="LOCAL" />
+      <updated>1731474653084</updated>
+    </task>
+    <task id="LOCAL-00129" summary="delegacion de ejecucion para las cuotas">
+      <option name="closed" value="true" />
+      <created>1731474658678</created>
+      <option name="number" value="00129" />
+      <option name="presentableId" value="LOCAL-00129" />
+      <option name="project" value="LOCAL" />
+      <updated>1731474658678</updated>
+    </task>
+    <task id="LOCAL-00130" summary="feacture-cuotas(en proceso: edicion de cuota) metodos relacionados con las tarjetas del inicio">
+      <option name="closed" value="true" />
+      <created>1731474722052</created>
+      <option name="number" value="00130" />
+      <option name="presentableId" value="LOCAL-00130" />
+      <option name="project" value="LOCAL" />
+      <updated>1731474722052</updated>
+    </task>
+    <task id="LOCAL-00131" summary="feacture-cuotas(en proceso: edicion de cuota) metodos relacionados con las tarjetas del inicio">
+      <option name="closed" value="true" />
+      <created>1731474737587</created>
+      <option name="number" value="00131" />
+      <option name="presentableId" value="LOCAL-00131" />
+      <option name="project" value="LOCAL" />
+      <updated>1731474737587</updated>
+    </task>
+    <option name="localTasksCounter" value="132" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -516,14 +523,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feacture-leads:(fixed) contenedor de paises y estados arreglado, ya no se desborda de la modal" />
-    <MESSAGE value="fixes" />
-    <MESSAGE value="feacture-clientes:(actaulizado) informacion adicional del cliente" />
-    <MESSAGE value="manejo de logs" />
-    <MESSAGE value="manejo de logs" />
-    <MESSAGE value="feacture-lead (corregido): consulta para ver los leads por perfil" />
-    <MESSAGE value="format" />
-    <MESSAGE value="feacture-suscripcion (actualizado): agregacion de la fecha de cierre de suscripcion" />
     <MESSAGE value="feacture-suscripcion (actualizado): modal para crear suscripcion manual" />
     <MESSAGE value="feacture-suscripcion (new): ajax para la ejecucion de la creacion de suscripcion" />
     <MESSAGE value="feacture-suscripcion (actualizado): box para la informacion adicional del cliente, tab productos en proceso" />
@@ -541,6 +540,14 @@
     <MESSAGE value="feacture-suscripciones(actualizado): eliminar suscripcion del cliente" />
     <MESSAGE value="feacture-notas(bug corregido): las notas se crean correctamente, anteriormente se creaban las notas pero saltaba un error en la respuesta del servidor" />
     <MESSAGE value="feacture(en proceso: bug) correcion de la creacion del cliente lead, ya que se envia la respuesta pero no se muestra el evento" />
-    <option name="LAST_COMMIT_MESSAGE" value="feacture(en proceso: bug) correcion de la creacion del cliente lead, ya que se envia la respuesta pero no se muestra el evento" />
+    <MESSAGE value="feacture(crear cliente lead corregido) correcion de la creacion del cliente lead,la respuesta del servidor no requeria de una respuesta con swal, debido a que el evento estaba generando dichaa respuesta swal" />
+    <MESSAGE value="feacture-notas(crear notas- terminado): la creacion de una nota con un archivo adjunto es aceptada en el servidor" />
+    <MESSAGE value="feacture-facturas(modulo facturas): modulo para ver las facturas" />
+    <MESSAGE value="feacture-facturas(facturas y transfer): se visualizan todas las facturas en el modulo facturas y el transfer con su equivalente en dolares" />
+    <MESSAGE value="feacture-inicio(tarjetas)" />
+    <MESSAGE value="ajuste de rutas" />
+    <MESSAGE value="delegacion de ejecucion para las cuotas" />
+    <MESSAGE value="feacture-cuotas(en proceso: edicion de cuota) metodos relacionados con las tarjetas del inicio" />
+    <option name="LAST_COMMIT_MESSAGE" value="feacture-cuotas(en proceso: edicion de cuota) metodos relacionados con las tarjetas del inicio" />
   </component>
 </project>

@@ -16,6 +16,12 @@
             text-align: center;
             position: relative;
         }
+        body{
+            background-image: url('vistas/img/plantilla/login.jpeg');
+            background-size: cover; /* Para que la imagen cubra todo el contenedor */
+            background-position: center; /* Para centrar la imagen */
+            background-repeat: no-repeat; /* Para que no se repita */
+        }
 
         header img {
             max-width: 200px; /* Ajusta el tamaño del logo según tus necesidades */

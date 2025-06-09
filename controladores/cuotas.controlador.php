@@ -54,7 +54,14 @@ class ControladorCuotas
             $tabla = "cuota";  // Nombre de la tabla en la base de datos
             return ModeloCuotas::mdlVerCuotasPorFactura($tabla, 'id_factura', $idFactura);
         }
-            
+        
+        static public function ctrVerCuota($idCuota) {
+            $tabla = "cuota";
+            $respuesta = ModeloCuotas::mdlVerCuota($tabla, $idCuota);
+            return $respuesta;
+        }
+        
+
         static public function ctrVerTransfer() {
             $tabla = "cuota";
         
@@ -198,17 +205,69 @@ class ControladorCuotas
                 ];
             }
         }
-        static public function ctrEditarCuota($datos) {
-            // Validación de datos
-            if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $datos["fecha_vencimiento"]) && !empty($datos["estado_pago"])) {
-                $tabla = "cuota";
+
+        static public function ctrEditarCuota(){
+
+            if(isset($_POST["editarfechaVencimiento"])){
+                if(preg_match('/^\d{4}-\d{2}-\d{2}$/', $_POST["editarfechaVencimiento"])){
     
-                $respuesta = ModeloCuotas::mdlEditarCuota($tabla, $datos);
+                    $tabla = "cuota";
     
-                return $respuesta == "ok" ? "ok" : "error";
-            } else {
-                return "error";
+    
+                    $datos = array(
+                        "fecha_vencimiento" => $_POST["editarfechaVencimiento"],
+                        "estado_pago" => $_POST["editarEstadoPago"],
+                        "fecha_pago" => $_POST["editarFechaPago"],
+                        "id_cuota"=>$_POST["idCuota"]);
+    
+                    $respuesta = ModeloCuotas::mdlEditarCuota($tabla, $datos);
+    
+    
+                    if($respuesta == "ok"){
+    
+                        echo'<script>
+    
+                        swal({
+                              type: "success",
+                              title: "la cuota ha sido actualizada",
+                              showConfirmButton: true,
+                              confirmButtonText: "Cerrar"
+                              }).then(function(result){
+                                        if (result.value) {
+    
+                                        window.location = "cliente";
+    
+                                        }
+                                    })
+    
+                        </script>';
+    
+                    }
+                    
+                }else{
+    
+                    echo'<script>
+    
+                        swal({
+                              type: "error",
+                              title: "¡El nombre no puede ir vacío o llevar caracteres especiales!",
+                              showConfirmButton: true,
+                              confirmButtonText: "Cerrar"
+                              }).then(function(result){
+                                if (result.value) {
+    
+                                window.location = "cliente";
+    
+                                }
+                            })
+    
+                      </script>';
+    
+                }
+    
             }
+    
         }
+
         
 }
