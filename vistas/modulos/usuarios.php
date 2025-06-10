@@ -515,7 +515,7 @@ if (in_array($_SESSION["perfil"], ["Coordinador comercial", "Director comercial"
         </div>
 
       <div class="modal-body">
-        ¿Está seguro de que desea cambiar el estado del estudiante?
+        ¿Está seguro de que desea cambiar el estado del usuario?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
