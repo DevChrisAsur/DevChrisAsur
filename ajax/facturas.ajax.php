@@ -29,21 +29,19 @@ if (isset($_POST["action"]) && $_POST["action"] == "crearSuscripcion") {
 }
 
 // Verificar si se van a crear facturas (cuando ya tienes idCliente y idSuscripcion)
-if (isset($_POST['idCliente']) && isset($_POST['idSuscripcion'])) {
-    // Código para crear la factura
+if (isset($_POST["action"]) && $_POST["action"] === "crearFactura") {
     $idFactura = ControladorFacturas::ctrCrearFactura();
 
     if (is_numeric($idFactura)) {
-        // Devolver el ID de la factura creada
         echo json_encode(['success' => true, 'idFactura' => $idFactura]);
     } else {
         echo json_encode(['success' => false, 'error' => "Error al crear la factura"]);
     }
-    exit; // Termina aquí para evitar seguir con el flujo
+    exit;
 }
+
 // Verificar si se van a crear las cuotas (cuando ya tienes idFactura)
-if (isset($_POST['idFactura'])) {
-    // Verifica si llega este bloque correctamente
+if (isset($_POST["action"]) && $_POST["action"] === "crearCuotas") {
     error_log("Procesando la creación de cuotas para la factura ID: " . $_POST['idFactura']);
 
     $respuesta = ControladorCuotas::ctrCrearCuotas();
@@ -56,6 +54,7 @@ if (isset($_POST['idFactura'])) {
     }
     exit; 
 }
+
 
 if (isset($_POST["idCliente"])) {
     $idCliente = $_POST["idCliente"];

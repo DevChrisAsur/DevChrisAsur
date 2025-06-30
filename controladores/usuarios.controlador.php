@@ -6,72 +6,63 @@ class ControladorUsuarios{
 	INGRESO DE USUARIO
 	=============================================*/
 
-	static public function ctrIngresoUsuario() {
-		if (isset($_POST["ingUsuario"])) {
-	
-			// Comprobamos que el correo sea válido
-			if (filter_var($_POST["ingUsuario"], FILTER_VALIDATE_EMAIL)) {
-	
-				// Obtener la tabla y buscar el usuario en la base de datos
-				$tabla = "usuarios";
-				$item = "correo";
-				$valor = $_POST["ingUsuario"];
-				$respuesta = ModeloUsuarios::MdlMostrarUsuarios($tabla, $item, $valor);
-	
-				// Verificar si se encontró un usuario
-				if (!empty($respuesta)) {
-	
-					// Verificar el estado del usuario (si es diferente de 0)
-					if ($respuesta["user_status"] != 0) {
-	
-						// Verificar la contraseña utilizando password_verify
-						if (preg_match('/^[a-zA-Z0-9]+$/', $_POST["ingPassword"])) {
-							if (password_verify($_POST["ingPassword"], $respuesta["password"])) {
-	
-								// Iniciar sesión
-								$_SESSION["iniciarSesion"] = "ok";
-								$_SESSION["id"] = $respuesta["id"];
-								$_SESSION["nombre"] = $respuesta["nombre"];
-								$_SESSION["usuario"] = $respuesta["usuario"];
-								$_SESSION["foto"] = $respuesta["foto"];
-								$_SESSION["perfil"] = $respuesta["perfil"];
-								$_SESSION["area"] = $respuesta["area"];
-	
-								// Registrar el último login
-								date_default_timezone_set('America/Bogota');
-								$fechaActual = date('Y-m-d H:i:s');
-								$item1 = "ultimo_login";
-								$valor1 = $fechaActual;
-								$item2 = "id";
-								$valor2 = $respuesta["id"];
-								$ultimoLogin = ModeloUsuarios::mdlActualizarUsuario($tabla, $item1, $valor1, $item2, $valor2);
-	
-								if ($ultimoLogin == "ok") {
-									echo '<script>window.location = "inicio";</script>';
-								}
-	
-							} else {
-								echo '<br><div class="alert alert-danger">Error al ingresar, vuelve a intentarlo</div>';
-							}
-						} else {
-							echo '<br><div class="alert alert-danger">La contraseña contiene caracteres no permitidos</div>';
-						}
-	
-					} else {
-						// Mensaje si el usuario está inactivo
-						echo '<br><div class="alert alert-danger">El usuario no está activo</div>';
-					}
-	
-				} else {
-					echo '<br><div class="alert alert-danger">Usuario no encontrado</div>';
-				}
-	
-			} else {
-				// Mensaje de error si el correo no es válido
-				echo '<br><div class="alert alert-danger">El correo no es válido</div>';
-			}
-		}
+static public function ctrIngresoUsuario() {
+	if (!isset($_POST["ingUsuario"])) return;
+
+	$correo = $_POST["ingUsuario"];
+	$password = $_POST["ingPassword"];
+
+	// Validar que el correo sea válido
+	if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+		echo '<br><div class="alert alert-danger">El correo no es válido</div>';
+		return;
 	}
+
+	$tabla = "usuarios";
+	$item = "correo";
+	$respuesta = ModeloUsuarios::MdlMostrarUsuarios($tabla, $item, $correo);
+
+	if (empty($respuesta)) {
+		echo '<br><div class="alert alert-danger">Usuario no encontrado</div>';
+		return;
+	}
+
+	if ($respuesta["user_status"] == 0) {
+		echo '<br><div class="alert alert-danger">El usuario no está activo</div>';
+		return;
+	}
+
+	$hashBD = $respuesta["password"];
+	$passwordIngresada = trim($password);
+
+	// Mostrar debug
+	echo "Password ingresada: " . $passwordIngresada . "<br>";
+	echo "Hash esperado: " . md5($passwordIngresada) . "<br>";
+	echo "Hash en base de datos: " . $hashBD . "<br>";
+
+	// Comparar directamente con MD5
+	if (md5($passwordIngresada) === $hashBD) {
+
+		// Iniciar sesión
+		$_SESSION["iniciarSesion"] = "ok";
+		$_SESSION["id"] = $respuesta["id"];
+		$_SESSION["nombre"] = $respuesta["nombre"];
+		$_SESSION["usuario"] = $respuesta["usuario"];
+		$_SESSION["foto"] = $respuesta["foto"];
+		$_SESSION["perfil"] = $respuesta["perfil"];
+		$_SESSION["area"] = $respuesta["area"];
+
+		// Guardar último login
+		date_default_timezone_set('America/Bogota');
+		$fechaActual = date('Y-m-d H:i:s');
+		ModeloUsuarios::mdlActualizarUsuario($tabla, "ultimo_login", $fechaActual, "id", $respuesta["id"]);
+
+		echo '<script>window.location = "inicio";</script>';
+
+	} else {
+		echo '<br><div class="alert alert-danger">Contraseña incorrecta (MD5)</div>';
+	}
+}
 	
 
 	/*=============================================
@@ -97,7 +88,7 @@ class ControladorUsuarios{
 				}
 	
 				// Encriptación de la contraseña
-				$encriptar = password_hash($_POST["nuevoPassword"], PASSWORD_BCRYPT);
+				$encriptar = md5($_POST["nuevoPassword"]);
 				$idCoordinador = empty($_POST["nuevoCoordinador"]) ? null : $_POST["nuevoCoordinador"];
 				// Datos del nuevo usuario
 				$datos = array(

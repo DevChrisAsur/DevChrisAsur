@@ -128,7 +128,7 @@ $(document).on('click', '#guardarProductoYCrearFactura', function(e) {
               facturaDatos.append("tipoCuenta", $("#tipoCuenta").val());
               facturaDatos.append("monto", $("#valorTotal").val());
               facturaDatos.append("fecha_limite", $("#fecha_limite").val());
-
+              facturaDatos.append("action", "crearFactura"); 
               // Mostrar los datos de la factura que se van a enviar
               // console.log("Datos enviados (factura):", {
               //     idCliente: idCliente,
@@ -153,17 +153,19 @@ $(document).on('click', '#guardarProductoYCrearFactura', function(e) {
                 success: function(respuestaFactura) {
                   if (respuestaFactura.success && respuestaFactura.idFactura) {
                     var idFactura = parseInt(respuestaFactura.idFactura, 10);
-                    //console.log("Factura creada correctamente, ID de la factura:", idFactura);
+                    // console.log("Factura creada correctamente, ID de la factura:", idFactura);
                 
                     var numCuotas = $('#numCuotas').val(); // Obtener número de cuotas
                     var montoTotal = $("#valorTotal").val(); // Obtener monto total
                 
                     // Preparar los datos de las cuotas
+                    
                     var cuotasDatos = new FormData();
                     cuotasDatos.append("idFactura", idFactura); // Aquí pasamos el ID de la factura generada
                     cuotasDatos.append("numCuotas", numCuotas); // Pasar número de cuotas
                     cuotasDatos.append("montoTotal", montoTotal); // Pasar monto total
-                
+                    cuotasDatos.append("action", "crearCuotas");
+
                     // Iterar sobre el número de cuotas
                     for (var i = 1; i <= numCuotas; i++) {
                         var estadoPago = $("#estado_pago_" + i).val();
