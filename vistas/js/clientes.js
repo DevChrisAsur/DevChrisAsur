@@ -59,7 +59,7 @@ $(document).on("click", "#btnInformacionAdicional", function () {
           "/" +
           (respuesta.city || "Desconocida");
         $("#infoCity").text(paisCiudad);
-        $("#infoIdLeads").text(respuesta.id_customer); // Este será el id_customer
+        $("#infoIdLeads").text(respuesta.id_customer);
         $("#infoTipoCliente").text(respuesta.customer_type);
         $("#infofecha").text(respuesta.creation_date);
 
@@ -95,7 +95,7 @@ $(document).on('click', '#guardarProductoYCrearFactura', function(e) {
   var datos = new FormData();
   datos.append("nuevoServicio", servicioSeleccionado);
   datos.append("nuevaSuscripcion", idCliente); // id_cliente como nueva suscripción
-  datos.append("action", "crearSuscripcion"); // Agregar la acción para crear suscripción
+  datos.append("action", "crearSuscripcion");
 
   // Mostrar los datos que se van a enviar al servidor
   // console.log("Datos enviados (suscripción):", {
@@ -112,7 +112,7 @@ $(document).on('click', '#guardarProductoYCrearFactura', function(e) {
       cache: false,
       contentType: false,
       processData: false,
-      dataType: "json", // Esperamos una respuesta en formato JSON
+      dataType: "json",
       success: function(respuesta) {
           if (respuesta.success && respuesta.idSuscripcion) {
               var idSuscripcion = parseInt(respuesta.idSuscripcion, 10);
@@ -140,8 +140,6 @@ $(document).on('click', '#guardarProductoYCrearFactura', function(e) {
               //     monto: $("#valorTotal").val(),
               //     fecha_limite: $("#fecha_limite").val()
               // });
-
-              // Hacer una nueva solicitud AJAX para crear la factura
               $.ajax({
                 url: "ajax/facturas.ajax.php",
                 method: "POST",
@@ -185,10 +183,9 @@ $(document).on('click', '#guardarProductoYCrearFactura', function(e) {
                         //     idFactura: idFactura
                         // });
                     }
-                
-                    // Hacer la solicitud AJAX para registrar las cuotas
+              
                     $.ajax({
-                        url: "ajax/facturas.ajax.php",  // Asegúrate de que esta URL esté correcta
+                        url: "ajax/facturas.ajax.php",
                         method: "POST",
                         data: cuotasDatos,
                         cache: false,
@@ -204,6 +201,7 @@ $(document).on('click', '#guardarProductoYCrearFactura', function(e) {
                                     showConfirmButton: true,
                                     confirmButtonText: "Cerrar",
                                 });
+                                cargarInformacionFinanciera(idCliente);
                             } else {
                                 console.error("Error al registrar las cuotas.");
                             }
@@ -246,3 +244,40 @@ $(document).on('click', '#guardarProductoYCrearFactura', function(e) {
       },
   });
 });
+
+function cargarInformacionFinanciera(idCliente) {
+    var datos = new FormData();
+    datos.append("idCliente", idCliente);
+
+    $.ajax({
+        url: "ajax/facturas.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            if (respuesta && respuesta.id_factura) {
+                $("#InfoFactura").text(respuesta.id_factura);
+                $("#InfoFechaEmision").text(respuesta.fecha_emision);
+                $("#InfoBanco").text(respuesta.bank);
+                $("#InfoTitular").text(respuesta.titular);
+                $("#InfoNumeroCuenta").text(respuesta.account_number);
+                $("#InfoTipoCuenta").text(respuesta.account_type);
+                $("#InfoMonto").text(respuesta.monto);
+                $("#InfoStatusFactura").text(respuesta.status_factura);
+                $("#InfoFechaLimite").text(respuesta.fecha_limite);
+
+                localStorage.setItem("idFacturaSeleccionado", respuesta.id_factura);
+
+                verCuotas(); // <- asegúrate de tener también esta función definida
+            } else {
+                console.warn("No hay datos financieros disponibles para este cliente.");
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("Error en cargarInformacionFinanciera:", error);
+        }
+    });
+}

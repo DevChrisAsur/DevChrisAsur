@@ -3,8 +3,8 @@ require_once "../controladores/suscripciones.controlador.php";
 require_once "../modelos/suscripciones.modelo.php";
 require_once "../controladores/factura.controlador.php";
 require_once "../modelos/factura.modelo.php";
-require_once "../controladores/cuotas.controlador.php";  // Asegúrate de incluir el controlador de cuotas
-require_once "../modelos/cuotas.modelo.php";  // Asegúrate de incluir el modelo de cuotas
+require_once "../controladores/cuotas.controlador.php";
+require_once "../modelos/cuotas.modelo.php";
 
 // Verificar si se va a crear una suscripción
 if (isset($_POST["action"]) && $_POST["action"] == "crearSuscripcion") {

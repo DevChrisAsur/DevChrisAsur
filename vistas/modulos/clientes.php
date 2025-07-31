@@ -98,44 +98,56 @@
         }
 
         .table-cuotas td {
-        vertical-align: middle; /* Centra verticalmente el contenido */
+            vertical-align: middle;
+            /* Centra verticalmente el contenido */
         }
 
         .table-cuotas input.form-control {
-            height: auto; /* Ajuste automático de la altura */
-            padding: 5px; /* Espacio interno */
+            height: auto;
+            /* Ajuste automático de la altura */
+            padding: 5px;
+            /* Espacio interno */
             text-align: center;
-            font-size: 14px; /* Tamaño de fuente más pequeño para integrarse con el botón */
-            border: none; /* Sin bordes */
-            background-color: transparent; /* Fondo transparente */
+            font-size: 14px;
+            /* Tamaño de fuente más pequeño para integrarse con el botón */
+            border: none;
+            /* Sin bordes */
+            background-color: transparent;
+            /* Fondo transparente */
         }
 
         .btn-accion {
-    padding: 5px 10px; /* Ajustar el tamaño del botón */
-    font-size: 14px;
-}
+            padding: 5px 10px;
+            /* Ajustar el tamaño del botón */
+            font-size: 14px;
+        }
 
-.table {
-    border-radius: 8px; /* Bordes redondeados */
-    overflow: hidden; /* Quita los bordes superpuestos */
-}
+        .table {
+            border-radius: 8px;
+            /* Bordes redondeados */
+            overflow: hidden;
+            /* Quita los bordes superpuestos */
+        }
 
-.table thead th, .table tbody td {
-    padding: 10px;
-}
+        .table thead th,
+        .table tbody td {
+            padding: 10px;
+        }
 
-/* Color personalizado para el botón */
-.btn-accion {
-    background-color: #4e73df; /* Color azul personalizado */
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-}
+        /* Color personalizado para el botón */
+        .btn-accion {
+            background-color: #4e73df;
+            /* Color azul personalizado */
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
 
-.btn-accion:hover {
-    background-color: #375a7f; /* Color azul oscuro al pasar el ratón */
-}
+        .btn-accion:hover {
+            background-color: #375a7f;
+            /* Color azul oscuro al pasar el ratón */
+        }
 
         /* Estilos para div1 */
         .div1 {
@@ -389,59 +401,61 @@
 
 
         #formularioNotas {
-        background-color: #f9f9f9;
-        border-radius: 8px;
-        padding: 20px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
-    #formularioNotas .form-group label {
-        font-weight: bold;
-        color: #333;
-    }
+        #formularioNotas .form-group label {
+            font-weight: bold;
+            color: #333;
+        }
 
-    #formularioNotas .form-control {
-        border-radius: 6px;
-    }
+        #formularioNotas .form-control {
+            border-radius: 6px;
+        }
 
-    #guardarNota {
-        background-color: #007bff;
-        border-color: #007bff;
-        color: #fff;
-        font-weight: bold;
-        border-radius: 6px;
-        padding: 10px 20px;
-    }
+        #guardarNota {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 6px;
+            padding: 10px 20px;
+        }
 
-    #guardarNota:hover {
-        background-color: #0056b3;
-        border-color: #004085;
-    }
-    /* Estilo personalizado para el campo de carga de documento */
-.form-group input[type="file"] {
-    display: none; /* Ocultar el campo de archivo original */
-}
+        #guardarNota:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
 
-.custom-file-upload {
-    display: inline-block;
-    padding: 10px 20px;
-    color: #fff;
-    background-color: #007bff;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-}
+        /* Estilo personalizado para el campo de carga de documento */
+        .form-group input[type="file"] {
+            display: none;
+            /* Ocultar el campo de archivo original */
+        }
 
-.custom-file-upload:hover {
-    background-color: #0056b3;
-}
+        .custom-file-upload {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #007bff;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
 
-#file-name {
-    margin-left: 10px;
-    font-style: italic;
-    color: #555;
-}
+        .custom-file-upload:hover {
+            background-color: #0056b3;
+        }
+
+        #file-name {
+            margin-left: 10px;
+            font-style: italic;
+            color: #555;
+        }
     </style>
 
     <head>
@@ -823,21 +837,21 @@
                                             </div>
 
                                             <div class="container" style="margin-top: 20px;">
-    <table class="table table-bordered text-center table-sm">
-        <thead style="background-color: #e6f3e8;">
-            <tr>
-                <th>#</th>
-                <th>Fecha</th>
-                <th>Valor</th>
-                <th>Estado</th>
-                <th>Acción</th> <!-- Añadir encabezado para la columna de acción -->
-            </tr>
-        </thead>
-        <tbody class="table-cuotas">
-            <!-- Las filas de cuotas se añadirán aquí dinámicamente -->
-        </tbody>
-    </table>
-</div>
+                                                <table class="table table-bordered text-center table-sm">
+                                                    <thead style="background-color: #e6f3e8;">
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Fecha</th>
+                                                            <th>Valor</th>
+                                                            <th>Estado</th>
+                                                            <th>Acción</th> <!-- Añadir encabezado para la columna de acción -->
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="table-cuotas">
+                                                        <!-- Las filas de cuotas se añadirán aquí dinámicamente -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
 
 
 
@@ -1162,10 +1176,17 @@
 
             // Delegar el evento click en los botones con la clase btn-info
             $(document).on('click', '#btnInformacionAdicional', function() {
-                // Oculta el box-body principal y muestra el secundario
-                $('#boxBodyPrincipal').hide(); // Oculta el box-body principal
-                $('#boxBodySecundario').slideToggle(); // Muestra el segundo box-body
+                $('#boxBodyPrincipal').hide();
+                $('#boxBodySecundario').slideToggle();
+
+                const idCliente = $(this).attr('idCliente');
+                if (idCliente) {
+                    cargarInformacionFinanciera(idCliente); // Cargar datos cuando se abre
+                } else {
+                    console.warn("No se encontró idCliente al intentar cargar información financiera.");
+                }
             });
+
 
             // Cuando se haga clic en el botón "Volver al Principal", mostrar el box-body principal y ocultar el secundario
             $('#btnVolver').click(function() {
@@ -1315,17 +1336,16 @@
         $(document).ready(function() {
             // Obtén la fecha actual
             let today = new Date();
-            
-            // Suma un año a la fecha actual
-            let nextYear = new Date(today.setFullYear(today.getFullYear() + 1));
-            
+
+            //la fecha actual
+            let nextYear = new Date(today.setFullYear(today.getFullYear()));
+
             // Formatea la fecha en el formato YYYY-MM-DD
             let formattedDate = nextYear.toISOString().split('T')[0];
-            
+
             // Establece el valor de la fecha límite en el campo
             $('#fecha_limite').val(formattedDate);
         });
-
     </script>
 
     <script>
