@@ -97,7 +97,7 @@ function verCuotas() {
                 <td><input type="text" class="form-control text-center" value="${cuota.monto}" readonly></td>
                 <td><input type="text" class="form-control text-center" value="${cuota.estado_pago}" readonly></td>
                 <td>
-                    <button class="btn btn-warning btn-accion" data-id="${cuota.id_cuota}" data-toggle="modal" data-target="#editarCuota">
+                    <button class="btn btn-warning btn-editar-cuota" data-id="${cuota.id_cuota}" data-toggle="modal" data-target="#editarCuota">
                         <i class="fa fa-pencil"></i> Acción
                     </button>
                 </td>
@@ -113,14 +113,9 @@ function verCuotas() {
     });
 }
 
-
-  
-// Función para cargar datos en el modal
 function cargarDatosModal(idCuota) {
-    var datos = new FormData();
+    const datos = new FormData();
     datos.append("idCuota", idCuota);
-
-    console.log(idCuota);
     datos.append("accion", "editar");
 
     $.ajax({
@@ -131,25 +126,26 @@ function cargarDatosModal(idCuota) {
         contentType: false,
         processData: false,
         dataType: "json",
-        success: function(respuesta) {
-            console.log("Respuesta AJAX:", respuesta);
+        success: function (respuesta) {
             if (respuesta.error) {
                 alert("Error: " + respuesta.error);
             } else {
-                // Asignar los valores recibidos a los campos del modal
-                $("#editarfechaVencimiento").val(respuesta.fecha_vencimiento);
-                $("#editarEstadoPago").val(respuesta.estado_pago);
-                $("#editarFechaPago").val(respuesta.fecha_pago); 
-                $("#idCuota").val(idCuota); 
+                $("#editarCuota input[name='idCuota']").val(respuesta.id_cuota);
+                $("#editarCuota input[name='fecha_vencimiento']").val(respuesta.fecha_vencimiento);
+                $("#editarCuota input[name='fecha_pago']").val(respuesta.fecha_pago);
+                $("#editarCuota select[name='estado_pago']").val(respuesta.estado_pago);
             }
         },
-        error: function(xhr, status, error) {
-            console.error("Error en la solicitud AJAX: ", status, error);
-            console.log("Respuesta completa del servidor:", xhr.responseText); // Agrega esta línea
+        error: function (xhr, status, error) {
+            console.error("Error en la solicitud AJAX:", status, error);
         }
-        
     });
 }
+
+$(document).on("click", ".btn-editar-cuota", function () {
+    const idCuota = $(this).data("id");
+    cargarDatosModal(idCuota);
+});
 
 
 // Función para guardar los cambios en el modal
@@ -161,10 +157,19 @@ $("#guardarCambios").on("click", function() {
 
     var datos = new FormData();
     datos.append("idCuota", idCuota);
-    datos.append("fecha_vencimiento", fechaVencimiento);
-    datos.append("estado_pago", estadoPago);
-    datos.append("fecha_pago", fechaPago);
-    datos.append("accion", "editar");
+    datos.append("editarfechaVencimiento", fechaVencimiento);
+    datos.append("editarEstadoPago", estadoPago);
+    datos.append("editarFechaPago", fechaPago);
+
+    datos.append("accion", "editarCuota");
+
+    console.log("Datos enviados:",{
+        idCuota:idCuota,
+        fechaVencimiento:fechaVencimiento,
+        estadoPago:estadoPago,
+        fechaPago:fechaPago,
+        action: 'editarCuota'
+    });
 
     $.ajax({
         url: "ajax/cuotas.ajax.php",
@@ -175,6 +180,7 @@ $("#guardarCambios").on("click", function() {
         processData: false,
         dataType: "json",
         success: function(respuesta) {
+            console.log("respuesta del servidor",respuesta)
             if (respuesta.success) {
                 alert(respuesta.success); // Mensaje de éxito
                 $('#editarCuota').modal('hide'); // Cerrar el modal
@@ -187,6 +193,4 @@ $("#guardarCambios").on("click", function() {
             console.error("Error en la solicitud AJAX: ", status, error);
         }
     });
-});
-
-  
+}); 

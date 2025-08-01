@@ -6,7 +6,7 @@ class ControladorCuotas
         REGISTRAR CUOTAS
         =============================================*/
         static public function ctrCrearCuotas() {
-            $tabla = "cuota"; // Nombre de la tabla de cuotas
+            $tabla = "cuota";
             $numCuotas = isset($_POST['numCuotas']) ? intval($_POST['numCuotas']) : 0; 
             $montoTotal = isset($_POST['montoTotal']) ? floatval($_POST['montoTotal']) : 0;
 
@@ -28,30 +28,29 @@ class ControladorCuotas
                 $datos = array(
                     "id_factura" => $_POST["idFactura"],
                     "monto" => $montoCuota,
-                    "fecha_vencimiento" => $_POST["fecha_vencimiento_" . $i], // Fecha de vencimiento de cada cuota
-                    "estado_pago" => $_POST["estado_pago_" . $i], // Estado de pago inicial
-                    "fecha_pago" => NULL // Inicialmente, la fecha de pago está vacía
+                    "fecha_vencimiento" => $_POST["fecha_vencimiento_" . $i], 
+                    "estado_pago" => $_POST["estado_pago_" . $i], 
+                    "fecha_pago" => NULL 
                 );
         
-                // Registrar el detalle de los datos enviados
                 error_log("Datos de la cuota $i: " . print_r($datos, true));
         
-                // Llamar al modelo para registrar cada cuota
+
                 $respuesta = ModeloCuotas::mdlRegistrarCuotas($tabla, $datos);
         
-                // Verificar si ocurrió un error al registrar la cuota
+                
                 if ($respuesta != "ok") {
                     error_log("Error al registrar la cuota $i: " . $respuesta);
                     return "error: Error al registrar la cuota $i";
                 }
             }
         
-            return "ok";  // Si todo fue exitoso, retornar "ok"
+            return "ok"; 
         }
         
 
         static public function ctrVerCuotasPorFactura($idFactura) {
-            $tabla = "cuota";  // Nombre de la tabla en la base de datos
+            $tabla = "cuota";
             return ModeloCuotas::mdlVerCuotasPorFactura($tabla, 'id_factura', $idFactura);
         }
         
@@ -208,7 +207,7 @@ class ControladorCuotas
 
         static public function ctrEditarCuota(){
 
-            if(isset($_POST["editarfechaVencimiento"])){
+            
                 if(preg_match('/^\d{4}-\d{2}-\d{2}$/', $_POST["editarfechaVencimiento"])){
     
                     $tabla = "cuota";
@@ -223,51 +222,12 @@ class ControladorCuotas
                     $respuesta = ModeloCuotas::mdlEditarCuota($tabla, $datos);
     
     
-                    if($respuesta == "ok"){
-    
-                        echo'<script>
-    
-                        swal({
-                              type: "success",
-                              title: "la cuota ha sido actualizada",
-                              showConfirmButton: true,
-                              confirmButtonText: "Cerrar"
-                              }).then(function(result){
-                                        if (result.value) {
-    
-                                        window.location = "cliente";
-    
-                                        }
-                                    })
-    
-                        </script>';
-    
-                    }
-                    
-                }else{
-    
-                    echo'<script>
-    
-                        swal({
-                              type: "error",
-                              title: "¡El nombre no puede ir vacío o llevar caracteres especiales!",
-                              showConfirmButton: true,
-                              confirmButtonText: "Cerrar"
-                              }).then(function(result){
-                                if (result.value) {
-    
-                                window.location = "cliente";
-    
-                                }
-                            })
-    
-                      </script>';
-    
-                }
-    
-            }
-    
+                    if ($respuesta == "ok") {
+                        return "ok";
+                    } else {
+                        return "error";
+                    }  
+            }  
         }
-
         
 }

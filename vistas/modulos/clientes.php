@@ -748,7 +748,7 @@
                                                                 </div>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
-                                                                        <input type="text" class="form-control" name="monto" id="valorTotal" placeholder="Monto" disabled>
+                                                                        <input type="text" class="form-control" name="monto" id="valorTotal" placeholder="Monto">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-4">
@@ -943,24 +943,29 @@
                                 <!-- Campo de Fecha de Vencimiento -->
                                 <div class="form-group">
                                     <label for="fechaVencimiento">Fecha de Vencimiento</label>
-                                    <input type="date" class="form-control" id="fechaVencimiento" name="fechaVencimiento">
+                                    <input type="date" class="form-control" id="fechaVencimiento" name="fecha_vencimiento">
                                 </div>
 
                                 <!-- Campo de Estado de Pago -->
                                 <div class="form-group">
                                     <label for="estadoPago">Estado de Pago</label>
-                                    <select class="form-control" id="estadoPago" name="estadoPago">
+                                    <select class="form-control" id="estadoPago" name="estado_pago">
+                                        <option value="dv0">dv0: no se ha ejecutado el cobro</option>
+                                        <option value="En proceso">En proceso</option>
+                                        <option value="dv1">Link de pago inactivo</option> 
+                                        <option value="dv2">Fondos insuficientes</option>
+                                        <option value="dv3">Cuenta no localizada</option>
+                                        <option value="dv4">El cliente solicita devolucion</option>
+                                        <option value="dv5">Rebota el pago por entidad</option>
+                                        <option value="dv6">Titular de la cuenta fallecido</option>
                                         <option value="Aprobado">Aprobado</option>
-                                        <option value="Pendiente">Pendiente</option>
-                                        <option value="dv0">dv0</option>
-                                        <!-- Agrega más opciones según sea necesario -->
                                     </select>
                                 </div>
 
                                 <!-- Otro Campo (Fecha de Pago) -->
                                 <div class="form-group">
                                     <label for="fechaPago">Fecha de Pago</label>
-                                    <input type="date" class="form-control" id="fechaPago" name="fechaPago">
+                                    <input type="date" class="form-control" id="fechaPago" name="fecha_pago ">
                                 </div>
                             </form>
                         </div>

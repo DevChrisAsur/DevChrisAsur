@@ -59,7 +59,7 @@ static public function mdlVerCuotasPorFactura($tabla, $item, $valor) {
     }
 
     static public function mdlVerCuota($tabla, $idCuota) {
-        $stmt = Conexion::conectar()->prepare("SELECT fecha_vencimiento, estado_pago, fecha_pago FROM $tabla WHERE id_cuota = :id_cuota");
+        $stmt = Conexion::conectar()->prepare("SELECT id_cuota, fecha_vencimiento, estado_pago, fecha_pago FROM $tabla WHERE id_cuota = :id_cuota");
         $stmt->bindParam(":id_cuota", $idCuota, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -116,7 +116,7 @@ static public function mdlVerCuotasPorFactura($tabla, $item, $valor) {
         return $stmt->fetch();
     }
 
-    static public function mdlEditarCuota($tabla, $datos) {
+    static public function mdlEditarCuota($tabla, $datos){
         try {
             // Preparamos la consulta para actualizar solo los campos necesarios
             $stmt = Conexion::conectar()->prepare("UPDATE $tabla 
@@ -124,13 +124,13 @@ static public function mdlVerCuotasPorFactura($tabla, $item, $valor) {
                                                        estado_pago = :estado_pago, 
                                                        fecha_pago = :fecha_pago 
                                                    WHERE id_cuota = :id_cuota");
-    
+
             // Vinculamos los parámetros
             $stmt->bindParam(":fecha_vencimiento", $datos["fecha_vencimiento"], PDO::PARAM_STR);
             $stmt->bindParam(":estado_pago", $datos["estado_pago"], PDO::PARAM_STR);
             $stmt->bindParam(":fecha_pago", $datos["fecha_pago"], PDO::PARAM_STR);
             $stmt->bindParam(":id_cuota", $datos["id_cuota"], PDO::PARAM_INT);
-    
+
             // Ejecutamos la consulta
             if ($stmt->execute()) {
                 return "ok"; // Devuelve "ok" si la actualización es exitosa
