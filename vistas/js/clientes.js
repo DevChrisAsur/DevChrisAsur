@@ -281,3 +281,76 @@ function cargarInformacionFinanciera(idCliente) {
         }
     });
 }
+
+$(document).ready(function () {
+  $('.card-button').on('click', function () {
+    const accion = $(this).data('accion');
+    const tipo = $(this).data('tipo');
+
+    $('#modalDetalle .modal-title').text('Clientes en ' + tipo);
+    $('#modalDetalle .modal-body').html('<p>Cargando detalles...</p>');
+    $('#modalDetalle').modal('show');
+
+    $.ajax({
+      url: 'ajax/cuotas.ajax.php',
+      method: 'POST',
+      data: { accion: accion },
+      dataType: 'json',
+      success: function (respuesta) {
+        if (respuesta.success && Array.isArray(respuesta.data)) {
+          let tabla = `
+            <table id="tabla-detalles" class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Cliente</th>
+                  <th>CC</th>
+                  <th>ID Factura</th>
+                  <th>ID Cuota</th>
+                  <th>Fecha limite de pago</th>
+                  <th>Monto</th>
+                </tr>
+              </thead>
+              <tbody>
+          `;
+
+          respuesta.data.forEach((fila, index) => {
+            tabla += `
+              <tr>
+                <td>${index + 1}</td>
+                <td>${fila.first_name} ${fila.last_name}</td>
+                <td>${fila.cc}</td>
+                <td>${fila.id_factura}</td>
+                <td>${fila.id_cuota}</td>
+                <td>${fila.fecha_vencimiento}</td>
+                <td>$${parseFloat(fila.valor_cuota_actual).toLocaleString('es-CO')}</td>
+              </tr>
+            `;
+          });
+
+          tabla += `
+              </tbody>
+            </table>
+            <p class="text-right text-muted mt-3"><small>Rango: ${respuesta.rango_fecha}</small></p>
+          `;
+
+          $('#modalDetalle .modal-body').html(tabla);
+
+          // Inicializar DataTables si está disponible
+          if ($.fn.DataTable) {
+            $('#tabla-detalles').DataTable({
+              language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-CO.json'
+              }
+            });
+          }
+        } else {
+          $('#modalDetalle .modal-body').html('<p>No se encontraron datos para mostrar.</p>');
+        }
+      },
+      error: function () {
+        $('#modalDetalle .modal-body').html('<p>Error al cargar los datos del servidor.</p>');
+      }
+    });
+  });
+});

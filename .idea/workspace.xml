@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d1f258ee-b36f-465c-b369-682882a5d30d" name="Changes" comment="feacture-cuotas(en proceso: edicion de cuota) metodos relacionados con las tarjetas del inicio">
+    <list default="true" id="d1f258ee-b36f-465c-b369-682882a5d30d" name="Changes" comment="feacture-cuotas(edicion de cuota) metodo encargado de actualizar las cuotas en la informacion adicional del cliente">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -75,7 +75,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "develop/feacture/facturas",
+    "git-widget-placeholder": "develop/feacture/cuotas",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/xampp/htdocs/tiendaVirtual"
   }
@@ -88,14 +88,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1726439356860</updated>
-    </task>
-    <task id="LOCAL-00083" summary="feacture-clientes:(actualizado) actualizacion en datatable datos del cliente">
-      <option name="closed" value="true" />
-      <created>1728455444441</created>
-      <option name="number" value="00083" />
-      <option name="presentableId" value="LOCAL-00083" />
-      <option name="project" value="LOCAL" />
-      <updated>1728455444441</updated>
     </task>
     <task id="LOCAL-00084" summary="feacture-clientes:(actualizado) box-body para la informacion adicional del usuario">
       <option name="closed" value="true" />
@@ -481,7 +473,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731474737587</updated>
     </task>
-    <option name="localTasksCounter" value="132" />
+    <task id="LOCAL-00132" summary="feacture-cuotas(edicion de cuota) metodo encargado de actualizar las cuotas en la informacion adicional del cliente">
+      <option name="closed" value="true" />
+      <created>1754021945476</created>
+      <option name="number" value="00132" />
+      <option name="presentableId" value="LOCAL-00132" />
+      <option name="project" value="LOCAL" />
+      <updated>1754021945476</updated>
+    </task>
+    <option name="localTasksCounter" value="133" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -518,7 +518,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feacture-suscripcion (actualizado): modal para crear suscripcion manual" />
     <MESSAGE value="feacture-suscripcion (new): ajax para la ejecucion de la creacion de suscripcion" />
     <MESSAGE value="feacture-suscripcion (actualizado): box para la informacion adicional del cliente, tab productos en proceso" />
     <MESSAGE value="feacture-suscripcion (new): evento para la creacion de la suscripcion del cliente." />
@@ -543,6 +542,7 @@
     <MESSAGE value="ajuste de rutas" />
     <MESSAGE value="delegacion de ejecucion para las cuotas" />
     <MESSAGE value="feacture-cuotas(en proceso: edicion de cuota) metodos relacionados con las tarjetas del inicio" />
-    <option name="LAST_COMMIT_MESSAGE" value="feacture-cuotas(en proceso: edicion de cuota) metodos relacionados con las tarjetas del inicio" />
+    <MESSAGE value="feacture-cuotas(edicion de cuota) metodo encargado de actualizar las cuotas en la informacion adicional del cliente" />
+    <option name="LAST_COMMIT_MESSAGE" value="feacture-cuotas(edicion de cuota) metodo encargado de actualizar las cuotas en la informacion adicional del cliente" />
   </component>
 </project>

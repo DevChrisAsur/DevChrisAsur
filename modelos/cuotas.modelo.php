@@ -59,16 +59,19 @@ static public function mdlVerCuotasPorFactura($tabla, $item, $valor) {
     }
 
     static public function mdlVerCuota($tabla, $idCuota) {
-        $stmt = Conexion::conectar()->prepare("SELECT id_cuota, fecha_vencimiento, estado_pago, fecha_pago FROM $tabla WHERE id_cuota = :id_cuota");
+        $stmt = Conexion::conectar()->prepare(
+            "SELECT id_cuota, fecha_vencimiento, estado_pago, fecha_pago 
+            FROM $tabla WHERE id_cuota = :id_cuota");
         $stmt->bindParam(":id_cuota", $idCuota, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
     
-    
+    //CARDS
+
     static public function mdlVerTransfer($tabla, $fechaInicio, $fechaFin) {
         $stmt = Conexion::conectar()->prepare("SELECT SUM(monto) AS monto_total FROM $tabla 
-                                               WHERE fecha_vencimiento >= :fechaInicio AND fecha_vencimiento <= :fechaFin");   
+                                               WHERE fecha_vencimiento BETWEEN :fechaInicio AND :fechaFin");   
         $stmt->bindParam(":fechaInicio", $fechaInicio, PDO::PARAM_STR);
         $stmt->bindParam(":fechaFin", $fechaFin, PDO::PARAM_STR);
     
@@ -76,24 +79,44 @@ static public function mdlVerCuotasPorFactura($tabla, $item, $valor) {
         return $stmt->fetch();
     }
 
-    static public function mdlVerProceso($tabla, $fechaInicio, $fechaFin) {
-        $stmt = Conexion::conectar()->prepare("SELECT SUM(monto) AS monto_total FROM $tabla 
-                                               WHERE estado_pago = 'En proceso'
-                                               AND fecha_vencimiento >= :fechaInicio 
-                                               AND fecha_vencimiento <= :fechaFin");
-        
+    static public function mdlDetallesTransfer($fechaInicio, $fechaFin){
+        $stmt = Conexion::conectar() -> prepare(
+            "SELECT c.id_customer, c.cc, c.first_name, c.last_name,
+            f.id_factura, cu.id_cuota, cu.fecha_vencimiento, cu.monto AS valor_cuota_actual 
+            FROM cuota cu
+            INNER JOIN factura f ON cu.id_factura = f.id_factura
+            INNER JOIN suscripcion s ON f.id_suscripcion = s.id_suscripcion
+            INNER JOIN cliente c ON s.id_customer = c.id_customer
+            WHERE cu.fecha_vencimiento BETWEEN :fechaInicio AND :fechaFin");
         $stmt->bindParam(":fechaInicio", $fechaInicio, PDO::PARAM_STR);
         $stmt->bindParam(":fechaFin", $fechaFin, PDO::PARAM_STR);
     
         $stmt->execute();
-        return $stmt->fetch();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+        static public function mdlVerProceso($tabla, $fechaInicio, $fechaFin) {
+            $stmt = Conexion::conectar()->prepare(
+                "SELECT SUM(monto) AS monto_total 
+                FROM $tabla 
+                WHERE estado_pago = 'En proceso'
+                AND fecha_vencimiento BETWEEN :fechaInicio AND :fechaFin");
+
+            $stmt->bindParam(":fechaInicio", $fechaInicio, PDO::PARAM_STR);
+            $stmt->bindParam(":fechaFin", $fechaFin, PDO::PARAM_STR);
+
+            $stmt->execute();
+            return $stmt->fetch();
+    }
+
     
+    //CARD CONTADOR DE VENTAS
     static public function mdlContarCuotasEnProceso($tabla) {
         $stmt = Conexion::conectar()->prepare("
             SELECT COUNT(*) AS total_cuotas
             FROM $tabla
             WHERE estado_pago = 'En proceso'
+            OR estado_pago = 'Aprobado'
         ");
         
         // Ejecutamos la consulta
@@ -104,10 +127,12 @@ static public function mdlVerCuotasPorFactura($tabla, $item, $valor) {
     }
     
     static public function mdlVerRecaudo($tabla, $fechaInicio, $fechaFin) {
-        $stmt = Conexion::conectar()->prepare("SELECT SUM(monto) AS monto_total FROM $tabla 
-                                               WHERE estado_pago = 'Aprobado'
-                                               AND fecha_vencimiento >= :fechaInicio 
-                                               AND fecha_vencimiento <= :fechaFin");
+        $stmt = Conexion::conectar()->prepare(
+            "SELECT SUM(monto) AS monto_total FROM $tabla 
+            WHERE estado_pago = 'Aprobado'
+            AND fecha_vencimiento >= :fechaInicio 
+            AND fecha_vencimiento <= :fechaFin"
+        );
         
         $stmt->bindParam(":fechaInicio", $fechaInicio, PDO::PARAM_STR);
         $stmt->bindParam(":fechaFin", $fechaFin, PDO::PARAM_STR);
@@ -115,6 +140,40 @@ static public function mdlVerCuotasPorFactura($tabla, $item, $valor) {
         $stmt->execute();
         return $stmt->fetch();
     }
+
+    static public function mdlDetallesRecaudo($fechaInicio, $fechaFin){
+        $stmt = Conexion::conectar() -> prepare(
+            "SELECT c.id_customer, c.cc, c.first_name, c.last_name,
+            f.id_factura, cu.id_cuota, cu.fecha_vencimiento, cu.monto AS valor_cuota_actual 
+            FROM cuota cu
+            INNER JOIN factura f ON cu.id_factura = f.id_factura
+            INNER JOIN suscripcion s ON f.id_suscripcion = s.id_suscripcion
+            INNER JOIN cliente c ON s.id_customer = c.id_customer
+            WHERE cu.fecha_vencimiento BETWEEN :fechaInicio AND :fechaFin
+            AND cu.estado_pago IN ('En proceso', 'Aprobado')");
+        $stmt->bindParam(":fechaInicio", $fechaInicio, PDO::PARAM_STR);
+        $stmt->bindParam(":fechaFin", $fechaFin, PDO::PARAM_STR);
+    
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    static public function mdlCardTotalVenta($tabla, $fechaInicio, $fechaFin) {
+        $stmt = Conexion::conectar()->prepare("
+            SELECT SUM(monto) AS total_aprobado
+            FROM $tabla
+            WHERE estado_pago IN ('Aprobado', 'En proceso')
+            AND fecha_vencimiento BETWEEN :fechaInicio AND :fechaFin
+        ");
+
+        $stmt->bindParam(":fechaInicio", $fechaInicio, PDO::PARAM_STR);
+        $stmt->bindParam(":fechaFin", $fechaFin, PDO::PARAM_STR);
+
+        $stmt->execute();
+
+        return $stmt->fetch()['total_aprobado'];
+    }
+
 
     static public function mdlEditarCuota($tabla, $datos){
         try {

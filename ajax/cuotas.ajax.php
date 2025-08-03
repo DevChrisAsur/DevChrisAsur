@@ -46,6 +46,24 @@ switch ($_POST["accion"]) {
         }
         exit;
 
+    case "VerDetallesTransfer":
+        $respuesta = ControladorCuotas::ctrVerDetallesTransfer();
+        echo json_encode([
+        'success' => true,
+        'data' => $respuesta['detalles'],
+        'rango_fecha' => $respuesta['rango_fecha']
+        ]);
+        exit;
+        
+    case "VerDetallesRecaudo":
+        $respuesta = ControladorCuotas::ctrVerDetallesRecaudo();
+        echo json_encode([
+        'success' => true,
+        'data' => $respuesta['detalles'],
+        'rango_fecha' => $respuesta['rango_fecha']
+        ]);
+        exit;
+
     default:
         echo json_encode(["error" => "Acción no válida."]);
         exit;
