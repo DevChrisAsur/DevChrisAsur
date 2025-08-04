@@ -82,7 +82,7 @@ static public function mdlVerCuotasPorFactura($tabla, $item, $valor) {
     static public function mdlDetallesTransfer($fechaInicio, $fechaFin){
         $stmt = Conexion::conectar() -> prepare(
             "SELECT c.id_customer, c.cc, c.first_name, c.last_name,
-            f.id_factura, cu.id_cuota, cu.fecha_vencimiento, cu.monto AS valor_cuota_actual 
+            f.id_factura, cu.id_cuota, cu.fecha_vencimiento, cu.estado_pago, cu.monto AS valor_cuota_actual 
             FROM cuota cu
             INNER JOIN factura f ON cu.id_factura = f.id_factura
             INNER JOIN suscripcion s ON f.id_suscripcion = s.id_suscripcion
@@ -144,7 +144,7 @@ static public function mdlVerCuotasPorFactura($tabla, $item, $valor) {
     static public function mdlDetallesRecaudo($fechaInicio, $fechaFin){
         $stmt = Conexion::conectar() -> prepare(
             "SELECT c.id_customer, c.cc, c.first_name, c.last_name,
-            f.id_factura, cu.id_cuota, cu.fecha_vencimiento, cu.monto AS valor_cuota_actual 
+            f.id_factura, cu.id_cuota, cu.fecha_vencimiento, cu.estado_pago, cu.monto AS valor_cuota_actual 
             FROM cuota cu
             INNER JOIN factura f ON cu.id_factura = f.id_factura
             INNER JOIN suscripcion s ON f.id_suscripcion = s.id_suscripcion

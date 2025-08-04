@@ -325,7 +325,7 @@ MODAL EDITAR USUARIO
 
                     <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
 
-                    <button type="submit" name="edit" class="btn btn-primary">Modificar perfil</button>
+                    <button type="submit" name="edit" class="btn btn-primary">Modificar perfiless</button>
 
                     <?php
 

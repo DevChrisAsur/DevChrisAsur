@@ -303,12 +303,11 @@ $(document).ready(function () {
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Cliente</th>
-                  <th>CC</th>
-                  <th>ID Factura</th>
-                  <th>ID Cuota</th>
-                  <th>Fecha limite de pago</th>
-                  <th>Monto</th>
+                  <th>cliente</th>
+                  <th>cc</th>
+                  <th>estado de pago</th>                
+                  <th>fecha limite de pago</th>
+                  <th>valor de pago</th>
                 </tr>
               </thead>
               <tbody>
@@ -320,8 +319,7 @@ $(document).ready(function () {
                 <td>${index + 1}</td>
                 <td>${fila.first_name} ${fila.last_name}</td>
                 <td>${fila.cc}</td>
-                <td>${fila.id_factura}</td>
-                <td>${fila.id_cuota}</td>
+                <td>${fila.estado_pago}</td>                
                 <td>${fila.fecha_vencimiento}</td>
                 <td>$${parseFloat(fila.valor_cuota_actual).toLocaleString('es-CO')}</td>
               </tr>

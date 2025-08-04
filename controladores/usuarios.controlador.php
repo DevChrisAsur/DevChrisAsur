@@ -12,7 +12,6 @@ static public function ctrIngresoUsuario() {
 	$correo = $_POST["ingUsuario"];
 	$password = $_POST["ingPassword"];
 
-	// Validar que el correo sea válido
 	if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
 		echo '<br><div class="alert alert-danger">El correo no es válido</div>';
 		return;
@@ -28,26 +27,20 @@ static public function ctrIngresoUsuario() {
 	}
 
 	if ($respuesta["user_status"] == 0) {
-		echo '<br><div class="alert alert-danger">El usuario no está activo</div>';
+		echo json_encode(["error" => "El usuario está inactivo"]);
 		return;
 	}
 
 	$hashBD = $respuesta["password"];
 	$passwordIngresada = trim($password);
 
-	// Mostrar debug
-	echo "Password ingresada: " . $passwordIngresada . "<br>";
-	echo "Hash esperado: " . md5($passwordIngresada) . "<br>";
-	echo "Hash en base de datos: " . $hashBD . "<br>";
-
-	// Comparar directamente con MD5
+	// Comparar con MD5 (puedes cambiar a password_verify más adelante)
 	if (md5($passwordIngresada) === $hashBD) {
-
 		// Iniciar sesión
 		$_SESSION["iniciarSesion"] = "ok";
 		$_SESSION["id"] = $respuesta["id"];
-		$_SESSION["nombre"] = $respuesta["nombre"];
-		$_SESSION["usuario"] = $respuesta["usuario"];
+		$_SESSION["nombre"] = $respuesta["first_name"];
+		$_SESSION["usuario"] = $respuesta["user_name"];
 		$_SESSION["foto"] = $respuesta["foto"];
 		$_SESSION["perfil"] = $respuesta["perfil"];
 		$_SESSION["area"] = $respuesta["area"];
@@ -63,10 +56,9 @@ static public function ctrIngresoUsuario() {
 		echo '<br><div class="alert alert-danger">Contraseña incorrecta (MD5)</div>';
 	}
 }
-	
 
 	/*=============================================
-	REGISTRO DE USUARIO
+					REGISTRO DE USUARIO
 	=============================================*/
 
 	static public function ctrCrearUsuario() {
@@ -189,82 +181,48 @@ static public function ctrIngresoUsuario() {
 		if(isset($_POST["editarUsuario"])){
 
 
-				/*=============================================
-				VALIDAR IMAGEN
-				=============================================*/
+			/*=============================================
+			VALIDAR IMAGEN
+			=============================================*/	
+			$tabla = "usuarios";
 
-				
+			if($_POST["editarPassword"] != ""){
+					$encriptar = md5($_POST["editarPassword"]);
+			}else{
+				$encriptar = $_POST["passwordActual"];
+			}
 
-				$tabla = "usuarios";
+			$datos = array(
+				"id"=>$_POST["idUsuario"],
+				"user_name" => $_POST["editarUsuario"],
+				"perfil" => $_POST["editarPerfil"],
+				"area" => $_POST["editarArea"],
+				"phone" => $_POST["editarTelefone"],
+				"correo" => $_POST["editarCorreo"],							   
+				"password" => $encriptar	   
+				);
 
-				if($_POST["editarPassword"] != ""){
-
-					if(preg_match('/^[a-zA-Z0-9]+$/', $_POST["editarPassword"])){
-
-						$encriptar = password_hash($_POST["editarPassword"], PASSWORD_BCRYPT);
-					}else{
-
-						echo'<script>
-
-								swal({
-									  type: "error",
-									  title: "¡La contraseña no puede ir vacía o llevar caracteres especiales!",
-									  showConfirmButton: true,
-									  confirmButtonText: "Cerrar"
-									  }).then(function(result){
-										if (result.value) {
-
-										window.location = "usuarios";
-
-										}
-									})
-
-						  	</script>';
-
-					}
-
-				}else{
-
-					$encriptar = $_POST["passwordActual"];
-
-				}
-
-				$datos = array(
-					"id"=>$_POST["idUsuario"],
-					"user_name" => $_POST["editarUsuario"],
-					"perfil" => $_POST["editarPerfil"],
-					"area" => $_POST["editarArea"],
-					"phone" => $_POST["editarTelefone"],
-					"correo" => $_POST["editarCorreo"],							   
-					"password" => $encriptar	   
-					);
-
-				$respuesta = ModeloUsuarios::mdlEditarUsuario($tabla, $datos);
+			$respuesta = ModeloUsuarios::mdlEditarUsuario($tabla, $datos);
 
 
-				if($respuesta == "ok"){
+			if($respuesta == "ok"){
+				echo'<script>
+				swal({
+						type: "success",
+						title: "El usuario ha sido editado correctamente",
+						showConfirmButton: true,
+						confirmButtonText: "Cerrar"
+						}).then(function(result){
+								if (result.value) {
 
-					echo'<script>
+								window.location = "usuarios";
 
-					swal({
-						  type: "success",
-						  title: "El usuario ha sido editado correctamente",
-						  showConfirmButton: true,
-						  confirmButtonText: "Cerrar"
-						  }).then(function(result){
-									if (result.value) {
+								}
+							})
 
-									window.location = "usuarios";
-
-									}
-								})
-
-					</script>';
-
-				}
-
+				</script>';
+			}
 		}
-
 	}
 
 	/*=============================================

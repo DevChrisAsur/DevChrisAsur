@@ -6,6 +6,9 @@
     <title>Login</title>
     <!-- Incluye Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    
     <!-- Incluye algún estilo personalizado si es necesario -->
     <style>
         /* Estilos para el encabezado */
@@ -69,28 +72,32 @@
     </style>
 </head>
 
-<header>
-        <img src="vistas/img/plantilla/legaltech_logo.png" alt="Logo"> <!-- Ajusta la ruta y extensión aquí -->
-    </header>
 <body>
+    <header>
+            <img src="vistas/img/plantilla/legaltech_logo.png" alt="Logo"> <!-- Ajusta la ruta y extensión aquí -->
+    </header>
 
-
-    <div class="main-content">
+    <main class="main-content">
         <div class="login-box">
             <div class="login-box-body">
                 <p class="login-box-msg text-center">Ingresar al sistema</p>
                 <form method="post">
-                    <div class="form-group has-feedback">
-                        <input type="text" class="form-control" placeholder="Usuario" name="ingUsuario" required>
-                        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    <div class="form-group has-feedback" style="position: relative;">
+                        <input type="email" class="form-control" placeholder="Correo" name="ingUsuario" id="correo" required>
+                        <span style="position: absolute; top: 50%; right: 15px; transform: translateY(-50%); cursor: pointer; color: #333;">
+                            <i class="fa fa-user"></i>
+                        </span>
                     </div>
-                    <div class="form-group has-feedback">
-                        <input type="password" class="form-control" placeholder="Contraseña" name="ingPassword" required>
-                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    <div class="form-group has-feedback" style="position: relative;">
+                        <input type="password" class="form-control" placeholder="Contraseña" name="ingPassword" id="clave" required>
+
+                        <span id="togglePassword" style="position: absolute; top: 50%; right: 15px; transform: translateY(-50%); cursor: pointer; color: #333;">
+                            <i class="fa fa-eye-slash"></i>
+                        </span>
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary btn-block btn-flat">Ingresar</button>
+                            <button type="submit" id="btn-login" class="btn btn-primary btn-block btn-flat">Ingresar</button>
                         </div>
                     </div>
                 </form>
@@ -100,18 +107,59 @@
             $login = new ControladorUsuarios();
             $login -> ctrIngresoUsuario();
         ?>
-    </div>
-
-
-    <!-- Incluye Bootstrap JS, Popper.js, y jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    </main>
+    <footer>
+        <img src="vistas/img/plantilla/AsurLogo.png" alt="Logo"> <!-- Ajusta la ruta y extensión aquí -->
+    </footer>    
 </body>
 
 
-<footer>
-        <img src="vistas/img/plantilla/AsurLogo.png" alt="Logo"> <!-- Ajusta la ruta y extensión aquí -->
-    </footer>
+    <!-- Incluye Bootstrap JS, Popper.js, y jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    document.getElementById("togglePassword").addEventListener("click", function () {
+  const campo = document.getElementById("clave");
+  const icono = this.querySelector("i");
+
+  if (campo.type === "password") {
+    campo.type = "text";
+    icono.classList.remove("fa-eye-slash");
+    icono.classList.add("fa-eye");
+  } else {
+    campo.type = "password";
+    icono.classList.remove("fa-eye");
+    icono.classList.add("fa-eye-slash");
+  }
+    });
+</script>
+
+<script>
+document.getElementById("btn-login").addEventListener("click", function() {
+
+  const correoRegex = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
+
+  if (correo.value === "") {
+    Swal.fire("Error", "Por favor ingrese su correo", "error");
+    return;
+  }
+
+  if (!correoRegex.test(correo.value)) {
+    Swal.fire("Error", "Correo electrónico inválido", "error");
+    return;
+  }
+
+  if (clave.value === "") {
+    Swal.fire("Error", "Por favor ingrese su contraseña", "error");
+    return;
+  }
+
+});
+
+</script>
+
 </html>

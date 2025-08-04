@@ -85,7 +85,8 @@ $fecha = strftime("%d de %B de %Y");
             </button>          
           </div>
         </article>
-      <?php endforeach; ?>
+      <?php endforeach;?>
+      
     </section>
 
 
@@ -101,7 +102,7 @@ $fecha = strftime("%d de %B de %Y");
         <h5 class="modal-title" id="modalDetalleLabel"></h5>
       </div>
       <div class="modal-body">
-        <p>Cargando detalles...</p> <!-- Aquí se mostrará el contenido dinámico -->
+        <p>Cargando detalles...</p>
       </div>
     </div>
   </div>
@@ -137,10 +138,12 @@ $fecha = strftime("%d de %B de %Y");
     color: #fff;
     font-size: 0.9rem;
     font-weight: bold;
+    display: flex;
+    justify-content: center;
   }
 
   .card-header-date {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     font-weight: 400;
   }
 
@@ -150,7 +153,7 @@ $fecha = strftime("%d de %B de %Y");
   }
 
   .card-body h4 {
-    font-size: 1.3rem;
+    font-size: 2.3rem;
     font-weight: bold;
     margin-bottom: 8px;
     color: #222;
@@ -163,7 +166,7 @@ $fecha = strftime("%d de %B de %Y");
   }
 
   .card-body p {
-    font-size: 0.95rem;
+    font-size: 1.5rem;
     margin-bottom: 16px;
     color: #666;
   }
@@ -182,6 +185,10 @@ $fecha = strftime("%d de %B de %Y");
 
   .card-button:hover {
     background-color: #c8c340;
+  }
+
+  .modal-content{
+    border-radius: 20px;
   }
 
   @media (max-width: 768px) {
