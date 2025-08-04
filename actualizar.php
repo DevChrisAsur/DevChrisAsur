@@ -4,58 +4,40 @@ include("con_db.php");
 $id2=$_SESSION["id"];
 
 if(isset($_POST['edit'])) {
-		if(strlen($_POST['nuevoPassword']) >= 1 && 
-		   strlen($_POST['confirmPassword']) >= 1 ){
-			if ($_POST['nuevoPassword'] != $_POST['confirmPassword']){
-			    echo '<script>
-							swal({
+	if(strlen($_POST['nuevoPassword']) >= 1 && 
+	   strlen($_POST['confirmPassword']) >= 1) {
+		
+		if ($_POST['nuevoPassword'] != $_POST['confirmPassword']) {
+			echo '<script>
+				swal({
+					type: "error",
+					title: "¡Los campos no coinciden!",
+					showConfirmButton: true,
+					confirmButtonText: "Cerrar"
+				});
+			</script>';
+		} else if(isset($_POST['nuevoPassword']) && !empty($_POST['nuevoPassword'])) {
+			
+			$password = trim($_POST['nuevoPassword']);
+			$encriptar = md5($password); // CAMBIO: ahora se usa md5
 
-								type: "error",
-								title: "¡Los campos no coinciden!",
-								showConfirmButton: true,
-								confirmButtonText: "Cerrar"
+			$sql = "UPDATE usuarios SET password='$encriptar' WHERE id=$id2";
+			$res = mysqli_query($conex, $sql);
 
-							})
-							</script>';
-
-			}
-
-			else if(isset($_POST['nuevoPassword']) && !empty($_POST['nuevoPassword'])){
-				$password = trim($_POST['nuevoPassword']);
-				echo $password;
-				
-				$encriptar = crypt($password, '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
-					echo $encriptar;
-					
-					$sql="UPDATE usuarios SET password='$encriptar' where id=$id2";
-						$res=mysqli_query($conex , $sql);
-						 
-
-						 if ($res){
-							echo '<script>
-							swal({
-
-								type: "success",
-								title: "¡El usuario ha cambiado su contraseña exitosamente!",
-								showConfirmButton: true,
-								confirmButtonText: "Cerrar"
-
-							})
-							</script>';
-							 
-						 }
-				
+			if ($res) {
+				echo '<script>
+					swal({
+						type: "success",
+						title: "¡El usuario ha cambiado su contraseña exitosamente!",
+						showConfirmButton: true,
+						confirmButtonText: "Cerrar"
+					});
+				</script>';
 			}
 		}
+	}
 }
-		
-		
 
-		
-
-
-
- 
 ?>
 
 
