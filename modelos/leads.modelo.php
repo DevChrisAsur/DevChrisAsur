@@ -113,6 +113,24 @@ static public function mdlContarLeadsDiarios(){
         return $stmt->fetchAll();
     }
 
+    static public function mdlMostrarLeadsPorCoordinador($tablaLeads, $tablaUsuarios, $id_coordinador) {
+    $stmt = Conexion::conectar()->prepare(
+        "SELECT 
+            l.id_lead, l.cc, l.sector, l.first_name, l.last_name, l.phone, 
+            CONCAT(u.first_name, ' ', u.last_name) AS asesor, 
+            l.status_lead, l.origin, l.note, l.creation_date
+        FROM $tablaLeads l
+        INNER JOIN $tablaUsuarios u ON l.id_usuario = u.id
+        WHERE u.id_coordinador = :id_coordinador
+    ");
+
+    $stmt->bindParam(":id_coordinador", $id_coordinador, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->fetchAll();
+    }
+
+
     static public function mdlEditarLead($tabla, $datos) {
         try {
             // Preparamos la consulta para actualizar solo los campos necesarios

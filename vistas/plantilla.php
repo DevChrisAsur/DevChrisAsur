@@ -139,7 +139,7 @@ CUERPO DOCUMENTO
            * Definimos las rutas permitidas para cada perfil.
            */
           $rutasAdmin = ["inicio", "usuarios", "areas", "clientes", "servicios", "suscripciones", "leads", "facturas", "salir"];
-          $rutasCoordinador = ["inicio", "usuarios", "clientes", "cartera", "salir"];
+          $rutasCoordinador = ["inicio", "usuarios", "clientes", "leads", "salir"];
           $rutasAsesor = ["inicio", "clientes", "leads", "salir"];
 
           if(($perfil == "Super Administrador" || $perfil == "Administrador") && in_array($ruta, $rutasAdmin)){

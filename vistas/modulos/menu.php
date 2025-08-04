@@ -153,7 +153,32 @@
                                 <span>Usuarios</span>
                             </a>
                     </li>
-                </li>';
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-group"></i>
+                        <span>Contactos</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        
+                        <li>
+                            <a href="clientes">
+                                <i class="fa fa-address-book"></i>
+                                <span>clientes</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="leads">
+                                <i class="fa fa-exclamation"></i>
+                                <span>Leads</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                ';
             }
             ?>
             <?php

@@ -441,6 +441,40 @@
                   </td>
               </tr>';
               }
+            } // Verificamos si el perfil es "Coordinador comercial"
+            else if ($_SESSION["perfil"] === "Coordinador comercial") {
+              $id_coordinador = $_SESSION["id"];
+
+              // Llamamos al controlador para obtener los leads de los asesores bajo este coordinador
+              $leads = ControladorLeads::ctrVerLeadsCoordinador($id_coordinador);
+
+              foreach ($leads as $key => $lead) {
+                echo '<tr>
+                  <td>' . ($key + 1) . '</td>
+                  <td class="text">' . htmlspecialchars($lead["creation_date"]) . '</td>
+                  <td class="text">' . htmlspecialchars($lead["cc"]) . '</td>
+                  <td class="text">' . htmlspecialchars($lead["sector"]) . '</td>
+                  <td class="text">' . htmlspecialchars($lead["first_name"]) . '</td>
+                  <td class="text">' . htmlspecialchars($lead["last_name"]) . '</td>
+                  <td class="text">' . htmlspecialchars($lead["phone"]) . '</td>
+                  <td>' . htmlspecialchars($lead["asesor"]) . '</td>';
+
+                if ($lead["status_lead"] != 0) {
+                  echo '<td><button class="btn btn-success btn-xs btnCambiarEstadoLead" idLead="' . $lead["id_lead"] . '" estadoActualLead="0">Cliente</button></td>';
+                } else {
+                  echo '<td><button class="btn btn-info btn-xs btnCambiarEstadoLead" idLead="' . $lead["id_lead"] . '" estadoActualLead="1">Lead</button></td>';
+                }
+
+                echo '
+                  <td class="text">' . htmlspecialchars($lead["origin"]) . '</td>
+                  <td class="text">' . htmlspecialchars($lead["note"]) . '</td>
+                  <td>
+                    <div class="btn-group">
+                      <button class="btn btn-warning btnEditarLead" idLeads="' . $lead["id_lead"] . '" data-toggle="modal" data-target="#modalActualizarLead"><i class="fa fa-pencil"></i></button>
+                    </div>
+                  </td>
+                </tr>';
+              }
             }
             ?>
           </tbody>

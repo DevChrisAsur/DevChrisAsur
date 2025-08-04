@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d1f258ee-b36f-465c-b369-682882a5d30d" name="Changes" comment="feacture-cuotas(cards de inicio EN PROCESO) las tarjetas informativas encontradas en inicio:&#10;Contador de leads Diarios&#10;Contador de ventas Diarios&#10;Total de ventas entre fechas&#10;Brindan la informacion requerida para cada tarjeta.&#10;Las tarjetas de detalles realizan las siguientes acciones:&#10;TRANSFER: obtiene el valor de todas las cuotas programadas para estas fechas, obtiene la informacion de los clientes, la fecha limite de pago y el monto a pagar.&#10;RECAUDO: obtiene el valor de todas las cuotas pagadas o en proceso para estas fechas, obtiene la informacion de los clientes, la fecha limite de pago y el monto a pagar.&#10;Se debe continuar con la estructuracion de las tarjetas restantes, ademas de aplicar una redireccion para actualizar la informacion de la cuota seleccionada">
+    <list default="true" id="d1f258ee-b36f-465c-b369-682882a5d30d" name="Changes" comment="ajustes en la actualizacion de las contraseñas de usuario">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controladores/usuarios.controlador.php" beforeDir="false" afterPath="$PROJECT_DIR$/controladores/usuarios.controlador.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modelos/cuotas.modelo.php" beforeDir="false" afterPath="$PROJECT_DIR$/modelos/cuotas.modelo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modelos/usuarios.modelo.php" beforeDir="false" afterPath="$PROJECT_DIR$/modelos/usuarios.modelo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vistas/js/clientes.js" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/js/clientes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vistas/modulos/cabezote.php" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/modulos/cabezote.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vistas/modulos/inicio.php" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/modulos/inicio.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vistas/modulos/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/modulos/login.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,22 +88,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1726439356860</updated>
-    </task>
-    <task id="LOCAL-00085" summary="feacture-clientes:(actualizado) modelo para ver la informacion adicional del cliente">
-      <option name="closed" value="true" />
-      <created>1728534413410</created>
-      <option name="number" value="00085" />
-      <option name="presentableId" value="LOCAL-00085" />
-      <option name="project" value="LOCAL" />
-      <updated>1728534413410</updated>
-    </task>
-    <task id="LOCAL-00086" summary="feacture-clientes:(actualizado) controlador para ver la informacion adicional del cliente">
-      <option name="closed" value="true" />
-      <created>1728534421063</created>
-      <option name="number" value="00086" />
-      <option name="presentableId" value="LOCAL-00086" />
-      <option name="project" value="LOCAL" />
-      <updated>1728534421063</updated>
     </task>
     <task id="LOCAL-00087" summary="feacture-clientes:(actualizado) evento para activar el box-body secundario con la informacion adicional del usuario">
       <option name="closed" value="true" />
@@ -488,7 +465,23 @@
       <option name="project" value="LOCAL" />
       <updated>1754192070086</updated>
     </task>
-    <option name="localTasksCounter" value="134" />
+    <task id="LOCAL-00134" summary="ajustes en la actualizacion de las contraseñas de usuario">
+      <option name="closed" value="true" />
+      <created>1754337295458</created>
+      <option name="number" value="00134" />
+      <option name="presentableId" value="LOCAL-00134" />
+      <option name="project" value="LOCAL" />
+      <updated>1754337295458</updated>
+    </task>
+    <task id="LOCAL-00135" summary="ajustes en la actualizacion de las contraseñas de usuario">
+      <option name="closed" value="true" />
+      <created>1754337725364</created>
+      <option name="number" value="00135" />
+      <option name="presentableId" value="LOCAL-00135" />
+      <option name="project" value="LOCAL" />
+      <updated>1754337725364</updated>
+    </task>
+    <option name="localTasksCounter" value="136" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -525,7 +518,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feacture-suscripcion (actualizado): box para la informacion adicional del cliente, tab productos en proceso" />
     <MESSAGE value="feacture-suscripcion (new): evento para la creacion de la suscripcion del cliente." />
     <MESSAGE value="feacture-factura (new): modelo, controlador y logica para manejar la suscripcion y la factura" />
     <MESSAGE value="feacture-cliente (actualizado): evento para crear la suscripcion y la factura del producto" />
@@ -550,6 +542,7 @@
     <MESSAGE value="feacture-cuotas(en proceso: edicion de cuota) metodos relacionados con las tarjetas del inicio" />
     <MESSAGE value="feacture-cuotas(edicion de cuota) metodo encargado de actualizar las cuotas en la informacion adicional del cliente" />
     <MESSAGE value="feacture-cuotas(cards de inicio EN PROCESO) las tarjetas informativas encontradas en inicio:&#10;Contador de leads Diarios&#10;Contador de ventas Diarios&#10;Total de ventas entre fechas&#10;Brindan la informacion requerida para cada tarjeta.&#10;Las tarjetas de detalles realizan las siguientes acciones:&#10;TRANSFER: obtiene el valor de todas las cuotas programadas para estas fechas, obtiene la informacion de los clientes, la fecha limite de pago y el monto a pagar.&#10;RECAUDO: obtiene el valor de todas las cuotas pagadas o en proceso para estas fechas, obtiene la informacion de los clientes, la fecha limite de pago y el monto a pagar.&#10;Se debe continuar con la estructuracion de las tarjetas restantes, ademas de aplicar una redireccion para actualizar la informacion de la cuota seleccionada" />
-    <option name="LAST_COMMIT_MESSAGE" value="feacture-cuotas(cards de inicio EN PROCESO) las tarjetas informativas encontradas en inicio:&#10;Contador de leads Diarios&#10;Contador de ventas Diarios&#10;Total de ventas entre fechas&#10;Brindan la informacion requerida para cada tarjeta.&#10;Las tarjetas de detalles realizan las siguientes acciones:&#10;TRANSFER: obtiene el valor de todas las cuotas programadas para estas fechas, obtiene la informacion de los clientes, la fecha limite de pago y el monto a pagar.&#10;RECAUDO: obtiene el valor de todas las cuotas pagadas o en proceso para estas fechas, obtiene la informacion de los clientes, la fecha limite de pago y el monto a pagar.&#10;Se debe continuar con la estructuracion de las tarjetas restantes, ademas de aplicar una redireccion para actualizar la informacion de la cuota seleccionada" />
+    <MESSAGE value="ajustes en la actualizacion de las contraseñas de usuario" />
+    <option name="LAST_COMMIT_MESSAGE" value="ajustes en la actualizacion de las contraseñas de usuario" />
   </component>
 </project>

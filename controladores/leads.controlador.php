@@ -101,6 +101,17 @@ class ControladorLeads {
 	
 		return $respuesta;
 	}
+
+		static public function ctrVerLeadsCoordinador($id_coordinador){
+
+		$tablaLeads = "leads";
+		$tablaUsuarios = "usuarios";
+	
+		// Llamamos al modelo para obtener los leads del asesor
+		$respuesta = ModeloLeads::mdlMostrarLeadsPorCoordinador($tablaLeads, $tablaUsuarios, $id_coordinador);
+	
+		return $respuesta;
+	}
 	
 
 	static public function ctrEditarLead(){
