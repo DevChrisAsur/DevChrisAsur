@@ -67,14 +67,18 @@ $(".tablas").on("click", ".btnEditarUsuario", function(){
 		processData: false,
 		dataType: "json",
 		success: function(respuesta){
+      console.log("respuesta",respuesta);
 
 			$("#idUsuario").val(respuesta["id"]);
+      $("#editarNombre").val(respuesta["first_name"]);
+      $("#editarApellido").val(respuesta["last_name"]);
 			$("#editarCorreo").val(respuesta["correo"]);
 			$("#editarTelefone").val(respuesta["phone"]);
 			$("#editarUsuario").val(respuesta["user_name"]);
-			$("#passwordActual").val(respuesta["password"]);
+			$("#editarPassword").val(respuesta["password"]);
 			$("#editarPerfil").val(respuesta["perfil"]);
-		    $("#editarArea").val(respuesta["area"]);
+		  $("#editarArea").val(respuesta["area"]);
+      $("#reasignarCoordinador").val(respuesta["id_coordinador"]);
 		}
 
 	});

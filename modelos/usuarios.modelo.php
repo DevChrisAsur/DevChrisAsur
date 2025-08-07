@@ -108,15 +108,22 @@ static public function mdlMostrarUsuarios($tabla, $item, $valor){
 	=============================================*/
 
 	static public function mdlEditarUsuario($tabla, $datos){
-		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET user_name = :user_name, perfil = :perfil, area = :area,phone = :phone, correo = :correo, password = :password WHERE id = :id");
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET first_name = :first_name, last_name = :last_name, user_name = :user_name, perfil = :perfil, area = :area,phone = :phone, correo = :correo, password = :password, id_coordinador = :id_coordinador WHERE id = :id");
 		
 		$stmt -> bindParam(":id", $datos["id"], PDO::PARAM_INT);
+		$stmt -> bindParam(":first_name", $datos["first_name"], PDO::PARAM_STR);
+		$stmt -> bindParam(":last_name", $datos["last_name"], PDO::PARAM_STR);
 		$stmt -> bindParam(":user_name", $datos["user_name"], PDO::PARAM_STR);
 		$stmt -> bindParam(":perfil", $datos["perfil"], PDO::PARAM_STR);
 		$stmt -> bindParam(":area", $datos["area"], PDO::PARAM_STR);
 		$stmt -> bindParam(":phone", $datos["phone"], PDO::PARAM_STR);
 		$stmt -> bindParam(":correo", $datos["correo"], PDO::PARAM_STR);
 		$stmt -> bindParam(":password", $datos["password"], PDO::PARAM_STR);
+		if (is_null($datos["id_coordinador"])) {
+				$stmt->bindValue(":id_coordinador", null, PDO::PARAM_NULL);
+		} else {
+				$stmt->bindValue(":id_coordinador", $datos["id_coordinador"], PDO::PARAM_INT);
+		}
 		//echo $datos["oficina"];
 		//return;
 		if($stmt -> execute()){

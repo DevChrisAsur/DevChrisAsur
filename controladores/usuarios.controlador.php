@@ -195,12 +195,15 @@ static public function ctrIngresoUsuario() {
 
 			$datos = array(
 				"id"=>$_POST["idUsuario"],
+				"first_name" => $_POST["editarNombre"],
+				"last_name" => $_POST["editarApellido"],
 				"user_name" => $_POST["editarUsuario"],
 				"perfil" => $_POST["editarPerfil"],
 				"area" => $_POST["editarArea"],
 				"phone" => $_POST["editarTelefone"],
 				"correo" => $_POST["editarCorreo"],							   
-				"password" => $encriptar	   
+				"password" => $encriptar,
+ 			 	"id_coordinador" => ($_POST["reasignarCoordinador"] == "0") ? null : $_POST["reasignarCoordinador"]
 				);
 
 			$respuesta = ModeloUsuarios::mdlEditarUsuario($tabla, $datos);
