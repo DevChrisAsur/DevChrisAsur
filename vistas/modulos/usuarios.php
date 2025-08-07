@@ -1,5 +1,14 @@
 
 <style>
+
+  .modal-body .container {
+  width: 100% !important;
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+  margin-right: 0;
+  }
+
     .modal-header {
         background: #3e383d;
         color: white;
@@ -70,6 +79,12 @@
 
     #imageName {
         color: green;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column; /* Cambia a row si quieres alinear en una fila */
+      gap: 5px; /* Espacio entre label e input */
     }
 
     .selectize-input {
@@ -215,6 +230,38 @@
     border-radius: 3px;
     font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }   
+
+  .floating-label-group {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .floating-label-group input {
+    height: 50px;
+    padding: 12px 12px 0 12px; /* Espacio para el label */
+  }
+
+  .floating-label-group label {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #aaa;
+    pointer-events: none;
+    transition: all 0.2s ease;
+  }
+
+  .floating-label-group input:focus + label,
+  .floating-label-group input:not(:placeholder-shown) + label {
+    top: 0;
+    font-size: 12px;
+    color: #007bff;
+    background: white;
+    padding: 0 5px;
+  }
+
 
 </style>
 <!-- Datatables -->
@@ -530,10 +577,9 @@ MODAL AGREGAR USUARIO
 ======================================-->
 
 <div id="modalAgregarUsuario" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-lg"> <!-- Cambié modal-lg para darle más espacio horizontal -->
+  <div class="modal-dialog modal-md">
 
     <div class="modal-content">
-
       <form role="form" method="post" enctype="multipart/form-data">
 
         <!-- CABEZA DEL MODAL -->
@@ -543,95 +589,97 @@ MODAL AGREGAR USUARIO
         </div>
 
         <!-- CUERPO DEL MODAL -->
-        <div class="modal-body" style="max-height: 400px; overflow-y: auto;"> <!-- Añado el scroll interno -->
+        <div class="modal-body" style="max-height: 400px; overflow-y: auto;">
           <div class="box-body">
 
-            <!-- ENTRADA PARA LA IDENTIFICACION -->
+            <!-- INFORMACIÓN DEL USUARIO -->
             <div class="container">
-              <h5>Informacion del Usuario</h5>
+              <h5>Información del Usuario</h5>
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
-                    <div class="input-group">
-                      <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
-                      <input type="number" class="form-control input-lg" name="nuevoIdentificacion" placeholder="Ingresar Identificacion" required>
-                    </div>
+                    <div class="floating-label-group">
+                    <input type="number" class="form-control" id="nuevoIdentificacion" name="nuevoIdentificacion" placeholder=" " required>
+                    <label for="nuevoIdentificacion">Identificación</label>
+                  </div>
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
-                    <div class="input-group">
-                      <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
-                      <input type="text" class="form-control" name="nuevoNombre" placeholder="Ingresar Nombre">
+                    <div class="floating-label-group">
+                      <input type="text" class="form-control" name="nuevoNombre" id="nuevoNombre" placeholder=" " required>
+                      <label for="nuevoNombre">Nombres</label>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
-                    <div class="input-group">
-                      <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
-                      <input type="text" class="form-control" name="nuevoApellido" placeholder="Ingresar Apellido">
+                    <div class="floating-label-group">                    
+                      <input type="text" class="form-control " name="nuevoApellido" placeholder=" " required>
+                      <label for="nuevoApellido">Apellidos</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- INFORMACIÓN DE CONTACTO -->
+            <div class="container mt-3">
+              <h5>Información de Contacto</h5>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <div class="floating-label-group">                      
+                      <input type="email" class="form-control" name="nuevoCorreo" placeholder=" " required>
+                      <label for="nuevoCorreo">Correo electronico</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <div class="floating-label-group">
+                      <input type="text" class="form-control" name="nuevoTelefono" placeholder=" " required>
+                      <label for="nuevoTelefono">Telefono de contacto</label>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
+            <!-- INFORMACIÓN DEL SISTEMA -->
             <div class="container mt-3">
-              <h5>Informacion de Contacto</h5>
+              <h5>Información del Sistema</h5>
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
-                    <div class="input-group">
-                      <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
-                      <input type="email" class="form-control input-lg" name="nuevoCorreo" placeholder="Ingresar Correo" required>
+                    <div class="floating-label-group">
+                      <input type="text" class="form-control" name="nuevoUsuario" placeholder=" " required>
+                      <label for="nuevoUsuario">Nombre de usuario</label>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
-                    <div class="input-group">
-                      <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
-                      <input type="text" class="form-control input-lg" name="nuevoTelefono" placeholder="Ingresar telefono de Contacto" required>
+                    <div class="floating-label-group">
+                      <input type="password" class="form-control" name="nuevoPassword" placeholder=" " required>
+                      <label for="nuevoPassword">Contraseña del sistema</label>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
+            <!-- ÁREA Y PERFIL -->
             <div class="container mt-3">
-              <h5>Informacion del Sistema</h5>
+              <h5>Área y Perfil</h5>
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
-                    <div class="input-group">
-                      <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                      <input type="text" class="form-control input-lg" name="nuevoUsuario" placeholder="Ingresar nombre de Usuario" required>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                      <input type="password" class="form-control input-lg" name="nuevoPassword" placeholder="Ingresar contraseña" required>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="container mt-3">
-              <h5>Area y Perfil</h5>
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
+                    <div class="floating-label-group">
                       <select class="form-control input-lg" name="nuevaArea" required>
-                        <option value="">Seleccionar Area</option>
+                      <label for="nuevaArea">Area de trabajo</label>
+                        <option value="">Seleccionar Área</option>
                         <?php
                           $item = null;
                           $valor = null;
@@ -644,80 +692,34 @@ MODAL AGREGAR USUARIO
                     </div>
                   </div>
                 </div>
+
                 <div class="col-md-4">
                   <div class="form-group">
                     <div class="input-group">
-                      <?php
-                      if ($comparar == "Super Administrador") {
-                        echo '<span class="input-group-addon"><i class="fa fa-users"></i></span>
-                              <select class="form-control input-lg" name="nuevoPerfil" required>
-                              <option value="">Seleccionar Perfil</option>
-
-                              <option value="Super Administrador">Super Administrador</option>
-                              <option value="Director juridico">Director juridico</option>
-
-                              <option value="Director comercial">Director comercial</option>
-                              <option value="Coordinador comercial">Coordinador comercial</option>
-                              <option value="Asesor comercial">Asesor comercial</option>
-                              
-                              
-                              <option value="Especialista juridico">Especialista juridico</option>
-                              <option value="Director juridico">Director juridico</option>
-                              </select>';
-                      }
-                      if ($comparar == "Director juridico") {
-                        echo '<span class="input-group-addon"><i class="fa fa-users"></i></span>
-                              <select class="form-control input-lg" name="nuevoPerfil" required>
-                              <option value="">Seleccionar Perfil</option>
-
-                              <option value="Director juridico">Director juridico</option>
-
-                              <option value="Director comercial">Director comercial</option>
-                              <option value="Coordinador comercial">Coordinador comercial</option>
-                              <option value="Asesor comercial">Asesor comercial</option>
-                              
-                              
-                              <option value="Especialista juridico">Especialista juridico</option>
-                              <option value="Director juridico">Director juridico</option>
-                              </select>';
-                      }elseif ($comparar == "Director comercial") {
-                        echo '<span class="input-group-addon"><i class="fa fa-users"></i></span>
-                              <select class="form-control input-lg" name="nuevoPerfil" required>
-                              <option value="">Seleccionar Perfil</option>
-
-                              <option value="Asesor comercial">Asesor comercial</option>
-                              <option value="Coordinador comercial">Coordinador comercial</option>
-                              </select>';
-                      }elseif ($comparar == "Coordinador comercial") {
-                        echo '<span class="input-group-addon"><i class="fa fa-users"></i></span>
-                              <select class="form-control input-lg" name="nuevoPerfil" required>
-                              <option value="">Seleccionar Perfil</option>
-                              <option value="Asesor comercial">Asesor comercial</option>
-                              </select>';
-                      }
-                      ?>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="container mt-3">
-              <h5>Asociar coordinador</h5>
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
-                      <select class="form-control input-lg" name="nuevoCoordinador">
-                        <option value="">Asociar coordinador</option>
+                      <select class="form-control input-lg" name="nuevoPerfil" required>
+                        <option value="">Seleccionar Perfil</option>
                         <?php
-                          $item = null;
-                          $valor = null;
-                          $categorias = ControladorUsuarios::ctrMostrarCoordinadores($item, $valor);
-                          echo '<option value="0">sin asesor</option>';
-                          foreach ($categorias as $key => $value) {            
-                            echo '<option value="' . $value["id"] . '">' . $value["user_name"]  . '</option>';
+                          if ($comparar == "Super Administrador") {
+                            echo '
+                              <option value="Super Administrador">Super Administrador</option>
+                              <option value="Director juridico">Director jurídico</option>
+                              <option value="Director comercial">Director comercial</option>
+                              <option value="Coordinador comercial">Coordinador comercial</option>
+                              <option value="Asesor comercial">Asesor comercial</option>
+                              <option value="Especialista juridico">Especialista jurídico</option>';
+                          } elseif ($comparar == "Director juridico") {
+                            echo '
+                              <option value="Director juridico">Director jurídico</option>
+                              <option value="Director comercial">Director comercial</option>
+                              <option value="Coordinador comercial">Coordinador comercial</option>
+                              <option value="Asesor comercial">Asesor comercial</option>
+                              <option value="Especialista juridico">Especialista jurídico</option>';
+                          } elseif ($comparar == "Director comercial") {
+                            echo '
+                              <option value="Asesor comercial">Asesor comercial</option>
+                              <option value="Coordinador comercial">Coordinador comercial</option>';
+                          } elseif ($comparar == "Coordinador comercial") {
+                            echo '<option value="Asesor comercial">Asesor comercial</option>';
                           }
                         ?>
                       </select>
@@ -727,8 +729,33 @@ MODAL AGREGAR USUARIO
               </div>
             </div>
 
-          </div> <!-- Cierre del box-body -->
-        </div> <!-- Cierre del modal-body -->
+            <!-- ASOCIAR COORDINADOR -->
+            <div class="container mt-3">
+              <h5>Asociar Coordinador</h5>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <select class="form-control input-lg" name="nuevoCoordinador">
+                        <option value="">Asociar coordinador</option>
+                        <?php
+                          $item = null;
+                          $valor = null;
+                          $categorias = ControladorUsuarios::ctrMostrarCoordinadores($item, $valor);
+                          echo '<option value="0">Sin asesor</option>';
+                          foreach ($categorias as $key => $value) {
+                            echo '<option value="' . $value["id"] . '">' . $value["user_name"] . '</option>';
+                          }
+                        ?>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div> <!-- .box-body -->
+        </div> <!-- .modal-body -->
 
         <!-- PIE DEL MODAL -->
         <div class="modal-footer">
@@ -742,11 +769,10 @@ MODAL AGREGAR USUARIO
         ?>
 
       </form>
-
     </div>
-
   </div>
 </div>
+
 
 <!--=====================================
 MODAL EDITAR USUARIO

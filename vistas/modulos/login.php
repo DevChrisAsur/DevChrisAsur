@@ -42,7 +42,7 @@
 
         .login-box {
             width: 100%;
-            max-width: 400px;
+            max-width: 500px;
             padding: 0; /* Elimina el padding del login-box */
             border-radius: 5px;
             background-color: transparent; /* Fondo transparente */
@@ -51,9 +51,15 @@
 
         .login-box-body {
             color: #fff;
-            padding: 20px; /* Añade padding dentro del login-box-body */
+            padding: 30px; /* Añade padding dentro del login-box-body */
             background: rgba(0, 0, 0, 0.01); /* Fondo casi transparente */
             border-radius: 5px; /* Bordes redondeados */
+            font-size: 1.1rem;
+            backdrop-filter: blur(10px); /* efecto de vidrio difuminado */
+            -webkit-backdrop-filter: blur(10px); /* soporte para Safari */
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); /* sombra para dar profundidad */
+            border: 1px solid rgba(255, 255, 255, 0.2); /* borde tenue tipo vidrio */
+            font-size: 1.1rem;
         }
 
         /* Estilos para el pie de página */
@@ -81,6 +87,10 @@
         <div class="login-box">
             <div class="login-box-body">
                 <p class="login-box-msg text-center">Ingresar al sistema</p>
+                        <?php
+                            $login = new ControladorUsuarios();
+                            $login -> ctrIngresoUsuario();
+                        ?>
                 <form method="post">
                     <div class="form-group has-feedback" style="position: relative;">
                         <input type="email" class="form-control" placeholder="Correo" name="ingUsuario" id="correo" required>
@@ -103,10 +113,6 @@
                 </form>
             </div>
         </div>
-        <?php
-            $login = new ControladorUsuarios();
-            $login -> ctrIngresoUsuario();
-        ?>
     </main>
     <footer>
         <img src="vistas/img/plantilla/AsurLogo.png" alt="Logo"> <!-- Ajusta la ruta y extensión aquí -->

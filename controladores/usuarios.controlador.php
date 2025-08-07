@@ -27,7 +27,8 @@ static public function ctrIngresoUsuario() {
 	}
 
 	if ($respuesta["user_status"] == 0) {
-		echo json_encode(["error" => "El usuario está inactivo"]);
+		echo '<br><div class="alert alert-danger">El usuario se encuentra inhabilitado.<br> 
+					Comuniquese con su proveedor de servicios para mas informacion</div>';
 		return;
 	}
 
@@ -53,7 +54,7 @@ static public function ctrIngresoUsuario() {
 		echo '<script>window.location = "inicio";</script>';
 
 	} else {
-		echo '<br><div class="alert alert-danger">Contraseña incorrecta (MD5)</div>';
+		echo '<br><div class="alert alert-danger">Contraseña incorrecta </div>';
 	}
 }
 
