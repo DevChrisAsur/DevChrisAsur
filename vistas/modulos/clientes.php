@@ -456,6 +456,80 @@
             font-style: italic;
             color: #555;
         }
+  .nota-lista-scroll {
+  max-height: 500px;  /* Ajusta la altura que necesites */
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.nota-card {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  padding: 16px;
+  font-family: sans-serif;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.nota-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.nota-titulo {
+  font-size: 18px;
+  margin: 0;
+  color: #2c3e50;
+}
+
+.nota-usuario {
+  font-size: 13px;
+  color: #6a1b9a;
+  display: flex;
+  align-items: center;
+}
+
+.nota-usuario::before {
+  content: "👤";
+  margin-right: 4px;
+}
+
+.nota-body {
+  font-size: 15px;
+  color: #333;
+  margin-bottom: 15px;
+  white-space: pre-wrap;
+}
+
+.nota-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+  color: #888;
+}
+
+.nota-fecha::before {
+  content: "📅 ";
+}
+
+.nota-archivo {
+  text-decoration: none;
+  color: #2980b9;
+}
+
+.nota-archivo::before {
+  content: "📎 ";
+}
+
+
     </style>
 
     <head>
@@ -909,8 +983,11 @@
                                                     </div>
                                                 </div>
                                             </form>
+                                            <div id="contenedorNotas" class="nota-lista-scroll">
+                                            <!-- Aquí se mostrarán las notas dinámicamente -->
+                                            </div>
                                         </div>
-
+                                    
                                     </div>
 
                                 </div>
@@ -1186,6 +1263,7 @@
 
                 const idCliente = $(this).attr('idCliente');
                 if (idCliente) {
+                    $('#idCliente').val(idCliente);
                     cargarInformacionFinanciera(idCliente); // Cargar datos cuando se abre
                 } else {
                     console.warn("No se encontró idCliente al intentar cargar información financiera.");
@@ -1197,6 +1275,7 @@
             $('#btnVolver').click(function() {
                 $('#boxBodySecundario').hide(); // Oculta el box-body secundario
                 $('#boxBodyPrincipal').slideToggle(); // Muestra el box-body principal
+                document.querySelector('a[href="#tab1"]').click();
             });
         });
 
@@ -1372,3 +1451,18 @@
             });
         });
     </script>
+    
+<script>
+    $(document).ready(function () {
+    // Detectar cuándo se muestra el tab con id="tab2"
+    $(document).on('click', 'a[href="#tab2"]', function () {
+        const idCliente = $('#idCliente').val();
+        if (idCliente) {
+            cargarNotasCliente(idCliente);
+        } else {
+            console.warn("No se ha definido un idCliente.");
+            $('#contenedorNotas').html('<p class="text-muted">Debe seleccionar un cliente para ver sus notas.</p>');
+        }
+    });
+});
+</script>

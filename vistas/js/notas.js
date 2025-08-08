@@ -24,12 +24,12 @@ $(document).on('click', '#guardarNota', function(e) {
         formData.append('archivoNota', archivoNota);
     }
 
-    console.log("Datos enviados (nota):", {
-        idCliente: idCliente,
-        nuevoTituloNota: nuevoTituloNota,
-        contenidoNota: contenidoNota,
-        archivoNota: archivoNota ? archivoNota.name : "No se seleccionó archivo"
-    });
+    // console.log("Datos enviados (nota):", {
+    //     idCliente: idCliente,
+    //     nuevoTituloNota: nuevoTituloNota,
+    //     contenidoNota: contenidoNota,
+    //     archivoNota: archivoNota ? archivoNota.name : "No se seleccionó archivo"
+    // });
 
     // Hacer la solicitud AJAX
     $.ajax({
@@ -41,7 +41,7 @@ $(document).on('click', '#guardarNota', function(e) {
         processData: false,
         dataType: 'json',
         success: function(respuesta) {
-            console.log("Respuesta del servidor:", respuesta);
+            //console.log("Respuesta del servidor:", respuesta);
             
             if (respuesta.success) {
                 swal({
@@ -53,7 +53,7 @@ $(document).on('click', '#guardarNota', function(e) {
                     $('#nuevoTituloNota').val('');
                     $('#contenidoNota').val('');
                     $('#archivoNota').val(''); // Limpiar el campo de archivo
-                    // Puedes agregar cualquier acción adicional aquí después de limpiar el formulario
+                    cargarNotasCliente(idCliente);
                 });
             } else if (respuesta.error) {
                 swal({
@@ -72,3 +72,68 @@ $(document).on('click', '#guardarNota', function(e) {
         }
     });
 });
+
+function cargarNotasCliente(idCliente) {
+    $.ajax({
+        url: 'ajax/notas.ajax.php',
+        method: 'POST',
+        data: { accion: 'mostrarNotas', idCliente: idCliente },
+        dataType: 'json',
+        success: function(respuesta) {
+            console.log(respuesta);
+            renderizarNotasEnCards(respuesta); // ✅ Aquí se usan los estilos bonitos
+        },
+        error: function(xhr, status, error) {
+            console.error("Error al cargar notas:", error);
+        }
+    });
+}
+
+
+function renderizarNotasEnCards(notas) {
+    const contenedor = $('#contenedorNotas');
+    contenedor.empty(); // Limpiar contenido anterior SIEMPRE
+
+    if (!notas || notas.length === 0) {
+        // Mostrar mensaje y salir
+        contenedor.html('<p class="text-muted">No hay notas registradas para este cliente.</p>');
+        return;
+    }
+
+    // Renderizar nuevas notas
+    notas.forEach(nota => {
+        const card = `
+            <div class="nota-card">
+                <div class="nota-header">
+                    <h3 class="nota-titulo">${nota.titulo}</h3>
+                    <span class="nota-usuario">Usuario #${nota.id_usuario}</span>
+                </div>
+                <div class="nota-body">
+                    ${nota.contenido}
+                </div>
+                <div class="nota-footer">
+                    <span class="nota-fecha">${formatearFecha(nota.fecha_creacion)}</span>
+                    ${
+                        nota.nombre_archivo 
+                            ? `<a class="nota-archivo" href="uploads/notas/${nota.nombre_archivo}" target="_blank">Ver archivo</a>`
+                            : `<span class="text-muted">Sin archivo</span>`
+                    }
+                </div>
+            </div>
+        `;
+
+        contenedor.append(card);
+    });
+}
+
+
+
+function formatearFecha(fecha) {
+    const f = new Date(fecha);
+    const dia = String(f.getDate()).padStart(2, '0');
+    const mes = String(f.getMonth() + 1).padStart(2, '0');
+    const año = f.getFullYear();
+    return `${dia}/${mes}/${año}`;
+}
+
+

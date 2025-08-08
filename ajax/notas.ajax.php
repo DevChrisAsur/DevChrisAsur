@@ -38,3 +38,14 @@ if (isset($_POST["idCliente"]) && isset($_POST['nuevoTituloNota'])) {
     }
     exit;
 }
+/*=============================================
+MOSTRAR NOTAS DE UN CLIENTE
+=============================================*/
+if (isset($_POST["accion"]) && $_POST["accion"] === "mostrarNotas" && isset($_POST["idCliente"])) {
+    $idCliente = $_POST["idCliente"];
+
+    $notas = ControladorNotas::ctrObtenerNotasPorCliente($idCliente);
+
+    echo json_encode($notas);
+    exit;
+}

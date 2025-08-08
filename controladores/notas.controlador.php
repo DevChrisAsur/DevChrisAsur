@@ -24,7 +24,7 @@ class ControladorNotas {
 			// Preparar datos de la nota
 			$datos = array(
 				"id_customer" => $_POST["idCliente"],
-				"id" => $idUsuario,
+				"id_usuario" => $idUsuario,
 				"titulo" => $_POST["nuevoTituloNota"],
 				"contenido" => $_POST["contenidoNota"],
 				"fecha_creacion" => date("Y-m-d H:i:s"),
@@ -34,7 +34,7 @@ class ControladorNotas {
 			// Verificar si hay un archivo cargado y validar su tamaño
 			if (isset($_FILES["archivoNota"]) && $_FILES["archivoNota"]["error"] == 0) {
 				// Definir tamaño máximo permitido en bytes (por ejemplo, 2 MB)
-				$tamanoMaximo = 2 * 1024 * 1024; // 2 MB
+				$tamanoMaximo = 10 * 1024 * 1024; // 2 MB
 	
 				// Verificar tamaño del archivo
 				if ($_FILES["archivoNota"]["size"] > $tamanoMaximo) {
@@ -46,6 +46,10 @@ class ControladorNotas {
 	
 				// Mover el archivo a la carpeta deseada
 				$directorio = "../uploads/notas/";
+				if (!file_exists($directorio)) {
+						mkdir($directorio, 0777, true);
+				}
+
 				if (move_uploaded_file($_FILES["archivoNota"]["tmp_name"], $directorio . $nombreArchivo)) {
 					// Actualizar el array $datos con el nombre del archivo
 					$datos["nombre_archivo"] = $nombreArchivo;
@@ -78,6 +82,11 @@ class ControladorNotas {
 
 		return $respuesta;
 	}
+
+	public static function ctrObtenerNotasPorCliente($idCliente) {
+    $tabla = "nota";
+    return ModeloNotas::mdlObtenerNotasPorCliente($tabla, $idCliente);
+}
 
 	/*=============================================
 	EDITAR NOTA
