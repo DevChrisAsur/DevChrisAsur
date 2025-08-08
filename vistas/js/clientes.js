@@ -269,18 +269,41 @@ function cargarInformacionFinanciera(idCliente) {
                 $("#InfoStatusFactura").text(respuesta.status_factura);
                 $("#InfoFechaLimite").text(respuesta.fecha_limite);
 
+                $("#InfoFactura").text(respuesta.id_factura);
                 localStorage.setItem("idFacturaSeleccionado", respuesta.id_factura);
 
-                verCuotas(); // <- asegúrate de tener también esta función definida
+                verCuotas();
             } else {
+                limpiarCamposFinancieros(); // <<< Nueva función para limpiar
                 console.warn("No hay datos financieros disponibles para este cliente.");
+                localStorage.removeItem("idFacturaSeleccionado"); // 👈 IMPORTANTE
+                limpiarTablaCuotas();
             }
         },
         error: function (xhr, status, error) {
+            limpiarCamposFinancieros(); // <<< También limpiar en caso de error
             console.error("Error en cargarInformacionFinanciera:", error);
         }
     });
 }
+
+function limpiarCamposFinancieros() {
+    $("#InfoFactura").text("-");
+    $("#InfoFechaEmision").text("-");
+    $("#InfoBanco").text("-");
+    $("#InfoTitular").text("-");
+    $("#InfoNumeroCuenta").text("-");
+    $("#InfoTipoCuenta").text("-");
+    $("#InfoMonto").text("-");
+    $("#InfoStatusFactura").text("-");
+    $("#InfoFechaLimite").text("-");
+}
+
+function limpiarTablaCuotas() {
+    const tbody = $(".table-cuotas");
+    tbody.empty();
+}
+
 
 $(document).ready(function () {
   $('.card-button').on('click', function () {

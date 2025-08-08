@@ -53,6 +53,7 @@ $(document).on("click", "#btnInformacionAdicional", function () {
 function verCuotas() {
     var idFactura = localStorage.getItem("idFacturaSeleccionado");
     if (!idFactura) {
+         limpiarTablaCuotas();
         console.error("No se encontró idFactura en localStorage.");
         return;
     }
@@ -73,12 +74,14 @@ function verCuotas() {
             if (response.error) {
                 console.error("Error:", response.error);
                 alert("Error: " + response.error);
+                limpiarTablaCuotas();
             } else {
                 llenarTablaCuotas(response);
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error("Error en la solicitud AJAX:", textStatus, errorThrown);
+            limpiarTablaCuotas(); 
         }
     });
 
