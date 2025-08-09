@@ -80,8 +80,8 @@ function cargarNotasCliente(idCliente) {
         data: { accion: 'mostrarNotas', idCliente: idCliente },
         dataType: 'json',
         success: function(respuesta) {
-            console.log(respuesta);
-            renderizarNotasEnCards(respuesta); // ✅ Aquí se usan los estilos bonitos
+            // console.log(respuesta);
+            renderizarNotasEnCards(respuesta); 
         },
         error: function(xhr, status, error) {
             console.error("Error al cargar notas:", error);
@@ -106,13 +106,12 @@ function renderizarNotasEnCards(notas) {
             <div class="nota-card">
                 <div class="nota-header">
                     <h3 class="nota-titulo">${nota.titulo}</h3>
-                    <span class="nota-usuario">Usuario #${nota.id_usuario}</span>
+                    <span class="nota-usuario">Creada por ${nota.user_name} el dia ${formatearFecha(nota.fecha_creacion)}</span>
                 </div>
                 <div class="nota-body">
                     ${nota.contenido}
                 </div>
                 <div class="nota-footer">
-                    <span class="nota-fecha">${formatearFecha(nota.fecha_creacion)}</span>
                     ${
                         nota.nombre_archivo 
                             ? `<a class="nota-archivo" href="uploads/notas/${nota.nombre_archivo}" target="_blank">Ver archivo</a>`

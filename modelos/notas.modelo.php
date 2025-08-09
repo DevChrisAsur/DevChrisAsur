@@ -61,12 +61,19 @@ class ModeloNotas {
     }
 
     public static function mdlObtenerNotasPorCliente($tabla, $idCliente) {
-    $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE id_customer = :id_customer ORDER BY fecha_creacion DESC");
-    $stmt->bindParam(":id_customer", $idCliente, PDO::PARAM_INT);
+        $stmt = Conexion::conectar()->prepare(
+            "SELECT n.*, u.user_name
+            FROM $tabla n
+            INNER JOIN usuarios u ON n.id_usuario = u.id
+            WHERE n.id_customer = :id_customer
+            ORDER BY n.fecha_creacion DESC
+        ");
 
-    $stmt->execute();
-    return $stmt->fetchAll();
+        $stmt->bindParam(":id_customer", $idCliente, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
+
 
 
     /*=============================================

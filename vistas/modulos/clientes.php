@@ -456,80 +456,100 @@
             font-style: italic;
             color: #555;
         }
-  .nota-lista-scroll {
-  max-height: 500px;  /* Ajusta la altura que necesites */
-  overflow-y: auto;
-  padding-right: 8px;
-}
 
-.nota-card {
-  width: 100%;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  padding: 16px;
-  font-family: sans-serif;
-  margin-bottom: 16px;
-  display: flex;
-  flex-direction: column;
-}
+        .nota-lista-scroll {
+            max-height: 500px;
+            /* Ajusta la altura que necesites */
+            overflow-y: auto;
+            padding-right: 8px;
+        }
 
-.nota-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
+        .nota-card {
+            width: 100%;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 16px;
+            font-family: sans-serif;
+            margin-bottom: 16px;
+            display: flex;
+            flex-direction: column;
+        }
 
-.nota-titulo {
-  font-size: 18px;
-  margin: 0;
-  color: #2c3e50;
-}
+        .nota-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
 
-.nota-usuario {
-  font-size: 13px;
-  color: #6a1b9a;
-  display: flex;
-  align-items: center;
-}
+        .nota-titulo {
+            font-size: 18px;
+            margin: 0;
+            color: #2c3e50;
+        }
 
-.nota-usuario::before {
-  content: "👤";
-  margin-right: 4px;
-}
+        .nota-usuario {
+            font-size: 12px;
+            color: #787779;
+            display: flex;
+            align-items: center;
+        }
 
-.nota-body {
-  font-size: 15px;
-  color: #333;
-  margin-bottom: 15px;
-  white-space: pre-wrap;
-}
+        .nota-usuario::before {
+            content: "👤";
+            margin-right: 4px;
+        }
 
-.nota-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 13px;
-  border-top: 1px solid #eee;
-  padding-top: 10px;
-  color: #888;
-}
+        .nota-body {
+            font-size: 15px;
+            color: #333;
+            margin-bottom: 15px;
+            white-space: pre-wrap;
+        }
 
-.nota-fecha::before {
-  content: "📅 ";
-}
+        .nota-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+            color: #888;
+        }
 
-.nota-archivo {
-  text-decoration: none;
-  color: #2980b9;
-}
+        .nota-fecha::before {
+            content: "📅 ";
+        }
 
-.nota-archivo::before {
-  content: "📎 ";
-}
+        .nota-archivo {
+            text-decoration: none;
+            color: #2980b9;
+        }
 
+        .nota-archivo::before {
+            content: "📎 ";
+        }
 
+        .drop-zone {
+            border: 2px dashed #aaa;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .drop-zone.dragover {
+            background-color: #f1f1f1;
+            border-color: #007bff;
+        }
+
+        .drop-zone input {
+            display: none;
+        }
     </style>
 
     <head>
@@ -962,17 +982,23 @@
 
                                                     <!-- Campo de carga de documento -->
                                                     <div class="row mt-3">
-                                                        <div class="col-md-6">
+                                                        
                                                             <div class="form-group">
                                                                 <label for="archivoNota">Subir Documento o Imagen (opcional):</label>
-                                                                <label class="custom-file-upload">
-                                                                    <input type="file" name="archivoNota" id="archivoNota" accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.gif">
-                                                                    Seleccionar archivo
-                                                                </label>
+
+                                                                <!-- Área de arrastrar y soltar -->
+                                                                <div class="drop-zone" id="dropZone">
+                                                                    <span id="dropText">Arrastra el archivo aquí o haz clic para seleccionarlo</span>
+                                                                    <input type="file" name="archivoNota" id="archivoNota"
+                                                                        accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.gif">
+                                                                </div>
+
                                                                 <span id="file-name">Ningún archivo seleccionado</span>
-                                                                <small class="form-text text-muted">Formatos permitidos: PDF, DOC, DOCX, TXT, JPG, PNG, GIF</small>
+                                                                <small class="form-text text-muted">
+                                                                    Formatos permitidos: PDF, DOC, DOCX, TXT, JPG, PNG, GIF
+                                                                </small>
                                                             </div>
-                                                        </div>
+                                                        
                                                     </div>
 
 
@@ -984,10 +1010,10 @@
                                                 </div>
                                             </form>
                                             <div id="contenedorNotas" class="nota-lista-scroll">
-                                            <!-- Aquí se mostrarán las notas dinámicamente -->
+                                                <!-- Aquí se mostrarán las notas dinámicamente -->
                                             </div>
                                         </div>
-                                    
+
                                     </div>
 
                                 </div>
@@ -1029,7 +1055,7 @@
                                     <select class="form-control" id="estadoPago" name="estado_pago">
                                         <option value="dv0">dv0: no se ha ejecutado el cobro</option>
                                         <option value="En proceso">En proceso</option>
-                                        <option value="dv1">Link de pago inactivo</option> 
+                                        <option value="dv1">Link de pago inactivo</option>
                                         <option value="dv2">Fondos insuficientes</option>
                                         <option value="dv3">Cuenta no localizada</option>
                                         <option value="dv4">El cliente solicita devolucion</option>
@@ -1451,18 +1477,54 @@
             });
         });
     </script>
-    
-<script>
-    $(document).ready(function () {
-    // Detectar cuándo se muestra el tab con id="tab2"
-    $(document).on('click', 'a[href="#tab2"]', function () {
-        const idCliente = $('#idCliente').val();
-        if (idCliente) {
-            cargarNotasCliente(idCliente);
+
+    <script>
+        $(document).ready(function() {
+            // Detectar cuándo se muestra el tab con id="tab2"
+            $(document).on('click', 'a[href="#tab2"]', function() {
+                const idCliente = $('#idCliente').val();
+                if (idCliente) {
+                    cargarNotasCliente(idCliente);
+                } else {
+                    console.warn("No se ha definido un idCliente.");
+                    $('#contenedorNotas').html('<p class="text-muted">Debe seleccionar un cliente para ver sus notas.</p>');
+                }
+            });
+        });
+    </script>
+
+    <script>
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('archivoNota');
+    const fileName = document.getElementById('file-name');
+
+    // Click sobre la zona = abrir selector de archivos
+    dropZone.addEventListener('click', () => fileInput.click());
+
+    // Cambiar texto al seleccionar archivo
+    fileInput.addEventListener('change', () => {
+        if (fileInput.files.length) {
+            fileName.textContent = fileInput.files[0].name;
         } else {
-            console.warn("No se ha definido un idCliente.");
-            $('#contenedorNotas').html('<p class="text-muted">Debe seleccionar un cliente para ver sus notas.</p>');
+            fileName.textContent = "Ningún archivo seleccionado";
         }
     });
-});
+
+    // Evitar que el navegador abra el archivo
+    ['dragover', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, e => e.preventDefault());
+    });
+
+    // Efecto visual al arrastrar
+    dropZone.addEventListener('dragover', () => dropZone.classList.add('dragover'));
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+
+    // Manejar archivos soltados
+    dropZone.addEventListener('drop', e => {
+        dropZone.classList.remove('dragover');
+        if (e.dataTransfer.files.length) {
+            fileInput.files = e.dataTransfer.files; // Asignar el archivo al input
+            fileName.textContent = e.dataTransfer.files[0].name;
+        }
+    });
 </script>
