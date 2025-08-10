@@ -1,4 +1,73 @@
     <style>
+        .info-card {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+            margin-top: 15px;
+            border: 1px solid #e5e7eb;
+            font-size: 0.9rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 15px;
+            padding: 12px;
+            /* espacio vertical y horizontal */
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #6b7280;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            margin-bottom: 2px;
+        }
+
+        .info-label i {
+            margin-right: 5px;
+            color: #3b82f6;
+            font-size: 0.9rem;
+        }
+
+        .info-value {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #111827;
+            background: #f9fafb;
+            padding: 4px 6px;
+            border-radius: 5px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .info-actions {
+            text-align: right;
+            margin-top: 12px;
+            padding: 10px;
+        }
+
+        .btn-edit {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-edit:hover {
+            background: #2563eb;
+        }
+
+        .info-value[contenteditable="true"] {
+            background: #fffbe6;
+            outline: 1px solid #fbbf24;
+        }
+
         .tabs {
             padding: 10px;
             color: var(--tabs-text-color);
@@ -578,7 +647,7 @@
     </script>
     <script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>
     <script src="vistas/plugins/sweetalert2/sweetalert2.all.js"></script>
-
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.bootstrap4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
@@ -884,49 +953,45 @@
                                                     </form>
                                                 </div>
                                             </div>
-                                            <div class="container" style="margin-top: 20px; padding: 20px; background-color: #f9f4d1; border-radius: 8px;">
-                                                <div class="row">
-                                                    <!-- Columna 1 (Información del Producto) -->
-
-                                                    <div class="col-md-6">
-
-                                                        <div class="mb-2">
-                                                            <label for="InfoBanco">Banco:</label>
-                                                            <span id="InfoBanco" class="info-display"></span>
-                                                        </div>
-                                                        <div class="mb-2">
-                                                            <label for="InfoTipoCuenta">Tipo de cuenta:</label>
-                                                            <span id="InfoTipoCuenta" class="info-display"></span>
-                                                        </div>
-                                                        <div class="mb-2">
-                                                            <label for="InfoNumeroCuenta">Número de cuenta:</label>
-                                                            <span id="InfoNumeroCuenta" class="info-display"></span>
-                                                        </div>
-                                                        <div class="mb-2">
-                                                            <label for="InfoTitular">Titular:</label>
-                                                            <span id="InfoTitular" class="info-display"></span>
-                                                        </div>
+                                            <div class="container info-card">
+                                                <div class="info-grid">
+                                                    <div>
+                                                        <div class="info-label"><i class="fas fa-university"></i>Banco:</div>
+                                                        <div id="InfoBanco" class="info-value" contenteditable="false"></div>
                                                     </div>
-
-                                                    <!-- Columna 2 (Información Financiera) -->
-                                                    <div class="col-md-6">
-                                                        <div class="mb-2">
-                                                            <label for="InfoFechaEmision">Fecha de Emisión:</label>
-                                                            <span id="InfoFechaEmision" class="info-display"></span>
-                                                        </div>
-                                                        <div class="mb-2">
-                                                            <label for="InfoMonto">Monto:</label>
-                                                            <span id="InfoMonto" class="info-display"></span>
-                                                        </div>
-                                                        <div class="mb-2">
-                                                            <label for="InfoStatusFactura">Estado de la Factura:</label>
-                                                            <span id="InfoStatusFactura" class="info-display"></span>
-                                                        </div>
-                                                        <div class="mb-2">
-                                                            <label for="InfoFechaLimite">Fecha Límite:</label>
-                                                            <span id="InfoFechaLimite" class="info-display"></span>
-                                                        </div>
+                                                    <div>
+                                                        <div class="info-label"><i class="fas fa-credit-card"></i>Tipo de cuenta:</div>
+                                                        <div id="InfoTipoCuenta" class="info-value" contenteditable="false"></div>
                                                     </div>
+                                                    <div>
+                                                        <div class="info-label"><i class="fas fa-hashtag"></i>Número de cuenta:</div>
+                                                        <div id="InfoNumeroCuenta" class="info-value" contenteditable="false"></div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="info-label"><i class="fas fa-user"></i>Titular:</div>
+                                                        <div id="InfoTitular" class="info-value" contenteditable="false"></div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="info-label"><i class="fas fa-calendar-day"></i>Fecha de Emisión:</div>
+                                                        <div id="InfoFechaEmision" class="info-value" contenteditable="false"></div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="info-label"><i class="fas fa-dollar-sign"></i>Monto:</div>
+                                                        <div id="InfoMonto" class="info-value"></div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="info-label"><i class="fas fa-file-invoice-dollar"></i>Estado Factura:</div>
+                                                        <div id="InfoStatusFactura" class="info-value" contenteditable="false"></div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="info-label"><i class="fas fa-hourglass-half"></i>Fecha Límite:</div>
+                                                        <div id="InfoFechaLimite" class="info-value" contenteditable="false"></div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="info-actions">
+                                                    <button id="btnEdit" class="btn-edit"><i class="fas fa-edit"></i> Editar Información</button>
+                                                    <button id="btnSave" class="btn-edit" style="display:none;background:#10b981;"><i class="fas fa-save"></i> Guardar</button>
                                                 </div>
                                             </div>
 
@@ -982,23 +1047,23 @@
 
                                                     <!-- Campo de carga de documento -->
                                                     <div class="row mt-3">
-                                                        
-                                                            <div class="form-group">
-                                                                <label for="archivoNota">Subir Documento o Imagen (opcional):</label>
 
-                                                                <!-- Área de arrastrar y soltar -->
-                                                                <div class="drop-zone" id="dropZone">
-                                                                    <span id="dropText">Arrastra el archivo aquí o haz clic para seleccionarlo</span>
-                                                                    <input type="file" name="archivoNota" id="archivoNota"
-                                                                        accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.gif">
-                                                                </div>
+                                                        <div class="form-group">
+                                                            <label for="archivoNota">Subir Documento o Imagen (opcional):</label>
 
-                                                                <span id="file-name">Ningún archivo seleccionado</span>
-                                                                <small class="form-text text-muted">
-                                                                    Formatos permitidos: PDF, DOC, DOCX, TXT, JPG, PNG, GIF
-                                                                </small>
+                                                            <!-- Área de arrastrar y soltar -->
+                                                            <div class="drop-zone" id="dropZone">
+                                                                <span id="dropText">Arrastra el archivo aquí o haz clic para seleccionarlo</span>
+                                                                <input type="file" name="archivoNota" id="archivoNota"
+                                                                    accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.gif">
                                                             </div>
-                                                        
+
+                                                            <span id="file-name">Ningún archivo seleccionado</span>
+                                                            <small class="form-text text-muted">
+                                                                Formatos permitidos: PDF, DOC, DOCX, TXT, JPG, PNG, GIF
+                                                            </small>
+                                                        </div>
+
                                                     </div>
 
 
@@ -1494,37 +1559,37 @@
     </script>
 
     <script>
-    const dropZone = document.getElementById('dropZone');
-    const fileInput = document.getElementById('archivoNota');
-    const fileName = document.getElementById('file-name');
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('archivoNota');
+        const fileName = document.getElementById('file-name');
 
-    // Click sobre la zona = abrir selector de archivos
-    dropZone.addEventListener('click', () => fileInput.click());
+        // Click sobre la zona = abrir selector de archivos
+        dropZone.addEventListener('click', () => fileInput.click());
 
-    // Cambiar texto al seleccionar archivo
-    fileInput.addEventListener('change', () => {
-        if (fileInput.files.length) {
-            fileName.textContent = fileInput.files[0].name;
-        } else {
-            fileName.textContent = "Ningún archivo seleccionado";
-        }
-    });
+        // Cambiar texto al seleccionar archivo
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length) {
+                fileName.textContent = fileInput.files[0].name;
+            } else {
+                fileName.textContent = "Ningún archivo seleccionado";
+            }
+        });
 
-    // Evitar que el navegador abra el archivo
-    ['dragover', 'drop'].forEach(eventName => {
-        dropZone.addEventListener(eventName, e => e.preventDefault());
-    });
+        // Evitar que el navegador abra el archivo
+        ['dragover', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, e => e.preventDefault());
+        });
 
-    // Efecto visual al arrastrar
-    dropZone.addEventListener('dragover', () => dropZone.classList.add('dragover'));
-    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+        // Efecto visual al arrastrar
+        dropZone.addEventListener('dragover', () => dropZone.classList.add('dragover'));
+        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
 
-    // Manejar archivos soltados
-    dropZone.addEventListener('drop', e => {
-        dropZone.classList.remove('dragover');
-        if (e.dataTransfer.files.length) {
-            fileInput.files = e.dataTransfer.files; // Asignar el archivo al input
-            fileName.textContent = e.dataTransfer.files[0].name;
-        }
-    });
-</script>
+        // Manejar archivos soltados
+        dropZone.addEventListener('drop', e => {
+            dropZone.classList.remove('dragover');
+            if (e.dataTransfer.files.length) {
+                fileInput.files = e.dataTransfer.files; // Asignar el archivo al input
+                fileName.textContent = e.dataTransfer.files[0].name;
+            }
+        });
+    </script>

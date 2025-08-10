@@ -84,3 +84,16 @@ if (isset($_POST["idCliente"])) {
     }
     exit; // Finalizar aquí para evitar que siga ejecutando las demás acciones
 }
+if (isset($_POST["action"]) && $_POST["action"] === "actualizarInfoFinanciera") {
+    error_log("Datos recibidos para editar factura: " . print_r($_POST, true));
+
+    $respuesta = ControladorFacturas::ctrEditarFactura();
+
+    if ($respuesta === "ok") {
+        echo json_encode(['success' => true]);
+    } else {
+        echo json_encode(['success' => false, 'error' => "Error al editar la factura"]);
+    }
+    exit;
+}
+
