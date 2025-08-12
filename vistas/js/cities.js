@@ -1,125 +1,77 @@
-$(document).ready(function() {
-    // Paso 1: Obtener el token de acceso
-    $.ajax({
-        url: 'https://www.universal-tutorial.com/api/getaccesstoken',
-        method: 'GET',
-        headers: {
-            "Accept": "application/json",
-            "api-token": "LGZ24KzWPGoWUUOaNQ5vhthiplxPZnOk-jaAEa0bf51Wi5jsJpdFodhtnwLOZ7hAglc",  // Reemplaza con tu token
-            "user-email": "developer@asjurfinlegaltech.com"  // Reemplaza con tu correo
-        },
-        success: function (data) {
-            if (data.auth_token) {
-                var auth_token = data.auth_token; // Almacena el token para usarlo en futuras solicitudes
+const countrySelect = document.getElementById("countryValue");
+const stateSelect = document.getElementById("stateValue");
+const citySelect = document.getElementById("cityValue");
 
-                // Paso 2: Obtener la lista de países
-                $.ajax({
-                    url: 'https://www.universal-tutorial.com/api/countries/',
-                    method: 'GET',
-                    headers: {
-                        "Authorization": "Bearer " + auth_token,
-                        "Accept": "application/json"
-                    },
-                    success: function (countries) {
-                        var countryOptions = "<option value=''>Seleccionar País</option>";
-                        countries.forEach(element => {
-                            countryOptions += '<option value="' + element['country_short_name'] + '" data-name="' + element['country_name'] + '" data-phone="' + element['country_phone_code'] + '">' + element['country_name'] + '</option>';
-                        });
-                        $("#countryValue").html(countryOptions);
+const inputPais = document.getElementById("nuevoPais");
+const inputEstado = document.getElementById("nuevoEstado");
+const inputCiudad = document.getElementById("nuevoCiudad");
 
-                        // Manejar el cambio de país
-                        $("#countryValue").on("change", function() {
-                            var selectedCountryCode = this.value;
-                            var selectedCountryName = $(this).find("option:selected").data("name");
-                            var selectedCountryPhone = $(this).find("option:selected").data("phone");
-                            
-                            // Mostrar la información del país seleccionado
-                            $("#selectedInfo").html("País seleccionado: " + selectedCountryName + " (Código: " + selectedCountryCode + ")");
+// Inicializar país fijo (Colombia)
+countrySelect.innerHTML = `<option value="Colombia" selected>Colombia</option>`;
+inputPais.value = "Colombia";
 
-                            // Guardar el país en el campo oculto
-                            $("#nuevoPais").val(selectedCountryName);
+// Cargar departamentos
+async function cargarDepartamentos() {
+    try {
+        const response = await fetch("https://api-colombia.com/api/v1/Department");
+        const departamentos = await response.json();
 
-                            $("#stateValue").prop("disabled", false);
-                            $("#stateValue").html("<option value=''>Seleccionar Estado</option>");
-                            $("#cityValue").html("<option value=''>Seleccionar Ciudad</option>").prop("disabled", true);
+        stateSelect.innerHTML = `<option value="">Seleccionar Estado</option>`;
+        departamentos.forEach(dep => {
+            const option = document.createElement("option");
+            option.value = dep.name; // Guardar nombre en value
+            option.dataset.id = dep.id; // Guardar id en data-id por si lo necesitamos para las ciudades
+            option.textContent = dep.name;
+            stateSelect.appendChild(option);
+        });
 
-                            // Obtener estados del país seleccionado
-                            $.ajax({
-                                url: 'https://www.universal-tutorial.com/api/states/' + selectedCountryName,
-                                method: 'GET',
-                                headers: {
-                                    "Authorization": "Bearer " + auth_token,
-                                    "Accept": "application/json"
-                                },
-                                success: function (states) {
-                                    var stateOptions = "<option value=''>Seleccionar Estado</option>";
-                                    states.forEach(element => {
-                                        stateOptions += '<option value="' + element['state_name'] + '">' + element['state_name'] + '</option>';
-                                    });
-                                    $("#stateValue").html(stateOptions);
+        stateSelect.disabled = false;
+    } catch (error) {
+        console.error("Error cargando departamentos:", error);
+    }
+}
 
-                                    // Manejar el cambio de estado
-                                    $("#stateValue").on("change", function() {
-                                        var selectedState = this.value;
+// Cargar ciudades por departamento
+async function cargarCiudades(idDepartamento) {
+    try {
+        const response = await fetch(`https://api-colombia.com/api/v1/Department/${idDepartamento}/cities`);
+        const ciudades = await response.json();
 
-                                        // Guardar el estado en el campo oculto
-                                        $("#nuevoEstado").val(selectedState);
+        citySelect.innerHTML = `<option value="">Seleccionar Ciudad</option>`;
+        ciudades.forEach(city => {
+            const option = document.createElement("option");
+            option.value = city.name; // Guardar nombre en value
+            option.textContent = city.name;
+            citySelect.appendChild(option);
+        });
 
-                                        $("#cityValue").prop("disabled", false);
-                                        $("#cityValue").html("<option value=''>Seleccionar Ciudad</option>");
+        citySelect.disabled = false;
+    } catch (error) {
+        console.error("Error cargando ciudades:", error);
+    }
+}
 
-                                        // Obtener ciudades del estado seleccionado
-                                        $.ajax({
-                                            url: 'https://www.universal-tutorial.com/api/cities/' + selectedState,
-                                            method: 'GET',
-                                            headers: {
-                                                "Authorization": "Bearer " + auth_token,
-                                                "Accept": "application/json"
-                                            },
-                                            success: function (cities) {
-                                                var cityOptions = "<option value=''>Seleccionar Ciudad</option>";
-                                                cities.forEach(element => {
-                                                    cityOptions += '<option value="' + element['city_name'] + '">' + element['city_name'] + '</option>';
-                                                });
-                                                $("#cityValue").html(cityOptions);
-                                            },
-                                            error: function (e) {
-                                                //console.log("Error al obtener ciudades: " + e);
-                                            }
-                                        });
-                                    });
-                                },
-                                error: function (e) {
-                                    //console.log("Error al obtener estados: " + e);
-                                }
-                            });
-                        });
+// Evento cambio de departamento
+stateSelect.addEventListener("change", function() {
+    const nombreEstado = this.value;
+    const idDepartamento = this.options[this.selectedIndex].dataset.id;
 
-                        // Manejar el cambio de ciudad
-                        $("#cityValue").on("change", function() {
-                            var selectedCity = this.value;
-                            var selectedState = $("#stateValue").val();
-                            var selectedCountry = $("#countryValue").find("option:selected").data("name");
-                            var selectedCountryPhone = $("#countryValue").find("option:selected").data("phone");
+    inputEstado.value = nombreEstado;
 
-                            // Guardar la ciudad en el campo oculto
-                            $("#nuevoCiudad").val(selectedCity);
+    // Reset ciudades
+    citySelect.innerHTML = `<option value="">Seleccionar Ciudad</option>`;
+    citySelect.disabled = true;
+    inputCiudad.value = "";
 
-                            // Imprimir en consola
-                            // console.log("Estado seleccionado:", selectedState);
-                            // console.log("Ciudad seleccionada:", selectedCity);
-                            // console.log("País seleccionado:", selectedCountry);
-                            // console.log("Código país:", selectedCountryPhone); // Imprimir el número de país
-                        });
-                    },
-                    error: function (e) {
-                        //console.log("Error al obtener países: " + e);
-                    }
-                });
-            }
-        },
-        error: function (e) {
-            //}console.log("Error al obtener el token: " + e);
-        }
-    });
+    if (idDepartamento) {
+        cargarCiudades(idDepartamento);
+    }
 });
+
+// Evento cambio de ciudad
+citySelect.addEventListener("change", function() {
+    inputCiudad.value = this.value;
+});
+
+// Ejecutar carga inicial de departamentos
+cargarDepartamentos();
