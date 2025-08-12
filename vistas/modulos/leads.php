@@ -636,7 +636,7 @@
 
                       <!-- Dropdowns para País, Estado y Ciudad -->
                       <div class="container mt-3">
-                        <h5>Dirección</h5>
+                        <h5>Residencia</h5>
                         <div class="row">
                           <div class="col-md-4">
                             <div class="form-group">
