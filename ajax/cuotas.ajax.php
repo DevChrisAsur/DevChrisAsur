@@ -54,6 +54,15 @@ switch ($_POST["accion"]) {
         'rango_fecha' => $respuesta['rango_fecha']
         ]);
         exit;
+    
+    case "VerDetallesProceso":
+    $respuesta = ControladorCuotas::ctrVerDetallesEnProceso();
+    echo json_encode([
+    'success' => true,
+    'data' => $respuesta['detalles'],
+    'rango_fecha' => $respuesta['rango_fecha']
+    ]);
+    exit;    
         
     case "VerDetallesRecaudo":
         $respuesta = ControladorCuotas::ctrVerDetallesRecaudo();
@@ -63,6 +72,15 @@ switch ($_POST["accion"]) {
         'rango_fecha' => $respuesta['rango_fecha']
         ]);
         exit;
+    
+    case "VerDetallesCaida":
+    $respuesta = ControladorCuotas::ctrVerDetallesCaida();
+    echo json_encode([
+    'success' => true,
+    'data' => $respuesta['detalles'],
+    'rango_fecha' => $respuesta['rango_fecha']
+    ]);
+    exit;            
 
     default:
         echo json_encode(["error" => "Acción no válida."]);

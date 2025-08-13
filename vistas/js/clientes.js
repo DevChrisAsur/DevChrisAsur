@@ -320,6 +320,7 @@ $(document).ready(function () {
       data: { accion: accion },
       dataType: 'json',
       success: function (respuesta) {
+        console.log(respuesta)
         if (respuesta.success && Array.isArray(respuesta.data)) {
           let tabla = `
             <table id="tabla-detalles" class="table table-bordered table-striped">

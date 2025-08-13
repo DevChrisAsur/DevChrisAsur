@@ -97,37 +97,52 @@ class ControladorCuotas
         }
     }
 
-    static public function ctrVerDetallesTransfer() {
+static public function ctrVerDetallesTransfer() {
 
-        $fechaActual = new DateTime();
-        $año = $fechaActual->format("Y");
-        $mes = $fechaActual->format("m");
-        $dia = $fechaActual->format("d");
+    $fechaActual = new DateTime();
+    $año = $fechaActual->format("Y");
+    $mes = $fechaActual->format("m");
+    $dia = $fechaActual->format("d");
 
-        if ($dia >= 1 && $dia <= 15) {
-            $fechaInicio = "$año-$mes-01";
-            $fechaFin = "$año-$mes-15";
-            $rangoFecha = "1 al 15 de " . $fechaActual->format("M Y");
-        } else {
-            $fechaInicio = "$año-$mes-16";
-            $fechaFin = "$año-$mes-" . $fechaActual->format("t");
-            $rangoFecha = "16 al " . $fechaActual->format("t") . " de " . $fechaActual->format("M Y");
+    if ($dia >= 1 && $dia <= 15) {
+        $fechaInicio = "$año-$mes-01";
+        $fechaFin = "$año-$mes-15";
+        $rangoFecha = "1 al 15 de " . $fechaActual->format("M Y");
+    } else {
+        $fechaInicio = "$año-$mes-16";
+        $fechaFin = "$año-$mes-" . $fechaActual->format("t");
+        $rangoFecha = "16 al " . $fechaActual->format("t") . " de " . $fechaActual->format("M Y");
+    }
+
+    $respuesta = ModeloCuotas::mdlDetallesTransfer($fechaInicio, $fechaFin);
+
+    $traducciones = [
+        'dv0' => 'No se ha ejecutado el cobro',
+        'En proceso' => 'En proceso',
+        'dv1' => 'Link de pago inactivo',
+        'dv2' => 'Fondos insuficientes',
+        'dv3' => 'Cuenta no localizada',
+        'dv4' => 'El cliente solicita devolución',
+        'dv5' => 'Rebota el pago por entidad',
+        'dv6' => 'Titular de la cuenta fallecido',
+        'Aprobado' => 'Aprobado'
+    ];
+
+    if ($respuesta) {
+        foreach ($respuesta as &$fila) {
+            if (isset($fila['estado_pago']) && isset($traducciones[$fila['estado_pago']])) {
+                $fila['estado_pago'] = $traducciones[$fila['estado_pago']];
+            }
         }
+        unset($fila);
+    }
 
-        $respuesta = ModeloCuotas::mdlDetallesTransfer($fechaInicio, $fechaFin);
+    return [
+        'detalles' => $respuesta ?: [],
+        'rango_fecha' => $rangoFecha
+    ];
+}
 
-        if ($respuesta) {
-            return [
-                'detalles' => $respuesta,
-                'rango_fecha' => $rangoFecha
-            ];
-        } else {
-            return [
-                'detalles' => [],
-                'rango_fecha' => $rangoFecha
-            ];
-        }
-    } 
 
     static public function ctrVerProceso() {
         $tabla = "cuota";
@@ -162,6 +177,140 @@ class ControladorCuotas
             ];
         }
     }
+
+        static public function ctrVerDetallesEnProceso() {
+
+        $fechaActual = new DateTime();
+        $año = $fechaActual->format("Y");
+        $mes = $fechaActual->format("m");
+        $dia = $fechaActual->format("d");
+
+        if ($dia >= 1 && $dia <= 15) {
+            $fechaInicio = "$año-$mes-01";
+            $fechaFin = "$año-$mes-15";
+            $rangoFecha = "1 al 15 de " . $fechaActual->format("M Y");
+        } else {
+            $fechaInicio = "$año-$mes-16";
+            $fechaFin = "$año-$mes-" . $fechaActual->format("t");
+            $rangoFecha = "16 al " . $fechaActual->format("t") . " de " . $fechaActual->format("M Y");
+        }
+
+        // Llamamos a la consulta específica para "En proceso"
+        $respuesta = ModeloCuotas::mdlDetallesEnProceso($fechaInicio, $fechaFin);
+
+        // Diccionario de traducciones
+        $traducciones = [
+            'dv0' => 'No se ha ejecutado el cobro',
+            'En proceso' => 'En proceso',
+            'dv1' => 'Link de pago inactivo',
+            'dv2' => 'Fondos insuficientes',
+            'dv3' => 'Cuenta no localizada',
+            'dv4' => 'El cliente solicita devolución',
+            'dv5' => 'Rebota el pago por entidad',
+            'dv6' => 'Titular de la cuenta fallecido',
+            'Aprobado' => 'Aprobado'
+        ];
+
+        // Traducimos estado_pago en la respuesta
+        if ($respuesta) {
+            foreach ($respuesta as &$fila) {
+                if (isset($fila['estado_pago'], $traducciones[$fila['estado_pago']])) {
+                    $fila['estado_pago'] = $traducciones[$fila['estado_pago']];
+                }
+            }
+            unset($fila);
+        }
+
+        return [
+            'detalles' => $respuesta ?: [],
+            'rango_fecha' => $rangoFecha
+        ];
+    }
+    static public function ctrVerCaida() {
+
+        $tabla = "cuota";
+
+        // Fecha actual
+        $fechaActual = new DateTime();
+
+        // Ir al primer día del mes anterior
+        $fechaActual->modify('first day of last month');
+
+        // Año y mes del mes anterior
+        $anioMes = $fechaActual->format('Y-m');
+
+        // Rango: última quincena del mes anterior
+        $fechaInicio = "$anioMes-16";
+        $fechaFin = "$anioMes-" . $fechaActual->format('t'); // último día del mes anterior
+
+        // Texto para mostrar en la vista
+        $rangoFecha = "16 al " . $fechaActual->format('t') . " de " . $fechaActual->format("M Y");
+
+        // Llamar al modelo
+        $respuesta = ModeloCuotas::mdlVerCaida($tabla, $fechaInicio, $fechaFin);
+
+        if ($respuesta && isset($respuesta['monto_total'])) {
+            return [
+                'monto_cop' => $respuesta['monto_total'],
+                'rango_fecha' => $rangoFecha
+            ];
+        } else {
+            return [
+                'monto_cop' => 0,
+                'rango_fecha' => $rangoFecha
+            ];
+        }
+    }
+
+
+
+
+static public function ctrVerDetallesCaida() {
+    $fechaActual = new DateTime();
+
+    // Retrocedemos al mes anterior
+    $fechaActual->modify('first day of last month');
+    $año = $fechaActual->format("Y");
+    $mes = $fechaActual->format("m");
+
+    // Última quincena del mes anterior
+    $fechaInicio = "$año-$mes-16";
+    $fechaFin = "$año-$mes-" . $fechaActual->format("t");
+
+    // Texto del rango para mostrar
+    $rangoFecha = "16 al " . $fechaActual->format("t") . " de " . $fechaActual->format("M Y");
+
+    // Llamada al modelo
+    $respuesta = ModeloCuotas::mdlVerDetallesCaida($fechaInicio, $fechaFin);
+
+    // Diccionario de traducciones de estado_pago
+    $traducciones = [
+        'dv0' => 'No se ha ejecutado el cobro',
+        'En proceso' => 'En proceso',
+        'dv1' => 'Link de pago inactivo',
+        'dv2' => 'Fondos insuficientes',
+        'dv3' => 'Cuenta no localizada',
+        'dv4' => 'El cliente solicita devolución',
+        'dv5' => 'Rebota el pago por entidad',
+        'dv6' => 'Titular de la cuenta fallecido',
+        'Aprobado' => 'Aprobado'
+    ];
+
+    // Traducción de estados en la respuesta
+    if ($respuesta) {
+        foreach ($respuesta as &$fila) {
+            if (isset($fila['estado_pago'], $traducciones[$fila['estado_pago']])) {
+                $fila['estado_pago'] = $traducciones[$fila['estado_pago']];
+            }
+        }
+        unset($fila);
+    }
+
+    return [
+        'detalles' => $respuesta ?: [],
+        'rango_fecha' => $rangoFecha
+    ];
+}
 
     static public function ctrVerRecaudo() {
         $tabla = "cuota";
@@ -229,12 +378,30 @@ class ControladorCuotas
         }
     }     
 
-    static public function ctrContarVentasDiarios() {
-        $tabla = "cuota"; 
-        
-        $respuesta = ModeloCuotas::mdlContarCuotasEnProceso($tabla);
-        return $respuesta;
+static public function ctrContarVentasDiarios() {
+    $tabla = "cuota"; 
+
+    // Fecha actual
+    $fechaActual = new DateTime();
+    $año = $fechaActual->format("Y");
+    $mes = $fechaActual->format("m");
+    $dia = $fechaActual->format("d");
+
+    // Determinar rango de fechas según quincena
+    if ($dia >= 1 && $dia <= 15) {
+        $fechaInicio = "$año-$mes-01";
+        $fechaFin = "$año-$mes-15";
+    } else {
+        $fechaInicio = "$año-$mes-16";
+        $fechaFin = "$año-$mes-" . $fechaActual->format("t"); // Último día del mes
     }
+
+    // Llamar al modelo con rango de fechas
+    $respuesta = ModeloCuotas::mdlContarCuotasEnProceso($tabla, $fechaInicio, $fechaFin);
+
+    return $respuesta;
+}
+
         
     static public function ctrTotalVentasHoy() {
         $tabla = "cuota"; 

@@ -20,39 +20,46 @@ $fecha = strftime("%d de %B de %Y");
   </section>
 
   <section class="content">
+<?php
+$leads = ControladorLeads::ctrContarLeadsDiarios();
+$ventas = ControladorCuotas::ctrContarVentasDiarios();
+?>
 
-    <!-- Tarjetas de resumen -->
-    <section class="card-container">
-      <article class="card-resumen">
-        <div class="card-header">
-          <span class="card-header-date"><?= $fecha ?></span>
-        </div>
-        <div class="card-body">
-          <h4>Leads Hoy</h4>
-          <p><?= ControladorLeads::ctrContarLeadsDiarios(); ?> Leads</p>
-        </div>
-      </article>
+<!-- Tarjetas de resumen -->
+<section class="card-container">
+  <?php foreach (
+    [
+      ['title' => 'Leads', 'data' => $leads, 'accion' => 'VerDetallesLeads', 'unidad' => 'Leads'],
+      ['title' => 'Ventas', 'data' => $ventas, 'accion' => 'VerDetallesVentas', 'unidad' => 'Ventas']
+    ] as $item
+  ): ?>
+    <article class="card-resumen">
+      <div class="card-header">
+        <span class="card-header-date"><?= $fecha ?></span>
+      </div>
+      <div class="card-body">
+        <h4><?= $item['title'] ?> Hoy</h4>
+        <p><?= $item['data'] ?> <?= $item['unidad'] ?></p>
+        <button class="card-button"
+                data-accion="<?= $item['accion'] ?>"
+                data-tipo="<?= strip_tags($item['title']) ?>">
+                Ver Detalle →
+        </button>          
+      </div>
+    </article>
+  <?php endforeach; ?>
 
-      <article class="card-resumen">
-        <div class="card-header">
-          <span class="card-header-date"><?= $fecha ?></span>
-        </div>
-        <div class="card-body">
-          <h4>Ventas</h4>
-          <p><?= ControladorCuotas::ctrContarVentasDiarios(); ?> Ventas</p>
-        </div>
-      </article>
+  <article class="card-resumen tall-card">
+    <div class="card-header">
+      <span class="card-header-date"><?= $fecha ?></span>
+    </div>
+    <div class="card-body">
+      <h4>Total de ventas</h4>
+      <p>$ <?= number_format(ControladorCuotas::ctrTotalVentasHoy(), 2); ?></p>
+    </div>
+  </article>
+</section>
 
-      <article class="card-resumen tall-card">
-        <div class="card-header">
-          <span class="card-header-date"><?= $fecha ?></span>
-        </div>
-        <div class="card-body">
-          <h4>Total de ventas</h4>
-          <p>$ <?= number_format(ControladorCuotas::ctrTotalVentasHoy(), 2); ?></p>
-        </div>
-      </article>
-    </section>
 
 
     <!-- Tarjetas de transacciones -->
@@ -61,6 +68,7 @@ $fecha = strftime("%d de %B de %Y");
       $transfer = ControladorCuotas::ctrVerTransfer();
       $proceso = ControladorCuotas::ctrVerProceso();
       $recaudo = ControladorCuotas::ctrVerRecaudo();
+      $caida = ControladorCuotas::ctrverCaida();
       ?>
 
       <?php foreach (
@@ -68,7 +76,7 @@ $fecha = strftime("%d de %B de %Y");
           ['title' => '💸 Transfer', 'data' => $transfer, 'accion' => 'VerDetallesTransfer'],
           ['title' => '⏳ Proceso', 'data' => $proceso, 'accion' => 'VerDetallesProceso'],
           ['title' => '📥 Recaudo', 'data' => $recaudo, 'accion' => 'VerDetallesRecaudo'],
-          // ['title' => '📉 Caída', 'data' => $caida, 'accion' => 'VerDetallesRecaudo']
+          ['title' => '📉 Caída', 'data' => $caida, 'accion' => 'VerDetallesCaida']
         ] as $item
       ): ?>
         <article class="card-resumen">
@@ -85,7 +93,7 @@ $fecha = strftime("%d de %B de %Y");
             </button>          
           </div>
         </article>
-      <?php endforeach;?>
+      <?php endforeach; ?>
       
     </section>
 

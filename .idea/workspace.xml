@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d1f258ee-b36f-465c-b369-682882a5d30d" name="Changes" comment="ajustes en la actualizacion de las contraseñas de usuario">
+    <list default="true" id="d1f258ee-b36f-465c-b369-682882a5d30d" name="Changes" comment="buf-fixed: nuev API ciudades integrada">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -75,7 +75,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop/feacture/cuotas&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop/feacture/factura&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/tiendaVirtual&quot;
   }
@@ -88,62 +88,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1726439356860</updated>
-    </task>
-    <task id="LOCAL-00087" summary="feacture-clientes:(actualizado) evento para activar el box-body secundario con la informacion adicional del usuario">
-      <option name="closed" value="true" />
-      <created>1728534444006</created>
-      <option name="number" value="00087" />
-      <option name="presentableId" value="LOCAL-00087" />
-      <option name="project" value="LOCAL" />
-      <updated>1728534444006</updated>
-    </task>
-    <task id="LOCAL-00088" summary="feacture-clientes:(actualizado) box-body para la informacion adicional del usuario, grid style para el box-body">
-      <option name="closed" value="true" />
-      <created>1728534480680</created>
-      <option name="number" value="00088" />
-      <option name="presentableId" value="LOCAL-00088" />
-      <option name="project" value="LOCAL" />
-      <updated>1728534480680</updated>
-    </task>
-    <task id="LOCAL-00089" summary="feacture-clientes:(new) logica para obtnerer la informacion del cliente">
-      <option name="closed" value="true" />
-      <created>1728534521162</created>
-      <option name="number" value="00089" />
-      <option name="presentableId" value="LOCAL-00089" />
-      <option name="project" value="LOCAL" />
-      <updated>1728534521162</updated>
-    </task>
-    <task id="LOCAL-00090" summary="feacture-menu:(actualizado) rutas y modulos activos para el asesor">
-      <option name="closed" value="true" />
-      <created>1728534577270</created>
-      <option name="number" value="00090" />
-      <option name="presentableId" value="LOCAL-00090" />
-      <option name="project" value="LOCAL" />
-      <updated>1728534577270</updated>
-    </task>
-    <task id="LOCAL-00091" summary="trash">
-      <option name="closed" value="true" />
-      <created>1728622265703</created>
-      <option name="number" value="00091" />
-      <option name="presentableId" value="LOCAL-00091" />
-      <option name="project" value="LOCAL" />
-      <updated>1728622265703</updated>
-    </task>
-    <task id="LOCAL-00092" summary="trash">
-      <option name="closed" value="true" />
-      <created>1728622269301</created>
-      <option name="number" value="00092" />
-      <option name="presentableId" value="LOCAL-00092" />
-      <option name="project" value="LOCAL" />
-      <updated>1728622269301</updated>
-    </task>
-    <task id="LOCAL-00093" summary="feacture-leads:(actualizado) asesor asociado al registro de lead, vistas para asesores con leads asociados y para admin">
-      <option name="closed" value="true" />
-      <created>1728622341929</created>
-      <option name="number" value="00093" />
-      <option name="presentableId" value="LOCAL-00093" />
-      <option name="project" value="LOCAL" />
-      <updated>1728622341929</updated>
     </task>
     <task id="LOCAL-00094" summary="feacture-leads:(actualizado) asesor asociado al registro de lead, vistas para asesores con leads asociados y para admin">
       <option name="closed" value="true" />
@@ -481,7 +425,63 @@
       <option name="project" value="LOCAL" />
       <updated>1754337725364</updated>
     </task>
-    <option name="localTasksCounter" value="136" />
+    <task id="LOCAL-00136" summary="feature-usuarios: actualizacion de formulario agregar usuario">
+      <option name="closed" value="true" />
+      <created>1754537369320</created>
+      <option name="number" value="00136" />
+      <option name="presentableId" value="LOCAL-00136" />
+      <option name="project" value="LOCAL" />
+      <updated>1754537369321</updated>
+    </task>
+    <task id="LOCAL-00137" summary="feature-usuarios: actualizacion del metodo editar usuario, se obtienen los datos de la persona y se reasigna el coordinador">
+      <option name="closed" value="true" />
+      <created>1754543089902</created>
+      <option name="number" value="00137" />
+      <option name="presentableId" value="LOCAL-00137" />
+      <option name="project" value="LOCAL" />
+      <updated>1754543089902</updated>
+    </task>
+    <task id="LOCAL-00138" summary="bug-fix facturas y cuotas:&#10;1. al revisar las facturas y las cuotas de un cliente, se obtienen los datos de dicha informacion.&#10;2. cuando se ingresa a la informacion de un cliente que no posee facturas o cuotas, se carga la informacion del ultimo cliente visto con facturas activas.&#10;SOLUCION: si el cliente no cuenta con facturas o cuotas, se limpian los campos para que no se cargue la informacion del anterior cliente">
+      <option name="closed" value="true" />
+      <created>1754630596193</created>
+      <option name="number" value="00138" />
+      <option name="presentableId" value="LOCAL-00138" />
+      <option name="project" value="LOCAL" />
+      <updated>1754630596193</updated>
+    </task>
+    <task id="LOCAL-00139" summary="feature-notas(en proceso): se actualizan los metodos de:&#10;guardar nota, ver nota, se genera los estilos y contenedores las cards notas">
+      <option name="closed" value="true" />
+      <created>1754637255737</created>
+      <option name="number" value="00139" />
+      <option name="presentableId" value="LOCAL-00139" />
+      <option name="project" value="LOCAL" />
+      <updated>1754637255737</updated>
+    </task>
+    <task id="LOCAL-00140" summary="feature-notas(finalizado): se actualizan el metodo de ver notas para obtener el nombre de usuario de quien creo la nota, ademas de actualizar estilos basicos.">
+      <option name="closed" value="true" />
+      <created>1754759059981</created>
+      <option name="number" value="00140" />
+      <option name="presentableId" value="LOCAL-00140" />
+      <option name="project" value="LOCAL" />
+      <updated>1754759059981</updated>
+    </task>
+    <task id="LOCAL-00141" summary="feature-factura(finalizado): se actualizan los datos de la factura adicionalmente se actualiza el metodo para ver las facturas activas">
+      <option name="closed" value="true" />
+      <created>1754791827169</created>
+      <option name="number" value="00141" />
+      <option name="presentableId" value="LOCAL-00141" />
+      <option name="project" value="LOCAL" />
+      <updated>1754791827171</updated>
+    </task>
+    <task id="LOCAL-00142" summary="buf-fixed: nuev API ciudades integrada">
+      <option name="closed" value="true" />
+      <created>1754972693808</created>
+      <option name="number" value="00142" />
+      <option name="presentableId" value="LOCAL-00142" />
+      <option name="project" value="LOCAL" />
+      <updated>1754972693808</updated>
+    </task>
+    <option name="localTasksCounter" value="143" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -518,13 +518,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feacture-suscripcion (new): evento para la creacion de la suscripcion del cliente." />
-    <MESSAGE value="feacture-factura (new): modelo, controlador y logica para manejar la suscripcion y la factura" />
-    <MESSAGE value="feacture-cliente (actualizado): evento para crear la suscripcion y la factura del producto" />
-    <MESSAGE value="feacture-cliente (actualizado): modelo y controlador de la suscripcion para el manejo de errores en la suscripcion" />
-    <MESSAGE value="trash" />
-    <MESSAGE value="actualizacion de estilos" />
-    <MESSAGE value="feacture-factura (actualizado): modificacion de la respuesta para obtener el id de la factura al crear una factura" />
     <MESSAGE value="feacture-cuotas (actualizado): modificacion para el correcto funcionamiento del ciclo de las facturas, donde se itera sobre el numero de cuotas que se difiere la factura" />
     <MESSAGE value="feacture-facturas (actualizado): logica encargada de obtener los items necesarios de la suscripcion, la factura y la cuota para su registro" />
     <MESSAGE value="feacture-clientes (actualizado): evento para la creacion de suscripcion factura y cuotas" />
@@ -543,6 +536,13 @@
     <MESSAGE value="feacture-cuotas(edicion de cuota) metodo encargado de actualizar las cuotas en la informacion adicional del cliente" />
     <MESSAGE value="feacture-cuotas(cards de inicio EN PROCESO) las tarjetas informativas encontradas en inicio:&#10;Contador de leads Diarios&#10;Contador de ventas Diarios&#10;Total de ventas entre fechas&#10;Brindan la informacion requerida para cada tarjeta.&#10;Las tarjetas de detalles realizan las siguientes acciones:&#10;TRANSFER: obtiene el valor de todas las cuotas programadas para estas fechas, obtiene la informacion de los clientes, la fecha limite de pago y el monto a pagar.&#10;RECAUDO: obtiene el valor de todas las cuotas pagadas o en proceso para estas fechas, obtiene la informacion de los clientes, la fecha limite de pago y el monto a pagar.&#10;Se debe continuar con la estructuracion de las tarjetas restantes, ademas de aplicar una redireccion para actualizar la informacion de la cuota seleccionada" />
     <MESSAGE value="ajustes en la actualizacion de las contraseñas de usuario" />
-    <option name="LAST_COMMIT_MESSAGE" value="ajustes en la actualizacion de las contraseñas de usuario" />
+    <MESSAGE value="feature-usuarios: actualizacion de formulario agregar usuario" />
+    <MESSAGE value="feature-usuarios: actualizacion del metodo editar usuario, se obtienen los datos de la persona y se reasigna el coordinador" />
+    <MESSAGE value="bug-fix facturas y cuotas:&#10;1. al revisar las facturas y las cuotas de un cliente, se obtienen los datos de dicha informacion.&#10;2. cuando se ingresa a la informacion de un cliente que no posee facturas o cuotas, se carga la informacion del ultimo cliente visto con facturas activas.&#10;SOLUCION: si el cliente no cuenta con facturas o cuotas, se limpian los campos para que no se cargue la informacion del anterior cliente" />
+    <MESSAGE value="feature-notas(en proceso): se actualizan los metodos de:&#10;guardar nota, ver nota, se genera los estilos y contenedores las cards notas" />
+    <MESSAGE value="feature-notas(finalizado): se actualizan el metodo de ver notas para obtener el nombre de usuario de quien creo la nota, ademas de actualizar estilos basicos." />
+    <MESSAGE value="feature-factura(finalizado): se actualizan los datos de la factura adicionalmente se actualiza el metodo para ver las facturas activas" />
+    <MESSAGE value="buf-fixed: nuev API ciudades integrada" />
+    <option name="LAST_COMMIT_MESSAGE" value="buf-fixed: nuev API ciudades integrada" />
   </component>
 </project>
