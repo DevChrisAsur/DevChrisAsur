@@ -84,15 +84,17 @@ class ModeloCuotas
         return $stmt->fetch();
     }
 
-    static public function mdlDetallesTransfer($fechaInicio, $fechaFin){
-        $stmt = Conexion::conectar() -> prepare(
+    static public function mdlDetallesTransfer($fechaInicio, $fechaFin)
+    {
+        $stmt = Conexion::conectar()->prepare(
             "SELECT c.id_customer, c.cc, c.first_name, c.last_name,
             f.id_factura, cu.id_cuota, cu.fecha_vencimiento, cu.estado_pago, cu.monto AS valor_cuota_actual 
             FROM cuota cu
             INNER JOIN factura f ON cu.id_factura = f.id_factura
             INNER JOIN suscripcion s ON f.id_suscripcion = s.id_suscripcion
             INNER JOIN cliente c ON s.id_customer = c.id_customer
-            WHERE cu.fecha_vencimiento BETWEEN :fechaInicio AND :fechaFin");
+            WHERE cu.fecha_vencimiento BETWEEN :fechaInicio AND :fechaFin"
+        );
         $stmt->bindParam(":fechaInicio", $fechaInicio, PDO::PARAM_STR);
         $stmt->bindParam(":fechaFin", $fechaFin, PDO::PARAM_STR);
 
@@ -117,10 +119,10 @@ class ModeloCuotas
         return $stmt->fetch();
     }
 
-static public function mdlDetallesEnProceso($fechaInicio, $fechaFin)
-{
-    $stmt = Conexion::conectar()->prepare(
-        "SELECT 
+    static public function mdlDetallesEnProceso($fechaInicio, $fechaFin)
+    {
+        $stmt = Conexion::conectar()->prepare(
+            "SELECT 
             c.id_customer, 
             c.cc, 
             c.first_name, 
@@ -136,23 +138,23 @@ static public function mdlDetallesEnProceso($fechaInicio, $fechaFin)
         INNER JOIN cliente c ON s.id_customer = c.id_customer
         WHERE cu.fecha_vencimiento BETWEEN :fechaInicio AND :fechaFin
         AND cu.estado_pago = 'En proceso'"
-    );
+        );
 
-    $stmt->bindParam(":fechaInicio", $fechaInicio, PDO::PARAM_STR);
-    $stmt->bindParam(":fechaFin", $fechaFin, PDO::PARAM_STR);
+        $stmt->bindParam(":fechaInicio", $fechaInicio, PDO::PARAM_STR);
+        $stmt->bindParam(":fechaFin", $fechaFin, PDO::PARAM_STR);
 
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
 
-        //CARD CONTADOR DE VENTAS
+    //CARD CONTADOR DE VENTAS
     static public function mdlContarCuotasEnProceso($tabla, $fechaInicio, $fechaFin)
     {
         $stmt = Conexion::conectar()->prepare("
             SELECT COUNT(*) AS total_cuotas
             FROM $tabla
-            WHERE (estado_pago = 'En proceso' OR estado_pago = 'Aprobado')
+            WHERE (estado_pago = 'Aprobado')
             AND fecha_vencimiento BETWEEN :fechaInicio AND :fechaFin
         ");
 
@@ -200,25 +202,27 @@ static public function mdlDetallesEnProceso($fechaInicio, $fechaFin)
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-static public function mdlVerCaida($tabla, $fechaInicio, $fechaFin) {
-    $stmt = Conexion::conectar()->prepare(
-        "SELECT SUM(monto) AS monto_total
+    static public function mdlVerCaida($tabla, $fechaInicio, $fechaFin)
+    {
+        $stmt = Conexion::conectar()->prepare(
+            "SELECT SUM(monto) AS monto_total
             FROM $tabla
             WHERE fecha_vencimiento BETWEEN :fechaInicio AND :fechaFin
             AND estado_pago <> 'Aprobado'"
-    );
+        );
 
-    $stmt->bindParam(":fechaInicio", $fechaInicio, PDO::PARAM_STR);
-    $stmt->bindParam(":fechaFin", $fechaFin, PDO::PARAM_STR);
+        $stmt->bindParam(":fechaInicio", $fechaInicio, PDO::PARAM_STR);
+        $stmt->bindParam(":fechaFin", $fechaFin, PDO::PARAM_STR);
 
-    $stmt->execute();
-    return $stmt->fetch();
-}
+        $stmt->execute();
+        return $stmt->fetch();
+    }
 
 
-    
-static public function mdlVerDetallesCaida() {
-    $stmt = Conexion::conectar()->prepare("
+
+    static public function mdlVerDetallesCaida()
+    {
+        $stmt = Conexion::conectar()->prepare("
         SELECT 
             c.id_customer,
             c.cc,
@@ -250,9 +254,9 @@ static public function mdlVerDetallesCaida() {
         ORDER BY cu.fecha_vencimiento
     ");
 
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
 
     static public function mdlCardTotalVenta($tabla, $fechaInicio, $fechaFin)
@@ -260,7 +264,7 @@ static public function mdlVerDetallesCaida() {
         $stmt = Conexion::conectar()->prepare("
             SELECT SUM(monto) AS total_aprobado
             FROM $tabla
-            WHERE estado_pago IN ('Aprobado', 'En proceso')
+            WHERE estado_pago IN ('Aprobado')
             AND fecha_vencimiento BETWEEN :fechaInicio AND :fechaFin
         ");
 
@@ -271,6 +275,33 @@ static public function mdlVerDetallesCaida() {
 
         return $stmt->fetch()['total_aprobado'];
     }
+
+static public function mdlDetallesVenta($fechaInicio, $fechaFin) {
+    $stmt = Conexion::conectar()->prepare(
+        " SELECT 
+            c.id_customer, 
+            c.cc, 
+            c.first_name, 
+            c.last_name,
+            f.id_factura, 
+            cu.id_cuota, 
+            cu.fecha_vencimiento, 
+            cu.estado_pago, 
+            cu.monto AS valor_cuota_actual 
+        FROM cuota cu
+        INNER JOIN factura f ON cu.id_factura = f.id_factura
+        INNER JOIN suscripcion s ON f.id_suscripcion = s.id_suscripcion
+        INNER JOIN cliente c ON s.id_customer = c.id_customer
+        WHERE cu.fecha_vencimiento BETWEEN :fechaInicio AND :fechaFin
+        AND cu.estado_pago = 'Aprobado' ");
+
+    $stmt->bindParam(":fechaInicio", $fechaInicio, PDO::PARAM_STR);
+    $stmt->bindParam(":fechaFin", $fechaFin, PDO::PARAM_STR);
+
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 
 
     static public function mdlEditarCuota($tabla, $datos)

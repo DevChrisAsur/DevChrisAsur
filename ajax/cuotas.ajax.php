@@ -80,7 +80,16 @@ switch ($_POST["accion"]) {
     'data' => $respuesta['detalles'],
     'rango_fecha' => $respuesta['rango_fecha']
     ]);
-    exit;            
+    exit;  
+
+    case "VerDetallesVenta":
+    $respuesta = ControladorCuotas::ctrVerDetallesVenta();
+    echo json_encode([
+    'success' => true,
+    'data' => $respuesta['detalles'],
+    'rango_fecha' => $respuesta['rango_fecha']
+    ]);
+    exit;           
 
     default:
         echo json_encode(["error" => "Acción no válida."]);

@@ -30,7 +30,7 @@ $ventas = ControladorCuotas::ctrContarVentasDiarios();
   <?php foreach (
     [
       ['title' => 'Leads', 'data' => $leads, 'accion' => 'VerDetallesLeads', 'unidad' => 'Leads'],
-      ['title' => 'Ventas', 'data' => $ventas, 'accion' => 'VerDetallesVentas', 'unidad' => 'Ventas']
+      ['title' => 'Ventas', 'data' => $ventas, 'accion' => 'VerDetallesVenta', 'unidad' => 'Ventas']
     ] as $item
   ): ?>
     <article class="card-resumen">
@@ -38,7 +38,7 @@ $ventas = ControladorCuotas::ctrContarVentasDiarios();
         <span class="card-header-date"><?= $fecha ?></span>
       </div>
       <div class="card-body">
-        <h4><?= $item['title'] ?> Hoy</h4>
+        <h4><?= $item['title'] ?></h4>
         <p><?= $item['data'] ?> <?= $item['unidad'] ?></p>
         <button class="card-button"
                 data-accion="<?= $item['accion'] ?>"

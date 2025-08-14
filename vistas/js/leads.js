@@ -260,3 +260,75 @@ $(document).on('submit', '#formularioCliente', function(e) {
     });
     
 });
+
+$(document).ready(function () {
+  $('.card-button').on('click', function () {
+    const accion = $(this).data('accion');
+    const tipo = $(this).data('tipo');
+
+    $('#modalDetalle .modal-title').text('Lead Registrados ');
+    $('#modalDetalle .modal-body').html('<p>Cargando detalles...</p>');
+    $('#modalDetalle').modal('show');
+
+    $.ajax({
+      url: 'ajax/leads.ajax.php',
+      method: 'POST',
+      data: { accion: accion },
+      dataType: 'json',
+      success: function (respuesta) {
+        console.log(respuesta)
+        if (respuesta.success && Array.isArray(respuesta.data)) {
+          let tabla = `
+            <table id="tabla-detalles" class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>nombre</th>
+                  <th>apellido</th>
+                  <th>sector</th>                
+                  <th>email</th>
+                  <th>telefono</th>
+                </tr>
+              </thead>
+              <tbody>
+          `;
+
+          respuesta.data.forEach((fila, index) => {
+            tabla += `
+              <tr>
+                <td>${index + 1}</td>
+                <td>${fila.first_name}</td> 
+                <td>${fila.last_name}</td> 
+                <td>${fila.sector}</td>
+                <td>${fila.email}</td>                
+                <td>${fila.phone}</td>
+              </tr>
+            `;
+          });
+
+          tabla += `
+              </tbody>
+            </table>
+            <p class="text-right text-muted mt-3"><small>Rango: ${respuesta.rango_fecha}</small></p>
+          `;
+
+          $('#modalDetalle .modal-body').html(tabla);
+
+          // Inicializar DataTables si está disponible
+          if ($.fn.DataTable) {
+            $('#tabla-detalles').DataTable({
+              language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-CO.json'
+              }
+            });
+          }
+        } else {
+          $('#modalDetalle .modal-body').html('<p>No se encontraron datos para mostrar.</p>');
+        }
+      },
+      error: function () {
+        $('#modalDetalle .modal-body').html('<p>Error al cargar los datos del servidor.</p>');
+      }
+    });
+  });
+});

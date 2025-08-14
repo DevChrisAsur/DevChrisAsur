@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d1f258ee-b36f-465c-b369-682882a5d30d" name="Changes" comment="buf-fixed: nuev API ciudades integrada">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="d1f258ee-b36f-465c-b369-682882a5d30d" name="Changes" comment="features-cards(en proceso): las cards de inicio se han actualizado de la siguiente forma, las cards de contador de leads y de ventas ahora despliegan una modal para su posterior tabla de detalles.&#10;la cards de caida ha sido implementada, mostrando las cuotas sin pagar de la quincena del mes anterior.&#10;se hacen ajustes a los filtros de las tablas de transfer, recaudo y proceso y caida" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -88,14 +86,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1726439356860</updated>
-    </task>
-    <task id="LOCAL-00094" summary="feacture-leads:(actualizado) asesor asociado al registro de lead, vistas para asesores con leads asociados y para admin">
-      <option name="closed" value="true" />
-      <created>1728622557131</created>
-      <option name="number" value="00094" />
-      <option name="presentableId" value="LOCAL-00094" />
-      <option name="project" value="LOCAL" />
-      <updated>1728622557131</updated>
     </task>
     <task id="LOCAL-00095" summary="feacture-leads:(fixed) contenedor de paises y estados arreglado, ya no se desborda de la modal">
       <option name="closed" value="true" />
@@ -481,7 +471,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754972693808</updated>
     </task>
-    <option name="localTasksCounter" value="143" />
+    <task id="LOCAL-00143" summary="features-cards(en proceso): las cards de inicio se han actualizado de la siguiente forma, las cards de contador de leads y de ventas ahora despliegan una modal para su posterior tabla de detalles.&#10;la cards de caida ha sido implementada, mostrando las cuotas sin pagar de la quincena del mes anterior.&#10;se hacen ajustes a los filtros de las tablas de transfer, recaudo y proceso y caida">
+      <option name="closed" value="true" />
+      <created>1755060820604</created>
+      <option name="number" value="00143" />
+      <option name="presentableId" value="LOCAL-00143" />
+      <option name="project" value="LOCAL" />
+      <updated>1755060820604</updated>
+    </task>
+    <option name="localTasksCounter" value="144" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -518,7 +516,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feacture-cuotas (actualizado): modificacion para el correcto funcionamiento del ciclo de las facturas, donde se itera sobre el numero de cuotas que se difiere la factura" />
     <MESSAGE value="feacture-facturas (actualizado): logica encargada de obtener los items necesarios de la suscripcion, la factura y la cuota para su registro" />
     <MESSAGE value="feacture-clientes (actualizado): evento para la creacion de suscripcion factura y cuotas" />
     <MESSAGE value="feacture-facturas(actualizado): informacion de la factura actual" />
@@ -543,6 +540,7 @@
     <MESSAGE value="feature-notas(finalizado): se actualizan el metodo de ver notas para obtener el nombre de usuario de quien creo la nota, ademas de actualizar estilos basicos." />
     <MESSAGE value="feature-factura(finalizado): se actualizan los datos de la factura adicionalmente se actualiza el metodo para ver las facturas activas" />
     <MESSAGE value="buf-fixed: nuev API ciudades integrada" />
-    <option name="LAST_COMMIT_MESSAGE" value="buf-fixed: nuev API ciudades integrada" />
+    <MESSAGE value="features-cards(en proceso): las cards de inicio se han actualizado de la siguiente forma, las cards de contador de leads y de ventas ahora despliegan una modal para su posterior tabla de detalles.&#10;la cards de caida ha sido implementada, mostrando las cuotas sin pagar de la quincena del mes anterior.&#10;se hacen ajustes a los filtros de las tablas de transfer, recaudo y proceso y caida" />
+    <option name="LAST_COMMIT_MESSAGE" value="features-cards(en proceso): las cards de inicio se han actualizado de la siguiente forma, las cards de contador de leads y de ventas ahora despliegan una modal para su posterior tabla de detalles.&#10;la cards de caida ha sido implementada, mostrando las cuotas sin pagar de la quincena del mes anterior.&#10;se hacen ajustes a los filtros de las tablas de transfer, recaudo y proceso y caida" />
   </component>
 </project>

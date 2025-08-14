@@ -61,9 +61,8 @@ static public function mdlVerLeadfrio($tabla, $item, $valor){
 
 
 static public function mdlVerLeadsInteres($item, $valor) {
-    // Cambiamos la condición para que sea 'frio' en vez de una cadena vacía
     $query = "SELECT l.id_lead, l.cc, l.sector, l.first_name, l.last_name, l.email, l.phone,
-                l.status_lead, l.id_usuario,  -- Agregar la coma aquí
+                l.status_lead, l.id_usuario,
                 l.creation_date, l.origin, l.note
              FROM leads l ";  
 
@@ -78,23 +77,33 @@ static public function mdlVerLeadsInteres($item, $valor) {
 }
 
 static public function mdlContarLeadsDiarios(){
-    // Preparamos la consulta para contar los leads registrados hoy
     $stmt = Conexion::conectar()->prepare("
         SELECT COUNT(*) AS total_leads
         FROM leads
         WHERE creation_date = CURDATE()
     ");
-    
-    // Ejecutamos la consulta
     $stmt->execute();
-    
-    // Retornamos el resultado
+
     return $stmt->fetch()['total_leads'];
 }
 
+static public function mdlDetalleslead($fechaInicio, $fechaFin) {
+    $stmt = Conexion::conectar()->prepare(
+        "SELECT first_name, last_name, sector, email, phone
+         FROM leads
+         WHERE creation_date BETWEEN :fechaInicio AND :fechaFin"
+    );
+
+    $stmt->bindParam(":fechaInicio", $fechaInicio, PDO::PARAM_STR);
+    $stmt->bindParam(":fechaFin", $fechaFin, PDO::PARAM_STR);
+
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
 
     static public function mdlMostrarLeadsPorAsesor($tablaLeads, $tablaUsuarios, $id_asesor) {
-        // Preparamos la consulta para seleccionar los leads registrados por un asesor
         $stmt = Conexion::conectar()->prepare("
             SELECT l.id_lead, l.status_lead, l.cc, l.first_name, l.last_name, l.sector, l.email, l.phone, l.creation_date, l.origin, l.note,
             u.id, u.first_name AS asesor_first_name, u.last_name AS asesor_last_name

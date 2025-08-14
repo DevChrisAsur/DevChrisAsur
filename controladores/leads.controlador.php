@@ -75,6 +75,32 @@ class ControladorLeads {
         // Retornamos la respuesta del modelo, que contiene el conteo de leads
         return $respuesta;
     }
+
+		 static public function ctrVerDetalleslead() {
+
+        $fechaActual = new DateTime();
+        $año = $fechaActual->format("Y");
+        $mes = $fechaActual->format("m");
+        $dia = $fechaActual->format("d");
+
+        if ($dia >= 1 && $dia <= 15) {
+            $fechaInicio = "$año-$mes-01";
+            $fechaFin = "$año-$mes-15";
+            $rangoFecha = "1 al 15 de " . $fechaActual->format("M Y");
+        } else {
+            $fechaInicio = "$año-$mes-16";
+            $fechaFin = "$año-$mes-" . $fechaActual->format("t");
+            $rangoFecha = "16 al " . $fechaActual->format("t") . " de " . $fechaActual->format("M Y");
+        }
+
+        $respuesta = ModeloLeads::mdlDetalleslead($fechaInicio, $fechaFin);
+
+
+        return [
+            'detalles' => $respuesta ?: [],
+            'rango_fecha' => $rangoFecha
+        ];
+    }
 	
     static public function ctrVerLeadsFrio($item, $valor){
 
