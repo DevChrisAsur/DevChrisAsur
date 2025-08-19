@@ -266,7 +266,7 @@ $(document).ready(function () {
     const accion = $(this).data('accion');
     const tipo = $(this).data('tipo');
 
-    $('#modalDetalle .modal-title').text('Lead Registrados ');
+    $('#modalDetalle .modal-title').text('Clientes en ' + tipo);
     $('#modalDetalle .modal-body').html('<p>Cargando detalles...</p>');
     $('#modalDetalle').modal('show');
 

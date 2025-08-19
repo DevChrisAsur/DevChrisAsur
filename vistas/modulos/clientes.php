@@ -711,45 +711,116 @@
 
                         <tbody>
                             <?php
-                            $item = null;
-                            $valor = null;
-                            $clientes = ControladorClientes::ctrVerClientes($item, $valor);
-                            // echo '<pre>'; print_r($clientes); echo '</pre>';
+                            if ($_SESSION["perfil"] === "Asesor comercial") {
+                                $id_asesor = $_SESSION["id"];
+                                $clientes = ControladorClientes::ctrVerClientesAsesor($id_asesor);
 
-                            foreach ($clientes as $key => $value) {
-                                echo '<tr>
-                                        <td>' . ($key + 1) . '</td>
-                                        <td>
-                                            <button class="btn btn-info" id="btnInformacionAdicional" idCliente="' . $value["id_customer"] . '" style="margin-left: 8px;">
-                                                <i class="fa-solid fa-info"></i>
+                                foreach ($clientes as $key => $value) {
+                                    echo '<tr>
+                                <td>' . ($key + 1) . '</td>
+                                <td>
+                                    <button class="btn btn-info" id="btnInformacionAdicional" idCliente="' . $value["id_customer"] . '" style="margin-left: 8px;">
+                                        <i class="fa-solid fa-info"></i>
+                                    </button>
+                                </td>
+                                <td>' . htmlspecialchars($value["cc"]) . '</td>
+                                <td>' . htmlspecialchars($value["country"]) . '</td>
+                                <td>' . htmlspecialchars($value["first_name"]) . '</td>
+                                <td>' . htmlspecialchars($value["last_name"]) . '</td>
+                                <td>' . htmlspecialchars($value["state"]) . '</td>
+                                <td>' . htmlspecialchars($value["city"]) . '</td>
+                                <td>' . htmlspecialchars($value["customer_type"]) . '</td>
+                                <td>' . htmlspecialchars($value["email"]) . '</td>
+                                <td>' . htmlspecialchars($value["phone"]) . '</td>
+                                <td>
+                                    <div class="btn-group-container">
+                                        <div class="btn-group">
+                                            <button class="btn btn-danger btnEliminarCliente" idCliente="' . $value["id_customer"] . '" style="margin-left: 8px;">
+                                                <i class="fa fa-times"></i>
                                             </button>
-                                        </td>
-                                        <td>' . $value["cc"] . '</td>
-                                        <td>' . $value["country"] . '</td>
-                                        <td>' . $value["first_name"] . '</td>
-                                        <td>' . $value["last_name"] . '</td>
-                                        <td>' . $value["state"] . '</td>
-                                        <td>' . $value["city"] . '</td>
-                                        <td>' . $value["customer_type"] . '</td>
-                                        <td>' . $value["email"] . '</td>
-                                        <td>' . $value["phone"] . '</td>
-                                        <td>
-                                            <div class="btn-group-container">
-                                                <div class="btn-group">
-                                                    <button class="btn btn-danger btnEliminarCliente" idCliente="' . $value["id_customer"] . '" style="margin-left: 8px;">
-                                                        <i class="fa fa-times"></i>
-                                                    </button>
-                                                    <button class="btn btn-primary btnGenerarPDF" idCliente="' . $value["id_customer"] . '" style="margin-left: 8px;">
-                                                        <i class="fa fa-file-pdf-o"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>';
-                            }
+                                            <button class="btn btn-primary btnGenerarPDF" idCliente="' . $value["id_customer"] . '" style="margin-left: 8px;">
+                                                <i class="fa fa-file-pdf-o"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>';
+                                                }
+                                            } else if ($_SESSION["perfil"] === "Coordinador comercial") {
+                                                $id_coordinador = $_SESSION["id"];
+                                                $clientes = ControladorClientes::ctrVerClientesCoordinador($id_coordinador);
 
+                                                foreach ($clientes as $key => $value) {
+                                                    echo '<tr>
+                                <td>' . ($key + 1) . '</td>
+                                <td>
+                                    <button class="btn btn-info" id="btnInformacionAdicional" idCliente="' . $value["id_customer"] . '" style="margin-left: 8px;">
+                                        <i class="fa-solid fa-info"></i>
+                                    </button>
+                                </td>
+                                <td>' . htmlspecialchars($value["cc"]) . '</td>
+                                <td>' . htmlspecialchars($value["country"]) . '</td>
+                                <td>' . htmlspecialchars($value["first_name"]) . '</td>
+                                <td>' . htmlspecialchars($value["last_name"]) . '</td>
+                                <td>' . htmlspecialchars($value["state"]) . '</td>
+                                <td>' . htmlspecialchars($value["city"]) . '</td>
+                                <td>' . htmlspecialchars($value["customer_type"]) . '</td>
+                                <td>' . htmlspecialchars($value["email"]) . '</td>
+                                <td>' . htmlspecialchars($value["phone"]) . '</td>
+                                <td>
+                                    <div class="btn-group-container">
+                                        <div class="btn-group">
+                                            <button class="btn btn-danger btnEliminarCliente" idCliente="' . $value["id_customer"] . '" style="margin-left: 8px;">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                            <button class="btn btn-primary btnGenerarPDF" idCliente="' . $value["id_customer"] . '" style="margin-left: 8px;">
+                                                <i class="fa fa-file-pdf-o"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>';
+                                                }
+                                            } else if ($_SESSION["perfil"] === "Administrador" || $_SESSION["perfil"] === "Super Administrador") {
+                                                $item = null;
+                                                $valor = null;
+                                                $clientes = ControladorClientes::ctrVerClientes($item, $valor);
+
+                                                foreach ($clientes as $key => $value) {
+                                                    echo '<tr>
+                                <td>' . ($key + 1) . '</td>
+                                <td>
+                                    <button class="btn btn-info" id="btnInformacionAdicional" idCliente="' . $value["id_customer"] . '" style="margin-left: 8px;">
+                                        <i class="fa-solid fa-info"></i>
+                                    </button>
+                                </td>
+                                <td>' . htmlspecialchars($value["cc"]) . '</td>
+                                <td>' . htmlspecialchars($value["country"]) . '</td>
+                                <td>' . htmlspecialchars($value["first_name"]) . '</td>
+                                <td>' . htmlspecialchars($value["last_name"]) . '</td>
+                                <td>' . htmlspecialchars($value["state"]) . '</td>
+                                <td>' . htmlspecialchars($value["city"]) . '</td>
+                                <td>' . htmlspecialchars($value["customer_type"]) . '</td>
+                                <td>' . htmlspecialchars($value["email"]) . '</td>
+                                <td>' . htmlspecialchars($value["phone"]) . '</td>
+                                <td>
+                                    <div class="btn-group-container">
+                                        <div class="btn-group">
+                                            <button class="btn btn-danger btnEliminarCliente" idCliente="' . $value["id_customer"] . '" style="margin-left: 8px;">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                            <button class="btn btn-primary btnGenerarPDF" idCliente="' . $value["id_customer"] . '" style="margin-left: 8px;">
+                                                <i class="fa fa-file-pdf-o"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>';
+                                }
+                            }
                             ?>
                         </tbody>
+
                         <tfoot>
                             <tr>
                                 <th style="width:10px">#</th>
@@ -837,7 +908,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="div2">
                             <div class="tabs">
                                 <div class="tab-container">
@@ -1344,31 +1414,59 @@
     <!-- evento para desplegar el box body secundario -->
     <script>
         $(document).ready(function() {
-            // Inicialmente el segundo box-body está oculto
-            $('#boxBodySecundario').hide();
+            // Detectar si viene un id de cliente en la URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const idCliente = urlParams.get('id');
 
-            // Delegar el evento click en los botones con la clase btn-info
-            $(document).on('click', '#btnInformacionAdicional', function() {
+            if (idCliente) {
+                // Guardar el id del cliente en el input oculto
+                $('#idCliente').val(idCliente);
+
+                // Ocultar el box principal y mostrar el secundario
                 $('#boxBodyPrincipal').hide();
-                $('#boxBodySecundario').slideToggle();
+                $('#boxBodySecundario').slideDown();
 
-                const idCliente = $(this).attr('idCliente');
+                // Cargar la información financiera del cliente
                 if (idCliente) {
                     $('#idCliente').val(idCliente);
                     cargarInformacionFinanciera(idCliente); // Cargar datos cuando se abre
                 } else {
                     console.warn("No se encontró idCliente al intentar cargar información financiera.");
                 }
-            });
-
-
-            // Cuando se haga clic en el botón "Volver al Principal", mostrar el box-body principal y ocultar el secundario
+            }
             $('#btnVolver').click(function() {
                 $('#boxBodySecundario').hide(); // Oculta el box-body secundario
                 $('#boxBodyPrincipal').slideToggle(); // Muestra el box-body principal
                 document.querySelector('a[href="#tab1"]').click();
             });
         });
+
+        // $(document).ready(function() {
+        //     // Inicialmente el segundo box-body está oculto
+        //     $('#boxBodySecundario').hide();
+
+        //     // Delegar el evento click en los botones con la clase btn-info
+        $(document).on('click', '#btnInformacionAdicional', function() {
+            $('#boxBodyPrincipal').hide();
+            $('#boxBodySecundario').slideToggle();
+
+            const idCliente = $(this).attr('idCliente');
+            if (idCliente) {
+                $('#idCliente').val(idCliente);
+                cargarInformacionFinanciera(idCliente); // Cargar datos cuando se abre
+            } else {
+                console.warn("No se encontró idCliente al intentar cargar información financiera.");
+            }
+        });
+
+
+        //     // Cuando se haga clic en el botón "Volver al Principal", mostrar el box-body principal y ocultar el secundario
+        //     $('#btnVolver').click(function() {
+        //         $('#boxBodySecundario').hide(); // Oculta el box-body secundario
+        //         $('#boxBodyPrincipal').slideToggle(); // Muestra el box-body principal
+        //         document.querySelector('a[href="#tab1"]').click();
+        //     });
+        // });
 
         $(document).ready(function() {
             // Mostrar el contenido de la primera pestaña (Productos) por defecto

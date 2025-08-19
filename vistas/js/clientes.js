@@ -21,57 +21,63 @@ $(".tablas").on("click", ".btnEliminarCliente", function () {
   });
 });
 
-// Al hacer clic en el botón para obtener la información del cliente
+
 $(document).on("click", "#btnInformacionAdicional", function () {
-  var idCliente = $(this).attr("idCliente"); // Recoger el ID del cliente
-  if (!idCliente) {
-    console.error("No se encontró idCliente en el botón.");
-    return;
-  }
-
-  // Crear un FormData para pasar los datos por AJAX
-  var datos = new FormData();
-  datos.append("idCliente", idCliente);
-
-  // Hacer la solicitud AJAX
-  $.ajax({
-    url: "ajax/clientes.ajax.php", // URL del archivo AJAX para obtener los datos del cliente
-    method: "POST",
-    data: datos,
-    cache: false,
-    contentType: false,
-    processData: false,
-    dataType: "json",
-    success: function (respuesta) {
-      if (respuesta.error) {
-        console.error("Error:", respuesta.error);
-        alert("Error: " + respuesta.error);
-      } else {
-        var nombreCompleto = respuesta.first_name + " " + respuesta.last_name;
-
-        // Asignar la información del cliente a los campos correspondientes
-        $("#infoIdCCliente").val(respuesta.cc);
-        $("#infoNombreApellido").text(nombreCompleto);
-        $("#infoEmail").text(respuesta.email);
-        $("#infoTelefono").text(respuesta.phone);
-        var paisCiudad =
-          (respuesta.country || "Desconocido") +
-          "/" +
-          (respuesta.city || "Desconocida");
-        $("#infoCity").text(paisCiudad);
-        $("#infoIdLeads").text(respuesta.id_customer);
-        $("#infoTipoCliente").text(respuesta.customer_type);
-        $("#infofecha").text(respuesta.creation_date);
-
-        // Guardar el ID del cliente en una variable global para su uso posterior
-        window.idClienteSeleccionado = respuesta.id_customer;
-      }
-    },
-    error: function (jqXHR, textStatus, errorThrown) {
-      console.error("Error en la solicitud AJAX:", textStatus, errorThrown);
-    },
-  });
+  var idCliente = $(this).attr("idCliente");
+  cargarInformacionCliente(idCliente);
 });
+
+// Al hacer clic en el botón para obtener la información del cliente
+// $(document).on("click", "#btnInformacionAdicional", function () {
+//   var idCliente = $(this).attr("idCliente"); // Recoger el ID del cliente
+//   if (!idCliente) {
+//     console.error("No se encontró idCliente en el botón.");
+//     return;
+//   }
+
+//   // Crear un FormData para pasar los datos por AJAX
+//   var datos = new FormData();
+//   datos.append("idCliente", idCliente);
+
+//   // Hacer la solicitud AJAX
+//   $.ajax({
+//     url: "ajax/clientes.ajax.php", // URL del archivo AJAX para obtener los datos del cliente
+//     method: "POST",
+//     data: datos,
+//     cache: false,
+//     contentType: false,
+//     processData: false,
+//     dataType: "json",
+//     success: function (respuesta) {
+//       if (respuesta.error) {
+//         console.error("Error:", respuesta.error);
+//         alert("Error: " + respuesta.error);
+//       } else {
+//         var nombreCompleto = respuesta.first_name + " " + respuesta.last_name;
+
+//         // Asignar la información del cliente a los campos correspondientes
+//         $("#infoIdCCliente").val(respuesta.cc);
+//         $("#infoNombreApellido").text(nombreCompleto);
+//         $("#infoEmail").text(respuesta.email);
+//         $("#infoTelefono").text(respuesta.phone);
+//         var paisCiudad =
+//           (respuesta.country || "Desconocido") +
+//           "/" +
+//           (respuesta.city || "Desconocida");
+//         $("#infoCity").text(paisCiudad);
+//         $("#infoIdLeads").text(respuesta.id_customer);
+//         $("#infoTipoCliente").text(respuesta.customer_type);
+//         $("#infofecha").text(respuesta.creation_date);
+
+//         // Guardar el ID del cliente en una variable global para su uso posterior
+//         window.idClienteSeleccionado = respuesta.id_customer;
+//       }
+//     },
+//     error: function (jqXHR, textStatus, errorThrown) {
+//       console.error("Error en la solicitud AJAX:", textStatus, errorThrown);
+//     },
+//   });
+// });
 
 // Manejar la creación de la suscripción (Guardar Producto)
 $(document).on('click', '#guardarProductoYCrearFactura', function(e) {
@@ -332,6 +338,7 @@ $(document).ready(function () {
                   <th>estado de pago</th>                
                   <th>fecha limite de pago</th>
                   <th>valor de pago</th>
+                  <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -346,10 +353,14 @@ $(document).ready(function () {
                 <td>${fila.estado_pago}</td>                
                 <td>${fila.fecha_vencimiento}</td>
                 <td>$${parseFloat(fila.valor_cuota_actual).toLocaleString('es-CO')}</td>
+                <td>
+                  <button class="btn btn-info btn-sm btn-ver-cliente" data-id="${fila.id_customer}">
+                    Ver
+                  </button>
+                </td>
               </tr>
             `;
           });
-
           tabla += `
               </tbody>
             </table>
@@ -366,6 +377,13 @@ $(document).ready(function () {
               }
             });
           }
+
+          // Evento para redirigir
+          $('#tabla-detalles').on('click', '.btn-ver-cliente', function () {
+            const idCliente = $(this).data('id');
+            window.location.href = 'clientes?id=' + idCliente;
+          });
+
         } else {
           $('#modalDetalle .modal-body').html('<p>No se encontraron datos para mostrar.</p>');
         }
@@ -376,3 +394,61 @@ $(document).ready(function () {
     });
   });
 });
+$(document).ready(function () {
+  // Si la URL tiene ?id=... cargar automáticamente la info
+  const params = new URLSearchParams(window.location.search);
+  if (params.has('id')) {
+    const idCliente = params.get('id');
+    cargarInformacionCliente(idCliente);
+  }
+});
+
+
+function cargarInformacionCliente(idCliente) {
+  if (!idCliente) {
+    console.error("No se proporcionó un idCliente válido.");
+    return;
+  }
+
+  var datos = new FormData();
+  datos.append("idCliente", idCliente);
+
+  $.ajax({
+    url: "ajax/clientes.ajax.php",
+    method: "POST",
+    data: datos,
+    cache: false,
+    contentType: false,
+    processData: false,
+    dataType: "json",
+    success: function (respuesta) {
+      if (respuesta.error) {
+        console.error("Error:", respuesta.error);
+        alert("Error: " + respuesta.error);
+        return;
+      }
+
+      var nombreCompleto = respuesta.first_name + " " + respuesta.last_name;
+
+      $("#infoIdCCliente").val(respuesta.cc);
+      $("#infoNombreApellido").text(nombreCompleto);
+      $("#infoEmail").text(respuesta.email);
+      $("#infoTelefono").text(respuesta.phone);
+
+      var paisCiudad =
+        (respuesta.country || "Desconocido") +
+        "/" +
+        (respuesta.city || "Desconocida");
+      $("#infoCity").text(paisCiudad);
+      $("#infoIdLeads").text(respuesta.id_customer);
+      $("#infoTipoCliente").text(respuesta.customer_type);
+      $("#infofecha").text(respuesta.creation_date);
+
+      // Guardar el ID para otros procesos
+      window.idClienteSeleccionado = respuesta.id_customer;
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.error("Error en la solicitud AJAX:", textStatus, errorThrown);
+    }
+  });
+}

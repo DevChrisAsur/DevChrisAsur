@@ -89,19 +89,20 @@ if (isset($_POST["editarNombre"])) { // Verifica si se está enviando el nombre 
     }
 }
 
-switch($_POST["accion"]){
-
-    case "VerDetallesLeads":
-       $respuesta = ControladorLeads::ctrVerDetalleslead();
-       echo json_encode([
-        'success' => true,
-        'data' => $respuesta['detalles'],
-        'rango_fecha' => $respuesta['rango_fecha']
-       ]);
-       exit;
-
-    default:
-        echo json_encode(["error" => "Acción no válida."]);
-        exit;    
+if (isset($_POST["accion"])) {
+    switch($_POST["accion"]){
+        case "VerDetallesLeads":
+            $respuesta = ControladorLeads::ctrVerDetalleslead();
+            echo json_encode([
+                'success' => true,
+                'data' => $respuesta['detalles'],
+                'rango_fecha' => $respuesta['rango_fecha']
+            ]);
+            exit;
+        default:
+            echo json_encode(["error" => "Acción no válida."]);
+            exit;
+    }
 }
+
 

@@ -62,19 +62,29 @@ static public function mdlVerLeadfrio($tabla, $item, $valor){
 
 static public function mdlVerLeadsInteres($item, $valor) {
     $query = "SELECT l.id_lead, l.cc, l.sector, l.first_name, l.last_name, l.email, l.phone,
-                l.status_lead, l.id_usuario,
-                l.creation_date, l.origin, l.note
-             FROM leads l ";  
+                     l.status_lead, l.id_usuario, l.creation_date, l.origin, l.note,
+                     u.id AS id_asesor, u.first_name AS asesor_first_name, u.last_name AS asesor_last_name
+              FROM leads l
+              INNER JOIN usuarios u ON l.id_usuario = u.id";  
 
-    $stmt = Conexion::conectar()->prepare($query);	
+    // Si hay condición ($item y $valor)
+    if ($item !== null && $valor !== null) {
+        $query .= " WHERE l.$item = :$item";
+    }
+
+    $stmt = Conexion::conectar()->prepare($query);
+
     if ($item !== null && $valor !== null) {
         $stmt->bindParam(":$item", $valor, PDO::PARAM_STR);
-    }	
+    }
+
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
     $stmt->close();
     $stmt = null;
 }
+
 
 static public function mdlContarLeadsDiarios(){
     $stmt = Conexion::conectar()->prepare("
@@ -122,7 +132,7 @@ static public function mdlDetalleslead($fechaInicio, $fechaFin) {
         return $stmt->fetchAll();
     }
 
-    static public function mdlMostrarLeadsPorCoordinador($tablaLeads, $tablaUsuarios, $id_coordinador) {
+static public function mdlMostrarLeadsPorCoordinador($tablaLeads, $tablaUsuarios, $id_coordinador) {
     $stmt = Conexion::conectar()->prepare(
         "SELECT 
             l.id_lead, l.cc, l.sector, l.first_name, l.last_name, l.phone, 
@@ -130,14 +140,19 @@ static public function mdlDetalleslead($fechaInicio, $fechaFin) {
             l.status_lead, l.origin, l.note, l.creation_date
         FROM $tablaLeads l
         INNER JOIN $tablaUsuarios u ON l.id_usuario = u.id
-        WHERE u.id_coordinador = :id_coordinador
-    ");
+        WHERE u.id_coordinador = :idCoordinador
+           OR u.id = :idUsuario"
+    );
 
-    $stmt->bindParam(":id_coordinador", $id_coordinador, PDO::PARAM_INT);
+    // Bind de ambos parámetros con el mismo valor
+    $stmt->bindParam(":idCoordinador", $id_coordinador, PDO::PARAM_INT);
+    $stmt->bindParam(":idUsuario", $id_coordinador, PDO::PARAM_INT);
+
     $stmt->execute();
 
     return $stmt->fetchAll();
-    }
+}
+
 
 
     static public function mdlEditarLead($tabla, $datos) {

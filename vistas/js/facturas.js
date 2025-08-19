@@ -86,41 +86,45 @@ function verCuotas() {
   });
 }
 
-function llenarTablaCuotas(cuotas) {
+function llenarTablaCuotas(cuotas, perfilUsuario) {
   const tbody = $(".table-cuotas"); // Selecciona el tbody de la tabla específica
   tbody.empty(); // Limpia el contenido anterior de la tabla
 
   cuotas.forEach((cuota, index) => {
+    // Botón visible solo para ciertos perfiles
+    let botonAccion = "";
+    if (
+      perfilUsuario === "Coordinador Comercial" ||
+      perfilUsuario === "Administrador" ||
+      perfilUsuario === "Super Administrador"
+    ) {
+      botonAccion = `
+        <button class="btn btn-warning btn-editar-cuota" data-id="${cuota.id_cuota}" 
+                data-toggle="modal" data-target="#editarCuota">
+            <i class="fa fa-pencil"></i> Acción
+        </button>`;
+    }
+
     const row = `
-            <tr>
-                <td>${index + 1}</td>
-                <td><input type="text" class="form-control text-center" value="${
-                  cuota.fecha_vencimiento
-                }" readonly></td>
-                <td><input type="text" class="form-control text-center" value="${
-                  cuota.monto
-                }" readonly></td>
-                <td><input type="text" class="form-control text-center" value="${
-                  cuota.estado_pago
-                }" readonly></td>
-                <td>
-                    <button class="btn btn-warning btn-editar-cuota" data-id="${
-                      cuota.id_cuota
-                    }" data-toggle="modal" data-target="#editarCuota">
-                        <i class="fa fa-pencil"></i> Acción
-                    </button>
-                </td>
-            </tr>
-        `;
+      <tr>
+          <td>${index + 1}</td>
+          <td><input type="text" class="form-control text-center" value="${cuota.fecha_vencimiento}" readonly></td>
+          <td><input type="text" class="form-control text-center" value="${cuota.monto}" readonly></td>
+          <td><input type="text" class="form-control text-center" value="${cuota.estado_pago}" readonly></td>
+          <td>${botonAccion}</td>
+      </tr>
+    `;
+
     tbody.append(row); // Añadir la fila a la tabla
   });
 
-  // Evento para abrir el modal con datos específicos
-  $(".btn-accion").on("click", function () {
+  // Evento para abrir el modal con datos específicos (si existe el botón)
+  $(".btn-editar-cuota").on("click", function () {
     const idCuota = $(this).data("id"); // Obtener el id de la cuota desde data-id
     cargarDatosModal(idCuota); // Cargar datos en el modal
   });
 }
+
 
 function cargarDatosModal(idCuota) {
   const datos = new FormData();

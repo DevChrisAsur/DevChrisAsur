@@ -145,6 +145,41 @@ class ControladorClientes {
 		return $respuesta;
 	
 	}
+    /*=============================================
+CONTROLADOR: Ver Clientes por Asesor
+=============================================*/
+	static public function ctrVerClientesAsesor($id_asesor){
+
+		$tablaClientes = "cliente";
+		$tablaUsuarios = "usuarios";
+	
+		// Llamamos al modelo para obtener los leads del asesor
+		$respuesta = ModeloCliente::mdlVerClientesAsesor($tablaClientes, $tablaUsuarios, $id_asesor);
+	
+		return $respuesta;
+	}
+
+/*=============================================
+VER CLIENTES COORDINADOR
+=============================================*/
+static public function ctrVerClientesCoordinador($id_coordinador){
+
+    $tablaClientes = "cliente";
+    $tablaLeads = "leads";
+    $tablaUsuarios = "usuarios";
+
+    // Llamamos al modelo para obtener los clientes que pertenecen al coordinador
+    $respuesta = ModeloCliente::mdlVerClientesCoordinador(
+        $tablaClientes, 
+        $tablaLeads, 
+        $tablaUsuarios, 
+        $id_coordinador
+    );
+
+    return $respuesta;
+}
+
+
     static public function ctrInfoCliente($item, $valor){
 
 		$tabla = "cliente";

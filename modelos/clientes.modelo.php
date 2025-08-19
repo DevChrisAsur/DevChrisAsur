@@ -56,6 +56,50 @@ static public function mdlVerClientes($tabla){
 
 }
 
+static public function mdlVerClientesAsesor($tablaClientes, $tablaUsuarios, $id_asesor) {
+
+    $stmt = Conexion::conectar()->prepare(
+        "SELECT 
+    c.id_customer, c.cc, c.country, c.first_name, c.last_name, 
+    c.state, c.city, c.customer_type, c.email, c.phone, c.id_lead,
+    CONCAT(u.first_name, ' ', u.last_name) AS asesor
+FROM cliente c
+INNER JOIN leads l ON c.id_lead = l.id_lead
+INNER JOIN usuarios u ON l.id_usuario = u.id
+WHERE u.id = :id
+"
+    );
+
+    $stmt->bindParam(":id", $id_asesor, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->fetchAll();
+}
+
+static public function mdlVerClientesCoordinador($tablaClientes, $tablaLeads, $tablaUsuarios, $id_coordinador) {
+
+    $stmt = Conexion::conectar()->prepare(
+        "SELECT 
+            c.id_customer, c.cc, c.country, c.first_name, c.last_name, 
+            c.state, c.city, c.customer_type, c.email, c.phone, c.id_lead,
+            CONCAT(u.first_name, ' ', u.last_name) AS asesor
+        FROM $tablaClientes c
+        INNER JOIN $tablaLeads l ON c.id_lead = l.id_lead
+        INNER JOIN $tablaUsuarios u ON l.id_usuario = u.id
+        WHERE u.id_coordinador = :id_coordinador
+           OR u.id = :idUsuario"
+    );
+
+    $stmt->bindParam(":id_coordinador", $id_coordinador, PDO::PARAM_INT);
+    $stmt->bindParam(":idUsuario", $id_coordinador, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->fetchAll();
+}
+
+
+
+
 static public function mdlVerInfoCliente($tabla, $item, $valor){
     if ($item != null) {
         // Incluimos la cláusula WHERE y el INNER JOIN con leads

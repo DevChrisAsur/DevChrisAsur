@@ -363,9 +363,7 @@
               <th>Nombre</th>
               <th>Apellido</th>
               <th>Telefono</th>
-              <?php if ($_SESSION["perfil"] === "Asesor comercial" || $_SESSION["perfil"] === "Coordinador comercial"): ?>
-                <th>Asesor</th>
-              <?php endif; ?>
+              <th>Asesor</th>
               <th>Status</th>
               <th>Origen</th>
               <th>Informacion adicional</th>
@@ -424,7 +422,10 @@
                       <td class="text">' . htmlspecialchars($value["sector"]) . '</td>
                       <td class="text">' . htmlspecialchars($value["first_name"]) . '</td>
                       <td class="text">' . htmlspecialchars($value["last_name"]) . '</td>
-                      <td class="text">' . htmlspecialchars($value["phone"]) . '</td>';
+                      <td class="text">' . htmlspecialchars($value["phone"]) . '</td>
+                      <td>' . htmlspecialchars($value["asesor_first_name"]) . ' ' . htmlspecialchars($value["asesor_last_name"]) . '</td>';
+
+                      
                 if ($value["status_lead"] != 0) {
                   echo '<td><button class="btn btn-success btn-xs btnCambiarEstadoLead" idLead="' . $value["id_lead"] . '" estadoActualLead="0">Cliente</button></td>';
                 } else {
