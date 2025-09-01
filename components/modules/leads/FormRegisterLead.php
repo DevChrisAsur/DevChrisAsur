@@ -125,7 +125,7 @@
         <!-- CABEZA DEL MODAL -->
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Registrar lead</h4>
+          <h4 class="modal-title">Registrar nuevo cliente</h4>
         </div>
 
         <!-- CUERPO DEL MODAL -->

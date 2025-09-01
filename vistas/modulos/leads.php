@@ -206,7 +206,8 @@
     line-height: 1.5;
     border-radius: .3rem;
   }
-   .row {
+
+  .row {
     padding: 10px 0;
     gap: 15px
   }
@@ -230,7 +231,7 @@
     border-radius: 0.25rem;
   }
 
-    /* Floating labels */
+  /* Floating labels */
   #confirmacionModal .floating-label-group {
     position: relative;
     display: flex;
@@ -251,11 +252,13 @@
 
   #confirmacionModal .floating-label-group input,
   #confirmacionModal .floating-label-group select {
-  height: 52px; /* un poco más alto */
-  padding: 16px 14px 6px 14px; /* más aire arriba/abajo */
+    height: 52px;
+    /* un poco más alto */
+    padding: 16px 14px 6px 14px;
+    /* más aire arriba/abajo */
   }
-  
-    #confirmacionModal h5 {
+
+  #confirmacionModal h5 {
     font-size: 1.2rem;
     font-weight: 600;
     color: #3e383d;
@@ -285,108 +288,109 @@
   #confirmacionModal .floating-label-group select:valid+label {
     top: 0;
     font-size: 12px;
-    color: #555; /* gris consistente */
+    color: #555;
+    /* gris consistente */
     background: white;
     padding: 0 5px;
   }
 </style>
 
 
-  <!-- selectize search  -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css"
-    integrity="sha512-pTaEn+6gF1IeWv3W1+7X7eM60TFu/agjgoHmYhAfLEU8Phuf6JKiiE8YmsNC0aCgQv4192s4Vai8YZ6VNM6vyQ=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.bootstrap4.min.css">
-  <!-- filtrar fechas -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.3.1/css/dataTables.dateTime.min.css">
-  <!-- Datatables librerias -->
+<!-- selectize search  -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css"
+  integrity="sha512-pTaEn+6gF1IeWv3W1+7X7eM60TFu/agjgoHmYhAfLEU8Phuf6JKiiE8YmsNC0aCgQv4192s4Vai8YZ6VNM6vyQ=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.bootstrap4.min.css">
+<!-- filtrar fechas -->
+<link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.3.1/css/dataTables.dateTime.min.css">
+<!-- Datatables librerias -->
 
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"
-    integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer">
-  </script>
-  <script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-  <script src="vistas/plugins/sweetalert2/sweetalert2.all.js"></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"
+  integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer">
+</script>
+<script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+<script src="vistas/plugins/sweetalert2/sweetalert2.all.js"></script>
 
-  <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
-  <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.bootstrap4.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-  <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
-  <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
-  <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
-  <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-  <!-- filtrar fechas -->
-  <script src="https://cdn.datatables.net/datetime/1.3.1/js/dataTables.dateTime.min.js"></script>
-  <script>
-    localStorage.setItem('rutaActual', 'leads');
-  </script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.bootstrap4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<!-- filtrar fechas -->
+<script src="https://cdn.datatables.net/datetime/1.3.1/js/dataTables.dateTime.min.js"></script>
+<script>
+  localStorage.setItem('rutaActual', 'leads');
+</script>
 
-  <div class="content-wrapper">
+<div class="content-wrapper">
 
-    <section class="content-header">
+  <section class="content-header">
 
-      <h1>
-        Administrar Leads
-      </h1>
+    <h1>
+      Administrar Leads
+    </h1>
 
-      <ol class="breadcrumb">
-        <li><a href="inicio"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <li class="active">LEads</li>
-      </ol>
+    <ol class="breadcrumb">
+      <li><a href="inicio"><i class="fa fa-dashboard"></i> Inicio</a></li>
+      <li class="active">LEads</li>
+    </ol>
 
-    </section>
+  </section>
 
-    <section class="content">
+  <section class="content">
 
-      <div class="box">
+    <div class="box">
 
-        <div class="box-header with-border">
-          <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarLead">
-            Registrar Lead
-          </button>
-        </div>
+      <div class="box-header with-border">
+        <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarLead">
+          Registrar Lead
+        </button>
+      </div>
 
-        <div class="box-body">
+      <div class="box-body">
 
-          <table class="table table-bordered table-striped dt-responsive tablas" width="100%">
-            <thead>
-              <tr>
-                <th style="width:10px">#</th>
-                <th>Fecha Lead</th>
-                <th>Identificacion</th>
-                <th>sector</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Telefono</th>
-                <th>Asesor</th>
-                <th>Status</th>
-                <th>Origen</th>
-                <th>Informacion adicional</th>
-                <th style="width:80px">Acciones</th>
-              </tr>
-            </thead>
+        <table class="table table-bordered table-striped dt-responsive tablas" width="100%">
+          <thead>
+            <tr>
+              <th style="width:10px">#</th>
+              <th>Fecha Lead</th>
+              <th>Identificacion</th>
+              <th>sector</th>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Telefono</th>
+              <th>Asesor</th>
+              <th>Status</th>
+              <th>Origen</th>
+              <th>Informacion adicional</th>
+              <th style="width:80px">Acciones</th>
+            </tr>
+          </thead>
 
-            <tbody>
-              <?php
-              // Primero verificamos si el perfil es "Asesor comercial"
-              if ($_SESSION["perfil"] === "Asesor comercial") {
-                // Obtenemos el id del asesor a partir de la sesión
-                $id_asesor = $_SESSION["id"];
+          <tbody>
+            <?php
+            // Primero verificamos si el perfil es "Asesor comercial"
+            if ($_SESSION["perfil"] === "Asesor comercial") {
+              // Obtenemos el id del asesor a partir de la sesión
+              $id_asesor = $_SESSION["id"];
 
-                // Llamamos al controlador para obtener los leads registrados por el asesor
-                $leads = ControladorLeads::ctrVerLeadAsesor($id_asesor);
+              // Llamamos al controlador para obtener los leads registrados por el asesor
+              $leads = ControladorLeads::ctrVerLeadAsesor($id_asesor);
 
-                // Iteramos sobre los leads y los mostramos en la tabla
-                foreach ($leads as $key => $lead) {
-                  echo '<tr>
+              // Iteramos sobre los leads y los mostramos en la tabla
+              foreach ($leads as $key => $lead) {
+                echo '<tr>
                 <td>' . ($key + 1) . '</td>
                 <td class="text">' . htmlspecialchars($lead["creation_date"]) . '</td>
                 <td class="text">' . htmlspecialchars($lead["cc"]) . '</td>
@@ -395,12 +399,12 @@
                 <td class="text">' . htmlspecialchars($lead["last_name"]) . '</td>
                 <td class="text">' . htmlspecialchars($lead["phone"]) . '</td>
                 <td>' . htmlspecialchars($lead["asesor_first_name"]) . ' ' . htmlspecialchars($lead["asesor_last_name"]) . '</td>';
-                  if ($lead["status_lead"] != 0) {
-                    echo '<td><button class="btn btn-success btn-xs btnCambiarEstadoLead" idLead="' . $lead["id_lead"] . '" estadoActualLead="0">Cliente</button></td>';
-                  } else {
-                    echo '<td><button class="btn btn-info btn-xs btnCambiarEstadoLead" idLead="' . $lead["id_lead"] . '" estadoActualLead="1">Lead</button></td>';
-                  }
-                  echo '
+                if ($lead["status_lead"] != 0) {
+                  echo '<td><button class="btn btn-success btn-xs btnCambiarEstadoLead" idLead="' . $lead["id_lead"] . '" estadoActualLead="0">Cliente</button></td>';
+                } else {
+                  echo '<td><button class="btn btn-info btn-xs btnCambiarEstadoLead" idLead="' . $lead["id_lead"] . '" estadoActualLead="1">Lead</button></td>';
+                }
+                echo '
               <td class="text">' . htmlspecialchars($lead["origin"]) . '</td>
               <td class="text">' . htmlspecialchars($lead["note"]) . '</td>
               <td>
@@ -409,16 +413,16 @@
                     </div>
                   </td>
               </tr>';
-                }
               }
-              // Ahora verificamos si el perfil es "Super Administrador" o "Administrador"
-              else if ($_SESSION["perfil"] === "Super Administrador" || $_SESSION["perfil"] === "Administrador") {
-                $item = null;
-                $valor = null;
-                $categorias = ControladorLeads::ctrVerInteresLead($item, $valor);
+            }
+            // Ahora verificamos si el perfil es "Super Administrador" o "Administrador"
+            else if ($_SESSION["perfil"] === "Super Administrador" || $_SESSION["perfil"] === "Administrador") {
+              $item = null;
+              $valor = null;
+              $categorias = ControladorLeads::ctrVerInteresLead($item, $valor);
 
-                foreach ($categorias as $key => $value) {
-                  echo '<tr>
+              foreach ($categorias as $key => $value) {
+                echo '<tr>
                       <td>' . ($key + 1) . '</td>
                       <td class="text">' . htmlspecialchars($value["creation_date"]) . '</td>
                       <td class="text">' . htmlspecialchars($value["cc"]) . '</td>
@@ -429,12 +433,12 @@
                       <td>' . htmlspecialchars($value["asesor_first_name"]) . ' ' . htmlspecialchars($value["asesor_last_name"]) . '</td>';
 
 
-                  if ($value["status_lead"] != 0) {
-                    echo '<td><button class="btn btn-success btn-xs btnCambiarEstadoLead" idLead="' . $value["id_lead"] . '" estadoActualLead="0">Cliente</button></td>';
-                  } else {
-                    echo '<td><button class="btn btn-info btn-xs btnCambiarEstadoLead" idLead="' . $value["id_lead"] . '" estadoActualLead="1">Lead</button></td>';
-                  }
-                  echo '
+                if ($value["status_lead"] != 0) {
+                  echo '<td><button class="btn btn-success btn-xs btnCambiarEstadoLead" idLead="' . $value["id_lead"] . '" estadoActualLead="0">Cliente</button></td>';
+                } else {
+                  echo '<td><button class="btn btn-info btn-xs btnCambiarEstadoLead" idLead="' . $value["id_lead"] . '" estadoActualLead="1">Lead</button></td>';
+                }
+                echo '
                   <td class="text">' . htmlspecialchars($value["origin"]) . '</td>
                   <td class="text">' . htmlspecialchars($value["note"]) . '</td>
                   <td>
@@ -444,16 +448,16 @@
                     </div>
                   </td>
               </tr>';
-                }
-              } // Verificamos si el perfil es "Coordinador comercial"
-              else if ($_SESSION["perfil"] === "Coordinador comercial") {
-                $id_coordinador = $_SESSION["id"];
+              }
+            } // Verificamos si el perfil es "Coordinador comercial"
+            else if ($_SESSION["perfil"] === "Coordinador comercial") {
+              $id_coordinador = $_SESSION["id"];
 
-                // Llamamos al controlador para obtener los leads de los asesores bajo este coordinador
-                $leads = ControladorLeads::ctrVerLeadsCoordinador($id_coordinador);
+              // Llamamos al controlador para obtener los leads de los asesores bajo este coordinador
+              $leads = ControladorLeads::ctrVerLeadsCoordinador($id_coordinador);
 
-                foreach ($leads as $key => $lead) {
-                  echo '<tr>
+              foreach ($leads as $key => $lead) {
+                echo '<tr>
                   <td>' . ($key + 1) . '</td>
                   <td class="text">' . htmlspecialchars($lead["creation_date"]) . '</td>
                   <td class="text">' . htmlspecialchars($lead["cc"]) . '</td>
@@ -463,13 +467,13 @@
                   <td class="text">' . htmlspecialchars($lead["phone"]) . '</td>
                   <td>' . htmlspecialchars($lead["asesor"]) . '</td>';
 
-                  if ($lead["status_lead"] != 0) {
-                    echo '<td><button class="btn btn-success btn-xs btnCambiarEstadoLead" idLead="' . $lead["id_lead"] . '" estadoActualLead="0">Cliente</button></td>';
-                  } else {
-                    echo '<td><button class="btn btn-info btn-xs btnCambiarEstadoLead" idLead="' . $lead["id_lead"] . '" estadoActualLead="1">Lead</button></td>';
-                  }
+                if ($lead["status_lead"] != 0) {
+                  echo '<td><button class="btn btn-success btn-xs btnCambiarEstadoLead" idLead="' . $lead["id_lead"] . '" estadoActualLead="0">Cliente</button></td>';
+                } else {
+                  echo '<td><button class="btn btn-info btn-xs btnCambiarEstadoLead" idLead="' . $lead["id_lead"] . '" estadoActualLead="1">Lead</button></td>';
+                }
 
-                  echo '
+                echo '
                   <td class="text">' . htmlspecialchars($lead["origin"]) . '</td>
                   <td class="text">' . htmlspecialchars($lead["note"]) . '</td>
                   <td>
@@ -478,242 +482,241 @@
                     </div>
                   </td>
                 </tr>';
-                }
               }
-              ?>
-            </tbody>
+            }
+            ?>
+          </tbody>
 
-            <tfoot>
-              <tr>
-                <th style="width:10px">#</th>
-                <th>Fecha Lead</th>
-                <th>Identificacion</th>
-                <th>sector</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Telefono</th>
-                <?php if ($_SESSION["perfil"] === "Asesor comercial" || $_SESSION["perfil"] === "Coordinador comercial"): ?>
-                  <th>Asesor</th>
-                <?php endif; ?>
-                <th>Status</th>
-                <th>Origen</th>
-                <th>Informacion adicional</th>
-                <th style="width:80px">Acciones</th>
-              </tr>
-            </tfoot>
-          </table>
+          <tfoot>
+            <tr>
+              <th style="width:10px">#</th>
+              <th>Fecha Lead</th>
+              <th>Identificacion</th>
+              <th>sector</th>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Telefono</th>
+              <th>Asesor</th>
+              <th>Status</th>
+              <th>Origen</th>
+              <th>Informacion adicional</th>
+              <th style="width:80px">Acciones</th>
+            </tr>
+          </tfoot>
 
-        </div>
+        </table>
 
       </div>
-    </section>
-  </div>
+
+    </div>
+  </section>
+</div>
 
 
-  <div class="modal fade" id="confirmacionModal" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header" style="background: #3e383d; color: white">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Confirmación</h4>
-        </div>
-        <div class="modal-body">
-          <div class="tabs">
-            <div class="tab-container">
-              <div id="tab1" class="tab">
-                <a href="#tab1">Lead</a>
-                <div class="tab-content">
-                  <h5>¿Está seguro de que desea cambiar el estado de lead a cliente?</h5>
-                  <br>
-                  <h5>Necesita completar algunos campos adicionales en la siguiente pestaña</h5>
-                  <button type="button" class="btn btn-secondary" style="background: Black; color: white; position: absolute; bottom: 10px; right: 10px;" id="confirmarAccion">Confirmar</button>
+<div class="modal fade" id="confirmacionModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="background: #3e383d; color: white">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Actualizar estado del cliente</h4>
+      </div>
+      <div class="modal-body">
+        <div class="tabs">
+          <div class="tab-container">
+            <div id="tab1" class="tab">
+              <a href="#tab1">Lead</a>
+              <div class="tab-content">
+                <h5>¿Está seguro de que desea cambiar el estado de lead a cliente?</h5>
+                <br>
+                <h5>Necesita completar algunos campos adicionales en la siguiente pestaña</h5>
+                <button type="button" class="btn btn-secondary" style="background: Black; color: white; position: absolute; bottom: 10px; right: 10px;" id="confirmarAccion">Confirmar</button>
+              </div>
+            </div>
+            <div id="tab2" class="tab">
+              <a href="#tab2">Cliente</a>
+              <div class="tab-content">
+                <div class="box-body">
+                  <form id="formularioCliente" method="POST">
+                    <div class="container-fluid">
+
+                      <!-- Información del Cliente -->
+                      <h5>Información del Cliente</h5>
+                      <div class="row">
+                        <div class="col-12 col-sm-6 col-md-6">
+                          <div class="floating-label-group">
+                            <input type="text" class="form-control" name="nuevoIdCliente" id="nuevoIdCliente" placeholder=" " required>
+                            <label for="nuevoIdCliente">Identificación</label>
+                            <input type="hidden" name="idLeads" id="idLeads" required>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-12 col-sm-6 col-md-6">
+                          <div class="floating-label-group">
+                            <input type="text" class="form-control" name="nuevoNombre" id="nuevoNombre" placeholder=" ">
+                            <label for="nuevoNombre">Nombre</label>
+                          </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-6">
+                          <div class="floating-label-group">
+                            <input type="text" class="form-control" name="nuevoApellido" id="nuevoApellido" placeholder=" ">
+                            <label for="nuevoApellido">Apellido</label>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Residencia -->
+                      <h5>Residencia</h5>
+                      <div class="row">
+                        <div class="col-12 col-sm-4">
+                          <div class="floating-label-group">
+                            <select id="countryValue" class="form-control" required>
+                              <option value="" disabled selected></option>
+                            </select>
+                            <label for="countryValue"> </label>
+                          </div>
+                        </div>
+                        <div class="col-12 col-sm-4">
+                          <div class="floating-label-group">
+                            <select id="stateValue" class="form-control" disabled required>
+                              <option value="" disabled selected></option>
+                            </select>
+                            <label for="stateValue"> </label>
+                          </div>
+                        </div>
+                        <div class="col-12 col-sm-4">
+                          <div class="floating-label-group">
+                            <select id="cityValue" class="form-control" disabled required>
+                              <option value="" disabled selected></option>
+                            </select>
+                            <label for="cityValue"> </label>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- ocultos -->
+                      <input type="hidden" name="nuevoPais" id="nuevoPais">
+                      <input type="hidden" name="nuevoEstado" id="nuevoEstado">
+                      <input type="hidden" name="nuevoCiudad" id="nuevoCiudad">
+
+                      <!-- Tipo de Cliente -->
+                      <h5>Tipo de Cliente</h5>
+                      <div class="row">
+                        <div class="col-12 col-sm-6 col-md-6">
+                          <div class="floating-label-group">
+                            <select class="form-control" name="nuevoTipoCliente" id="tipoCliente" required>
+                              <option value="" disabled selected></option>
+                              <option value="Persona Natural">Persona Natural</option>
+                              <option value="Empresa">Empresa</option>
+                            </select>
+                            <label for="tipoCliente">Tipo de Cliente</label>
+                          </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-6" id="numEmpleadosContainer">
+                          <div class="floating-label-group">
+                            <input type="number" class="form-control" name="nuevoEmpleado" placeholder=" ">
+                            <label for="nuevoEmpleado">Número de Empleados</label>
+                          </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-6" id="AniosContainer">
+                          <div class="floating-label-group">
+                            <input type="number" class="form-control" name="nuevoAnosExperiencia" placeholder=" ">
+                            <label for="nuevoAnosExperiencia">Años de experiencia</label>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Información de Contacto -->
+                      <h5>Información de Contacto</h5>
+                      <div class="row">
+                        <div class="col-12 col-sm-6 col-md-6">
+                          <div class="floating-label-group">
+                            <input type="email" class="form-control" name="nuevoEmail" id="nuevoEmail" placeholder=" ">
+                            <label for="nuevoEmail">Correo electrónico</label>
+                          </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-6">
+                          <div class="floating-label-group">
+                            <input type="text" class="form-control" name="nuevoTelefono" id="nuevoTelefono" placeholder=" ">
+                            <label for="nuevoTelefono">Teléfono</label>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Footer -->
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="creaCliente">Guardar Cambios</button>
+                      </div>
+                    </div>
+                  </form>
                 </div>
               </div>
-<div id="tab2" class="tab"> 
-  <a href="#tab2">Cliente</a>
-  <div class="tab-content">
-    <div class="box-body">
-      <form id="formularioCliente" method="POST">
-        <div class="container-fluid">
+            </div>
 
-          <!-- Información del Cliente -->
-          <h5>Información del Cliente</h5>
-          <div class="row">
-            <div class="col-12 col-sm-6 col-md-6">
-              <div class="floating-label-group">
-                <input type="text" class="form-control" name="nuevoIdCliente" id="nuevoIdCliente" placeholder=" " required>
-                <label for="nuevoIdCliente">Identificación</label>
-                <input type="hidden" name="idLeads" id="idLeads" required>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12 col-sm-6 col-md-6">
-              <div class="floating-label-group">
-                <input type="text" class="form-control" name="nuevoNombre" id="nuevoNombre" placeholder=" ">
-                <label for="nuevoNombre">Nombre</label>
-              </div>
-            </div>
-            <div class="col-12 col-sm-6 col-md-6">
-              <div class="floating-label-group">
-                <input type="text" class="form-control" name="nuevoApellido" id="nuevoApellido" placeholder=" ">
-                <label for="nuevoApellido">Apellido</label>
-              </div>
-            </div>
-          </div>
-
-          <!-- Residencia -->
-          <h5>Residencia</h5>
-          <div class="row">
-            <div class="col-12 col-sm-4">
-              <div class="floating-label-group">
-                <select id="countryValue" class="form-control" required>
-                  <option value="" disabled selected></option>
-                </select>
-                <label for="countryValue"> </label>
-              </div>
-            </div>
-            <div class="col-12 col-sm-4">
-              <div class="floating-label-group">
-                <select id="stateValue" class="form-control" disabled required>
-                  <option value="" disabled selected></option>
-                </select>
-                <label for="stateValue"> </label>
-              </div>
-            </div>
-            <div class="col-12 col-sm-4">
-              <div class="floating-label-group">
-                <select id="cityValue" class="form-control" disabled required>
-                  <option value="" disabled selected></option>
-                </select>
-                <label for="cityValue"> </label>
-              </div>
-            </div>
-          </div>
-          <!-- ocultos -->
-          <input type="hidden" name="nuevoPais" id="nuevoPais">
-          <input type="hidden" name="nuevoEstado" id="nuevoEstado">
-          <input type="hidden" name="nuevoCiudad" id="nuevoCiudad">
-
-          <!-- Tipo de Cliente -->
-          <h5>Tipo de Cliente</h5>
-          <div class="row">
-            <div class="col-12 col-sm-6 col-md-6">
-              <div class="floating-label-group">
-                <select class="form-control" name="nuevoTipoCliente" id="tipoCliente" required>
-                  <option value="" disabled selected></option>
-                  <option value="Persona Natural">Persona Natural</option>
-                  <option value="Empresa">Empresa</option>
-                </select>
-                <label for="tipoCliente">Tipo de Cliente</label>
-              </div>
-            </div>
-            <div class="col-12 col-sm-6 col-md-6" id="numEmpleadosContainer">
-              <div class="floating-label-group">
-                <input type="number" class="form-control" name="nuevoEmpleado" placeholder=" ">
-                <label for="nuevoEmpleado">Número de Empleados</label>
-              </div>
-            </div>
-            <div class="col-12 col-sm-6 col-md-6" id="AniosContainer">
-              <div class="floating-label-group">
-                <input type="number" class="form-control" name="nuevoAnosExperiencia" placeholder=" ">
-                <label for="nuevoAnosExperiencia">Años de experiencia</label>
-              </div>
-            </div>
-          </div>
-
-          <!-- Información de Contacto -->
-          <h5>Información de Contacto</h5>
-          <div class="row">
-            <div class="col-12 col-sm-6 col-md-6">
-              <div class="floating-label-group">
-                <input type="email" class="form-control" name="nuevoEmail" id="nuevoEmail" placeholder=" ">
-                <label for="nuevoEmail">Correo electrónico</label>
-              </div>
-            </div>
-            <div class="col-12 col-sm-6 col-md-6">
-              <div class="floating-label-group">
-                <input type="text" class="form-control" name="nuevoTelefono" id="nuevoTelefono" placeholder=" ">
-                <label for="nuevoTelefono">Teléfono</label>
-              </div>
-            </div>
-          </div>
-
-          <!-- Footer -->
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" id="creaCliente">Guardar Cambios</button>
           </div>
         </div>
-      </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
     </div>
   </div>
 </div>
 
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
 
 
+<script>
+  $(document).ready(function() {
+    // Detectar cambio en el campo Tipo de Cliente
+    $('#tipoCliente').change(function() {
+      var tipoCliente = $(this).val();
 
-  <script>
-    $(document).ready(function() {
-      // Detectar cambio en el campo Tipo de Cliente
-      $('#tipoCliente').change(function() {
-        var tipoCliente = $(this).val();
-
-        if (tipoCliente === 'Persona Natural') {
-          // Asignar "0" a los campos y deshabilitarlos
-          $('#numEmpleadosContainer input').val(0).attr('readonly', true);
-          $('#AniosContainer input').val(0).attr('readonly', true);
-        } else {
-          // Habilitar los campos y vaciarlos si el tipo de cliente no es "Persona Natural"
-          $('#numEmpleadosContainer input').val('').removeAttr('readonly');
-          $('#AniosContainer input').val('').removeAttr('readonly');
-        }
-      });
+      if (tipoCliente === 'Persona Natural') {
+        // Asignar "0" a los campos y deshabilitarlos
+        $('#numEmpleadosContainer input').val(0).attr('readonly', true);
+        $('#AniosContainer input').val(0).attr('readonly', true);
+      } else {
+        // Habilitar los campos y vaciarlos si el tipo de cliente no es "Persona Natural"
+        $('#numEmpleadosContainer input').val('').removeAttr('readonly');
+        $('#AniosContainer input').val('').removeAttr('readonly');
+      }
     });
+  });
 
-    $(document).ready(function() {
-      $(".btnAprobarCliente").click(function() {
-        //console.log("Se ha clicado en el botón para cambiar el estado");
-        $("#confirmacionModal").modal('show');
-      });
+  $(document).ready(function() {
+    $(".btnAprobarCliente").click(function() {
+      //console.log("Se ha clicado en el botón para cambiar el estado");
+      $("#confirmacionModal").modal('show');
     });
+  });
 
-    document.querySelectorAll('.tab a').forEach(tab => {
-      tab.addEventListener('click', function(e) {
-        e.preventDefault();
-        // Ocultar todas las pestañas
-        document.querySelectorAll('.tab-content').forEach(content => {
-          content.style.display = 'none';
-        });
-        // Mostrar la pestaña seleccionada
-        const activeTabContent = document.querySelector(this.getAttribute('href') + ' .tab-content');
-        if (activeTabContent) {
-          activeTabContent.style.display = 'block';
-        }
+  document.querySelectorAll('.tab a').forEach(tab => {
+    tab.addEventListener('click', function(e) {
+      e.preventDefault();
+      // Ocultar todas las pestañas
+      document.querySelectorAll('.tab-content').forEach(content => {
+        content.style.display = 'none';
       });
+      // Mostrar la pestaña seleccionada
+      const activeTabContent = document.querySelector(this.getAttribute('href') + ' .tab-content');
+      if (activeTabContent) {
+        activeTabContent.style.display = 'block';
+      }
     });
+  });
 
-    // Inicializar la primera pestaña como activa
-    document.querySelector('#tab1 .tab-content').style.display = 'block';
-  </script>
+  // Inicializar la primera pestaña como activa
+  document.querySelector('#tab1 .tab-content').style.display = 'block';
+</script>
 
 
-  <?php
-  $borrarLead = new ControladorLeads();
-  $borrarLead->ctrEliminarLead();
-  ?>
+<?php
+$borrarLead = new ControladorLeads();
+$borrarLead->ctrEliminarLead();
+?>
 
-  <?php
-  include_once __DIR__ . '/../../components/modules/leads/FormRegisterLead.php';
-  include_once __DIR__ . '/../../components/modules/leads/FormUpdateLead.php';
+<?php
+include_once __DIR__ . '/../../components/modules/leads/FormRegisterLead.php';
+include_once __DIR__ . '/../../components/modules/leads/FormUpdateLead.php';
 
-  ?>
+?>
