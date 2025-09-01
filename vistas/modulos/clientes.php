@@ -1525,59 +1525,83 @@
             return montoTotal;
         }
 
-        // Función para generar las fechas de vencimiento de las cuotas
-        function generarFechasVencimiento(numCuotas) {
-            let fechas = [];
-            let today = new Date();
-            let fechaLimite = new Date(today.setFullYear(today.getFullYear() + 1));
-            let intervalo = (fechaLimite - new Date()) / numCuotas;
+        // Función para generar fechas mes a mes
+function generarFechasVencimiento(numCuotas) {
+    let fechas = [];
+    let today = new Date();
 
-            for (let i = 0; i < numCuotas; i++) {
-                let fechaCuota = new Date(new Date().getTime() + intervalo * i);
-                fechas.push(fechaCuota.toISOString().split('T')[0]);
+    for (let i = 1; i <= numCuotas; i++) {
+        let fechaCuota = new Date(today);
+        fechaCuota.setMonth(today.getMonth() + i); // cada cuota un mes después
+        fechas.push(fechaCuota.toISOString().split('T')[0]);
+    }
+
+    return fechas;
+}
+
+// Función para generar cuotas
+function generarCamposCuotas(numCuotas, montoTotal) {
+    const container = $('#cuotasContainer');
+    container.empty();
+
+    // Por defecto: monto total dividido en cuotas iguales
+    let montoCuota = Math.floor((montoTotal / numCuotas) * 100) / 100;
+    let ajuste = montoTotal - (montoCuota * numCuotas);
+    const fechasVencimiento = generarFechasVencimiento(numCuotas);
+
+    for (let i = 1; i <= numCuotas; i++) {
+        let montoFinal = (i === numCuotas) 
+            ? (montoCuota + ajuste).toFixed(2) 
+            : montoCuota.toFixed(2);
+
+        let readonly = (i === 1) ? "" : "readonly"; // primera editable, las demás readonly
+
+        container.append(`
+            <div class="row cuota-row">
+                <div class="col-md-4">
+                    <select class="form-control" id="estado_pago_${i}" name="estado_pago_${i}">
+                        <option value="dv0">dv0: No se ha ejecutado el cobro</option>
+                        <option value="En proceso">En proceso</option>
+                        <option value="dv1">dv1: Link de pago inactivo</option>
+                        <option value="dv2">dv2: Fondos insuficientes</option>
+                        <option value="dv3">dv3: Cuenta no localizada</option>
+                        <option value="dv4">dv4: El cliente solicita devolución</option>
+                        <option value="dv5">Rebota el pago por entidad</option>
+                        <option value="dv6">Titular de la cuenta fallecido</option>
+                        <option value="Aprobado">Aprobado</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <input type="date" class="form-control" id="fecha_vencimiento_${i}" name="fecha_vencimiento_${i}" value="${fechasVencimiento[i - 1]}" required>
+                </div>
+                <div class="col-md-4">
+                    <input type="number" step="0.01" class="form-control monto-cuota" id="monto_${i}" name="monto_${i}" value="${montoFinal}" ${readonly}>
+                </div>
+            </div>
+        `);
+    }
+
+    // Evento: si se edita la primera cuota, recalcular las demás
+    $('#monto_1').on('input', function() {
+        let primeraCuota = parseFloat($(this).val()) || 0;
+        let restante = montoTotal - primeraCuota;
+        let nuevasCuotas = numCuotas - 1;
+
+        if (nuevasCuotas > 0) {
+            let montoCuota = Math.floor((restante / nuevasCuotas) * 100) / 100;
+            let ajuste = restante - (montoCuota * nuevasCuotas);
+
+            for (let i = 2; i <= numCuotas; i++) {
+                let montoFinal = (i === numCuotas) 
+                    ? (montoCuota + ajuste).toFixed(2) 
+                    : montoCuota.toFixed(2);
+
+                $(`#monto_${i}`).val(montoFinal);
             }
-            return fechas;
         }
+    });
+}
 
-        // Función para generar los campos de cuotas
-        function generarCamposCuotas(numCuotas, montoTotal) {
-            const container = $('#cuotasContainer');
-            container.empty(); // Limpiar campos anteriores
-
-            const montoCuota = (montoTotal / numCuotas).toFixed(2);
-            let ajuste = montoTotal - (montoCuota * numCuotas);
-            const fechasVencimiento = generarFechasVencimiento(numCuotas);
-
-            for (let i = 1; i <= numCuotas; i++) {
-                let montoFinal = (i === numCuotas) ? (parseFloat(montoCuota) + ajuste).toFixed(2) : montoCuota;
-                let fechaVencimiento = fechasVencimiento[i - 1];
-
-                container.append(`
-                    <div class="row cuota-row">
-                        <div class="col-md-4">
-                            <select class="form-control" id="estado_pago_${i}" name="estado_pago_${i}">
-                                <option value="dv0">dv0: No se ha ejecutado el cobro</option>
-                                <option value="En proceso">En proceso</option>
-                                <option value="dv1">dv1: Link de pago inactivo</option>
-                                <option value="dv2">dv2: Fondos insuficientes</option>
-                                <option value="dv3">dv3: Cuenta no localizada</option>
-                                <option value="dv4">dv4: El cliente solicita devolución</option>
-                                <option value="dv5">dv5: Rebota el pago por entidad</option>
-                                <option value="dv6">dv6: Titular de la cuenta fallecido</option>
-                                <option value="Aprobado">Aprobado</option>
-    
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <input type="date" class="form-control" id="fecha_vencimiento_${i}" name="fecha_vencimiento_${i}" value="${fechaVencimiento}"  required>
-                        </div>
-                        <div class="col-md-4">
-                            <input type="text" class="form-control" id="monto_${i}" name="monto_${i}" value="${montoFinal}" readonly>
-                        </div>
-                    </div>
-                `);
-            }
-        }
 
         // Evento para calcular monto total en base a los servicios seleccionados
         $('.servicio-checkbox').on('change', function() {
