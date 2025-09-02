@@ -130,121 +130,123 @@
 
         <!-- CUERPO DEL MODAL -->
         <div class="modal-body" style="max-height: 400px; overflow-y: auto;">
-          <div class="container-fluid">
+          <div class="box-body">
+            <div class="container-fluid">
 
-            <!-- Información del Usuario -->
-            <h5>Información del Usuario</h5>
-            <div class="row">
-              <div class="col-12 col-sm-6 col-md-6">
-                <div class="floating-label-group">
-                  <input type="text" class="form-control" name="nuevoIdLead" id="nuevoIdLead" placeholder=" ">
-                  <label for="nuevoIdLead">Identificación</label>
+              <!-- Información del Usuario -->
+              <h5>Información del Usuario</h5>
+              <div class="row">
+                <div class="col-12 col-sm-6 col-md-6">
+                  <div class="floating-label-group">
+                    <input type="text" class="form-control" name="nuevoIdLead" id="nuevoIdLead" placeholder=" ">
+                    <label for="nuevoIdLead">Identificación</label>
+                  </div>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-12 col-sm-6 col-md-6">
+                  <div class="floating-label-group">
+                    <input type="text" class="form-control" name="nuevoNombre" id="nuevoNombre" placeholder=" ">
+                    <label for="nuevoNombre">Nombre</label>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6">
+                  <div class="floating-label-group">
+                    <input type="text" class="form-control" name="nuevoApellido" id="nuevoApellido" placeholder=" ">
+                    <label for="nuevoApellido">Apellido</label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Información de Contacto -->
+              <h5>Información de Contacto</h5>
+              <div class="row">
+                <div class="col-12 col-sm-6 col-md-6">
+                  <div class="floating-label-group">
+                    <input type="email" class="form-control" name="nuevoEmail" id="nuevoEmail" placeholder=" ">
+                    <label for="nuevoEmail">Correo electrónico</label>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6">
+                  <div class="floating-label-group">
+                    <input type="text" class="form-control" name="nuevoTelefono" id="nuevoTelefono" placeholder=" ">
+                    <label for="nuevoTelefono">Teléfono</label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Área de Derecho y Servicio Solicitado -->
+              <h5>Área de Derecho y Servicio Solicitado</h5>
+              <div class="row">
+                <div class="col-12 col-sm-6 col-md-6">
+                  <div class="form-group">
+                    <label for="nuevaArea">Área de Derecho</label>
+                    <select class="form-control" name="nuevaArea" id="nuevaArea" required>
+                      <option value="" disabled selected>Seleccione un área</option>
+                      <?php
+                      $item = null;
+                      $valor = null;
+                      $categorias = ControladorAreaDerecho::ctrVerAreasDerecho($item, $valor);
+                      foreach ($categorias as $key => $value) {
+                        echo '<option value="' . $value["id_area"] . '">' . $value["law_area"] . '</option>';
+                      }
+                      ?>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-6">
+                  <div class="form-group">
+                    <label for="nuevoServicio">Servicio</label>
+                    <select class="form-control" name="nuevoServicio" id="nuevoServicio" required>
+                      <option value="" disabled selected>Seleccione un servicio</option>
+                      <?php
+                      $item = null;
+                      $valor = null;
+                      $servicios = ControladorServicios::ctrVerServicios($item, $valor);
+                      foreach ($servicios as $key => $value) {
+                        echo '<option value="' . $value["id_service"] . '">' . $value["service_name"] . '</option>';
+                      }
+                      ?>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Información Adicional -->
+              <h5>Información Adicional</h5>
+              <div class="row">
+                <div class="col-12 col-sm-6 col-md-6">
+                  <div class="floating-label-group">
+                    <input type="text" class="form-control" name="origenLead" id="origenLead" placeholder=" ">
+                    <label for="origenLead">Cómo se enteró del servicio</label>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6">
+                  <div class="floating-label-group">
+                    <input type="text" class="form-control" name="observaciones" id="observaciones" placeholder=" ">
+                    <label for="observaciones">Observaciones</label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Grupo Poblacional -->
+              <h5>Grupo Poblacional</h5>
+              <div class="row">
+                <div class="col-12 col-sm-6 col-md-6">
+                  <div class="floating-label-group">
+                    <select class="form-control" name="nuevoSector" id="nuevoSector">
+                      <option value=" " disabled selected>Seleccione una opción</option>
+                      <option value="Fuerzas armadas">Fuerzas armadas</option>
+                      <option value="Ministerio publico">Ministerio público</option>
+                      <option value="Naturales">Naturales</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+
             </div>
-            <div class="row">
-              <div class="col-12 col-sm-6 col-md-6">
-                <div class="floating-label-group">
-                  <input type="text" class="form-control" name="nuevoNombre" id="nuevoNombre" placeholder=" ">
-                  <label for="nuevoNombre">Nombre</label>
-                </div>
-              </div>
-              <div class="col-12 col-sm-6 col-md-6">
-                <div class="floating-label-group">
-                  <input type="text" class="form-control" name="nuevoApellido" id="nuevoApellido" placeholder=" ">
-                  <label for="nuevoApellido">Apellido</label>
-                </div>
-              </div>
-            </div>
-
-            <!-- Información de Contacto -->
-            <h5>Información de Contacto</h5>
-            <div class="row">
-              <div class="col-12 col-sm-6 col-md-6">
-                <div class="floating-label-group">
-                  <input type="email" class="form-control" name="nuevoEmail" id="nuevoEmail" placeholder=" ">
-                  <label for="nuevoEmail">Correo electrónico</label>
-                </div>
-              </div>
-              <div class="col-12 col-sm-6 col-md-6">
-                <div class="floating-label-group">
-                  <input type="text" class="form-control" name="nuevoTelefono" id="nuevoTelefono" placeholder=" ">
-                  <label for="nuevoTelefono">Teléfono</label>
-                </div>
-              </div>
-            </div>
-
-            <!-- Área de Derecho y Servicio Solicitado -->
-            <h5>Área de Derecho y Servicio Solicitado</h5>
-            <div class="row">
-              <div class="col-12 col-sm-6 col-md-6">
-                <div class="form-group">
-                  <label for="nuevaArea">Área de Derecho</label>
-                  <select class="form-control" name="nuevaArea" id="nuevaArea" required>
-                    <option value="" disabled selected>Seleccione un área</option>
-                    <?php
-                    $item = null;
-                    $valor = null;
-                    $categorias = ControladorAreaDerecho::ctrVerAreasDerecho($item, $valor);
-                    foreach ($categorias as $key => $value) {
-                      echo '<option value="' . $value["id_area"] . '">' . $value["law_area"] . '</option>';
-                    }
-                    ?>
-                  </select>
-                </div>
-              </div>
-
-              <div class="col-12 col-sm-6 col-md-6">
-                <div class="form-group">
-                  <label for="nuevoServicio">Servicio</label>
-                  <select class="form-control" name="nuevoServicio" id="nuevoServicio" required>
-                    <option value="" disabled selected>Seleccione un servicio</option>
-                    <?php
-                    $item = null;
-                    $valor = null;
-                    $servicios = ControladorServicios::ctrVerServicios($item, $valor);
-                    foreach ($servicios as $key => $value) {
-                      echo '<option value="' . $value["id_service"] . '">' . $value["service_name"] . '</option>';
-                    }
-                    ?>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <!-- Información Adicional -->
-            <h5>Información Adicional</h5>
-            <div class="row">
-              <div class="col-12 col-sm-6 col-md-6">
-                <div class="floating-label-group">
-                  <input type="text" class="form-control" name="origenLead" id="origenLead" placeholder=" ">
-                  <label for="origenLead">Cómo se enteró del servicio</label>
-                </div>
-              </div>
-              <div class="col-12 col-sm-6 col-md-6">
-                <div class="floating-label-group">
-                  <input type="text" class="form-control" name="observaciones" id="observaciones" placeholder=" ">
-                  <label for="observaciones">Observaciones</label>
-                </div>
-              </div>
-            </div>
-
-            <!-- Grupo Poblacional -->
-            <h5>Grupo Poblacional</h5>
-            <div class="row">
-              <div class="col-12 col-sm-6 col-md-6">
-                <div class="floating-label-group">
-                  <select class="form-control" name="nuevoSector" id="nuevoSector">
-                    <option value=" " disabled selected>Seleccione una opción</option>
-                    <option value="Fuerzas armadas">Fuerzas armadas</option>
-                    <option value="Ministerio publico">Ministerio público</option>
-                    <option value="Naturales">Naturales</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-
           </div>
         </div>
 

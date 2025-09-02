@@ -77,22 +77,23 @@ static public function mdlVerUsuariosParaAdministradores($tabla, $item, $valor) 
 		$stmt = null;
 	}
 
-	static public function mdlMostrarCoordinadores($tabla, $item, $valor)
-	{
-		if ($item != null) {
-			// Aquí se añade la condición adicional de perfil = 'Coordinador comercial'
-			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :$item AND perfil = 'Coordinador comercial'");
-			$stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
-			$stmt->execute();
-			return $stmt->fetch();
-		} else {
-			// Aquí se añade la condición adicional de perfil = 'Coordinador comercial'
-			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE perfil = 'Coordinador comercial'");
-			$stmt->execute();
-			return $stmt->fetchAll();
-		}
-		$stmt = null;
-	}
+static public function mdlMostrarCoordinadores($tabla, $item, $valor)
+{
+    if ($item != null) {
+        // Se añade condición para incluir Coordinador comercial y Super Administrador
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :$item AND perfil IN ('Coordinador comercial', 'Super Administrador')");
+        $stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetch();
+    } else {
+        // Se añade condición para incluir Coordinador comercial y Super Administrador
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE perfil IN ('Coordinador comercial', 'Super Administrador')");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+    $stmt = null;
+}
+
 
 	static public function mdlMostrarAsesoresPorCoordinador($tabla, $id_coordinador)
 	{
