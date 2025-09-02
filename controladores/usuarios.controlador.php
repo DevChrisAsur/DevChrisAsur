@@ -150,6 +150,20 @@ static public function ctrIngresoUsuario() {
 		return $respuesta;
 	}
 
+static public function ctrVerUsuariosParaAdminitradores($item = null, $valor = null){
+
+    $tabla = "usuarios";
+
+    if($item != null && $valor != null){
+        $respuesta = ModeloUsuarios::mdlVerUsuariosParaAdministradores($tabla, $item, $valor);
+    }else{
+        $respuesta = ModeloUsuarios::mdlVerUsuariosParaAdministradores($tabla, null, null);
+    }
+
+    return $respuesta;
+}
+
+
 	static public function ctrMostrarAsesores($item, $valor){
 
 		$tabla = "usuarios";

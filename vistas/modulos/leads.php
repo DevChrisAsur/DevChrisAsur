@@ -248,15 +248,16 @@
     color: #aaa;
     pointer-events: none;
     transition: all 0.2s ease;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #555;
   }
 
-  #confirmacionModal .floating-label-group input,
-  #confirmacionModal .floating-label-group select {
-    height: 52px;
-    /* un poco más alto */
-    padding: 16px 14px 6px 14px;
-    /* más aire arriba/abajo */
-  }
+#confirmacionModal .floating-label-group input,
+#confirmacionModal .floating-label-group select {
+  height: 40px;           /* mismo tamaño que los otros */
+  padding: 10px 12px;     /* menos aire */
+}
 
   #confirmacionModal h5 {
     font-size: 1.2rem;
@@ -276,7 +277,7 @@
     top: 50%;
     left: 12px;
     transform: translateY(-50%);
-    font-size: 16px;
+    font-size: 14px;
     color: #aaa;
     pointer-events: none;
     transition: all 0.2s ease;

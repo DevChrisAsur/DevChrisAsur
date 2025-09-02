@@ -355,8 +355,7 @@
               <th style="width:100px">Status</th>
               <th style="width:100px">Identificación</th>
               <th style="width:100px">Nombre</th>
-              <th style="width:100px">Apellido</th>
-              <th style="width:100px">Usuario</th>
+              <th style="width:100px">Coordinador</th>
               <th style="width:100px">Perfil</th>
               <th style="width:100px">Area</th>
               <th style="width:100px">Correo</th>
@@ -367,82 +366,83 @@
           </thead>
 
           <tbody>
-            <?php
-            // Verificar si el usuario tiene el perfil de Super Administrador o Administrador
-            if ($_SESSION["perfil"] == "Super Administrador" || $_SESSION["perfil"] == "Administrador") {
+              <?php
+                // Verificar si el usuario tiene el perfil de Super Administrador
+                if ($_SESSION["perfil"] == "Super Administrador") {
 
-              $item = null;
-              $valor = null;
+                  $item = null;
+                  $valor = null;
 
-              // Mostrar los usuarios solo para Super Administrador o Administrador
-              $usuarios = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
+                  // Mostrar los usuarios usando el nuevo controlador
+                  $usuarios = ControladorUsuarios::ctrVerUsuariosParaAdminitradores($item, $valor);
 
-              foreach ($usuarios as $key => $value) {
-                echo '<tr>
-                        <td>' . ($key + 1) . '</td>';
-                if ($value["user_status"] != 0) {
-                  echo '<td><button class="btn btn-success btn-xs btnAprobarPagoPension" idUsuario="' . $value["id"] . '" estadoPagoPension="0">Habilitado</button></td>';
-                } else {
-                  echo '<td><button class="btn btn-danger btn-xs btnAprobarPagoPension" idUsuario="' . $value["id"] . '" estadoPagoPension="1">No Habilitado</button></td>';
-                };
-                echo '<td>' . $value["cc"] . '</td>
-                        <td>' . $value["first_name"] . '</td>
-                        <td>' . $value["last_name"] . '</td>
-                        <td>' . $value["user_name"] . '</td>';
+                  foreach ($usuarios as $key => $value) {
+                    echo '<tr>
+                    <td>' . ($key + 1) . '</td>';
+                    // Botón de estado (se mantiene igual)
+                    if ($value["user_status"] != 0) {
+                      echo '<td><button class="btn btn-success btn-xs btnAprobarPagoPension" idUsuario="' . $value["id"] . '" estadoPagoPension="0">Habilitado</button></td>';
+                    } else {
+                      echo '<td><button class="btn btn-danger btn-xs btnAprobarPagoPension" idUsuario="' . $value["id"] . '" estadoPagoPension="1">No Habilitado</button></td>';
+                    }
+                    echo '<td>' . htmlspecialchars($value["cc"]) . '</td>
+                    <td>' . htmlspecialchars($value["usuario_nombre"]) . '</td>';
+                    // Mostrar coordinador
+                    echo '<td>' . htmlspecialchars($value["coordinador_nombre"]) . '</td>';
+                    // Asignar clase según el perfil
+                    $perfilClass = '';
+                    switch ($value["perfil"]) {
+                      case 'Super Administrador':
+                        $perfilClass = 'perfil-super-administrador';
+                        break;
+                      case 'Administrador':
+                        $perfilClass = 'perfil-administrador';
+                        break;
+                      case 'Asesor comercial':
+                        $perfilClass = 'perfil-asesor-comercial';
+                        break;
+                      case 'Coordinador comercial':
+                        $perfilClass = 'perfil-coordinador-comercial';
+                        break;
+                      case 'Director comercial':
+                        $perfilClass = 'perfil-director-comercial';
+                        break;
+                      case 'Especialista juridico':
+                        $perfilClass = 'perfil-especialista-juridico';
+                        break;
+                      case 'Director juridico':
+                        $perfilClass = 'perfil-director-juridico';
+                        break;
+                    }
 
-                // Asignar clase según el perfil
-                $perfilClass = '';
-                switch ($value["perfil"]) {
-                  case 'Super Administrador':
-                    $perfilClass = 'perfil-super-administrador';
-                    break;
-                  case 'Administrador':
-                    $perfilClass = 'perfil-administrador';
-                    break;
-                  case 'Asesor comercial':
-                    $perfilClass = 'perfil-asesor-comercial';
-                    break;
-                  case 'Coordinador comercial':
-                    $perfilClass = 'perfil-coordinador-comercial';
-                    break;
-                  case 'Director comercial':
-                    $perfilClass = 'perfil-director-comercial';
-                    break;
-                  case 'Especialista juridico':
-                    $perfilClass = 'perfil-especialista-juridico';
-                    break;
-                  case 'Director juridico':
-                    $perfilClass = 'perfil-director-juridico';
-                    break;
+                    echo '<td><span class="' . $perfilClass . '">' . htmlspecialchars($value["perfil"]) . '</span></td>
+              <td>' . htmlspecialchars($value["area"]) . '</td>
+              <td>' . htmlspecialchars($value["correo"]) . '</td>
+              <td>' . htmlspecialchars($value["phone"]) . '</td>';
+
+                    // Fecha último login
+                    if (!empty($value["ultimo_login"])) {
+                      $fechaFormateada = date('d/m/Y H:i:s', strtotime($value["ultimo_login"]));
+                      echo '<td>' . $fechaFormateada . '</td>';
+                    } else {
+                      echo '<td>Sin registro</td>';
+                    }
+                    // Botones de acción
+                    echo '<td>
+                      <div class="btn-group-container">
+                        <div class="btn-group">
+                          <button class="btn btn-warning btnEditarUsuario" idUsuario="' . $value["id"] . '" data-toggle="modal" data-target="#modalEditarUsuario"><i class="fa fa-pencil"></i></button>
+                          <button class="btn btn-danger btnEliminarUsuario" idUsuario="' . $value["id"] . '" title="Eliminar Cliente">
+                            <i class="fa fa-times"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </td>
+                </tr>';
+                  }
                 }
-
-                echo '<td><span class="' . $perfilClass . '">' . $value["perfil"] . '</span></td>';
-                echo '<td>' . $value["area"] . '</td>
-                        <td>' . $value["correo"] . '</td>
-                        <td>' . $value["phone"] . '</td>';
-
-                // Verificar si la fecha de 'ultimo_login' está disponible y formatearla
-                if (isset($value["ultimo_login"])) {
-                  $fechaFormateada = date('d/m/Y H:i:s', strtotime($value["ultimo_login"]));
-                  echo '<td>' . $fechaFormateada . '</td>';
-                } else {
-                  echo '<td>Sin registro</td>';
-                }
-
-                echo '<td>
-                          <div class="btn-group-container">
-                            <div class="btn-group">
-                              <button class="btn btn-warning btnEditarUsuario" idUsuario="' . $value["id"] . '" data-toggle="modal" data-target="#modalEditarUsuario"><i class="fa fa-pencil"></i></button>
-                              <button class="btn btn-danger btnEliminarUsuario" idUsuario="' . $value["id"] . '" title="Eliminar Cliente">
-                                <i class="fa fa-times"></i>
-                              </button>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>';
-              }
-            }
             ?>
+
             <?php
             // Verificar si el usuario tiene el perfil de Coordinador comercial o Director comercial
             if (in_array($_SESSION["perfil"], ["Coordinador comercial", "Director comercial"])) {
@@ -532,8 +532,7 @@
               <th style="width:100px">Status</th>
               <th style="width:100px">Identificación</th>
               <th style="width:100px">Nombre</th>
-              <th style="width:100px">Apellido</th>
-              <th style="width:100px">Usuario</th>
+              <th style="width:100px">Coordinador</th>
               <th style="width:100px">Perfil</th>
               <th style="width:100px">Area</th>
               <th style="width:100px">Correo</th>
@@ -971,7 +970,7 @@ MODAL EDITAR USUARIO
                         <div class="input-group">
                           <span class="input-group-addon"><i class="fa fa-user-circle"></i></span>
                           <select class="form-control input-lg" id="reasignarCoordinador" name="reasignarCoordinador">
-                            
+
                             <?php
                             $item = null;
                             $valor = null;
