@@ -1442,6 +1442,16 @@ a:focus {
 .table tr > td .progress {
   margin: 0;
 }
+
+/* CONTENIDO DE LA DATATABLE RESPONSIVE */
+/* asegurar que la tabla responsive use 100% del contenedor */
+.tablas {
+  width: 100% !important;
+  table-layout: auto;
+}
+.tablas th, .tablas td {
+  white-space: nowrap; /* opcional: evita saltos inesperados */
+}
 .progress-bar-light-blue,
 .progress-bar-primary {
   background-color: #3c8dbc;
