@@ -131,6 +131,11 @@
   border-radius: 3px;
   font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+.dt-button-collection.dropdown-menu {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px;
+}
 </style>
 <!-- Datatables -->
 <link

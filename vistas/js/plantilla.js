@@ -3,6 +3,11 @@ SideBar Menu
 =============================================*/
 
 $('.sidebar-menu').tree()
+$(document).on('sidebar-toggled', function () {
+  if ($.fn.DataTable.isDataTable('.tablas')) {
+    $('.tablas').DataTable().columns.adjust().draw();
+  }
+});
 
 /*=============================================
 Data Table

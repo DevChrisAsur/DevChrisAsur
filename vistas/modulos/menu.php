@@ -3,43 +3,57 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <style>
-/* Estructura del sidebar y colores */
-.main-sidebar {
-    padding-top: 50px;
-    background: #b2babb;
-    color: #ffffff;
-}
-
-/* Colores de los enlaces en el sidebar */
-.main-sidebar .sidebar-menu > li > a {
-    color: #353037;
-    padding: 10px 15px;
-}
-
-.main-sidebar .sidebar-menu > li > a:hover {
-    background: #595b5d;
-    color: #ffffff;
-}
-
-/* Submenús ocultos por defecto */
-.main-sidebar .treeview-menu {
-    background: #d0d3d4;
-    color: #353037;
-    padding-left: 15px;
-    display: none;
-}
-
-/* En resoluciones grandes, se permite mostrar submenús en hover */
-@media (min-width: 769px) {
-    .main-sidebar .treeview:hover .treeview-menu {
-        display: block;
+    /* Estructura del sidebar y colores  */
+    .main-sidebar {
+        padding-top: 50px;
+        background: #b2babb;
+        color: #ffffff;
     }
-}
 
+    /* Colores de los enlaces en el sidebar */
+    .main-sidebar .sidebar-menu>li>a {
+        color: #353037;
+        padding: 10px 15px;
+    }
+
+    .main-sidebar .sidebar-menu>li>a:hover {
+        background: #595b5d;
+        color: #ffffff;
+    }
+
+    /* Submenús ocultos por defecto */
+    .main-sidebar .treeview-menu {
+        background: #d0d3d4;
+        color: #353037;
+        padding-left: 15px;
+        display: none;
+    }
+
+    /* En resoluciones grandes, se permite mostrar submenús en hover */
+    @media (min-width: 769px) {
+        .main-sidebar .treeview:hover .treeview-menu {
+            display: block;
+        }
+    }
+
+    /* Ajustar treeview en móviles */
+    @media (max-width: 768px) {
+        .main-sidebar .treeview-menu {
+            padding-left: 5px !important;
+            font-size: 14px;
+            /* más pequeño para que no se desborde */
+        }
+
+        .main-sidebar .treeview-menu li a {
+            white-space: normal;
+            /* Permite que el texto baje de línea */
+            line-height: 1.4;
+        }
+    }
 </style>
 <aside class="main-sidebar">
 
-    
+
 
     <section class="sidebar">
         <ul class="sidebar-menu">
@@ -143,7 +157,7 @@
             }
             ?>
             <?php
-            if($comparar == 'Coordinador comercial'){
+            if ($comparar == 'Coordinador comercial') {
 
                 echo '
                   <li class="treeview">
@@ -182,7 +196,7 @@
             }
             ?>
             <?php
-            if($comparar == 'Asesor comercial'){
+            if ($comparar == 'Asesor comercial') {
 
                 echo '
                   <li class="treeview">
@@ -207,43 +221,42 @@
 
 <!-- JavaScript -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const treeviewItems = document.querySelectorAll('.treeview');
+    document.addEventListener('DOMContentLoaded', function() {
+        const treeviewItems = document.querySelectorAll('.treeview');
 
-    treeviewItems.forEach(item => {
-        const submenu = item.querySelector('.treeview-menu');
+        treeviewItems.forEach(item => {
+            const submenu = item.querySelector('.treeview-menu');
 
-        // Solo activa el despliegue en clic si la resolución es menor a 769px
-        item.addEventListener('click', function(e) {
-            if (window.innerWidth <= 768) {
-                e.preventDefault();
+            // Solo activa el despliegue en clic si la resolución es menor a 769px
+            item.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
 
-                // Cierra otros submenús abiertos
-                treeviewItems.forEach(otherItem => {
-                    if (otherItem !== item) {
-                        otherItem.classList.remove('active');
-                        otherItem.querySelector('.treeview-menu').style.display = 'none';
-                    }
+                    // Cierra otros submenús abiertos
+                    treeviewItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                            otherItem.querySelector('.treeview-menu').style.display = 'none';
+                        }
+                    });
+
+                    // Alterna la visualización del submenú actual
+                    const isVisible = submenu.style.display === 'block';
+                    submenu.style.display = isVisible ? 'none' : 'block';
+                    item.classList.toggle('active', !isVisible);
+                }
+            });
+        });
+
+        // Asegura que los submenús estén ocultos cuando la ventana se redimensiona a resoluciones mayores
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                treeviewItems.forEach(item => {
+                    const submenu = item.querySelector('.treeview-menu');
+                    submenu.style.display = 'none';
+                    item.classList.remove('active');
                 });
-
-                // Alterna la visualización del submenú actual
-                const isVisible = submenu.style.display === 'block';
-                submenu.style.display = isVisible ? 'none' : 'block';
-                item.classList.toggle('active', !isVisible);
             }
         });
     });
-
-    // Asegura que los submenús estén ocultos cuando la ventana se redimensiona a resoluciones mayores
-    window.addEventListener('resize', function() {
-        if (window.innerWidth > 768) {
-            treeviewItems.forEach(item => {
-                const submenu = item.querySelector('.treeview-menu');
-                submenu.style.display = 'none';
-                item.classList.remove('active');
-            });
-        }
-    });
-});
-
 </script>

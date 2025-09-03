@@ -452,6 +452,7 @@ a:focus {
 }
 @media (max-width: 767px) {
   .sidebar-open .main-sidebar {
+    padding-top: 100px;
     -webkit-transform: translate(0, 0);
     -ms-transform: translate(0, 0);
     -o-transform: translate(0, 0);
@@ -1452,6 +1453,42 @@ a:focus {
 .tablas th, .tablas td {
   white-space: nowrap; /* opcional: evita saltos inesperados */
 }
+/* Evitar que los botones se superpongan en pantallas pequeñas */
+.dt-buttons.btn-group {
+  display: flex;
+  flex-wrap: wrap !important; /* permite que los botones bajen de línea */
+  gap: 6px; /* espacio entre botones */
+}
+
+.dt-buttons .btn {
+  flex: 1 1 auto;  /* se adaptan al ancho disponible */
+  min-width: 100px; /* tamaño mínimo para que no colapsen demasiado */
+  text-align: center;
+}
+
+/* Contenedor de los botones en forma de lista */
+.to.dt-button-collection.dropdown-menu {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px;
+    display: flex;
+    flex-direction: column; /* Pone los elementos uno debajo del otro */
+    gap: 5px; /* Espacio entre elementos */
+}
+
+/* Estilo para los elementos dentro del menú */
+.to.dt-button-collection.dropdown-menu .dropdown-item {
+    display: block;
+    padding: 5px 10px;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.to.dt-button-collection.dropdown-menu .dropdown-item:hover {
+    background-color: #0056b3; /* Hover más oscuro */
+}
+
 .progress-bar-light-blue,
 .progress-bar-primary {
   background-color: #3c8dbc;
@@ -3494,6 +3531,17 @@ table.text-center th {
     text-align: center;
   }
 }
+@media (max-width: 991px) {
+    .sidebar-collapse .main-sidebar .sidebar-menu > li > .treeview-menu {
+        left: 50px;
+    }
+}
+@media (max-width: 767px) {
+    .sidebar-collapse .main-sidebar .sidebar-menu > li > .treeview-menu {
+        left: 50px;
+    }
+}
+
 /*
  * Page: Invoice
  * -------------
@@ -5694,4 +5742,21 @@ table.text-center th {
   .table-responsive > .table tr td {
     white-space: normal !important;
   }
+}
+
+
+/* === FIX: Submenús solo por click en cualquier resolución === */
+.sidebar-mini.sidebar-collapse .sidebar-menu > li:hover > .treeview-menu,
+.sidebar-mini.sidebar-collapse .sidebar-menu > li:hover > a > span:not(.pull-right) {
+  display: none !important; /* elimina efecto hover */
+}
+
+/* Cuando se hace click (AdminLTE agrega .menu-open) */
+.sidebar-menu li.menu-open > .treeview-menu {
+  display: block !important;
+  position: relative !important; /* se queda dentro del sidebar */
+  left: 0 !important;
+  width: 100% !important;
+  background: inherit !important;
+  box-shadow: none !important;
 }
