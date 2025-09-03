@@ -76,7 +76,7 @@ function verCuotas() {
         alert("Error: " + response.error);
         limpiarTablaCuotas();
       } else {
-        llenarTablaCuotas(response);
+        llenarTablaCuotas(response.cuotas, response.perfilUsuario);
       }
     },
     error: function (jqXHR, textStatus, errorThrown) {
@@ -94,7 +94,7 @@ function llenarTablaCuotas(cuotas, perfilUsuario) {
     // Botón visible solo para ciertos perfiles
     let botonAccion = "";
     if (
-      perfilUsuario === "Coordinador Comercial" ||
+      perfilUsuario === "Coordinador comercial" ||
       perfilUsuario === "Administrador" ||
       perfilUsuario === "Super Administrador"
     ) {
@@ -108,9 +108,15 @@ function llenarTablaCuotas(cuotas, perfilUsuario) {
     const row = `
       <tr>
           <td>${index + 1}</td>
-          <td><input type="text" class="form-control text-center" value="${cuota.fecha_vencimiento}" readonly></td>
-          <td><input type="text" class="form-control text-center" value="${cuota.monto}" readonly></td>
-          <td><input type="text" class="form-control text-center" value="${cuota.estado_pago}" readonly></td>
+          <td><input type="text" class="form-control text-center" value="${
+            cuota.fecha_vencimiento
+          }" readonly></td>
+          <td><input type="text" class="form-control text-center" value="${
+            cuota.monto
+          }" readonly></td>
+          <td><input type="text" class="form-control text-center" value="${
+            cuota.estado_pago
+          }" readonly></td>
           <td>${botonAccion}</td>
       </tr>
     `;
@@ -124,7 +130,6 @@ function llenarTablaCuotas(cuotas, perfilUsuario) {
     cargarDatosModal(idCuota); // Cargar datos en el modal
   });
 }
-
 
 function cargarDatosModal(idCuota) {
   const datos = new FormData();
@@ -210,115 +215,114 @@ $("#guardarCambios").on("click", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    const editBtn = document.getElementById("btnEdit");
-    const saveBtn = document.getElementById("btnSave");
-    const fields = document.querySelectorAll(".info-value");
+  const editBtn = document.getElementById("btnEdit");
+  const saveBtn = document.getElementById("btnSave");
+  const fields = document.querySelectorAll(".info-value");
 
-    if (!editBtn || !saveBtn) return;
+  if (!editBtn || !saveBtn) return;
 
-    let datosFactura = {}; // 🔹 Guardará los datos actuales
+  let datosFactura = {}; // 🔹 Guardará los datos actuales
 
-    editBtn.addEventListener("click", () => {
-        datosFactura = {}; // Reiniciamos
+  editBtn.addEventListener("click", () => {
+    datosFactura = {}; // Reiniciamos
 
-        fields.forEach((field) => {
-            datosFactura[field.id] = field.innerText.trim();
+    fields.forEach((field) => {
+      datosFactura[field.id] = field.innerText.trim();
 
-            // 🔹 Si es estado, poner un select
-            if (field.id === "InfoStatusFactura") {
-                const select = document.createElement("select");
-                select.id = "InfoStatusFactura";
-                select.className = "info-value";
+      // 🔹 Si es estado, poner un select
+      if (field.id === "InfoStatusFactura") {
+        const select = document.createElement("select");
+        select.id = "InfoStatusFactura";
+        select.className = "info-value";
 
-                const opciones = ["Activa", "Finalizada"];
-                opciones.forEach((opcion) => {
-                    const opt = document.createElement("option");
-                    opt.value = opcion;
-                    opt.textContent = opcion;
-                    if (opcion === field.innerText.trim()) {
-                        opt.selected = true;
-                    }
-                    select.appendChild(opt);
-                });
-
-                field.replaceWith(select);
-
-            // 🔹 Si es monto, NO permitir edición
-            } else if (field.id === "InfoMonto") {
-                field.setAttribute("contenteditable", "false");
-                field.style.backgroundColor = "#f0f0f0"; // color suave para indicar que está bloqueado
-                field.style.cursor = "not-allowed";
-
-            // 🔹 El resto de campos sí son editables
-            } else {
-                field.setAttribute("contenteditable", "true");
-            }
+        const opciones = ["Activa", "Finalizada"];
+        opciones.forEach((opcion) => {
+          const opt = document.createElement("option");
+          opt.value = opcion;
+          opt.textContent = opcion;
+          if (opcion === field.innerText.trim()) {
+            opt.selected = true;
+          }
+          select.appendChild(opt);
         });
 
-        console.group("📋 Datos actuales antes de editar");
-        console.log(datosFactura);
-        console.groupEnd();
+        field.replaceWith(select);
 
-        editBtn.style.display = "none";
-        saveBtn.style.display = "inline-block";
+        // 🔹 Si es monto, NO permitir edición
+      } else if (field.id === "InfoMonto") {
+        field.setAttribute("contenteditable", "false");
+        field.style.backgroundColor = "#f0f0f0"; // color suave para indicar que está bloqueado
+        field.style.cursor = "not-allowed";
+
+        // 🔹 El resto de campos sí son editables
+      } else {
+        field.setAttribute("contenteditable", "true");
+      }
     });
 
-    saveBtn.addEventListener("click", () => {
-        document.querySelectorAll(".info-value").forEach((field) => {
-            datosFactura[field.id] = field.tagName === "SELECT"
-                ? field.value
-                : field.innerText.trim();
-        });
+    console.group("📋 Datos actuales antes de editar");
+    console.log(datosFactura);
+    console.groupEnd();
 
-        datosFactura["id_factura"] = localStorage.getItem("idFacturaSeleccionado");
-        datosFactura["action"] = "actualizarInfoFinanciera";
+    editBtn.style.display = "none";
+    saveBtn.style.display = "inline-block";
+  });
 
-        let formData = new FormData();
-        for (let key in datosFactura) {
-            formData.append(key, datosFactura[key]);
-        }
-
-        $.ajax({
-            url: "ajax/facturas.ajax.php",
-            method: "POST",
-            data: formData,
-            processData: false,
-            contentType: false,
-            dataType: "json",
-            success: function (respuesta) {
-                console.log("Servidor:", respuesta);
-                if (respuesta.ok || respuesta.success) {
-                    alert("Información actualizada correctamente ✅");
-                } else {
-                    alert("Error al actualizar ❌");
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error("Error AJAX:", error);
-                console.log("Respuesta completa:", xhr.responseText);
-                alert("Hubo un error en la conexión con el servidor");
-            },
-        });
-
-        // Restaurar campo de estado a texto
-        const selectEstado = document.getElementById("InfoStatusFactura");
-        if (selectEstado && selectEstado.tagName === "SELECT") {
-            const divEstado = document.createElement("div");
-            divEstado.id = "InfoStatusFactura";
-            divEstado.className = "info-value";
-            divEstado.textContent = selectEstado.value;
-            selectEstado.replaceWith(divEstado);
-        }
-
-        fields.forEach((field) => {
-            if (field.tagName === "DIV") {
-                field.setAttribute("contenteditable", "false");
-                field.style.backgroundColor = ""; // quitar fondo gris
-                field.style.cursor = "";
-            }
-        });
-
-        saveBtn.style.display = "none";
-        editBtn.style.display = "inline-block";
+  saveBtn.addEventListener("click", () => {
+    document.querySelectorAll(".info-value").forEach((field) => {
+      datosFactura[field.id] =
+        field.tagName === "SELECT" ? field.value : field.innerText.trim();
     });
+
+    datosFactura["id_factura"] = localStorage.getItem("idFacturaSeleccionado");
+    datosFactura["action"] = "actualizarInfoFinanciera";
+
+    let formData = new FormData();
+    for (let key in datosFactura) {
+      formData.append(key, datosFactura[key]);
+    }
+
+    $.ajax({
+      url: "ajax/facturas.ajax.php",
+      method: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      dataType: "json",
+      success: function (respuesta) {
+        console.log("Servidor:", respuesta);
+        if (respuesta.ok || respuesta.success) {
+          alert("Información actualizada correctamente ✅");
+        } else {
+          alert("Error al actualizar ❌");
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("Error AJAX:", error);
+        console.log("Respuesta completa:", xhr.responseText);
+        alert("Hubo un error en la conexión con el servidor");
+      },
+    });
+
+    // Restaurar campo de estado a texto
+    const selectEstado = document.getElementById("InfoStatusFactura");
+    if (selectEstado && selectEstado.tagName === "SELECT") {
+      const divEstado = document.createElement("div");
+      divEstado.id = "InfoStatusFactura";
+      divEstado.className = "info-value";
+      divEstado.textContent = selectEstado.value;
+      selectEstado.replaceWith(divEstado);
+    }
+
+    fields.forEach((field) => {
+      if (field.tagName === "DIV") {
+        field.setAttribute("contenteditable", "false");
+        field.style.backgroundColor = ""; // quitar fondo gris
+        field.style.cursor = "";
+      }
+    });
+
+    saveBtn.style.display = "none";
+    editBtn.style.display = "inline-block";
+  });
 });

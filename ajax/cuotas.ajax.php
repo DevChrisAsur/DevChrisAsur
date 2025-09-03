@@ -11,15 +11,25 @@ if (!isset($_POST["accion"])) {
 switch ($_POST["accion"]) {
 
     case "verCuotasPorFactura":
-        if (!isset($_POST["idFactura"])) {
-            echo json_encode(["error" => "ID de factura no proporcionado."]);
-            exit;
-        }
-
-        $idFactura = $_POST["idFactura"];
-        $respuesta = ControladorCuotas::ctrVerCuotasPorFactura($idFactura);
-        echo json_encode($respuesta ?: ["error" => "No se encontró la factura con el ID proporcionado."]);
+    if (!isset($_POST["idFactura"])) {
+        echo json_encode(["error" => "ID de factura no proporcionado."]);
         exit;
+    }
+
+    session_start(); // asegurarse que la sesión está activa
+    $idFactura = $_POST["idFactura"];
+    $respuesta = ControladorCuotas::ctrVerCuotasPorFactura($idFactura);
+
+    if ($respuesta) {
+        echo json_encode([
+            "cuotas" => $respuesta,
+            "perfilUsuario" => $_SESSION["perfil"]
+        ]);
+    } else {
+        echo json_encode(["error" => "No se encontró la factura con el ID proporcionado."]);
+    }
+    exit;
+
 
     case "editar":
         if (!isset($_POST["idCuota"])) {

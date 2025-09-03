@@ -202,12 +202,12 @@
     <section class="content-header">
 
         <h1>
-            Administrar Suscripciones
+            Administrar facturas
         </h1>
 
         <ol class="breadcrumb">
             <li><a href="inicio"><i class="fa fa-dashboard"></i> Inicio</a></li>
-            <li class="active">Suscripciones</li>
+            <li class="active">Facturas</li>
         </ol>
 
     </section>
@@ -234,7 +234,7 @@
                             <th style="width:100px">numero de cuenta</th>
                             <th style="width:100px">monto</th>
                             <th style="width:100px">fecha limite de pago</th>
-                            <th style="width:80px" align="center">Acciones</th>
+                            <!-- <th style="width:80px" align="center">Acciones</th> -->
                         </tr>
                     </thead>
 
@@ -256,12 +256,6 @@
                       <td>' . $value["account_number"] . '</td>
                       <td>' . $value["monto"] . '</td>
                       <td>' . $value["fecha_limite"] . '</td>
-                      <td>
-                          <div class="btn-group-container">
-                            <div class="btn-group">
-                                <button class="btn btn-danger btnEliminarSuscripcion" idSuscripcion="' . $value["id_suscripcion"] . '" style="margin-left: 8px;"><i class="fa fa-times"></i></button>                            </div>
-                            </div>
-                      </td>
                   </tr>';
                         }
                         ?>
@@ -276,7 +270,7 @@
                             <th style="width:100px">numero de cuenta</th>
                             <th style="width:100px">monto</th>
                             <th style="width:100px">fecha limite de pago</th>
-                            <th style="width:80px" align="center">Acciones</th>
+                            <!-- <th style="width:80px" align="center">Acciones</th> -->
                     </tfoot>
                 </table>
 
