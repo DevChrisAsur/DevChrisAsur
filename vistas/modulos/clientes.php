@@ -734,13 +734,19 @@
                                 <td>' . htmlspecialchars($value["phone"]) . '</td>
                                 <td>
                                     <div class="btn-group-container">
-                                        <div class="btn-group">
-                                            <button class="btn btn-danger btnEliminarCliente" idCliente="' . $value["id_customer"] . '" style="margin-left: 8px;">
-                                                <i class="fa fa-times"></i>
-                                            </button>
-                                            <button class="btn btn-primary btnGenerarPDF" idCliente="' . $value["id_customer"] . '" style="margin-left: 8px;">
-                                                <i class="fa fa-file-pdf-o"></i>
-                                            </button>
+                                        <div class="btn-group">';
+                                            
+                                            // 🔹 SOLO mostrar el botón Eliminar si NO es Asesor comercial
+                                            if ($_SESSION["perfil"] !== "Asesor comercial") {
+                                                echo '<button class="btn btn-danger btnEliminarCliente" idCliente="' . $value["id_customer"] . '" style="margin-left: 8px;">
+                                                        <i class="fa fa-times"></i>
+                                                    </button>';
+                                            }
+
+                                            // 🔹 Este botón sí lo puede ver todos
+                                            echo '<button class="btn btn-primary btnGenerarPDF" idCliente="' . $value["id_customer"] . '" style="margin-left: 8px;">
+                                                    <i class="fa fa-file-pdf-o"></i>
+                                                </button>
                                         </div>
                                     </div>
                                 </td>
