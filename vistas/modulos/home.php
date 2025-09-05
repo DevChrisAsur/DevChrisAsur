@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asjurfin Legaltech</title>
+    <link rel="icon" type="image/png" href="vistas/img/plantilla/AsurLogo.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
@@ -26,44 +27,72 @@
             padding: 0;
         }
 
-        /* NAVBAR */
+        * {
+            /* border: 1px solid red; */
+        }
+
+        /* ================== NAVBAR ================== */
         .navbar {
             background: var(--primary);
-            padding: 1rem 2rem;
-            margin: 0 auto;
+            padding: 0;
+            /* deja que el logo defina la altura */
+            align-items: center;
+            min-height: 7rem;
+        }
+
+        /* Logo */
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            padding: 0;
+            /* elimina padding extra */
+            height: auto;
+            /* se ajusta al logo */
         }
 
         .navbar-brand img.logo {
-            max-height: 50px;
+            height: auto;
+            max-height: 100px;
+            width: auto;
+        }
+
+        /* Links */
+        .nav-item {
+            display: flex;
         }
 
         .navbar-nav .nav-link {
             color: #fff !important;
             font-weight: 600;
             font-size: 1.1rem;
-            margin-left: 1rem;
+            padding: 0.5rem 1rem;
+            margin-left: 0;
             transition: color 0.3s ease;
+            text-transform: uppercase;
         }
 
         .navbar-nav .nav-link:hover {
             color: var(--secondary) !important;
         }
 
-        /* BOTÓN LOGIN NAVBAR */
+        /* Botón login */
         .btn-login {
             background: var(--secondary);
             color: #fff !important;
-            padding: 0.35rem 0.9rem;
-            border-radius: 4px;
+            border-radius: 6px;
             font-weight: 600;
-            font-size: 0.9rem;
-            margin-left: 0.75rem;
-            line-height: 1.2;
-            text-decoration: none;
+            font-size: 1rem;
+            margin: 0 1rem;
+            line-height: 1.4;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             transition: background 0.3s ease;
+            padding: 10px 30px;
+        }
+
+        .btn-login {
+            padding: 10px 30px;
         }
 
         .btn-login:hover {
@@ -71,40 +100,14 @@
             color: #fff !important;
         }
 
-        /* Ajustes en escritorio */
-        @media (min-width: 992px) {
-            .btn-login {
-                font-size: 1rem;
-                padding: 0.4rem 1rem;
-            }
-        }
-
-        /* Ajustes en tablets (768px–991px) */
-        @media (min-width: 768px) and (max-width: 991px) {
-            .navbar-nav {
-                align-items: center;
-                /* alinea verticalmente todos los items */
-            }
-
-            .btn-login {
-                font-size: 0.95rem;
-                padding: 0.35rem 0.9rem;
-                margin-top: 0;
-                margin-bottom: 0;
-                display: inline-flex;
-                align-items: center;
-                height: auto;
-                /* igual altura que los links */
-            }
-        }
-
-        /* HERO */
+        /* ================== HERO ================== */
         .header-logo {
-            background: linear-gradient(rgba(10, 29, 55, 0.8), rgba(10, 29, 55, 0.8)), url("https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80") no-repeat center/cover;
+            background: linear-gradient(rgba(10, 29, 55, 0.8), rgba(10, 29, 55, 0.8)),
+                url("https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80") no-repeat center/cover;
             color: #fff;
             text-align: center;
             padding: 6rem 2rem;
-            height: 35rem;
+            height: 45rem;
             display: grid;
             align-content: center;
             justify-content: center;
@@ -139,8 +142,9 @@
             background: #b28d43;
         }
 
-        /* INFO BOX */
+        /* ================== INFO BOX ================== */
         .info-box {
+            margin-top: 4rem;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
@@ -169,22 +173,25 @@
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
 
-        /* SERVICIOS */
+        /* ================== SERVICIOS ================== */
         .service-box {
             padding: 4rem 10%;
             background: #fff;
         }
 
         .service-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            padding: 2rem;
         }
 
         .service-detail {
             perspective: 1000px;
             min-height: 280px;
-            /* define altura mínima */
+            flex: 1 1 250px;
+            max-width: 300px;
         }
 
         .card-inner {
@@ -193,12 +200,16 @@
             height: 100%;
             transform-style: preserve-3d;
             transition: transform 0.8s;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fff;
         }
 
         .service-detail:hover .card-inner {
             transform: rotateY(180deg);
         }
 
+        /* Caras del flip */
         .card-front,
         .card-back {
             position: absolute;
@@ -206,26 +217,29 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* que ambas caras ocupen todo */
             backface-visibility: hidden;
-            padding: 2rem;
-            border-radius: 12px;
-            background: var(--light);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            background: #fff;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .card-front header h1 {
+        .card-front h1 {
             font-family: 'Merriweather', serif;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: var(--primary);
+            margin-bottom: 1rem;
         }
 
         .card-back {
             transform: rotateY(180deg);
         }
 
-
-        /* CONTACTO */
+        /* ================== CONTACTO ================== */
         .contact-section {
             background: var(--primary);
             color: #fff;
@@ -255,7 +269,7 @@
             background: #b28d43;
         }
 
-        /* FOOTER */
+        /* ================== FOOTER ================== */
         .footer {
             background: var(--dark);
             color: #ccc;
@@ -272,7 +286,7 @@
             text-decoration: underline;
         }
 
-        /* ANIMACIONES */
+        /* ================== ANIMACIONES ================== */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -307,6 +321,220 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        .section-title {
+            font-family: 'Merriweather', serif;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+
+        /* ================== PLANES ================== */
+        .planes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem;
+        }
+
+        .plan-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            background: #fff;
+        }
+
+        .plan-card.destacado {
+            border: 2px solid var(--secondary);
+            background: #faf6ef;
+        }
+
+        .plan-card h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .plan-card .sub {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .plan-card ul {
+            text-align: left;
+            padding: 0;
+            list-style: none;
+            margin: 1rem 0;
+        }
+
+        .plan-card ul li {
+            margin: 0.3rem 0;
+        }
+
+        .plan-card .btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background: var(--secondary);
+            color: #fff;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+
+        /* ================== ESPECIALIDADES ================== */
+        .especialidades {
+            margin-top: 4rem;
+        }
+
+        .especialidades-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .especialidad-card {
+            flex: 1 1 220px;
+            max-width: 280px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            background: #fff;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .especialidad-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .especialidad-card .icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .especialidad-card .btn-sec {
+            margin-top: auto;
+            width: 140px;
+            height: 40px;
+            padding: 0.4rem 0.8rem;
+            border: 1px solid var(--secondary);
+            background: transparent;
+            color: var(--secondary);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            align-self: center;
+        }
+
+        .especialidad-card .btn-sec:hover {
+            background: var(--secondary);
+            color: #fff;
+        }
+
+        /* ================== MEDIA QUERIES ================== */
+
+        /* móviles */
+        @media (min-width: 300px) and (max-width:767px) {
+
+            .info-box {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .navbar-brand img.logo {
+                max-height: 40px;
+            }
+
+            .navbar-nav {
+                display: flex;
+                gap: 1.5rem;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+
+            .navbar-nav .nav-item {
+                width: 100%;
+                font-size: 1rem;
+            }
+
+            .navbar-nav .nav-item:first-child {
+                margin-top: 1rem;
+                padding-top: 0.5rem;
+            }
+
+            .navbar-nav .nav-item:last-child {
+                margin-bottom: 1rem;
+                padding-bottom: 0.5rem;
+            }
+
+
+            .navbar-nav .nav-link,
+            .btn-login {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* tablets */
+        @media (min-width: 768px) and (max-width: 991px) {
+            .info-box {
+                display: flex;
+                flex-direction: row;
+            }
+
+            .navbar-nav {
+                display: flex;
+                gap: 2.5rem;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                align-items: center;
+            }
+
+            .navbar-nav .nav-link {
+                width: 100%;
+                justify-content: center;
+                font-size: 1.3rem;
+            }
+
+            .btn-login {
+                font-size: 1.3rem;
+                margin: 0;
+                height: auto;
+                padding: 0.7rem;
+            }
+        }
+
+        /* escritorio */
+        @media (min-width: 992px) {
+            .navbar-nav {
+                display: flex;
+                gap: 2.5rem;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                align-items: center;
+            }
+
+            .navbar-nav .nav-link {
+                width: 100%;
+                justify-content: center;
+                font-size: 1.4rem;
+            }
+
+            .btn-login {
+                font-size: 1.4rem;
+                padding: 1rem 2rem;
+            }
+        }
     </style>
 
 </head>
@@ -317,7 +545,7 @@
     <nav class="navbar navbar-expand-md navbar-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="https://dummyimage.com/150x50/0A1D37/fff.png&text=Logo" class="logo" alt="Logo Jurídico">
+                <img src="vistas/img/plantilla/Logo.jpeg"" class=" logo" alt="Logo Jurídico">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarNav" aria-controls="navbarNav"
@@ -331,7 +559,7 @@
                     <li class="nav-item"><a class="nav-link" href="#beneficios">Beneficios</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
                     <li class="nav-item">
-                        <a class="btn btn-login" href="login">Ingresar</a>
+                        <a class="btn btn-login" href="login">INGRESAR</a>
                     </li>
                 </ul>
             </div>
@@ -367,51 +595,167 @@
         </div>
     </section>
 
-    <!-- SERVICIOS -->
-    <section class="service-box" id="servicios">
-        <h2 class="text-center mb-5" style="font-family:'Merriweather', serif; color:var(--primary);">Nuestros Servicios</h2>
-        <div class="service-grid">
-            <div class="service-detail">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <header>
-                            <h1>Derecho Corporativo</h1>
-                        </header>
-                        <p>Asesoría integral a empresas en contratos, sociedades y cumplimiento legal.</p>
-                    </div>
-                    <div class="card-back">
-                        <p>Ofrecemos soluciones personalizadas para startups y grandes corporaciones.</p>
-                    </div>
-                </div>
+
+    <section id="especialidades" class="especialidades">
+        <h2 class="section-title">Especialidades Jurídicas</h2>
+        <div class="especialidades-grid">
+
+            <div class="especialidad-card">
+                <div class="icon">⚖️</div>
+                <h3>Derecho Civil</h3>
+                <p>Familia, bienes, contratos y sucesiones.</p>
+                <button class="btn-sec">Ver más</button>
             </div>
-            <div class="service-detail">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <header>
-                            <h1>Litigios</h1>
-                        </header>
-                        <p>Defensa legal sólida en procesos civiles, mercantiles y laborales.</p>
-                    </div>
-                    <div class="card-back">
-                        <p>Nuestro equipo cuenta con experiencia probada en tribunales de todo el país.</p>
-                    </div>
-                </div>
+
+            <div class="especialidad-card">
+                <div class="icon">📚</div>
+                <h3>Magisterio, Asesoría Legal y Financiera</h3>
+                <p>Defensa y acompañamiento a docentes en procesos legales y financieros.</p>
+                <button class="btn-sec">Ver más</button>
             </div>
-            <div class="service-detail">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <header>
-                            <h1>Propiedad Intelectual</h1>
-                        </header>
-                        <p>Protección de marcas, patentes y derechos de autor.</p>
-                    </div>
-                    <div class="card-back">
-                        <p>Te ayudamos a resguardar la innovación que impulsa tu negocio.</p>
-                    </div>
-                </div>
+
+            <div class="especialidad-card">
+                <div class="icon">👔</div>
+                <h3>Derecho Comercial</h3>
+                <p>Sociedades, contratos mercantiles y registro de marcas.</p>
+                <button class="btn-sec">Ver más</button>
             </div>
+
+            <div class="especialidad-card">
+                <div class="icon">💼</div>
+                <h3>Derecho Laboral</h3>
+                <p>Contratos laborales, despidos, seguridad social y pensiones.</p>
+                <button class="btn-sec">Ver más</button>
+            </div>
+
+            <div class="especialidad-card">
+                <div class="icon">👩‍⚖️</div>
+                <h3>Derecho Penal</h3>
+                <p>Defensa penal integral en procesos judiciales.</p>
+                <button class="btn-sec">Ver más</button>
+            </div>
+
+            <div class="especialidad-card">
+                <div class="icon">🛡️</div>
+                <h3>Legal Armor, Defensa Nacional</h3>
+                <p>Asesoría a militares y policías en procesos disciplinarios y penales.</p>
+                <button class="btn-sec">Ver más</button>
+            </div>
+
+            <div class="especialidad-card">
+                <div class="icon">🏛️</div>
+                <h3>Derecho Administrativo, Sancionador y Disciplinario</h3>
+                <p>Procesos contra el Estado, sanciones administrativas y disciplinarias.</p>
+                <button class="btn-sec">Ver más</button>
+            </div>
+
+            <div class="especialidad-card">
+                <div class="icon">💻</div>
+                <h3>Tecnologías de la Información y las Comunicaciones</h3>
+                <p>Protección de datos, ciberseguridad y regulación digital.</p>
+                <button class="btn-sec">Ver más</button>
+            </div>
+
         </div>
     </section>
+
+    <section class="service-box" id="planes">
+        <h2 class="section-title">Nuestros Servicios</h2>
+        <div class="service-grid">
+
+            <div class="service-detail">
+                <div class="card-inner">
+                    <div class="card-front plan-card">
+                        <h3>Personas Plus</h3>
+                        <p class="sub">Profesores, policías, militares</p>
+                        <ul>
+                            <li>✔️ Asesoría legal básica</li>
+                            <li>✔️ Consultas ilimitadas</li>
+                            <li>✔️ Descuentos en litigios</li>
+                        </ul>
+                    </div>
+                    <div class="card-back plan-card">
+                        <p>Ideal para quienes buscan acompañamiento legal accesible y confiable.</p>
+                        <a href="#contacto" class="btn">Solicitar información</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-detail">
+                <div class="card-inner">
+                    <div class="card-front plan-card destacado">
+                        <h3>Personas Star ⭐</h3>
+                        <p class="sub">Cobertura premium</p>
+                        <ul>
+                            <li>✔️ Incluye todo de Plus</li>
+                            <li>✔️ Defensa penal</li>
+                            <li>✔️ Gestión de contratos</li>
+                        </ul>
+                    </div>
+                    <div class="card-back plan-card destacado">
+                        <p>Plan completo con cobertura integral en todas las áreas legales.</p>
+                        <a href="#contacto" class="btn">Solicitar información</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-detail">
+                <div class="card-inner">
+                    <div class="card-front plan-card">
+                        <h3>Extranjería</h3>
+                        <p class="sub">Trámites migratorios</p>
+                        <ul>
+                            <li>✔️ Visas y permisos</li>
+                            <li>✔️ Nacionalización</li>
+                            <li>✔️ Defensa en procesos migratorios</li>
+                        </ul>
+                    </div>
+                    <div class="card-back plan-card">
+                        <p>Acompañamiento completo en trámites migratorios en Colombia y el exterior.</p>
+                        <a href="#contacto" class="btn">Solicitar información</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-detail">
+                <div class="card-inner">
+                    <div class="card-front plan-card">
+                        <h3>Empresas Plus</h3>
+                        <p class="sub">Pymes y startups</p>
+                        <ul>
+                            <li>✔️ Contratos mercantiles</li>
+                            <li>✔️ Cumplimiento normativo</li>
+                            <li>✔️ Registro de marcas</li>
+                        </ul>
+                    </div>
+                    <div class="card-back plan-card">
+                        <p>Protección legal esencial para pequeñas y medianas empresas.</p>
+                        <a href="#contacto" class="btn">Solicitar información</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-detail">
+                <div class="card-inner">
+                    <div class="card-front plan-card destacado">
+                        <h3>Empresas Star ⭐</h3>
+                        <p class="sub">Corporaciones</p>
+                        <ul>
+                            <li>✔️ Incluye todo de Plus</li>
+                            <li>✔️ Defensa integral</li>
+                            <li>✔️ Consultoría estratégica</li>
+                        </ul>
+                    </div>
+                    <div class="card-back plan-card destacado">
+                        <p>El plan más completo para corporaciones que buscan seguridad jurídica.</p>
+                        <a href="#contacto" class="btn">Solicitar información</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
 
     <!-- CONTACTO -->
     <section class="contact-section" id="contacto">
