@@ -1,141 +1,118 @@
 <style>
   .modal-body .container {
-  width: 100% !important;
-  padding-left: 0;
-  padding-right: 0;
-  margin-left: 0;
-  margin-right: 0;
-}
+    width: 100% !important;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
 
-.modal-header {
-  background: #3e383d;
-  color: white;
-}
+  .modal-header {
+    background: #3e383d;
+    color: white;
+  }
 
-.btn-group {
-  display: flex;
-  flex-wrap: nowrap;
-}
+  .btn-group {
+    display: flex;
+    flex-wrap: nowrap;
+  }
 
-.btn-group .btn {
-  margin: 0 5px;
-  white-space: nowrap;
-  font-size: 14px;
-  padding: 6px 12px;
-}
+  .btn-group .btn {
+    margin: 0 5px;
+    white-space: nowrap;
+    font-size: 14px;
+    padding: 6px 12px;
+  }
 
-.btn-group-container {
-  text-align: center;
-}
+  .btn-group-container {
+    text-align: center;
+  }
 
-.swal2-popup {
-  font-size: 1.6rem;
-  font-family: Georgia, serif;
-}
+  .swal2-popup {
+    font-size: 1.6rem;
+    font-family: Georgia, serif;
+  }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
 
-.modal-dialog {
-  max-width: 80%;
-  width: auto;
-}
+  .modal-dialog {
+    max-width: 80%;
+    width: auto;
+  }
 
-.modal-content {
-  border-radius: 8px;
-}
+  .modal-content {
+    border-radius: 8px;
+  }
 
-.modal-body {
-  padding: 2rem;
-}
+  .modal-body {
+    padding: 2rem;
+  }
 
-.form-control {
-  border-radius: 4px;
-}
+  .form-control {
+    border-radius: 4px;
+  }
 
-.form-control.input-lg {
-  height: calc(1.5em + .75rem + 4px);
-  padding: .75rem 1.25rem;
-  font-size: 1.25rem;
-  line-height: 1.5;
-  border-radius: .3rem;
-}
+  .form-control.input-lg {
+    height: calc(1.5em + .75rem + 4px);
+    padding: .75rem 1.25rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    border-radius: .3rem;
+  }
 
-.input-group .form-control {
-  border: 1px solid #ced4da;
-  border-radius: .25rem;
-}
+  .input-group .form-control {
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+  }
 
-.input-group-addon {
-  background-color: #e9ecef;
-  border: 1px solid #ced4da;
-  border-radius: .25rem;
-}
+  .input-group-addon {
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+  }
 
-/* Colores para perfiles */
-.perfil-super-administrador {
-  background-color: #922b21;
-  color: black;
-  padding: 5px;
-  border-radius: 7px;
-  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
+  /* Colores para perfiles */
+  .perfil-super-administrador {
+    background-color: #922b21;
+    color: black;
+    padding: 5px;
+    border-radius: 7px;
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
 
-.perfil-administrador {
-  background-color: #cd6155;
-  color: black;
-  padding: 5px;
-  border-radius: 3px;
-  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
+  .perfil-gestor-pagos {
+    background-color: #cd6155;
+    color: black;
+    padding: 5px;
+    border-radius: 3px;
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
 
-.perfil-asesor-comercial {
-  background-color: #d4edda;
-  color: #155724;
-  padding: 5px;
-  border-radius: 3px;
-  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
+  .perfil-asesor-comercial {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 5px;
+    border-radius: 3px;
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
 
-.perfil-coordinador-comercial {
-  background-color: #2196F3;
-  color: black;
-  padding: 5px;
-  border-radius: 3px;
-  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
+  .perfil-coordinador-comercial {
+    background-color: #2196F3;
+    color: black;
+    padding: 5px;
+    border-radius: 3px;
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
 
-.perfil-director-comercial {
-  background-color: #ffeeba;
-  color: #856404;
-  padding: 5px;
-  border-radius: 3px;
-  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
-.perfil-especialista-juridico {
-  background-color: #f8d7da;
-  color: #721c24;
-  padding: 5px;
-  border-radius: 3px;
-  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
-.perfil-director-juridico {
-  background-color: #d1ecf1;
-  color: #0c5460;
-  padding: 5px;
-  border-radius: 3px;
-  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-.dt-button-collection.dropdown-menu {
+  .dt-button-collection.dropdown-menu {
     background-color: #007bff;
     color: #ffffff;
     padding: 10px;
-}
+  }
 </style>
 <!-- Datatables -->
 <link
@@ -229,69 +206,60 @@
           </thead>
 
           <tbody>
-              <?php
-                // Verificar si el usuario tiene el perfil de Super Administrador
-                if ($_SESSION["perfil"] == "Super Administrador") {
+            <?php
+            // Verificar si el usuario tiene el perfil de Super Administrador
+            if ($_SESSION["perfil"] == "Super Administrador") {
 
-                  $item = null;
-                  $valor = null;
+              $item = null;
+              $valor = null;
 
-                  // Mostrar los usuarios usando el nuevo controlador
-                  $usuarios = ControladorUsuarios::ctrVerUsuariosParaAdminitradores($item, $valor);
+              // Mostrar los usuarios usando el nuevo controlador
+              $usuarios = ControladorUsuarios::ctrVerUsuariosParaAdminitradores($item, $valor);
 
-                  foreach ($usuarios as $key => $value) {
-                    echo '<tr>
+              foreach ($usuarios as $key => $value) {
+                echo '<tr>
                     <td>' . ($key + 1) . '</td>';
-                    // Botón de estado (se mantiene igual)
-                    if ($value["user_status"] != 0) {
-                      echo '<td><button class="btn btn-success btn-xs btnAprobarPagoPension" idUsuario="' . $value["id"] . '" estadoPagoPension="0">Habilitado</button></td>';
-                    } else {
-                      echo '<td><button class="btn btn-danger btn-xs btnAprobarPagoPension" idUsuario="' . $value["id"] . '" estadoPagoPension="1">No Habilitado</button></td>';
-                    }
-                    echo '<td>' . htmlspecialchars($value["cc"]) . '</td>
+                // Botón de estado (se mantiene igual)
+                if ($value["user_status"] != 0) {
+                  echo '<td><button class="btn btn-success btn-xs btnAprobarPagoPension" idUsuario="' . $value["id"] . '" estadoPagoPension="0">Habilitado</button></td>';
+                } else {
+                  echo '<td><button class="btn btn-danger btn-xs btnAprobarPagoPension" idUsuario="' . $value["id"] . '" estadoPagoPension="1">No Habilitado</button></td>';
+                }
+                echo '<td>' . htmlspecialchars($value["cc"]) . '</td>
                     <td>' . htmlspecialchars($value["usuario_nombre"]) . '</td>';
-                    // Mostrar coordinador
-                    echo '<td>' . htmlspecialchars($value["coordinador_nombre"]) . '</td>';
-                    // Asignar clase según el perfil
-                    $perfilClass = '';
-                    switch ($value["perfil"]) {
-                      case 'Super Administrador':
-                        $perfilClass = 'perfil-super-administrador';
-                        break;
-                      case 'Administrador':
-                        $perfilClass = 'perfil-administrador';
-                        break;
-                      case 'Asesor comercial':
-                        $perfilClass = 'perfil-asesor-comercial';
-                        break;
-                      case 'Coordinador comercial':
-                        $perfilClass = 'perfil-coordinador-comercial';
-                        break;
-                      case 'Director comercial':
-                        $perfilClass = 'perfil-director-comercial';
-                        break;
-                      case 'Especialista juridico':
-                        $perfilClass = 'perfil-especialista-juridico';
-                        break;
-                      case 'Director juridico':
-                        $perfilClass = 'perfil-director-juridico';
-                        break;
-                    }
+                // Mostrar coordinador
+                echo '<td>' . htmlspecialchars($value["coordinador_nombre"]) . '</td>';
+                // Asignar clase según el perfil
+                $perfilClass = '';
+                switch ($value["perfil"]) {
+                  case 'Super Administrador':
+                    $perfilClass = 'perfil-super-administrador';
+                    break;
+                  case 'Gestor de pagos':
+                    $perfilClass = 'perfil-gestor-pagos';
+                    break;
+                  case 'Asesor comercial':
+                    $perfilClass = 'perfil-asesor-comercial';
+                    break;
+                  case 'Coordinador comercial':
+                    $perfilClass = 'perfil-coordinador-comercial';
+                    break;
+                }
 
-                    echo '<td><span class="' . $perfilClass . '">' . htmlspecialchars($value["perfil"]) . '</span></td>
+                echo '<td><span class="' . $perfilClass . '">' . htmlspecialchars($value["perfil"]) . '</span></td>
               <td>' . htmlspecialchars($value["area"]) . '</td>
               <td>' . htmlspecialchars($value["correo"]) . '</td>
               <td>' . htmlspecialchars($value["phone"]) . '</td>';
 
-                    // Fecha último login
-                    if (!empty($value["ultimo_login"])) {
-                      $fechaFormateada = date('d/m/Y H:i:s', strtotime($value["ultimo_login"]));
-                      echo '<td>' . $fechaFormateada . '</td>';
-                    } else {
-                      echo '<td>Sin registro</td>';
-                    }
-                    // Botones de acción
-                    echo '<td>
+                // Fecha último login
+                if (!empty($value["ultimo_login"])) {
+                  $fechaFormateada = date('d/m/Y H:i:s', strtotime($value["ultimo_login"]));
+                  echo '<td>' . $fechaFormateada . '</td>';
+                } else {
+                  echo '<td>Sin registro</td>';
+                }
+                // Botones de acción
+                echo '<td>
                       <div class="btn-group-container">
                         <div class="btn-group">
                           <button class="btn btn-warning btnEditarUsuario" idUsuario="' . $value["id"] . '" data-toggle="modal" data-target="#modalEditarUsuario"><i class="fa fa-pencil"></i></button>
@@ -302,8 +270,8 @@
                       </div>
                     </td>
                 </tr>';
-                  }
-                }
+              }
+            }
             ?>
 
             <?php
@@ -330,8 +298,8 @@
 
                   // Mostrar información del asesor
                   echo '<td>' . htmlspecialchars($value["cc"]) . '</td>
-                  <td>' . htmlspecialchars($value["first_name"]) . '</td>
-                  <td>' . htmlspecialchars($value["last_name"]) . '</td>
+                  <td>' . htmlspecialchars($value["first_name"] . ' ' . $value["last_name"]) . '</td>
+                  <td>' . htmlspecialchars($value["coordinador_first_name"] . ' ' . $value["coordinador_last_name"]) . '</td>
                   <td>' . htmlspecialchars($value["user_name"]) . '</td>';
 
                   // Asignar clase según el perfil del asesor

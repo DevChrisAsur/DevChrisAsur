@@ -114,13 +114,26 @@ MODAL EDITAR USUARIO
                 <div class="form-group floating-label-group">
                   <select class="form-control input-lg" id="editarPerfil" name="editarPerfil">
                     <option value="">Seleccionar Perfil</option>
-                    <option value="Super Administrador">Super Administrador</option>
-                    <option value="Administrador">Administrador</option>
-                    <option value="Asesor comercial">Asesor comercial</option>
-                    <option value="Coordinador comercial">Coordinador comercial</option>
-                    <option value="Director comercial">Director comercial</option>
-                    <option value="Especialista juridico">Especialista jurídico</option>
-                    <option value="Director juridico">Director jurídico</option>
+                    <?php
+                    if ($comparar == "Super Administrador") {
+                      echo '
+                        <option value="Super Administrador">Super Administrador</option>
+                        <option value="Coordinador comercial">Coordinador comercial</option>
+                        <option value="Asesor comercial">Asesor comercial</option>
+                        <option value="Gestor de pagos">Gestor de pagos</option>';
+                    } elseif ($comparar == "Administrador") {
+                      echo '
+                        <option value="Coordinador comercial">Coordinador comercial</option>
+                        <option value="Asesor comercial">Asesor comercial</option>
+                        <option value="Gestor de pagos">Gestor de pagos</option>';
+                    } elseif ($comparar == "Director comercial") {
+                      echo '
+                        <option value="Asesor comercial">Asesor comercial</option>
+                        <option value="Coordinador comercial">Coordinador comercial</option>';
+                    } elseif ($comparar == "Coordinador comercial") {
+                      echo '<option value="Asesor comercial">Asesor comercial</option>';
+                    }
+                    ?>
                   </select>
                   <label for="editarPerfil"></label>
                 </div>

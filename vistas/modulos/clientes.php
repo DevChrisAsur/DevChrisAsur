@@ -694,134 +694,104 @@
                     <table class="table table-bordered table-striped dt-responsive tablas" width="100%">
                         <thead>
                             <tr>
-                                <th style="width:10px">#</th>
-                                <th style="width:100px">Lead</th>
-                                <th style="width:100px">Identificación</th>
-                                <th style="width:100px">Pais</th>
-                                <th style="width:100px">Nombre</th>
-                                <th style="width:100px">Apellido</th>
-                                <th style="width:100px">Estado</th>
-                                <th style="width:100px">Ciudad</th>
-                                <th style="width:100px">Tipo Cliente</th>
-                                <th style="width:100px">email</th>
-                                <th style="width:100px">Telefono</th>
-                                <th style="width:100px" align="center">Acciones</th>
+                                <th style="width:10px">N°</th>
+                                <th style="width:90px">Productos</th> <!-- Botón info -->
+                                <th style="width:160px">Cliente</th>
+                                <th style="width:120px">Documento</th>
+                                <th style="width:120px">País</th>
+                                <th style="width:140px">Municipio</th> <!-- antes: state -->
+                                <th style="width:140px">Ciudad</th>
+                                <th style="width:140px">Tipo Cliente</th>
+                                <th style="width:160px">Email</th>
+                                <th style="width:140px">Teléfono</th>
+                                <th style="width:120px" class="text-center">Acciones</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             <?php
+                            // ------------------------------
+                            // Selección de clientes por perfil
+                            // ------------------------------
                             if ($_SESSION["perfil"] === "Asesor comercial") {
                                 $id_asesor = $_SESSION["id"];
                                 $clientes = ControladorClientes::ctrVerClientesAsesor($id_asesor);
+                            } else if ($_SESSION["perfil"] === "Coordinador comercial") {
+                                $id_coordinador = $_SESSION["id"];
+                                $clientes = ControladorClientes::ctrVerClientesCoordinador($id_coordinador);
+                            } else if (
+                                $_SESSION["perfil"] === "Gestor de pagos" ||
+                                $_SESSION["perfil"] === "Administrador" ||
+                                $_SESSION["perfil"] === "Super Administrador"
+                            ) {
+                                $item = null;
+                                $valor = null;
+                                $clientes = ControladorClientes::ctrVerClientes($item, $valor); // <-- corregido (antes $$item)
+                            }
 
+                            if (!empty($clientes) && is_array($clientes)) {
                                 foreach ($clientes as $key => $value) {
-                                    echo '<tr>
-                                <td>' . ($key + 1) . '</td>
-                                <td>
-                                    <button class="btn btn-info" id="btnInformacionAdicional" idCliente="' . $value["id_customer"] . '" style="margin-left: 8px;">
-                                        <i class="fa-solid fa-info"></i>
-                                    </button>
-                                </td>
-                                <td>' . htmlspecialchars($value["cc"]) . '</td>
-                                <td>' . htmlspecialchars($value["country"]) . '</td>
-                                <td>' . htmlspecialchars($value["first_name"]) . '</td>
-                                <td>' . htmlspecialchars($value["last_name"]) . '</td>
-                                <td>' . htmlspecialchars($value["state"]) . '</td>
-                                <td>' . htmlspecialchars($value["city"]) . '</td>
-                                <td>' . htmlspecialchars($value["customer_type"]) . '</td>
-                                <td>' . htmlspecialchars($value["email"]) . '</td>
-                                <td>' . htmlspecialchars($value["phone"]) . '</td>
-                                <td>
-                                    <div class="btn-group-container">
-                                        <div class="btn-group">';
-                                            
-                                            // 🔹 SOLO mostrar el botón Eliminar si NO es Asesor comercial
-                                            if ($_SESSION["perfil"] !== "Asesor comercial") {
-                                                echo '<button class="btn btn-danger btnEliminarCliente" idCliente="' . $value["id_customer"] . '" style="margin-left: 8px;">
-                                                        <i class="fa fa-times"></i>
-                                                    </button>';
-                                            }
+                                    echo '<tr>';
 
-                                            // 🔹 Este botón sí lo puede ver todos
-                                            echo '<button class="btn btn-primary btnGenerarPDF" idCliente="' . $value["id_customer"] . '" style="margin-left: 8px;">
-                                                    <i class="fa fa-file-pdf-o"></i>
-                                                </button>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>';
-                                                }
-                                            } else if ($_SESSION["perfil"] === "Coordinador comercial") {
-                                                $id_coordinador = $_SESSION["id"];
-                                                $clientes = ControladorClientes::ctrVerClientesCoordinador($id_coordinador);
+                                    // N°
+                                    echo '<td>' . ($key + 1) . '</td>';
 
-                                                foreach ($clientes as $key => $value) {
-                                                    echo '<tr>
-                                <td>' . ($key + 1) . '</td>
-                                <td>
-                                    <button class="btn btn-info" id="btnInformacionAdicional" idCliente="' . $value["id_customer"] . '" style="margin-left: 8px;">
-                                        <i class="fa-solid fa-info"></i>
-                                    </button>
-                                </td>
-                                <td>' . htmlspecialchars($value["cc"]) . '</td>
-                                <td>' . htmlspecialchars($value["country"]) . '</td>
-                                <td>' . htmlspecialchars($value["first_name"]) . '</td>
-                                <td>' . htmlspecialchars($value["last_name"]) . '</td>
-                                <td>' . htmlspecialchars($value["state"]) . '</td>
-                                <td>' . htmlspecialchars($value["city"]) . '</td>
-                                <td>' . htmlspecialchars($value["customer_type"]) . '</td>
-                                <td>' . htmlspecialchars($value["email"]) . '</td>
-                                <td>' . htmlspecialchars($value["phone"]) . '</td>
-                                <td>
-                                    <div class="btn-group-container">
-                                        <div class="btn-group">
-                                            <button class="btn btn-danger btnEliminarCliente" idCliente="' . $value["id_customer"] . '" style="margin-left: 8px;">
-                                                <i class="fa fa-times"></i>
-                                            </button>
-                                            <button class="btn btn-primary btnGenerarPDF" idCliente="' . $value["id_customer"] . '" style="margin-left: 8px;">
-                                                <i class="fa fa-file-pdf-o"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>';
-                                                }
-                                            } else if ($_SESSION["perfil"] === "Administrador" || $_SESSION["perfil"] === "Super Administrador") {
-                                                $item = null;
-                                                $valor = null;
-                                                $clientes = ControladorClientes::ctrVerClientes($item, $valor);
+                                    // Estado (solo botón info)
+                                    echo '<td class="text-center">
+                  <button class="btn btn-info" id="btnInformacionAdicional" idCliente="' . $value["id_customer"] . '">
+                    <i class="fa-solid fa-info"></i>
+                  </button>
+                </td>';
 
-                                                foreach ($clientes as $key => $value) {
-                                                    echo '<tr>
-                                <td>' . ($key + 1) . '</td>
-                                <td>
-                                    <button class="btn btn-info" id="btnInformacionAdicional" idCliente="' . $value["id_customer"] . '" style="margin-left: 8px;">
-                                        <i class="fa-solid fa-info"></i>
-                                    </button>
-                                </td>
-                                <td>' . htmlspecialchars($value["cc"]) . '</td>
-                                <td>' . htmlspecialchars($value["country"]) . '</td>
-                                <td>' . htmlspecialchars($value["first_name"]) . '</td>
-                                <td>' . htmlspecialchars($value["last_name"]) . '</td>
-                                <td>' . htmlspecialchars($value["state"]) . '</td>
-                                <td>' . htmlspecialchars($value["city"]) . '</td>
-                                <td>' . htmlspecialchars($value["customer_type"]) . '</td>
-                                <td>' . htmlspecialchars($value["email"]) . '</td>
-                                <td>' . htmlspecialchars($value["phone"]) . '</td>
-                                <td>
-                                    <div class="btn-group-container">
-                                        <div class="btn-group">
-                                            <button class="btn btn-danger btnEliminarCliente" idCliente="' . $value["id_customer"] . '" style="margin-left: 8px;">
-                                                <i class="fa fa-times"></i>
-                                            </button>
-                                            <button class="btn btn-primary btnGenerarPDF" idCliente="' . $value["id_customer"] . '" style="margin-left: 8px;">
-                                                <i class="fa fa-file-pdf-o"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>';
+                                    // Cliente (Nombre + Apellido)
+                                    echo '<td>' . htmlspecialchars($value["first_name"]) . ' ' . htmlspecialchars($value["last_name"]) . '</td>';
+
+                                    // Documento
+                                    echo '<td>' . htmlspecialchars($value["cc"]) . '</td>';
+
+                                    // País
+                                    echo '<td>' . htmlspecialchars($value["country"]) . '</td>';
+
+                                    // Municipio (antes usabas "state")
+                                    echo '<td>' . htmlspecialchars($value["state"]) . '</td>';
+
+                                    // Ciudad
+                                    echo '<td>' . htmlspecialchars($value["city"]) . '</td>';
+
+                                    // Tipo Cliente
+                                    echo '<td>' . htmlspecialchars($value["customer_type"]) . '</td>';
+
+                                    // Email
+                                    echo '<td>' . htmlspecialchars($value["email"]) . '</td>';
+
+                                    // Teléfono
+                                    echo '<td>' . htmlspecialchars($value["phone"]) . '</td>';
+
+                                    // Acciones
+                                    echo '<td class="text-center">
+                  <div class="btn-group">';
+
+                                    if ($_SESSION["perfil"] === "Asesor comercial") {
+                                        echo '<button class="btn btn-primary btnGenerarPDF" idCliente="' . $value["id_customer"] . '">
+                    <i class="fa fa-file-pdf-o"></i>
+                  </button>';
+                                    } else if ($_SESSION["perfil"] === "Gestor de pagos") {
+                                        // Sin acciones para Gestor de pagos
+                                        echo '';
+                                    } else {
+                                        // Admin / Super Admin / Coordinador
+                                        echo '<button class="btn btn-danger btnEliminarCliente" idCliente="' . $value["id_customer"] . '">
+                    <i class="fa fa-times"></i>
+                  </button>
+                  <button class="btn btn-primary btnGenerarPDF" idCliente="' . $value["id_customer"] . '">
+                    <i class="fa fa-file-pdf-o"></i>
+                  </button>';
+                                    }
+
+                                    echo '   </div>
+                </td>';
+
+                                    echo '</tr>';
                                 }
                             }
                             ?>
@@ -829,23 +799,25 @@
 
                         <tfoot>
                             <tr>
-                                <th style="width:10px">#</th>
-                                <th style="width:100px">Lead</th>
-                                <th style="width:100px">Identificación</th>
-                                <th style="width:100px">Pais</th>
-                                <th style="width:100px">Nombre</th>
-                                <th style="width:100px">Apellido</th>
-                                <th style="width:100px">Estado</th>
-                                <th style="width:100px">Ciudad</th>
-                                <th style="width:100px">Tipo Cliente</th>
-                                <th style="width:100px">email</th>
-                                <th style="width:100px">Telefono</th>
-                                <th style="width:100px" align="center">Acciones</th>
+                                <th>N°</th>
+                                <th>Productos</th>
+                                <th>Cliente</th>
+                                <th>Documento</th>
+                                <th>País</th>
+                                <th>Municipio</th>
+                                <th>Ciudad</th>
+                                <th>Tipo Cliente</th>
+                                <th>Email</th>
+                                <th>Teléfono</th>
+                                <th class="text-center">Acciones</th>
                             </tr>
                         </tfoot>
                     </table>
 
                 </div>
+
+
+
 
                 <div class="box-body" id="boxBodySecundario" style="display: none;">
                     <div class="parent">
@@ -1066,9 +1038,19 @@
                                                 </div>
 
                                                 <div class="info-actions">
-                                                    <button id="btnEdit" class="btn-edit"><i class="fas fa-edit"></i> Editar Información</button>
-                                                    <button id="btnSave" class="btn-edit" style="display:none;background:#10b981;"><i class="fas fa-save"></i> Guardar</button>
+                                                    <?php if ($_SESSION["perfil"] !== "Asesor comercial") { ?>
+                                                        <button id="btnEdit" class="btn-edit">
+                                                            <i class="fas fa-edit"></i> Editar Información
+                                                        </button>
+                                                        <button id="btnSave" class="btn-edit" style="display:none;background:#10b981;">
+                                                            <i class="fas fa-save"></i> Guardar
+                                                        </button>
+                                                    <?php } else { ?>
+                                                        <!-- Si es Asesor comercial, no puede editar -->
+                                                        <span class="text-muted">Sin permisos de edición</span>
+                                                    <?php } ?>
                                                 </div>
+
                                             </div>
 
                                             <div class="container" style="margin-top: 20px;">
@@ -1532,37 +1514,37 @@
         }
 
         // Función para generar fechas mes a mes
-function generarFechasVencimiento(numCuotas) {
-    let fechas = [];
-    let today = new Date();
+        function generarFechasVencimiento(numCuotas) {
+            let fechas = [];
+            let today = new Date();
 
-    for (let i = 1; i <= numCuotas; i++) {
-        let fechaCuota = new Date(today);
-        fechaCuota.setMonth(today.getMonth() + i); // cada cuota un mes después
-        fechas.push(fechaCuota.toISOString().split('T')[0]);
-    }
+            for (let i = 1; i <= numCuotas; i++) {
+                let fechaCuota = new Date(today);
+                fechaCuota.setMonth(today.getMonth() + i); // cada cuota un mes después
+                fechas.push(fechaCuota.toISOString().split('T')[0]);
+            }
 
-    return fechas;
-}
+            return fechas;
+        }
 
-// Función para generar cuotas
-function generarCamposCuotas(numCuotas, montoTotal) {
-    const container = $('#cuotasContainer');
-    container.empty();
+        // Función para generar cuotas
+        function generarCamposCuotas(numCuotas, montoTotal) {
+            const container = $('#cuotasContainer');
+            container.empty();
 
-    // Por defecto: monto total dividido en cuotas iguales
-    let montoCuota = Math.floor((montoTotal / numCuotas) * 100) / 100;
-    let ajuste = montoTotal - (montoCuota * numCuotas);
-    const fechasVencimiento = generarFechasVencimiento(numCuotas);
+            // Por defecto: monto total dividido en cuotas iguales
+            let montoCuota = Math.floor((montoTotal / numCuotas) * 100) / 100;
+            let ajuste = montoTotal - (montoCuota * numCuotas);
+            const fechasVencimiento = generarFechasVencimiento(numCuotas);
 
-    for (let i = 1; i <= numCuotas; i++) {
-        let montoFinal = (i === numCuotas) 
-            ? (montoCuota + ajuste).toFixed(2) 
-            : montoCuota.toFixed(2);
+            for (let i = 1; i <= numCuotas; i++) {
+                let montoFinal = (i === numCuotas) ?
+                    (montoCuota + ajuste).toFixed(2) :
+                    montoCuota.toFixed(2);
 
-        let readonly = (i === 1) ? "" : "readonly"; // primera editable, las demás readonly
+                let readonly = (i === 1) ? "" : "readonly"; // primera editable, las demás readonly
 
-        container.append(`
+                container.append(`
             <div class="row cuota-row">
                 <div class="col-md-4">
                     <select class="form-control" id="estado_pago_${i}" name="estado_pago_${i}">
@@ -1585,28 +1567,28 @@ function generarCamposCuotas(numCuotas, montoTotal) {
                 </div>
             </div>
         `);
-    }
-
-    // Evento: si se edita la primera cuota, recalcular las demás
-    $('#monto_1').on('input', function() {
-        let primeraCuota = parseFloat($(this).val()) || 0;
-        let restante = montoTotal - primeraCuota;
-        let nuevasCuotas = numCuotas - 1;
-
-        if (nuevasCuotas > 0) {
-            let montoCuota = Math.floor((restante / nuevasCuotas) * 100) / 100;
-            let ajuste = restante - (montoCuota * nuevasCuotas);
-
-            for (let i = 2; i <= numCuotas; i++) {
-                let montoFinal = (i === numCuotas) 
-                    ? (montoCuota + ajuste).toFixed(2) 
-                    : montoCuota.toFixed(2);
-
-                $(`#monto_${i}`).val(montoFinal);
             }
+
+            // Evento: si se edita la primera cuota, recalcular las demás
+            $('#monto_1').on('input', function() {
+                let primeraCuota = parseFloat($(this).val()) || 0;
+                let restante = montoTotal - primeraCuota;
+                let nuevasCuotas = numCuotas - 1;
+
+                if (nuevasCuotas > 0) {
+                    let montoCuota = Math.floor((restante / nuevasCuotas) * 100) / 100;
+                    let ajuste = restante - (montoCuota * nuevasCuotas);
+
+                    for (let i = 2; i <= numCuotas; i++) {
+                        let montoFinal = (i === numCuotas) ?
+                            (montoCuota + ajuste).toFixed(2) :
+                            montoCuota.toFixed(2);
+
+                        $(`#monto_${i}`).val(montoFinal);
+                    }
+                }
+            });
         }
-    });
-}
 
 
         // Evento para calcular monto total en base a los servicios seleccionados

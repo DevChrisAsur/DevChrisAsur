@@ -72,7 +72,7 @@
             ?>
 
             <?php
-            if ($comparar == "Super Administrador") {
+            if ($comparar == "Super Administrador" || $comparar == "Administrador") {
                 echo '
 
                 <li class="treeview">
@@ -147,11 +147,11 @@
                         </li>
                     </ul>
                     <li>
-                            <a href="facturas">
-                                <i class="fa fa-address-card"></i>
-                                <span>facturas</span>
-                            </a>
-                        </li>
+                        <a href="facturas">
+                            <i class="fa fa-address-card"></i>
+                            <span>facturas</span>
+                        </a>
+                    </li>
                 </li>
                 ';
             }
@@ -213,6 +213,57 @@
                             </a>
                         </li>
                 </li>';
+            }
+            ?>
+            <?php
+            if ($comparar == 'Gestor de pagos') {
+
+                echo '
+                  <li class="treeview">
+                    <li>
+                            <a href="usuarios">
+                                <i class="fa fa-book"></i>
+                                <span>Usuarios</span>
+                            </a>
+                    </li>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-group"></i>
+                        <span>Contactos</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        
+                        <li>
+                            <a href="clientes">
+                                <i class="fa fa-address-book"></i>
+                                <span>clientes</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="leads">
+                                <i class="fa fa-exclamation"></i>
+                                <span>Leads</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="suscripciones">
+                        <i class="fa fa-address-card"></i>
+                        <span>suscripciones</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="facturas">
+                        <i class="fa fa-address-card"></i>
+                        <span>facturas</span>
+                    </a>
+                </li>
+                ';
             }
             ?>
         </ul>

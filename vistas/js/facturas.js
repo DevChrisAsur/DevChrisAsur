@@ -96,7 +96,9 @@ function llenarTablaCuotas(cuotas, perfilUsuario) {
     if (
       perfilUsuario === "Coordinador comercial" ||
       perfilUsuario === "Administrador" ||
-      perfilUsuario === "Super Administrador"
+      perfilUsuario === "Super Administrador" || 
+      perfilUsuario === "Gestor de pagos"
+
     ) {
       botonAccion = `
         <button class="btn btn-warning btn-editar-cuota" data-id="${cuota.id_cuota}" 

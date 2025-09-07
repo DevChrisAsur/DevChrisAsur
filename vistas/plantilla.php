@@ -141,6 +141,7 @@ CUERPO DOCUMENTO
           $rutasAdmin = ["inicio", "usuarios", "areas", "clientes", "servicios", "suscripciones", "leads", "facturas", "salir"];
           $rutasCoordinador = ["inicio", "usuarios", "clientes", "leads", "salir"];
           $rutasAsesor = ["inicio", "clientes", "leads", "salir"];
+          $rutasGestorPagos = [ "inicio", "clientes","leads","suscripciones","facturas","salir"];
 
           if(($perfil == "Super Administrador" || $perfil == "Administrador") && in_array($ruta, $rutasAdmin)){
               include "modulos/".$ruta.".php";
@@ -148,6 +149,8 @@ CUERPO DOCUMENTO
               include "modulos/".$ruta.".php";
           } else if($perfil == "Asesor comercial" && in_array($ruta, $rutasAsesor)){
               include "modulos/".$ruta.".php";
+          } else if($perfil == "Gestor de pagos" && in_array($ruta, $rutasGestorPagos)){
+                include "modulos/".$ruta.".php";
           } else {
               include "modulos/404.php";
           }
