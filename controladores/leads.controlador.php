@@ -13,6 +13,10 @@ class ControladorLeads {
 			
 			// Obtener el ID del usuario de la sesión
 			$id_usuario = isset($_SESSION["id"]) ? (int) $_SESSION["id"] : 0; 
+			// Si el formulario tiene un asesor seleccionado, se usa ese
+        if (!empty($_POST["AsignarAsesor"]) && $_POST["AsignarAsesor"] != "0") {
+            $id_usuario = (int) $_POST["AsignarAsesor"];
+        }
 	
 			$datos = array(
 				"cc" => $_POST["nuevoIdLead"],

@@ -7,7 +7,7 @@
           <value>
             <AIAssistantStoredInstruction>
               <option name="actionId" value="AIAssistant.VCS.GenerateCommitMessage" />
-              <option name="content" value="Prompt refactorizado:&#10;&#10;Actúa como un asistente de control de versiones y genera mensajes de commit profesionales y consistentes. Tu tarea es:&#10;&#10;Analizar los cambios realizados en uno o varios fragmentos de código (antes y después).&#10;&#10;Identificar el tipo de cambio: estructural, visual, lógico o de contenido.&#10;&#10;Redactar mensajes de commit claros y concisos, usando imperativo.&#10;&#10;Categorizar el commit cuando sea posible: feat, fix, style, refactor, docs, chore.&#10;&#10;Escribir el título del commit en una sola línea (máx. 72 caracteres).&#10;&#10;Opcional: agregar un cuerpo con viñetas para describir detalles adicionales.&#10;&#10;Ejemplo de commit:&#10;&#10;feat(navbar): add responsive login button&#10;&#10;- Implementa botón de login con estilos compactos&#10;- Ajusta alineación vertical en pantallas grandes&#10;&#10;&#10;Instrucciones adicionales:&#10;&#10;Si no se proporciona un diff, analiza únicamente los cambios actuales del código.&#10;&#10;Siempre usa un lenguaje profesional y técnico.&#10;&#10;Evita información irrelevante o redundante.&#10;&#10;Entrada requerida:&#10;&#10;Fragmentos de código modificados o completos.&#10;&#10;Salida esperada:&#10;&#10;Mensaje de commit listo para usar en Git, siguiendo las reglas anteriores. en español" />
+              <option name="content" value="Quiero que actúes como asistente de control de versiones para generar mensajes de commit profesionales.&#10;&#10;Tu tarea es:&#10;&#10;Analizar la lista de archivos modificados, añadidos o eliminados, con su breve descripción de cambios.&#10;&#10;Identificar el tipo de cambio: feat, fix, style, refactor, docs o chore.&#10;&#10;Redactar un mensaje de commit claro, conciso y en imperativo.&#10;&#10;Usa una línea para el título (máx. 72 caracteres) y, si hace falta, un cuerpo con viñetas explicativas.&#10;&#10;Ejemplo de entrada:&#10;&#10;src/components/Navbar.js: Añade botón de login responsive&#10;&#10;styles/navbar.css: Ajusta estilos del botón para pantallas grandes&#10;&#10;Ejemplo de salida:&#10;&#10;feat(navbar): add responsive login button&#10;&#10;- Implementa botón de login con estilos compactos&#10;- Ajusta alineación vertical en pantallas grandes&#10;&#10;&#10;Ahora, analiza la lista de archivos y cambios que te daré y genera el mensaje de commit adecuado." />
             </AIAssistantStoredInstruction>
           </value>
         </entry>
@@ -18,11 +18,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d1f258ee-b36f-465c-b369-682882a5d30d" name="Changes" comment="">
+    <list default="true" id="d1f258ee-b36f-465c-b369-682882a5d30d" name="Changes" comment="chore(debug): add debug log and IDE shelved patch files&#10;&#10;- Incluye un archivo `debug.log` con datos de ejemplo para depuración&#10;- Añade un archivo de parche de IntelliJ en el directorio `.idea/shelf/`">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/modules/leads/FormRegisterLead.php" beforeDir="false" afterPath="$PROJECT_DIR$/components/modules/leads/FormRegisterLead.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controladores/leads.controlador.php" beforeDir="false" afterPath="$PROJECT_DIR$/controladores/leads.controlador.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vistas/js/leads.js" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/js/leads.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vistas/modulos/clientes.php" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/modulos/clientes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vistas/modulos/leads.php" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/modulos/leads.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +49,7 @@
     </favorite-branches>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="9f519f60869d91c4fa5e3d341e940c8f6918793a" />
+        <entry key="$PROJECT_DIR$" value="develop/support" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -143,7 +143,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "develop/support",
+    "git-widget-placeholder": "develop/supportBug",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/NodeProjects",
     "node.js.detected.package.eslint": "true",
@@ -151,7 +151,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "ml.llm.AIAssistantPromptsLibrary",
+    "settings.editor.selected.configurable": "ml.llm.LLMDataSharingConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -175,15 +175,7 @@
       <workItem from="1757052932103" duration="290000" />
       <workItem from="1757281834149" duration="318000" />
       <workItem from="1757484188452" duration="99000" />
-      <workItem from="1757534073959" duration="2071000" />
-    </task>
-    <task id="LOCAL-00098" summary="feacture-clientes:(actaulizado) informacion adicional del cliente">
-      <option name="closed" value="true" />
-      <created>1728667084832</created>
-      <option name="number" value="00098" />
-      <option name="presentableId" value="LOCAL-00098" />
-      <option name="project" value="LOCAL" />
-      <updated>1728667084832</updated>
+      <workItem from="1757534073959" duration="4947000" />
     </task>
     <task id="LOCAL-00099" summary="manajo de logs">
       <option name="closed" value="true" />
@@ -569,7 +561,15 @@
       <option name="project" value="LOCAL" />
       <updated>1757281971478</updated>
     </task>
-    <option name="localTasksCounter" value="147" />
+    <task id="LOCAL-00147" summary="chore(debug): add debug log and IDE shelved patch files&#10;&#10;- Incluye un archivo `debug.log` con datos de ejemplo para depuración&#10;- Añade un archivo de parche de IntelliJ en el directorio `.idea/shelf/`">
+      <option name="closed" value="true" />
+      <created>1757536442058</created>
+      <option name="number" value="00147" />
+      <option name="presentableId" value="LOCAL-00147" />
+      <option name="project" value="LOCAL" />
+      <updated>1757536442058</updated>
+    </task>
+    <option name="localTasksCounter" value="148" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -609,20 +609,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="ajuste de rutas" />
-    <MESSAGE value="delegacion de ejecucion para las cuotas" />
-    <MESSAGE value="feacture-cuotas(en proceso: edicion de cuota) metodos relacionados con las tarjetas del inicio" />
-    <MESSAGE value="feacture-cuotas(edicion de cuota) metodo encargado de actualizar las cuotas en la informacion adicional del cliente" />
-    <MESSAGE value="feacture-cuotas(cards de inicio EN PROCESO) las tarjetas informativas encontradas en inicio:&#10;Contador de leads Diarios&#10;Contador de ventas Diarios&#10;Total de ventas entre fechas&#10;Brindan la informacion requerida para cada tarjeta.&#10;Las tarjetas de detalles realizan las siguientes acciones:&#10;TRANSFER: obtiene el valor de todas las cuotas programadas para estas fechas, obtiene la informacion de los clientes, la fecha limite de pago y el monto a pagar.&#10;RECAUDO: obtiene el valor de todas las cuotas pagadas o en proceso para estas fechas, obtiene la informacion de los clientes, la fecha limite de pago y el monto a pagar.&#10;Se debe continuar con la estructuracion de las tarjetas restantes, ademas de aplicar una redireccion para actualizar la informacion de la cuota seleccionada" />
-    <MESSAGE value="ajustes en la actualizacion de las contraseñas de usuario" />
-    <MESSAGE value="feature-usuarios: actualizacion de formulario agregar usuario" />
-    <MESSAGE value="feature-usuarios: actualizacion del metodo editar usuario, se obtienen los datos de la persona y se reasigna el coordinador" />
-    <MESSAGE value="bug-fix facturas y cuotas:&#10;1. al revisar las facturas y las cuotas de un cliente, se obtienen los datos de dicha informacion.&#10;2. cuando se ingresa a la informacion de un cliente que no posee facturas o cuotas, se carga la informacion del ultimo cliente visto con facturas activas.&#10;SOLUCION: si el cliente no cuenta con facturas o cuotas, se limpian los campos para que no se cargue la informacion del anterior cliente" />
-    <MESSAGE value="feature-notas(en proceso): se actualizan los metodos de:&#10;guardar nota, ver nota, se genera los estilos y contenedores las cards notas" />
-    <MESSAGE value="feature-notas(finalizado): se actualizan el metodo de ver notas para obtener el nombre de usuario de quien creo la nota, ademas de actualizar estilos basicos." />
-    <MESSAGE value="feature-factura(finalizado): se actualizan los datos de la factura adicionalmente se actualiza el metodo para ver las facturas activas" />
-    <MESSAGE value="buf-fixed: nuev API ciudades integrada" />
-    <MESSAGE value="features-cards(en proceso): las cards de inicio se han actualizado de la siguiente forma, las cards de contador de leads y de ventas ahora despliegan una modal para su posterior tabla de detalles.&#10;la cards de caida ha sido implementada, mostrando las cuotas sin pagar de la quincena del mes anterior.&#10;se hacen ajustes a los filtros de las tablas de transfer, recaudo y proceso y caida" />
     <MESSAGE value="bug fix: se discriminan los leads y los clientes dependiendo del rol asignado" />
     <MESSAGE value="Restrict &quot;Eliminar&quot; button for non-commercial advisors&#10;&#10;Added a check to ensure that only users without the &quot;Asesor comercial&quot; profile can see the &quot;Eliminar&quot; button in the Clients module. The &quot;Generar PDF&quot; button remains visible to all users." />
     <MESSAGE value="---&#10;refactor(home): update styles and content for modern design&#10;&#10;- Replaced outdated CSS with a modern design system using custom variables&#10;- Updated navbar with responsive layout and improved login button&#10;- Enhanced hero section with new structure, animations, and call-to-action&#10;- Switched to new fonts and optimized typography&#10;- Removed deprecated and redundant styles for cleaner codebase&#10;---" />
@@ -634,7 +620,21 @@
     <MESSAGE value="feat(usuarios/perfiles): agregar perfil &quot;Gestor de pagos&quot; y permisos&#10;&#10;- Añade el perfil &quot;Gestor de pagos&quot; con rutas y accesos definidos:&#10;  - Accesos: usuarios, clientes, leads, suscripciones y facturas.&#10;- Actualiza opciones mostradas en formularios según perfil.&#10;- Mejora diseño de tablas: reestructuración de columnas y optimización terminológica.&#10;- Restringe acciones y vistas específicas para ciertos perfiles.&#10;- Corrige el nombre de la variable `$item` en consulta de clientes." />
     <MESSAGE value="feat(usuarios/perfiles): agregar perfil &quot;Gestor de pagos&quot; y permisos&#10;&#10;- Añade el perfil &quot;Gestor de pagos&quot; con acceso a usuarios, clientes, leads, suscripciones y facturas.&#10;- Actualiza las opciones visibles en formularios según perfil.&#10;- Reestructura columnas y optimiza la terminología en tablas.&#10;- Restringe acciones y vistas específicas para ciertos perfiles.&#10;- Corrige la variable `$item` en consulta de clientes." />
     <MESSAGE value="feat(usuarios/perfiles): agregar perfil &quot;Gestor de pagos&quot; y permisos asociados&#10;&#10;- Se añade el perfil &quot;Gestor de pagos&quot; con sus rutas y accesos definidos:&#10;  - Módulos: usuarios, clientes, leads, suscripciones y facturas.&#10;- Actualización de opciones mostradas según perfil en formularios de usuario.&#10;- Ajuste en diseño de tablas: columnas reestructuradas y terminología optimizada.&#10;- Se restringen acciones y vistas específicas para ciertos perfiles.&#10;- Corrección en el nombre de variable `$item` en consulta de clientes." />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(usuarios/perfiles): agregar perfil &quot;Gestor de pagos&quot; y permisos asociados&#10;&#10;- Se añade el perfil &quot;Gestor de pagos&quot; con sus rutas y accesos definidos:&#10;  - Módulos: usuarios, clientes, leads, suscripciones y facturas.&#10;- Actualización de opciones mostradas según perfil en formularios de usuario.&#10;- Ajuste en diseño de tablas: columnas reestructuradas y terminología optimizada.&#10;- Se restringen acciones y vistas específicas para ciertos perfiles.&#10;- Corrección en el nombre de variable `$item` en consulta de clientes." />
+    <MESSAGE value="chore: add debug log and IDE patch files to version control&#10;&#10;- Añade archivo `debug.log` para seguimiento de datos enviados por AJAX.&#10;- Incluye archivo de configuración generada por IntelliJ IDEA para cambios pendientes.&#10;- Nota: Considerar excluir estos archivos en `.gitignore` si no son necesarios." />
+    <MESSAGE value="chore(debug): add debug log and IDE shelved patch files&#10;&#10;- Incluye un archivo `debug.log` con datos de ejemplo para depuración&#10;- Añade un archivo de parche de IntelliJ en el directorio `.idea/shelf/`" />
+    <MESSAGE value="chore: update workspace settings and debug configurations&#10;&#10;Updated IntelliJ workspace.xml with changes related to debug logs and shelved patch files. Added references to debug.log for AJAX tracking and adjusted local tasks and Git branch placeholders." />
+    <MESSAGE value="Por favor proporciona las diferencias del código (diffs) para que pueda analizarlo y generar el mensaje de commit apropiado." />
+    <MESSAGE value="Por favor proporciona el fragmento de código (diff) para analizarlo y redactar el mensaje de commit adecuado." />
+    <MESSAGE value="Parece que no proporcionaste un fragmento de código o diff para analizar. Por favor, envíame las diferencias de código y con gusto redactaré un mensaje de commit claro y profesional basado en los cambios realizados. " />
+    <MESSAGE value="Por favor proporciona el fragmento de código (diff) para que pueda analizarlo y generar el mensaje de commit adecuado." />
+    <MESSAGE value="Por favor, proporciona el código o el diff para que pueda analizar los cambios realizados y generar el mensaje de commit correspondiente." />
+    <MESSAGE value="chore(debug): clean up workspace metadata and update debug support&#10;&#10;- Elimina mensajes y tareas obsoletas del archivo de configuración&#10;- Agrega mensajes sobre inclusión de `debug.log` y parches de IDE&#10;- Actualiza referencias de ramas y contadores locales" />
+    <MESSAGE value="``` &#10;chore(debug): agregar archivos de depuración y parches de IDE&#10;&#10;- Añade `debug.log` con datos de ejemplo para depuración&#10;- Incluye archivo de parche generado por IntelliJ en `.idea/shelf/`&#10;- Nota: Considerar excluir estos archivos en `.gitignore` si no son necesarios&#10;```" />
+    <MESSAGE value="Puedo ayudarte a redactar el mensaje de commit. Por favor, comparte el fragmento de código (diff) para que pueda analizarlo y generar un mensaje adecuado." />
+    <MESSAGE value="Por favor proporciona el fragmento de código (diff) para analizarlo y generar el mensaje de commit correspondiente." />
+    <MESSAGE value="Por favor proporciona el fragmento de código o el diff para que pueda analizarlo y generar el mensaje de commit adecuado." />
+    <MESSAGE value="Por favor proporciona el fragmento de código (diff) y te ayudaré a generar el mensaje de commit adecuado." />
+    <option name="LAST_COMMIT_MESSAGE" value="Por favor proporciona el fragmento de código (diff) y te ayudaré a generar el mensaje de commit adecuado." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

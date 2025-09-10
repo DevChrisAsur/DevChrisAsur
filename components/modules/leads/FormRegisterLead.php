@@ -244,7 +244,33 @@
                   </div>
                 </div>
               </div>
+              <!-- REASIGNAR COORDINADOR -->
+              <h5>Asignar Asesor</h5>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group floating-label-group">
+                    <label for="editarAsesor"> </label>
+                    <select class="form-control input-lg" name="AsignarAsesor" id="AsignarAsesor">
+                      <?php
+                      $item = null;
+                      $valor = null;
+                      $asesores = ControladorUsuarios::ctrMostrarAsesores($item, $valor);
 
+                      echo '<option value="0">Sin asesor</option>';
+
+                      foreach ($asesores as $key => $value) {
+                        echo '<option value="' . $value["id"] . '">'
+                          . $value["first_name"] . ' '
+                          . $value["last_name"] . ' - '
+                          . $value["perfil"] .
+                          '</option>';
+                      }
+                      ?>
+                    </select>
+                  </div>
+
+                </div>
+              </div>
 
             </div>
           </div>

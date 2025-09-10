@@ -58,117 +58,112 @@ $(".tablas").on("click", ".btnEditarLead", function () {
 });
 
 $(document).ready(function () {
-  // Adjuntamos el evento click usando delegación para los botones de cambio de estado de pago de leads
+  // Evento para botones de cambio de estado de leads
   $(document).on("click", ".btnCambiarEstadoLead", function () {
     var boton = $(this);
-    console.log("Se ha clicado en el botón para cambiar el estado del lead"); // Depuración
-
     var idLead = boton.attr("idLead");
     var estadoActualLead = boton.attr("estadoActualLead");
 
-    // Mostrar la modal de confirmación
+    // Guardar el id en el tab2 para poder usarlo luego
+    $("#tab2 a").attr("idLeads", idLead);
+
+    // Mostrar modal de confirmación (si lo usas)
     $("#confirmacionModal").modal("show");
 
-    // Asignar el idLead al atributo idLeads en el tab2
-    $("#tab2 a").attr("idLeads", idLead); // Esto asegura que el idLeads sea correcto para el tab "Cliente"
-
-    // Limpiar cualquier evento previo adjunto al botón #confirmarAccion
     $("#confirmarAccion").off("click").on("click", function () {
-        // Swal.fire({
-        //   icon: "info",
-        //   title: "Completar información",
-        //   text: "Porfavor completa el registro del cliente en la siguiente pestaña",
-        //   confirmButtonText: "Continuar",
-        // }).then((result) => {
-        //   if (result.isConfirmed) {
-        //     document.querySelectorAll(".tab-content").forEach((content) => {
-        //       content.style.display = "none";
-        //     });
-        //     document.querySelector("#tab2 .tab-content").style.display =
-        //       "block";
-        //   }
-        // });
+      // Paso 1: Mostrar alerta y dirigir al tab2 al confirmar
+      Swal.fire({
+        icon: "info",
+        title: "Completar información",
+        text: "Por favor completa el registro del cliente en la siguiente pestaña",
+        confirmButtonText: "Continuar",
+        showCancelButton: true,
+        cancelButtonText: "Cancelar"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Paso 2: Cambiar a tab2 visualmente
+          document.querySelectorAll(".tab-content").forEach((content) => {
+            content.style.display = "none";
+          });
+          document.querySelector("#tab2 .tab-content").style.display = "block";
 
-        var datos = new FormData();
-        datos.append("activarIdLead", idLead);
-        datos.append("activarEstadoLead", estadoActualLead);
+          // Paso 3: Disparar manualmente el evento click de #tab2 a para que haga el AJAX
+          $("#tab2 a").trigger("click");
 
-            // Realizamos la solicitud AJAX para cambiar el estado del lead
-            $.ajax({
-                url: "ajax/leads.ajax.php", // Ruta del archivo que procesa la solicitud en el servidor
-                method: "POST",
-                data: datos,
-                cache: false,
-                contentType: false,
-                processData: false,
-                dataType: "json",
-                success: function(respuesta) {
-                    //console.log("respuesta es", respuesta);
-                    if (estadoActualLead == 0) {
-                        boton.removeClass('btn-success').addClass('btn-info').html('Lead').attr('estadoActualLead', 1);
-                    } else {
-                        boton.removeClass('btn-info').addClass('btn-success').html('Cliente').attr('estadoActualLead', 0);
-                    }
+          // Paso 4: Hacer el cambio de estado de lead a cliente vía AJAX
+          var datos = new FormData();
+          datos.append("activarIdLead", idLead);
+          datos.append("activarEstadoLead", estadoActualLead);
 
-                    // Refrescar la página después de la actualización
-                    if (window.location.href.indexOf("ruta=leads") !== -1) {
-                        window.location.reload();
-                    }
-                },
-                error: function(xhr, status, error) {
-                    //console.error("Error en la solicitud AJAX: ", status, error);
-                }
-            });
+          $.ajax({
+            url: "ajax/leads.ajax.php",
+            method: "POST",
+            data: datos,
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            success: function (respuesta) {
+              if (estadoActualLead == 0) {
+                boton.removeClass('btn-success')
+                     .addClass('btn-info')
+                     .html('Lead')
+                     .attr('estadoActualLead', 1);
+              } else {
+                boton.removeClass('btn-info')
+                     .addClass('btn-success')
+                     .html('Cliente')
+                     .attr('estadoActualLead', 0);
+              }
 
-        });
-    });
-});
-
-$(document).on('click', '#tab2 a', function() {
-    //console.log("Se ha clicado en el botón para cambiar el estado del lead"); // Depuración
-
-    var idLeads = $(this).attr("idLeads"); // Aquí recogemos el atributo idLeads
-    //console.log("idLeads:", idLeads); // Depuración
-
-    if (!idLeads) {
-        //console.error("No se encontró idLeads en el botón.");
-        return;
-    }
-
-    // Crear un FormData para pasar los datos por AJAX
-    var datos = new FormData();
-    datos.append("idLeads", idLeads); // Asegúrate de usar idLeads aquí
-
-    // Hacer la solicitud AJAX
-    $.ajax({
-        url: "ajax/leads.ajax.php",
-        method: 'POST',
-        data: datos,
-        cache: false,
-        contentType: false,
-        processData: false,
-        dataType: 'json',
-        success: function(respuesta) {
-            console.log(respuesta);
-            // Si hay un error en la respuesta, mostrarlo
-            if (respuesta.error) {
-                //console.error("Error:", respuesta.error);
-                alert("Error: " + respuesta.error); // Muestra un mensaje si ocurre un error
-            } else {
-                // Rellenar los campos del formulario con los datos obtenidos del lead
-                $('#nuevoIdCliente').val(respuesta.cc);
-                $('#nuevoNombre').val(respuesta.first_name);
-                $('#nuevoApellido').val(respuesta.last_name);
-                $('#nuevoEmail').val(respuesta.email);
-                $('#nuevoTelefono').val(respuesta.phone);
-                $("#idLeads").val(respuesta.id_lead);
+              if (window.location.href.indexOf("ruta=leads") !== -1) {
+                window.location.reload();
+              }
+            },
+            error: function (xhr, status, error) {
+              console.error("Error en la solicitud AJAX: ", status, error);
             }
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
+          });
         }
+      });
     });
+  });
+
+  // Evento para cargar datos del lead cuando se abra tab2
+  $(document).on('click', '#tab2 a', function() {
+    var idLeads = $(this).attr("idLeads");
+    if (!idLeads) return;
+
+    var datos = new FormData();
+    datos.append("idLeads", idLeads);
+
+    $.ajax({
+      url: "ajax/leads.ajax.php",
+      method: 'POST',
+      data: datos,
+      cache: false,
+      contentType: false,
+      processData: false,
+      dataType: 'json',
+      success: function(respuesta) {
+        if (respuesta.error) {
+          alert("Error: " + respuesta.error);
+        } else {
+          $('#nuevoIdCliente').val(respuesta.cc);
+          $('#nuevoNombre').val(respuesta.first_name);
+          $('#nuevoApellido').val(respuesta.last_name);
+          $('#nuevoEmail').val(respuesta.email);
+          $('#nuevoTelefono').val(respuesta.phone);
+          $("#idLeads").val(respuesta.id_lead);
+        }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
+      }
+    });
+  });
 });
+
 
 $(document).on('submit', '#formularioCliente', function(e) {
     e.preventDefault(); // Evita que el formulario se envíe de forma predeterminada
