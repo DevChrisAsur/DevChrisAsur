@@ -294,6 +294,13 @@
     background: white;
     padding: 0 5px;
   }
+  .swal2-icon.swal2-info {
+  font-size: 1.5rem !important; /* Ajusta el tamaño de la "i" */
+  width: 3em !important;
+  height: 3em !important;
+  line-height: 3em !important;
+}
+
 </style>
 
 

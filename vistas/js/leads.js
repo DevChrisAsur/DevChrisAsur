@@ -1,92 +1,97 @@
-$(".tablas").on("click", ".btnEliminarLead", function(){
+$(".tablas").on("click", ".btnEliminarLead", function () {
+  var idCategoria = $(this).attr("idLeads");
 
-    var idCategoria = $(this).attr("idLeads");
-
-    swal({
-        title: '¿Está seguro de eliminar este cliente lead?',
-        text: "¡Si no lo está puede cancelar la acción!",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        cancelButtonText: 'Cancelar',
-        confirmButtonText: 'Si, eliminar Lead!'
-    }).then(function(result){
-
-        if(result.value){
-
-            window.location = "index.php?ruta=leads&idLeads="+idCategoria;
-
-        }
-
-    })
-
-})
-
-$(".tablas").on("click", ".btnEditarLead", function() {
-    // Obtener el valor de idLeads
-    var idLeads = $(this).attr("idLeads");
-    //console.log("idLeads:", idLeads); // Verificar si se captura correctamente
-
-    if (!idLeads) {
-        //console.error("No se encontró idLeads en el botón.");
-        return;
+  swal({
+    title: "¿Está seguro de eliminar este cliente lead?",
+    text: "¡Si no lo está puede cancelar la acción!",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    cancelButtonText: "Cancelar",
+    confirmButtonText: "Si, eliminar Lead!",
+  }).then(function (result) {
+    if (result.value) {
+      window.location = "index.php?ruta=leads&idLeads=" + idCategoria;
     }
-
-    // Crear un FormData para pasar los datos por AJAX
-    var datos = new FormData();
-    datos.append("idLeads", idLeads);
-
-    // Llamada AJAX
-    $.ajax({
-        url: "ajax/leads.ajax.php",
-        method: "POST",
-        data: datos,
-        cache: false,
-        contentType: false,
-        processData: false,
-        dataType: "json",
-        success: function(respuesta) {
-            // Verificar si la respuesta tiene un error
-            if (respuesta.error) {
-                //console.error("Error:", respuesta.error);
-                alert("Error: " + respuesta.error); // Muestra un mensaje si ocurre un error
-            } else {
-                // Si no hay error, proceder con los datos del lead
-                $("#editarNombre").val(respuesta["first_name"]);
-                $("#editarApellido").val(respuesta["last_name"]);
-                $("#editarCorreo").val(respuesta["email"]);
-                $("#editarTelefono").val(respuesta["phone"]);
-                $("#idLeads").val(respuesta["id_lead"]);
-            }
-        },
-        error: function(xhr, status, error) {
-            //console.error("Error en la solicitud AJAX: ", status, error);
-        }
-    });
+  });
 });
 
+$(".tablas").on("click", ".btnEditarLead", function () {
+  var idLeads = $(this).attr("idLeads");
+  console.log("idLeads:", idLeads);
+  if (!idLeads) {
+    console.error("No se encontró idLeads en el botón.");
+    return;
+  }
 
-  $(document).ready(function() {
-    // Adjuntamos el evento click usando delegación para los botones de cambio de estado de pago de leads
-    $(document).on('click', '.btnCambiarEstadoLead', function() {
-        var boton = $(this);
-        console.log("Se ha clicado en el botón para cambiar el estado del lead"); // Depuración
-        
-        var idLead = boton.attr("idLead"); 
-        var estadoActualLead = boton.attr("estadoActualLead"); 
+  var datos = new FormData();
+  datos.append("idLeads", idLeads);
 
-        // Mostrar la modal de confirmación
-        $("#confirmacionModal").modal('show');
+  $.ajax({
+    url: "ajax/leads.ajax.php",
+    method: "POST",
+    data: datos,
+    cache: false,
+    contentType: false,
+    processData: false,
+    dataType: "json",
+    success: function (respuesta) {
+      console.log("respuesta",respuesta);
 
-         // Asignar el idLead al atributo idLeads en el tab2
-        $('#tab2 a').attr('idLeads', idLead); // Esto asegura que el idLeads sea correcto para el tab "Cliente"
-    
-        // Limpiar cualquier evento previo adjunto al botón #confirmarAccion
-        $("#confirmarAccion").off('click').on('click', function() {
-            var datos = new FormData();
-            datos.append("activarIdLead", idLead); // Cambié activarIdPension a activarIdLead
-            datos.append("activarEstadoLead", estadoActualLead); // Cambié activarPagoPension a activarEstadoLead
+      if (respuesta.error) {
+        console.error("Error:", respuesta.error);
+        alert("Error: " + respuesta.error);
+      } else {
+        $("#idLeads").val(respuesta["id_lead"]);
+        $("#editarNombre").val(respuesta["first_name"]);
+        $("#editarApellido").val(respuesta["last_name"]);
+        $("#editarCorreo").val(respuesta["email"]);
+        $("#editarTelefono").val(respuesta["phone"]);
+        $("#reasignarAsesor").val(respuesta["id_usuario"]);
+      }
+    },
+    error: function (xhr, status, error) {
+      //console.error("Error en la solicitud AJAX: ", status, error);
+    },
+  });
+});
+
+$(document).ready(function () {
+  // Adjuntamos el evento click usando delegación para los botones de cambio de estado de pago de leads
+  $(document).on("click", ".btnCambiarEstadoLead", function () {
+    var boton = $(this);
+    console.log("Se ha clicado en el botón para cambiar el estado del lead"); // Depuración
+
+    var idLead = boton.attr("idLead");
+    var estadoActualLead = boton.attr("estadoActualLead");
+
+    // Mostrar la modal de confirmación
+    $("#confirmacionModal").modal("show");
+
+    // Asignar el idLead al atributo idLeads en el tab2
+    $("#tab2 a").attr("idLeads", idLead); // Esto asegura que el idLeads sea correcto para el tab "Cliente"
+
+    // Limpiar cualquier evento previo adjunto al botón #confirmarAccion
+    $("#confirmarAccion").off("click").on("click", function () {
+        // Swal.fire({
+        //   icon: "info",
+        //   title: "Completar información",
+        //   text: "Porfavor completa el registro del cliente en la siguiente pestaña",
+        //   confirmButtonText: "Continuar",
+        // }).then((result) => {
+        //   if (result.isConfirmed) {
+        //     document.querySelectorAll(".tab-content").forEach((content) => {
+        //       content.style.display = "none";
+        //     });
+        //     document.querySelector("#tab2 .tab-content").style.display =
+        //       "block";
+        //   }
+        // });
+
+        var datos = new FormData();
+        datos.append("activarIdLead", idLead);
+        datos.append("activarEstadoLead", estadoActualLead);
 
             // Realizamos la solicitud AJAX para cambiar el estado del lead
             $.ajax({
@@ -262,21 +267,21 @@ $(document).on('submit', '#formularioCliente', function(e) {
 });
 
 $(document).ready(function () {
-  $('.card-button').on('click', function () {
-    const accion = $(this).data('accion');
-    const tipo = $(this).data('tipo');
+  $(".card-button").on("click", function () {
+    const accion = $(this).data("accion");
+    const tipo = $(this).data("tipo");
 
-    $('#modalDetalle .modal-title').text('Clientes en ' + tipo);
-    $('#modalDetalle .modal-body').html('<p>Cargando detalles...</p>');
-    $('#modalDetalle').modal('show');
+    $("#modalDetalle .modal-title").text("Clientes en " + tipo);
+    $("#modalDetalle .modal-body").html("<p>Cargando detalles...</p>");
+    $("#modalDetalle").modal("show");
 
     $.ajax({
-      url: 'ajax/leads.ajax.php',
-      method: 'POST',
+      url: "ajax/leads.ajax.php",
+      method: "POST",
       data: { accion: accion },
-      dataType: 'json',
+      dataType: "json",
       success: function (respuesta) {
-        console.log(respuesta)
+        console.log(respuesta);
         if (respuesta.success && Array.isArray(respuesta.data)) {
           let tabla = `
             <table id="tabla-detalles" class="table table-bordered table-striped">
@@ -312,23 +317,27 @@ $(document).ready(function () {
             <p class="text-right text-muted mt-3"><small>Rango: ${respuesta.rango_fecha}</small></p>
           `;
 
-          $('#modalDetalle .modal-body').html(tabla);
+          $("#modalDetalle .modal-body").html(tabla);
 
           // Inicializar DataTables si está disponible
           if ($.fn.DataTable) {
-            $('#tabla-detalles').DataTable({
+            $("#tabla-detalles").DataTable({
               language: {
-                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-CO.json'
-              }
+                url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-CO.json",
+              },
             });
           }
         } else {
-          $('#modalDetalle .modal-body').html('<p>No se encontraron datos para mostrar.</p>');
+          $("#modalDetalle .modal-body").html(
+            "<p>No se encontraron datos para mostrar.</p>"
+          );
         }
       },
       error: function () {
-        $('#modalDetalle .modal-body').html('<p>Error al cargar los datos del servidor.</p>');
-      }
+        $("#modalDetalle .modal-body").html(
+          "<p>Error al cargar los datos del servidor.</p>"
+        );
+      },
     });
   });
 });

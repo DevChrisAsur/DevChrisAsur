@@ -76,6 +76,7 @@
         }
 
         .tab-content {
+            margin-top: 10px;
             padding: 20px;
             border: var(--tabs-border-size) solid #f0f0f0;
             border-radius: 0 0 10px 10px;
@@ -619,6 +620,63 @@
         .drop-zone input {
             display: none;
         }
+
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Evitar que la primera carga haga animación */
+        .tab-content.no-transition {
+            transition: none !important;
+        }
+
+
+        .tab>a {
+
+            padding: 10px 15px;
+            display: inline-block;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .tab>a.active {
+            background: #2563eb;
+            /* azul por ejemplo */
+            color: #fff;
+            border-radius: 5px;
+        }
+
+.table.table-bordered.text-center.table-sm {
+    border-collapse: collapse; /* unifica bordes */
+    border: 2px solid #000 !important; /* borde externo más grueso */
+    width: 100%;
+}
+
+.table.table-bordered.text-center.table-sm .table-cuotas th,
+.table.table-bordered.text-center.table-sm .table-cuotas td {
+    border: 1px solid #c1c4cc !important; /* bordes internos */
+    padding: 8px;
+    text-align: center;
+}
+
+.table.table-bordered.text-center.table-sm .table-cuotas th {
+    background-color: #e6f3e8;
+    font-weight: bold;
+}
+
+.table.table-bordered.text-center.table-sm .table-cuotas tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+
     </style>
 
     <head>
@@ -738,10 +796,10 @@
 
                                     // Estado (solo botón info)
                                     echo '<td class="text-center">
-                  <button class="btn btn-info" id="btnInformacionAdicional" idCliente="' . $value["id_customer"] . '">
-                    <i class="fa-solid fa-info"></i>
-                  </button>
-                </td>';
+                                        <button class="btn btn-info" id="btnInformacionAdicional" idCliente="' . $value["id_customer"] . '">
+                                            <i class="fa-solid fa-info"></i>
+                                        </button>
+                                        </td>';
 
                                     // Cliente (Nombre + Apellido)
                                     echo '<td>' . htmlspecialchars($value["first_name"]) . ' ' . htmlspecialchars($value["last_name"]) . '</td>';
@@ -769,28 +827,26 @@
 
                                     // Acciones
                                     echo '<td class="text-center">
-                  <div class="btn-group">';
+                                        <div class="btn-group">';
 
                                     if ($_SESSION["perfil"] === "Asesor comercial") {
                                         echo '<button class="btn btn-primary btnGenerarPDF" idCliente="' . $value["id_customer"] . '">
-                    <i class="fa fa-file-pdf-o"></i>
-                  </button>';
+                                        <i class="fa fa-file-pdf-o"></i>
+                                    </button>';
                                     } else if ($_SESSION["perfil"] === "Gestor de pagos") {
                                         // Sin acciones para Gestor de pagos
                                         echo '';
                                     } else {
                                         // Admin / Super Admin / Coordinador
                                         echo '<button class="btn btn-danger btnEliminarCliente" idCliente="' . $value["id_customer"] . '">
-                    <i class="fa fa-times"></i>
-                  </button>
-                  <button class="btn btn-primary btnGenerarPDF" idCliente="' . $value["id_customer"] . '">
-                    <i class="fa fa-file-pdf-o"></i>
-                  </button>';
+                                            <i class="fa fa-times"></i>
+                                        </button>
+                                        <button class="btn btn-primary btnGenerarPDF" idCliente="' . $value["id_customer"] . '">
+                                            <i class="fa fa-file-pdf-o"></i>
+                                        </button>';
                                     }
-
                                     echo '   </div>
-                </td>';
-
+                                     </td>';
                                     echo '</tr>';
                                 }
                             }
@@ -889,139 +945,120 @@
                         <div class="div2">
                             <div class="tabs">
                                 <div class="tab-container">
+
+                                    <!-- TAB 1: Productos -->
                                     <div id="tab1" class="tab">
-                                        <a href="#tab1">Productos</a>
+                                        <a href="#tab1" class="active">Productos</a>
 
-                                        <div class="tab-content">
+                                        <div class="tab-content active no-transition">
                                             <!-- Botón para activar el formulario -->
-                                            <button id="toggleFormulario" class="btn btn-primary">crear nuevo producto</button>
+                                            <button id="toggleFormulario" class="btn btn-primary">Agregar nuevo producto</button>
 
-                                            <!-- Contenedor del formulario que estará oculto inicialmente -->
-                                            <div id="formularioContainer" style="display: none;">
-                                                <div class="tab-content">
-                                                    <!-- Formulario Unificado -->
-                                                    <form id="formularioProductoYFactura" method="POST">
-                                                        <div class="container">
-                                                            <!-- Información del Producto -->
-                                                            <h5>Información del Producto</h5>
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <div class="row">
-                                                                            <?php
-                                                                            $item = null;
-                                                                            $valor = null;
-                                                                            $servicios = ControladorServicios::ctrVerServicios($item, $valor);
-                                                                            foreach ($servicios as $key => $value) {
-                                                                                echo '
-                                                            <div class="col-md-4">
-                                                                <div class="form-check">
-                                                                <input type="checkbox" class="form-check-input servicio-checkbox" name="servicios[]" value="' . $value["id_service"] . '" id="servicio' . $value["id_service"] . '" data-price="' . $value["service_price"] . '">
-                                                                <span class="form-check-text">' . $value["service_name"] . '</span>
-                                                                </div>
-                                                            </div>';
-                                                                            }
-                                                                            ?>
-                                                                        </div>
+                                            <!-- Contenedor del formulario (fuera del .tab-content que colapsa) -->
+                                            <div id="formularioContainer" style="display: none; margin-top:20px;">
+                                                <!-- Formulario Unificado -->
+                                                <form id="formularioProductoYFactura" method="POST">
+                                                    <div class="container">
+                                                        <!-- Información del Producto -->
+                                                        <h5>Información del Producto</h5>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <div class="row">
+                                                                        <?php
+                                                                        $item = null;
+                                                                        $valor = null;
+                                                                        $servicios = ControladorServicios::ctrVerServicios($item, $valor);
+                                                                        foreach ($servicios as $key => $value) {
+                                                                            echo '
+                                                <div class="col-md-4">
+                                                    <div class="form-check">
+                                                        <input type="checkbox" class="form-check-input servicio-checkbox" 
+                                                               name="servicios[]" value="' . $value["id_service"] . '" 
+                                                               id="servicio' . $value["id_service"] . '" 
+                                                               data-price="' . $value["service_price"] . '">
+                                                        <span class="form-check-text">' . $value["service_name"] . '</span>
+                                                    </div>
+                                                </div>';
+                                                                        }
+                                                                        ?>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-
-                                                            <!-- Información Financiera -->
-                                                            <h5>Información Financiera</h5>
-                                                            <input type="hidden" name="idCliente" id="idCliente" value="">
-                                                            <input type="hidden" name="idSuscripcion" id="idSuscripcion" value="">
-                                                            <input type="hidden" name="idFactura" id="idFactura" value="">
-
-                                                            <div class="row">
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <input type="text" class="form-control" name="banco" id="banco" placeholder="Banco">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <input type="text" class="form-control" name="titular" id="titular" placeholder="Titular">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <input type="text" class="form-control" name="numeroCuenta" id="numeroCuenta" placeholder="Número de Cuenta">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row">
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <input type="text" class="form-control" name="tipoCuenta" id="tipoCuenta" placeholder="Tipo de Cuenta">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <input type="text" class="form-control" name="monto" id="valorTotal" placeholder="Monto">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <input type="date" class="form-control" name="fecha_limite" id="fecha_limite">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <!-- Sección para cuotas -->
-                                                            <h5>Cuotas</h5>
-                                                            <div class="row">
-                                                                <div class="col-md-4">
-                                                                    <select class="form-control" id="numCuotas" name="numCuotas">
-                                                                        <option value="1">1</option>
-                                                                        <option value="2">2</option>
-                                                                        <option value="3">3</option>
-                                                                        <option value="4">4</option>
-                                                                        <option value="5">5</option>
-                                                                        <option value="6">6</option>
-                                                                        <option value="7">7</option>
-                                                                        <option value="8">8</option>
-                                                                        <option value="9">9</option>
-                                                                        <option value="10">10</option>
-                                                                        <option value="11">11</option>
-                                                                        <option value="12">12</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-
-                                                            <!-- Contenedor para los campos de cuotas -->
-                                                            <div id="cuotasContainer"></div>
-
-                                                            <!-- Botón para guardar -->
-                                                            <div class="modal-footer">
-                                                                <button type="submit" id="guardarProductoYCrearFactura" class="btn btn-primary">Crear Prodcuto</button>
                                                             </div>
                                                         </div>
-                                                    </form>
-                                                </div>
+
+                                                        <!-- Información Financiera -->
+                                                        <h5>Información Financiera</h5>
+                                                        <input type="hidden" name="idCliente" id="idCliente" value="">
+                                                        <input type="hidden" name="idSuscripcion" id="idSuscripcion" value="">
+                                                        <input type="hidden" name="idFactura" id="idFactura" value="">
+
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <input type="text" class="form-control" name="banco" id="banco" placeholder="Banco">
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <input type="text" class="form-control" name="titular" id="titular" placeholder="Titular">
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <input type="text" class="form-control" name="numeroCuenta" id="numeroCuenta" placeholder="Número de Cuenta">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row mt-2">
+                                                            <div class="col-md-4">
+                                                                <input type="text" class="form-control" name="tipoCuenta" id="tipoCuenta" placeholder="Tipo de Cuenta">
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <input type="text" class="form-control" name="monto" id="valorTotal" placeholder="Monto">
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <input type="date" class="form-control" name="fecha_limite" id="fecha_limite">
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Sección para cuotas -->
+                                                        <h5 class="mt-3">Cuotas</h5>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <select class="form-control" id="numCuotas" name="numCuotas">
+                                                                    <?php for ($i = 1; $i <= 12; $i++) echo "<option value='$i'>$i</option>"; ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Contenedor para los campos de cuotas -->
+                                                        <div id="cuotasContainer"></div>
+
+                                                        <!-- Botón para guardar -->
+                                                        <div class="modal-footer">
+                                                            <button type="submit" id="guardarProductoYCrearFactura" class="btn btn-primary">Crear Producto</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </div>
+                                            <!-- Info del producto -->
                                             <div class="container info-card">
                                                 <div class="info-grid">
                                                     <div>
                                                         <div class="info-label"><i class="fas fa-university"></i>Banco:</div>
-                                                        <div id="InfoBanco" class="info-value" contenteditable="false"></div>
+                                                        <div id="InfoBanco" class="info-value"></div>
                                                     </div>
                                                     <div>
                                                         <div class="info-label"><i class="fas fa-credit-card"></i>Tipo de cuenta:</div>
-                                                        <div id="InfoTipoCuenta" class="info-value" contenteditable="false"></div>
+                                                        <div id="InfoTipoCuenta" class="info-value"></div>
                                                     </div>
                                                     <div>
                                                         <div class="info-label"><i class="fas fa-hashtag"></i>Número de cuenta:</div>
-                                                        <div id="InfoNumeroCuenta" class="info-value" contenteditable="false"></div>
+                                                        <div id="InfoNumeroCuenta" class="info-value"></div>
                                                     </div>
                                                     <div>
                                                         <div class="info-label"><i class="fas fa-user"></i>Titular:</div>
-                                                        <div id="InfoTitular" class="info-value" contenteditable="false"></div>
+                                                        <div id="InfoTitular" class="info-value"></div>
                                                     </div>
                                                     <div>
                                                         <div class="info-label"><i class="fas fa-calendar-day"></i>Fecha de Emisión:</div>
-                                                        <div id="InfoFechaEmision" class="info-value" contenteditable="false"></div>
+                                                        <div id="InfoFechaEmision" class="info-value"></div>
                                                     </div>
                                                     <div>
                                                         <div class="info-label"><i class="fas fa-dollar-sign"></i>Monto:</div>
@@ -1029,31 +1066,25 @@
                                                     </div>
                                                     <div>
                                                         <div class="info-label"><i class="fas fa-file-invoice-dollar"></i>Estado Factura:</div>
-                                                        <div id="InfoStatusFactura" class="info-value" contenteditable="false"></div>
+                                                        <div id="InfoStatusFactura" class="info-value"></div>
                                                     </div>
                                                     <div>
                                                         <div class="info-label"><i class="fas fa-hourglass-half"></i>Fecha Límite:</div>
-                                                        <div id="InfoFechaLimite" class="info-value" contenteditable="false"></div>
+                                                        <div id="InfoFechaLimite" class="info-value"></div>
                                                     </div>
                                                 </div>
 
                                                 <div class="info-actions">
                                                     <?php if ($_SESSION["perfil"] !== "Asesor comercial") { ?>
-                                                        <button id="btnEdit" class="btn-edit">
-                                                            <i class="fas fa-edit"></i> Editar Información
-                                                        </button>
-                                                        <button id="btnSave" class="btn-edit" style="display:none;background:#10b981;">
-                                                            <i class="fas fa-save"></i> Guardar
-                                                        </button>
+                                                        <button id="btnEdit" class="btn-edit"><i class="fas fa-edit"></i> Editar Información</button>
+                                                        <button id="btnSave" class="btn-edit" style="display:none;background:#10b981;"><i class="fas fa-save"></i> Guardar</button>
                                                     <?php } else { ?>
-                                                        <!-- Si es Asesor comercial, no puede editar -->
                                                         <span class="text-muted">Sin permisos de edición</span>
                                                     <?php } ?>
                                                 </div>
-
                                             </div>
-
-                                            <div class="container" style="margin-top: 20px;">
+                                            <!-- Tabla de cuotas -->
+                                            <div class="container mt-3">
                                                 <table class="table table-bordered text-center table-sm">
                                                     <thead style="background-color: #e6f3e8;">
                                                         <tr>
@@ -1061,84 +1092,59 @@
                                                             <th>Fecha</th>
                                                             <th>Valor</th>
                                                             <th>Estado</th>
-                                                            <th>Acción</th> <!-- Añadir encabezado para la columna de acción -->
+                                                            <th>Acción</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody class="table-cuotas">
-                                                        <!-- Las filas de cuotas se añadirán aquí dinámicamente -->
+                                                        <!-- Dinámico -->
                                                     </tbody>
                                                 </table>
                                             </div>
-
-
-
                                         </div>
                                     </div>
 
+                                    <!-- TAB 2: Notas -->
                                     <div id="tab2" class="tab">
                                         <a href="#tab2">Notas</a>
                                         <div class="tab-content">
                                             <form id="formularioNotas" method="POST" enctype="multipart/form-data">
                                                 <div class="container">
-                                                    <!-- Campo oculto para id_customer -->
                                                     <input type="hidden" name="idCliente" id="idCliente" value="">
 
-                                                    <!-- Título -->
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="nuevoTituloNota">Título:</label>
-                                                                <input type="text" class="form-control input-lg" name="nuevoTituloNota" id="nuevoTituloNota" placeholder="Ingresar Título de la Nota" required>
-                                                            </div>
+                                                            <label for="nuevoTituloNota">Título:</label>
+                                                            <input type="text" class="form-control" name="nuevoTituloNota" id="nuevoTituloNota" placeholder="Ingresar Título" required>
                                                         </div>
                                                     </div>
 
-                                                    <!-- Nota -->
                                                     <div class="row mt-3">
                                                         <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label for="contenidoNota">Nota:</label>
-                                                                <textarea class="form-control" name="contenidoNota" id="contenidoNota" rows="5" placeholder="No copie código HTML en este campo." required></textarea>
-                                                            </div>
+                                                            <label for="contenidoNota">Nota:</label>
+                                                            <textarea class="form-control" name="contenidoNota" id="contenidoNota" rows="5" required></textarea>
                                                         </div>
                                                     </div>
 
-                                                    <!-- Campo de carga de documento -->
                                                     <div class="row mt-3">
-
                                                         <div class="form-group">
-                                                            <label for="archivoNota">Subir Documento o Imagen (opcional):</label>
-
-                                                            <!-- Área de arrastrar y soltar -->
+                                                            <label for="archivoNota">Subir Documento o Imagen:</label>
                                                             <div class="drop-zone" id="dropZone">
-                                                                <span id="dropText">Arrastra el archivo aquí o haz clic para seleccionarlo</span>
-                                                                <input type="file" name="archivoNota" id="archivoNota"
-                                                                    accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.gif">
+                                                                <span id="dropText">Arrastra el archivo aquí o haz clic</span>
+                                                                <input type="file" name="archivoNota" id="archivoNota" accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.gif">
                                                             </div>
-
                                                             <span id="file-name">Ningún archivo seleccionado</span>
-                                                            <small class="form-text text-muted">
-                                                                Formatos permitidos: PDF, DOC, DOCX, TXT, JPG, PNG, GIF
-                                                            </small>
                                                         </div>
-
                                                     </div>
 
-
-
-                                                    <!-- Botón de enviar -->
                                                     <div class="modal-footer mt-3">
                                                         <button type="submit" class="btn" id="guardarNota">Guardar Nota</button>
                                                     </div>
                                                 </div>
                                             </form>
-                                            <div id="contenedorNotas" class="nota-lista-scroll">
-                                                <!-- Aquí se mostrarán las notas dinámicamente -->
-                                            </div>
+
+                                            <div id="contenedorNotas" class="nota-lista-scroll"></div>
                                         </div>
-
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -1377,6 +1383,30 @@
             $('.btnGenerarPDF').click(function() {
                 var idCliente = $(this).attr("idCliente");
                 window.location.href = "path_to_generate_pdf.php?idCliente=" + idCliente;
+            });
+        });
+        document.addEventListener("DOMContentLoaded", () => {
+            const tabs = document.querySelectorAll('.tab a');
+            const contents = document.querySelectorAll('.tab-content');
+
+            // Quita la clase no-transition después de cargar
+            setTimeout(() => {
+                contents.forEach(c => c.classList.remove('no-transition'));
+            }, 50);
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    // quitar active de todos
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contents.forEach(c => c.classList.remove('active'));
+
+                    // activar tab clicado
+                    this.classList.add('active');
+                    const target = document.querySelector(this.getAttribute('href') + ' .tab-content');
+                    if (target) target.classList.add('active');
+                });
             });
         });
     </script>
@@ -1642,12 +1672,12 @@
                     // Si el formulario está visible, lo ocultamos
                     $("#formularioContainer").hide();
                     // Cambiamos el texto del botón a "Mostrar Formulario"
-                    $(this).text("Agregar Producto");
+                    $(this).text("Agregar nuevo Producto");
                 } else {
                     // Si el formulario está oculto, lo mostramos
                     $("#formularioContainer").show();
                     // Cambiamos el texto del botón a "Ocultar Formulario"
-                    $(this).text("cerrar Producto");
+                    $(this).text("Cerrar formulario");
                 }
             });
         });
