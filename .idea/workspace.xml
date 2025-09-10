@@ -7,7 +7,7 @@
           <value>
             <AIAssistantStoredInstruction>
               <option name="actionId" value="AIAssistant.VCS.GenerateCommitMessage" />
-              <option name="content" value="Quiero que actúes como asistente de control de versiones para generar mensajes de commit profesionales.&#10;&#10;Tu tarea es:&#10;&#10;Analizar la lista de archivos modificados, añadidos o eliminados, con su breve descripción de cambios.&#10;&#10;Identificar el tipo de cambio: feat, fix, style, refactor, docs o chore.&#10;&#10;Redactar un mensaje de commit claro, conciso y en imperativo.&#10;&#10;Usa una línea para el título (máx. 72 caracteres) y, si hace falta, un cuerpo con viñetas explicativas.&#10;&#10;Ejemplo de entrada:&#10;&#10;src/components/Navbar.js: Añade botón de login responsive&#10;&#10;styles/navbar.css: Ajusta estilos del botón para pantallas grandes&#10;&#10;Ejemplo de salida:&#10;&#10;feat(navbar): add responsive login button&#10;&#10;- Implementa botón de login con estilos compactos&#10;- Ajusta alineación vertical en pantallas grandes&#10;&#10;&#10;Ahora, analiza la lista de archivos y cambios que te daré y genera el mensaje de commit adecuado." />
+              <option name="content" value="genera un commit para los archivos cambiados, sin diff ni nada, solo commit&#10;" />
             </AIAssistantStoredInstruction>
           </value>
         </entry>
@@ -18,12 +18,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d1f258ee-b36f-465c-b369-682882a5d30d" name="Changes" comment="chore(debug): add debug log and IDE shelved patch files&#10;&#10;- Incluye un archivo `debug.log` con datos de ejemplo para depuración&#10;- Añade un archivo de parche de IntelliJ en el directorio `.idea/shelf/`">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/modules/leads/FormRegisterLead.php" beforeDir="false" afterPath="$PROJECT_DIR$/components/modules/leads/FormRegisterLead.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controladores/leads.controlador.php" beforeDir="false" afterPath="$PROJECT_DIR$/controladores/leads.controlador.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vistas/js/leads.js" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/js/leads.js" afterDir="false" />
-    </list>
+    <list default="true" id="d1f258ee-b36f-465c-b369-682882a5d30d" name="Changes" comment="Asignar asesor" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -139,22 +134,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "develop/supportBug",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/NodeProjects",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "ml.llm.LLMDataSharingConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop/supportBug&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/NodeProjects&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;ml.llm.LLMDataSharingConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -176,14 +171,7 @@
       <workItem from="1757281834149" duration="318000" />
       <workItem from="1757484188452" duration="99000" />
       <workItem from="1757534073959" duration="4947000" />
-    </task>
-    <task id="LOCAL-00099" summary="manajo de logs">
-      <option name="closed" value="true" />
-      <created>1729035929921</created>
-      <option name="number" value="00099" />
-      <option name="presentableId" value="LOCAL-00099" />
-      <option name="project" value="LOCAL" />
-      <updated>1729035929922</updated>
+      <workItem from="1757539082521" duration="829000" />
     </task>
     <task id="LOCAL-00100" summary="feacture-lead (corregido): consulta para ver los leads por perfil">
       <option name="closed" value="true" />
@@ -569,7 +557,15 @@
       <option name="project" value="LOCAL" />
       <updated>1757536442058</updated>
     </task>
-    <option name="localTasksCounter" value="148" />
+    <task id="LOCAL-00148" summary="Asignar asesor">
+      <option name="closed" value="true" />
+      <created>1757539238413</created>
+      <option name="number" value="00148" />
+      <option name="presentableId" value="LOCAL-00148" />
+      <option name="project" value="LOCAL" />
+      <updated>1757539238413</updated>
+    </task>
+    <option name="localTasksCounter" value="149" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -609,10 +605,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="bug fix: se discriminan los leads y los clientes dependiendo del rol asignado" />
-    <MESSAGE value="Restrict &quot;Eliminar&quot; button for non-commercial advisors&#10;&#10;Added a check to ensure that only users without the &quot;Asesor comercial&quot; profile can see the &quot;Eliminar&quot; button in the Clients module. The &quot;Generar PDF&quot; button remains visible to all users." />
-    <MESSAGE value="---&#10;refactor(home): update styles and content for modern design&#10;&#10;- Replaced outdated CSS with a modern design system using custom variables&#10;- Updated navbar with responsive layout and improved login button&#10;- Enhanced hero section with new structure, animations, and call-to-action&#10;- Switched to new fonts and optimized typography&#10;- Removed deprecated and redundant styles for cleaner codebase&#10;---" />
-    <MESSAGE value="---&#10;feat(home): redesign home page layout and styles&#10;&#10;- Moderniza estilos utilizando variables CSS y tipografías web&#10;- Reemplaza contenido de &quot;quienes somos&quot; por un nuevo bloque &quot;hero&quot;&#10;- Integra un sistema de navegación responsivo con enlaces actualizados&#10;- Ajusta diseño visual de botones y componentes para mejorar UX y accesibilidad" />
     <MESSAGE value="Por favor proporciona el fragmento de código con sus diferencias para poder generar el mensaje de commit adecuado." />
     <MESSAGE value="Por favor proporciona las diferencias de código (diff) para poder analizar y generar un mensaje de commit adecuado." />
     <MESSAGE value="Por favor proporciona las diferencias (diffs) del código para que pueda analizar los cambios realizados y generar el mensaje de commit correspondiente." />
@@ -621,7 +613,6 @@
     <MESSAGE value="feat(usuarios/perfiles): agregar perfil &quot;Gestor de pagos&quot; y permisos&#10;&#10;- Añade el perfil &quot;Gestor de pagos&quot; con acceso a usuarios, clientes, leads, suscripciones y facturas.&#10;- Actualiza las opciones visibles en formularios según perfil.&#10;- Reestructura columnas y optimiza la terminología en tablas.&#10;- Restringe acciones y vistas específicas para ciertos perfiles.&#10;- Corrige la variable `$item` en consulta de clientes." />
     <MESSAGE value="feat(usuarios/perfiles): agregar perfil &quot;Gestor de pagos&quot; y permisos asociados&#10;&#10;- Se añade el perfil &quot;Gestor de pagos&quot; con sus rutas y accesos definidos:&#10;  - Módulos: usuarios, clientes, leads, suscripciones y facturas.&#10;- Actualización de opciones mostradas según perfil en formularios de usuario.&#10;- Ajuste en diseño de tablas: columnas reestructuradas y terminología optimizada.&#10;- Se restringen acciones y vistas específicas para ciertos perfiles.&#10;- Corrección en el nombre de variable `$item` en consulta de clientes." />
     <MESSAGE value="chore: add debug log and IDE patch files to version control&#10;&#10;- Añade archivo `debug.log` para seguimiento de datos enviados por AJAX.&#10;- Incluye archivo de configuración generada por IntelliJ IDEA para cambios pendientes.&#10;- Nota: Considerar excluir estos archivos en `.gitignore` si no son necesarios." />
-    <MESSAGE value="chore(debug): add debug log and IDE shelved patch files&#10;&#10;- Incluye un archivo `debug.log` con datos de ejemplo para depuración&#10;- Añade un archivo de parche de IntelliJ en el directorio `.idea/shelf/`" />
     <MESSAGE value="chore: update workspace settings and debug configurations&#10;&#10;Updated IntelliJ workspace.xml with changes related to debug logs and shelved patch files. Added references to debug.log for AJAX tracking and adjusted local tasks and Git branch placeholders." />
     <MESSAGE value="Por favor proporciona las diferencias del código (diffs) para que pueda analizarlo y generar el mensaje de commit apropiado." />
     <MESSAGE value="Por favor proporciona el fragmento de código (diff) para analizarlo y redactar el mensaje de commit adecuado." />
@@ -634,7 +625,12 @@
     <MESSAGE value="Por favor proporciona el fragmento de código (diff) para analizarlo y generar el mensaje de commit correspondiente." />
     <MESSAGE value="Por favor proporciona el fragmento de código o el diff para que pueda analizarlo y generar el mensaje de commit adecuado." />
     <MESSAGE value="Por favor proporciona el fragmento de código (diff) y te ayudaré a generar el mensaje de commit adecuado." />
-    <option name="LAST_COMMIT_MESSAGE" value="Por favor proporciona el fragmento de código (diff) y te ayudaré a generar el mensaje de commit adecuado." />
+    <MESSAGE value="```  &#10;chore(workspace): update debug settings and IDE metadata  &#10;&#10;- Adjusts Git branch placeholders and local task counters.  &#10;- Adds `debug.log` for AJAX tracking and IntelliJ shelved patch file reference.  &#10;- Cleans up obsolete tasks and messages in workspace.xml.  &#10;```" />
+    <MESSAGE value="chore(debug): add debug log and IDE shelved patch files&#10;&#10;- Incluye un archivo `debug.log` con datos de ejemplo para depuración&#10;- Añade un archivo de parche de IntelliJ en el directorio `.idea/shelf/`" />
+    <MESSAGE value="```  &#10;chore(workspace): update debug settings and clean metadata  &#10;&#10;- Adjust workspace configuration in `workspace.xml` for debug enhancements  &#10;- Include `debug.log` for AJAX tracking  &#10;- Add IntelliJ shelved patch file references for better context  &#10;- Cleanup outdated messages, tasks, and local references  &#10;```  " />
+    <MESSAGE value="`chore: update workspace settings and include debug configurations`&#10;&#10;- Updated IntelliJ `workspace.xml` with debug log references and shelved patch files.&#10;- Included `debug.log` and IDE configuration for tracking AJAX data and pending changes." />
+    <MESSAGE value="Asignar asesor" />
+    <option name="LAST_COMMIT_MESSAGE" value="Asignar asesor" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

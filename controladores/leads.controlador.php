@@ -144,70 +144,35 @@ class ControladorLeads {
 	}
 	
 
-	static public function ctrEditarLead(){
+static public function ctrEditarLead() {
+    if (isset($_POST["editarNombre"])) {
+        if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editarNombre"])) {
 
-		if(isset($_POST["editarNombre"])){
+            $tabla = "leads";
+            $id_usuario = isset($_POST["reasignarAsesor"]) && $_POST["reasignarAsesor"] != "0"
+                ? (int) $_POST["reasignarAsesor"]
+                : null;
 
-			if(preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editarNombre"])){
+            $datos = array(
+                "first_name" => $_POST["editarNombre"],
+                "last_name" => $_POST["editarApellido"],
+                "email" => $_POST["editarCorreo"],
+                "phone" => $_POST["editarTelefono"],
+                "id_lead" => $_POST["idLeads"],
+                "id_usuario" => $id_usuario
+            );
 
-				$tabla = "leads";
+            $respuesta = ModeloLeads::mdlEditarLead($tabla, $datos);
+
+            return $respuesta == "ok" ? "ok" : "error";
+        } else {
+            return "error";
+        }
+    }
+}
 
 
-				$datos = array(
-                    "first_name" => $_POST["editarNombre"],
-					"last_name" => $_POST["editarApellido"],
-                    "email" => $_POST["editarCorreo"],
-					"phone" => $_POST["editarTelefono"],
-					"id_lead"=>$_POST["idLeads"]);
 
-				$respuesta = ModeloLeads::mdlEditarLead($tabla, $datos);
-
-
-				if($respuesta == "ok"){
-
-					echo'<script>
-
-					swal({
-						  type: "success",
-						  title: "El usuario ha sido editado correctamente",
-						  showConfirmButton: true,
-						  confirmButtonText: "Cerrar"
-						  }).then(function(result){
-									if (result.value) {
-
-									window.location = "leads";
-
-									}
-								})
-
-					</script>';
-
-				}
-				
-			}else{
-
-				echo'<script>
-
-					swal({
-						  type: "error",
-						  title: "¡El nombre no puede ir vacío o llevar caracteres especiales!",
-						  showConfirmButton: true,
-						  confirmButtonText: "Cerrar"
-						  }).then(function(result){
-							if (result.value) {
-
-							window.location = "leads";
-
-							}
-						})
-
-			  	</script>';
-
-			}
-
-		}
-
-	}
 
     /*=============================================
                 ELIMINAR CLIENTE

@@ -135,14 +135,14 @@
             <div class="row">
               <div class="col-12 col-sm-6 col-md-6">
                 <div class="floating-label-group">
-                  <input type="text" class="form-control" name="editarNombre" id="editarNombre" placeholder=" " required>
+                  <input type="text" class="form-control" name="editarNombre" id="editarNombre" placeholder=" " >
                   <label for="editarNombre">Nombre</label>
-                  <input type="hidden" name="idLeads" id="idLeads" required>
+                  <input type="hidden" name="idLeads" id="idLeadsEditar" required>
                 </div>
               </div>
               <div class="col-12 col-sm-6 col-md-6">
                 <div class="floating-label-group">
-                  <input type="text" class="form-control" name="editarApellido" id="editarApellido" placeholder=" " required>
+                  <input type="text" class="form-control" name="editarApellido" id="editarApellido" placeholder=" ">
                   <label for="editarApellido">Apellido</label>
                 </div>
               </div>
@@ -152,18 +152,37 @@
             <div class="row">
               <div class="col-12 col-sm-6 col-md-6">
                 <div class="floating-label-group">
-                  <input type="email" class="form-control" name="editarCorreo" id="editarCorreo" placeholder=" " required>
+                  <input type="email" class="form-control" name="editarCorreo" id="editarCorreo" placeholder=" ">
                   <label for="editarCorreo">Correo electrónico</label>
                 </div>
               </div>
               <div class="col-12 col-sm-6 col-md-6">
                 <div class="floating-label-group">
-                  <input type="text" class="form-control" name="editarTelefono" id="editarTelefono" placeholder=" " required>
+                  <input type="text" class="form-control" name="editarTelefono" id="editarTelefono" placeholder=" ">
                   <label for="editarTelefono">Teléfono</label>
                 </div>
               </div>
             </div>
-
+            <!-- REASIGNAR ASESOR -->
+            <h5>Reasignar Asesor</h5>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group floating-label-group">
+                  <select class="form-control input-lg" id="reasignarAsesor" name="reasignarAsesor">
+                    <option value="0">Sin Asesor</option>
+                    <?php
+                    $item = null;
+                    $valor = null;
+                    $asesores = ControladorUsuarios::ctrMostrarAsesores($item, $valor);
+                    foreach ($asesores as $key => $value) {
+                      echo '<option value="' . $value["id"] . '">' . $value["first_name"] . ' ' . $value["last_name"]. ' - ' .$value["perfil"] . '</option>';
+                    }
+                    ?>
+                  </select>
+                  <label for="reasignarAsesor"></label>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 

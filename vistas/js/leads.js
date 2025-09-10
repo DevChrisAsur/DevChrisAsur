@@ -17,9 +17,11 @@ $(".tablas").on("click", ".btnEliminarLead", function () {
   });
 });
 
+// Botón Editar Lead
 $(".tablas").on("click", ".btnEditarLead", function () {
   var idLeads = $(this).attr("idLeads");
-  console.log("idLeads:", idLeads);
+  console.log("idLeads clicado:", idLeads);
+
   if (!idLeads) {
     console.error("No se encontró idLeads en el botón.");
     return;
@@ -37,25 +39,76 @@ $(".tablas").on("click", ".btnEditarLead", function () {
     processData: false,
     dataType: "json",
     success: function (respuesta) {
-      console.log("respuesta",respuesta);
+      console.log("respuesta", respuesta);
 
       if (respuesta.error) {
         console.error("Error:", respuesta.error);
         alert("Error: " + respuesta.error);
       } else {
-        $("#idLeads").val(respuesta["id_lead"]);
+        // Llenar los campos del modal
+        $("#idLeadsEditar").val(respuesta["id_lead"]);
         $("#editarNombre").val(respuesta["first_name"]);
         $("#editarApellido").val(respuesta["last_name"]);
         $("#editarCorreo").val(respuesta["email"]);
         $("#editarTelefono").val(respuesta["phone"]);
         $("#reasignarAsesor").val(respuesta["id_usuario"]);
+
+        console.log("Valor seteado en idLeads:", $("#idLeads").val());
       }
     },
     error: function (xhr, status, error) {
-      //console.error("Error en la solicitud AJAX: ", status, error);
+      console.error("Error en la solicitud AJAX: ", status, error);
+      console.log("Respuesta completa:", xhr.responseText);
     },
   });
 });
+
+// Guardar cambios del modal
+$(document).on("submit", "#modalActualizarLead form", function (e) {
+  e.preventDefault();
+
+  if (!$("#idLeadsEditar").val()) {
+    console.error("idLeads vacío, no se puede enviar.");
+    return;
+  }
+
+  var datos = $(this).serializeArray();
+  console.log("Datos serializados que se envían:", datos);
+
+  $.ajax({
+    url: "ajax/leads.ajax.php",
+    method: "POST",
+    data: datos,
+    dataType: "json",
+    success: function (respuesta) {
+      console.log("Respuesta del servidor:", respuesta);
+
+      if (respuesta == "ok") {
+        Swal.fire({
+          icon: "success",
+          title: "El usuario ha sido editado correctamente",
+          confirmButtonText: "Cerrar",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location = "leads";
+          }
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Hubo un problema al editar el usuario",
+          confirmButtonText: "Cerrar",
+        });
+      }
+    },
+    error: function (xhr, status, error) {
+      console.error("Error AJAX:", status, error);
+      console.log("Respuesta completa:", xhr.responseText);
+    },
+  });
+});
+
+
 
 $(document).ready(function () {
   // Evento para botones de cambio de estado de leads

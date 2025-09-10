@@ -155,30 +155,46 @@ static public function mdlMostrarLeadsPorCoordinador($tablaLeads, $tablaUsuarios
 
 
 
-    static public function mdlEditarLead($tabla, $datos) {
-        try {
-            // Preparamos la consulta para actualizar solo los campos necesarios
-            $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET first_name = :first_name, last_name = :last_name, email = :email, phone = :phone WHERE id_lead = :id_lead");
-    
-            // Vinculamos los parámetros
-            $stmt->bindParam(":first_name", $datos["first_name"], PDO::PARAM_STR);
-            $stmt->bindParam(":last_name", $datos["last_name"], PDO::PARAM_STR);
-            $stmt->bindParam(":email", $datos["email"], PDO::PARAM_STR);
-            $stmt->bindParam(":phone", $datos["phone"], PDO::PARAM_STR);
-            $stmt->bindParam(":id_lead", $datos["id_lead"], PDO::PARAM_INT);
-    
-            // Ejecutamos la consulta
-            if ($stmt->execute()) {
-                return "ok"; // Devuelve "ok" si la actualización es exitosa
-            } else {
-                return "error"; // Devuelve "error" si hay un problema
-            }
-        } catch (PDOException $e) {
-            return "Error: " . $e->getMessage(); // Captura el error para depuración
-        } finally {
-            $stmt = null; // Cierra la conexión
+static public function mdlEditarLead($tabla, $datos) {
+    try {
+        // Incluimos id_usuario en la actualización
+        $stmt = Conexion::conectar()->prepare(
+            "UPDATE $tabla 
+             SET first_name = :first_name, 
+                 last_name = :last_name, 
+                 email = :email, 
+                 phone = :phone, 
+                 id_usuario = :id_usuario 
+             WHERE id_lead = :id_lead"
+        );
+
+        // Vinculamos los parámetros
+        $stmt->bindParam(":first_name", $datos["first_name"], PDO::PARAM_STR);
+        $stmt->bindParam(":last_name", $datos["last_name"], PDO::PARAM_STR);
+        $stmt->bindParam(":email", $datos["email"], PDO::PARAM_STR);
+        $stmt->bindParam(":phone", $datos["phone"], PDO::PARAM_STR);
+        $stmt->bindParam(":id_lead", $datos["id_lead"], PDO::PARAM_INT);
+
+        // Manejo de null en id_usuario
+        if ($datos["id_usuario"] === null) {
+            $stmt->bindValue(":id_usuario", null, PDO::PARAM_NULL);
+        } else {
+            $stmt->bindValue(":id_usuario", $datos["id_usuario"], PDO::PARAM_INT);
         }
+
+        // Ejecutamos la consulta
+        if ($stmt->execute()) {
+            return "ok";
+        } else {
+            return "error";
+        }
+    } catch (PDOException $e) {
+        return "Error: " . $e->getMessage();
+    } finally {
+        $stmt = null;
     }
+}
+
      
 
     static public function mdlEliminarLead($tabla, $datos)
