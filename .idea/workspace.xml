@@ -7,7 +7,7 @@
           <value>
             <AIAssistantStoredInstruction>
               <option name="actionId" value="AIAssistant.VCS.GenerateCommitMessage" />
-              <option name="content" value="genera un commit para los archivos cambiados, sin diff ni nada, solo commit&#10;" />
+              <option name="content" value="Quiero que actúes como un asistente de control de versiones que redacta mensajes de commit profesionales y consistentes. &#10;Recibirás uno o varios fragmentos de código antes y después de un cambio.&#10;&#10;Tu tarea es:&#10;1. Analizar las diferencias entre ambas versiones de código.&#10;2. Identificar los cambios realizados (estructurales, visuales, lógicos o de contenido).&#10;3. Redactar mensajes de commit claros, concisos y en imperativo (siguiendo buenas prácticas de Git).&#10;4. Cuando sea posible, categoriza el commit en: feat, fix, style, refactor, docs, chore.&#10;5. Usa una sola línea para el título del commit (máx. 72 caracteres). &#10;   Si es necesario, agrega un cuerpo opcional con más contexto en viñetas.&#10;&#10;Ejemplo de salida:&#10;---&#10;feat(navbar): add responsive login button&#10;&#10;- Implementa botón de login con estilos compactos&#10;- Ajusta alineación vertical en pantallas grandes&#10;---&#10;&#10;Ahora, analiza el código que te daré y genera el mensaje de commit adecuado.todo en español&#10;" />
             </AIAssistantStoredInstruction>
           </value>
         </entry>
@@ -18,7 +18,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d1f258ee-b36f-465c-b369-682882a5d30d" name="Changes" comment="Asignar asesor" />
+    <list default="true" id="d1f258ee-b36f-465c-b369-682882a5d30d" name="Changes" comment="ajuste boton notas">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controladores/leads.controlador.php" beforeDir="false" afterPath="$PROJECT_DIR$/controladores/leads.controlador.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modelos/leads.modelo.php" beforeDir="false" afterPath="$PROJECT_DIR$/modelos/leads.modelo.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -138,7 +142,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop/supportBug&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/NodeProjects&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -172,30 +176,9 @@
       <workItem from="1757484188452" duration="99000" />
       <workItem from="1757534073959" duration="4947000" />
       <workItem from="1757539082521" duration="829000" />
-    </task>
-    <task id="LOCAL-00100" summary="feacture-lead (corregido): consulta para ver los leads por perfil">
-      <option name="closed" value="true" />
-      <created>1729035973276</created>
-      <option name="number" value="00100" />
-      <option name="presentableId" value="LOCAL-00100" />
-      <option name="project" value="LOCAL" />
-      <updated>1729035973276</updated>
-    </task>
-    <task id="LOCAL-00101" summary="format">
-      <option name="closed" value="true" />
-      <created>1729041058712</created>
-      <option name="number" value="00101" />
-      <option name="presentableId" value="LOCAL-00101" />
-      <option name="project" value="LOCAL" />
-      <updated>1729041058712</updated>
-    </task>
-    <task id="LOCAL-00102" summary="feacture-suscripcion (actualizado): agregacion de la fecha de cierre de suscripcion">
-      <option name="closed" value="true" />
-      <created>1729041106579</created>
-      <option name="number" value="00102" />
-      <option name="presentableId" value="LOCAL-00102" />
-      <option name="project" value="LOCAL" />
-      <updated>1729041106579</updated>
+      <workItem from="1757734941790" duration="686000" />
+      <workItem from="1757772412999" duration="1410000" />
+      <workItem from="1757779888045" duration="2691000" />
     </task>
     <task id="LOCAL-00103" summary="feacture-suscripcion (actualizado): modal para crear suscripcion manual">
       <option name="closed" value="true" />
@@ -565,7 +548,31 @@
       <option name="project" value="LOCAL" />
       <updated>1757539238413</updated>
     </task>
-    <option name="localTasksCounter" value="149" />
+    <task id="LOCAL-00149" summary="&#10;feat(usuarios): implementar nuevas funciones y validar datos únicos en leads&#10;&#10;- Añade método `mdlVerificarUnico` para validar duplicados en CC y teléfono&#10;- Crea métodos para segregar la visualización de asesores y coordinadores (`ctrMostrarAsesoresCoordinadores`)&#10;- Actualiza la lógica en formularios para controlar accesos por perfil&#10;- Valida datos únicos antes de registrar o editar leads&#10;- Refactoriza código aplicando consistencia en identación y manejo general de métodos&#10;&#10;---">
+      <option name="closed" value="true" />
+      <created>1757735018897</created>
+      <option name="number" value="00149" />
+      <option name="presentableId" value="LOCAL-00149" />
+      <option name="project" value="LOCAL" />
+      <updated>1757735018897</updated>
+    </task>
+    <task id="LOCAL-00150" summary="feat(notes): add modal and backend support for lead notes&#10;&#10;- Implementa un modal para gestión y visualización de notas asociadas a leads.&#10;- Incluye soporte backend para guardar y recuperar notas con campos adicionales como `id_lead`.&#10;- Permite carga de archivos en notas con validación de tamaño (máx. 10 MB).&#10;- Ajusta el controlador para manejar notas tanto de clientes como de leads.">
+      <option name="closed" value="true" />
+      <created>1757772455767</created>
+      <option name="number" value="00150" />
+      <option name="presentableId" value="LOCAL-00150" />
+      <option name="project" value="LOCAL" />
+      <updated>1757772455767</updated>
+    </task>
+    <task id="LOCAL-00151" summary="ajuste boton notas">
+      <option name="closed" value="true" />
+      <created>1757773809179</created>
+      <option name="number" value="00151" />
+      <option name="presentableId" value="LOCAL-00151" />
+      <option name="project" value="LOCAL" />
+      <updated>1757773809179</updated>
+    </task>
+    <option name="localTasksCounter" value="152" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -605,10 +612,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Por favor proporciona el fragmento de código con sus diferencias para poder generar el mensaje de commit adecuado." />
-    <MESSAGE value="Por favor proporciona las diferencias de código (diff) para poder analizar y generar un mensaje de commit adecuado." />
-    <MESSAGE value="Por favor proporciona las diferencias (diffs) del código para que pueda analizar los cambios realizados y generar el mensaje de commit correspondiente." />
-    <MESSAGE value="feat(home): mejorar diseño responsivo y agregar secciones especializadas&#10;&#10;- Añade sección de Especialidades Jurídicas con diseño moderno&#10;- Incorpora nuevas opciones de servicio: Planes y Especialidades&#10;- Mejora estilos responsivos para navbar, botones y tarjetas&#10;- Ajusta diseño con mejoras en jerarquía visual y modularidad&#10;- Reemplaza logo provisional por el definitivo" />
     <MESSAGE value="feat(usuarios/perfiles): agregar perfil &quot;Gestor de pagos&quot; y permisos&#10;&#10;- Añade el perfil &quot;Gestor de pagos&quot; con rutas y accesos definidos:&#10;  - Accesos: usuarios, clientes, leads, suscripciones y facturas.&#10;- Actualiza opciones mostradas en formularios según perfil.&#10;- Mejora diseño de tablas: reestructuración de columnas y optimización terminológica.&#10;- Restringe acciones y vistas específicas para ciertos perfiles.&#10;- Corrige el nombre de la variable `$item` en consulta de clientes." />
     <MESSAGE value="feat(usuarios/perfiles): agregar perfil &quot;Gestor de pagos&quot; y permisos&#10;&#10;- Añade el perfil &quot;Gestor de pagos&quot; con acceso a usuarios, clientes, leads, suscripciones y facturas.&#10;- Actualiza las opciones visibles en formularios según perfil.&#10;- Reestructura columnas y optimiza la terminología en tablas.&#10;- Restringe acciones y vistas específicas para ciertos perfiles.&#10;- Corrige la variable `$item` en consulta de clientes." />
     <MESSAGE value="feat(usuarios/perfiles): agregar perfil &quot;Gestor de pagos&quot; y permisos asociados&#10;&#10;- Se añade el perfil &quot;Gestor de pagos&quot; con sus rutas y accesos definidos:&#10;  - Módulos: usuarios, clientes, leads, suscripciones y facturas.&#10;- Actualización de opciones mostradas según perfil en formularios de usuario.&#10;- Ajuste en diseño de tablas: columnas reestructuradas y terminología optimizada.&#10;- Se restringen acciones y vistas específicas para ciertos perfiles.&#10;- Corrección en el nombre de variable `$item` en consulta de clientes." />
@@ -630,7 +633,11 @@
     <MESSAGE value="```  &#10;chore(workspace): update debug settings and clean metadata  &#10;&#10;- Adjust workspace configuration in `workspace.xml` for debug enhancements  &#10;- Include `debug.log` for AJAX tracking  &#10;- Add IntelliJ shelved patch file references for better context  &#10;- Cleanup outdated messages, tasks, and local references  &#10;```  " />
     <MESSAGE value="`chore: update workspace settings and include debug configurations`&#10;&#10;- Updated IntelliJ `workspace.xml` with debug log references and shelved patch files.&#10;- Included `debug.log` and IDE configuration for tracking AJAX data and pending changes." />
     <MESSAGE value="Asignar asesor" />
-    <option name="LAST_COMMIT_MESSAGE" value="Asignar asesor" />
+    <MESSAGE value="&quot;Refactorización de métodos en modelos y controladores para mejorar consistencia, validaciones y formato del código.&quot;" />
+    <MESSAGE value="&#10;feat(usuarios): implementar nuevas funciones y validar datos únicos en leads&#10;&#10;- Añade método `mdlVerificarUnico` para validar duplicados en CC y teléfono&#10;- Crea métodos para segregar la visualización de asesores y coordinadores (`ctrMostrarAsesoresCoordinadores`)&#10;- Actualiza la lógica en formularios para controlar accesos por perfil&#10;- Valida datos únicos antes de registrar o editar leads&#10;- Refactoriza código aplicando consistencia en identación y manejo general de métodos&#10;&#10;---" />
+    <MESSAGE value="feat(notes): add modal and backend support for lead notes&#10;&#10;- Implementa un modal para gestión y visualización de notas asociadas a leads.&#10;- Incluye soporte backend para guardar y recuperar notas con campos adicionales como `id_lead`.&#10;- Permite carga de archivos en notas con validación de tamaño (máx. 10 MB).&#10;- Ajusta el controlador para manejar notas tanto de clientes como de leads." />
+    <MESSAGE value="ajuste boton notas" />
+    <option name="LAST_COMMIT_MESSAGE" value="ajuste boton notas" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

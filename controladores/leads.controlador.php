@@ -3,73 +3,72 @@
 class ControladorLeads
 {
 
-	static public function ctrRegistrarLead()
-	{
+static public function ctrRegistrarLead(){
+    date_default_timezone_set('America/Bogota');
 
-		date_default_timezone_set('America/Bogota');
+    if(isset($_POST["nuevoNombre"])){
 
-		if (isset($_POST["nuevoNombre"])) {
+        $tabla = "leads";
+        $fecha_actual = date('Y-m-d');
 
-			$tabla = "leads";
-			$fecha_actual = date('Y-m-d');
+        // Obtener el ID del usuario de la sesión
+        $id_usuario = isset($_SESSION["id"]) ? (int) $_SESSION["id"] : 0;
 
-			// Obtener el ID del usuario de la sesión
-			$id_usuario = isset($_SESSION["id"]) ? (int) $_SESSION["id"] : 0;
-			// Si el formulario tiene un asesor seleccionado, se usa ese
-			if (!empty($_POST["AsignarAsesor"]) && $_POST["AsignarAsesor"] != "0") {
-				$id_usuario = (int) $_POST["AsignarAsesor"];
-			}
+        // Si el formulario tiene un asesor seleccionado, se usa ese
+        if(!empty($_POST["AsignarAsesor"]) && $_POST["AsignarAsesor"] != "0"){
+            $id_usuario = (int) $_POST["AsignarAsesor"];
+        }
 
-			$datos = array(
-				"cc" => $_POST["nuevoIdLead"],
-				"first_name" => $_POST["nuevoNombre"],
-				"last_name" => $_POST["nuevoApellido"],
-				"email" => $_POST["nuevoEmail"],
-				"phone" => $_POST["nuevoTelefono"],
-				"status_lead" => 0,
-				"creation_date" => $fecha_actual,
-				"origin" => $_POST["origenLead"],
-				"note" => $_POST["observaciones"],
-				"id_service" => !empty($_POST["nuevoServicio"]) ? $_POST["nuevoServicio"] : null,
-				"id_area" => !empty($_POST["nuevaArea"]) ? $_POST["nuevaArea"] : null,
-				"sector" => $_POST["nuevoSector"],
-				"id_usuario" => $id_usuario
-			);
+        // Preparar datos y convertir vacíos a NULL
+        $datos = [
+            "cc"            => !empty($_POST["nuevoIdLead"]) ? $_POST["nuevoIdLead"] : null,
+            "first_name"    => !empty($_POST["nuevoNombre"]) ? $_POST["nuevoNombre"] : null,
+            "last_name"     => !empty($_POST["nuevoApellido"]) ? $_POST["nuevoApellido"] : null,
+            "email"         => !empty($_POST["nuevoEmail"]) ? $_POST["nuevoEmail"] : null,
+            "phone"         => !empty($_POST["nuevoTelefono"]) ? $_POST["nuevoTelefono"] : null,
+            "status_lead"   => 0, // por defecto
+            "creation_date" => $fecha_actual,
+            "origin"        => !empty($_POST["origenLead"]) ? $_POST["origenLead"] : null,
+            "note"          => !empty($_POST["observaciones"]) ? $_POST["observaciones"] : null,
+            "id_service"    => !empty($_POST["nuevoServicio"]) ? (int)$_POST["nuevoServicio"] : null,
+            "id_area"       => !empty($_POST["nuevaArea"]) ? (int)$_POST["nuevaArea"] : null,
+            "sector"        => !empty($_POST["nuevoSector"]) ? $_POST["nuevoSector"] : null,
+            "id_usuario"    => $id_usuario
+        ];
 
+        // Llamar al modelo
+        $respuesta = ModeloLeads::mdlRegistrarLead($tabla, $datos);
 
-			$respuesta = ModeloLeads::mdlRegistrarLead($tabla, $datos);
-
-			if ($respuesta == "ok") {
-
-				echo '<script>
-				swal({
-					type: "success",
-					title: "Un nuevo Lead ha sido registrado",
-					showConfirmButton: true,
-					confirmButtonText: "Cerrar"
-					}).then(function(result){
-						if (result.value) {
-							window.location = "leads";
-						}
-					})
-				</script>';
-			} else {
-
-				echo '<script>
-				swal({
-					type: "error",
-					title: "¡Error al registrar al usuario!",
-					showConfirmButton: true,
-					confirmButtonText: "Cerrar"
-					}).then(function(result){
-						if (result.value) {
-							window.location = "leads";
-						}
-					})
-				</script>';
-			}
-		}
-	}
+        if($respuesta == "ok"){
+            echo '<script>
+                swal({
+                    type: "success",
+                    title: "Un nuevo Lead ha sido registrado",
+                    showConfirmButton: true,
+                    confirmButtonText: "Cerrar"
+                }).then(function(result){
+                    if(result.value){
+                        window.location = "leads";
+                    }
+                })
+            </script>';
+        } else {
+            echo '<script>
+                swal({
+                    type: "error",
+                    title: "¡Error al registrar el usuario!",
+                    text: "'.$respuesta.'",
+                    showConfirmButton: true,
+                    confirmButtonText: "Cerrar"
+                }).then(function(result){
+                    if(result.value){
+                        window.location = "leads";
+                    }
+                })
+            </script>';
+        }
+    }
+}
 
 
 	static public function ctrContarLeadsDiarios()
@@ -150,33 +149,37 @@ class ControladorLeads
 	}
 
 
-	static public function ctrEditarLead()
-	{
-		if (isset($_POST["editarNombre"])) {
-			if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editarNombre"])) {
+static public function ctrEditarLead(){
+    if(isset($_POST["editarNombre"])) {
 
-				$tabla = "leads";
-				$id_usuario = isset($_POST["reasignarAsesor"]) && $_POST["reasignarAsesor"] != "0"
-					? (int) $_POST["reasignarAsesor"]
-					: null;
+        // Limpiar valores
+        $first_name = trim($_POST["editarNombre"]);
+        $last_name  = trim($_POST["editarApellido"]);
+        $email      = !empty($_POST["editarCorreo"]) ? trim($_POST["editarCorreo"]) : null;
+        $phone      = !empty($_POST["editarTelefono"]) ? trim($_POST["editarTelefono"]) : null;
+        $id_lead    = (int) $_POST["idLeads"];
 
-				$datos = array(
-					"first_name" => $_POST["editarNombre"],
-					"last_name" => $_POST["editarApellido"],
-					"email" => $_POST["editarCorreo"],
-					"phone" => $_POST["editarTelefono"],
-					"id_lead" => $_POST["idLeads"],
-					"id_usuario" => $id_usuario
-				);
+        // Preparar datos a actualizar
+        $datos = [
+            "first_name" => $first_name,
+            "last_name"  => $last_name,
+            "email"      => $email,
+            "phone"      => $phone,
+            "id_lead"    => $id_lead
+        ];
 
-				$respuesta = ModeloLeads::mdlEditarLead($tabla, $datos);
+        // Solo actualizar id_usuario si viene en el POST y no es 0
+        if(isset($_POST["reasignarAsesor"]) && $_POST["reasignarAsesor"] != "0"){
+            $datos["id_usuario"] = (int) $_POST["reasignarAsesor"];
+        }
 
-				return $respuesta == "ok" ? "ok" : "error";
-			} else {
-				return "error";
-			}
-		}
-	}
+        // Llamar al modelo
+        $respuesta = ModeloLeads::mdlEditarLead("leads", $datos);
+
+        return $respuesta; // "ok" o "error"
+    }
+}
+
 
 
 

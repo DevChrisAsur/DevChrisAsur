@@ -9,15 +9,33 @@ class ModeloLeads
 	CREAR CLIENTE
 =============================================*/
 static public function mdlRegistrarLead($tabla, $datos){
+    // Convertir valores vacíos en NULL
+    $campos = ['cc','first_name','last_name','email','phone','origin','note','id_service','id_area','sector'];
+    foreach($campos as $campo){
+        if(!isset($datos[$campo]) || $datos[$campo] === "" ){
+            $datos[$campo] = null;
+        }
+    }
 
-    // Preparar la consulta SQL para insertar datos en la tabla
-    $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla( cc, first_name, last_name, email, phone, status_lead,creation_date, origin, note, id_service, id_area,id_usuario, sector) VALUES ( :cc, :first_name, :last_name, :email, :phone, :status_lead, :creation_date, :origin, :note, :id_service, :id_area, :id_usuario, :sector)");
+    // Asegurarse de que id_usuario sea INT y no vacío
+    $datos['id_usuario'] = isset($datos['id_usuario']) ? (int)$datos['id_usuario'] : null;
+
+    // Preparar la consulta SQL
+    $stmt = Conexion::conectar()->prepare(
+        "INSERT INTO $tabla(
+            cc, first_name, last_name, email, phone, status_lead, creation_date, origin, note, id_service, id_area, id_usuario, sector
+        ) VALUES (
+            :cc, :first_name, :last_name, :email, :phone, :status_lead, :creation_date, :origin, :note, :id_service, :id_area, :id_usuario, :sector
+        )"
+    );
+
+    // Bind de parámetros
     $stmt->bindParam(":cc", $datos['cc'], PDO::PARAM_STR);
     $stmt->bindParam(":first_name", $datos['first_name'], PDO::PARAM_STR);
     $stmt->bindParam(":last_name", $datos['last_name'], PDO::PARAM_STR);
     $stmt->bindParam(":email", $datos['email'], PDO::PARAM_STR);
     $stmt->bindParam(":phone", $datos['phone'], PDO::PARAM_STR);
-    $stmt->bindParam(":status_lead", $datos['status_lead'], PDO::PARAM_STR);
+    $stmt->bindParam(":status_lead", $datos['status_lead'], PDO::PARAM_INT);
     $stmt->bindParam(":creation_date", $datos['creation_date'], PDO::PARAM_STR);
     $stmt->bindParam(":origin", $datos['origin'], PDO::PARAM_STR);
     $stmt->bindParam(":note", $datos['note'], PDO::PARAM_STR);
@@ -26,17 +44,20 @@ static public function mdlRegistrarLead($tabla, $datos){
     $stmt->bindParam(":id_usuario", $datos['id_usuario'], PDO::PARAM_INT);
     $stmt->bindParam(":sector", $datos['sector'], PDO::PARAM_STR);
 
-    // Ejecutar la consulta y manejar el resultado
-    if ($stmt->execute()) {
+    // Ejecutar consulta
+    if($stmt->execute()){
         return "ok";
     } else {
-        return "error";
+        // Para depuración, podemos devolver info del error
+        $errorInfo = $stmt->errorInfo();
+        return "error: " . $errorInfo[2];
     }
 
-    // Cerrar la conexión
-    $stmt->close();
+    // Cerrar conexión
+    $stmt->closeCursor();
     $stmt = null;
 }
+
 
 static public function mdlVerificarUnico($tabla, $item, $valor){
 
@@ -166,44 +187,37 @@ static public function mdlMostrarLeadsPorCoordinador($tablaLeads, $tablaUsuarios
 
 
 
-static public function mdlEditarLead($tabla, $datos) {
-    try {
-        // Incluimos id_usuario en la actualización
-        $stmt = Conexion::conectar()->prepare(
-            "UPDATE $tabla 
-             SET first_name = :first_name, 
-                 last_name = :last_name, 
-                 email = :email, 
-                 phone = :phone, 
-                 id_usuario = :id_usuario 
-             WHERE id_lead = :id_lead"
-        );
+static public function mdlEditarLead($tabla, $datos){
+    // Generar SET dinámico solo con los campos que existen
+    $campos = [];
+    $params = []; // guardaremos solo los que realmente vamos a bindear
 
-        // Vinculamos los parámetros
-        $stmt->bindParam(":first_name", $datos["first_name"], PDO::PARAM_STR);
-        $stmt->bindParam(":last_name", $datos["last_name"], PDO::PARAM_STR);
-        $stmt->bindParam(":email", $datos["email"], PDO::PARAM_STR);
-        $stmt->bindParam(":phone", $datos["phone"], PDO::PARAM_STR);
-        $stmt->bindParam(":id_lead", $datos["id_lead"], PDO::PARAM_INT);
+    if(isset($datos['first_name'])) { $campos[] = "first_name = :first_name"; $params['first_name'] = $datos['first_name']; }
+    if(isset($datos['last_name']))  { $campos[] = "last_name = :last_name";   $params['last_name']  = $datos['last_name']; }
+    if(array_key_exists('email', $datos)) { $campos[] = "email = :email"; $params['email'] = $datos['email']; }
+    if(array_key_exists('phone', $datos)) { $campos[] = "phone = :phone"; $params['phone'] = $datos['phone']; }
+    if(isset($datos['id_usuario'])) { $campos[] = "id_usuario = :id_usuario"; $params['id_usuario'] = $datos['id_usuario']; }
 
-        // Manejo de null en id_usuario
-        if ($datos["id_usuario"] === null) {
-            $stmt->bindValue(":id_usuario", null, PDO::PARAM_NULL);
+    $sql = "UPDATE $tabla SET " . implode(", ", $campos) . " WHERE id_lead = :id_lead";
+    $stmt = Conexion::conectar()->prepare($sql);
+
+    // Bind solo los que están en $params
+    foreach($params as $key => $value){
+        if($key == "id_usuario"){
+            if($value === null){
+                $stmt->bindValue(":$key", null, PDO::PARAM_NULL);
+            } else {
+                $stmt->bindValue(":$key", $value, PDO::PARAM_INT);
+            }
         } else {
-            $stmt->bindValue(":id_usuario", $datos["id_usuario"], PDO::PARAM_INT);
+            $stmt->bindValue(":$key", $value, PDO::PARAM_STR);
         }
-
-        // Ejecutamos la consulta
-        if ($stmt->execute()) {
-            return "ok";
-        } else {
-            return "error";
-        }
-    } catch (PDOException $e) {
-        return "Error: " . $e->getMessage();
-    } finally {
-        $stmt = null;
     }
+
+    // Bind del id_lead
+    $stmt->bindValue(":id_lead", $datos['id_lead'], PDO::PARAM_INT);
+
+    return $stmt->execute() ? "ok" : "error";
 }
 
      
