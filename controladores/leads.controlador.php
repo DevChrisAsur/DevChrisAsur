@@ -20,42 +20,6 @@ class ControladorLeads
 				$id_usuario = (int) $_POST["AsignarAsesor"];
 			}
 
-			// Validar que CC no esté repetido
-			$existeCC = ModeloLeads::mdlVerificarUnico($tabla, "cc", $_POST["nuevoIdLead"]);
-			if ($existeCC) {
-				echo '<script>
-        swal({
-            type: "error",
-            title: "¡El número de identificación ya está registrado!",
-            showConfirmButton: true,
-            confirmButtonText: "Cerrar"
-        }).then(function(result){
-            if (result.value) {
-                window.location = "leads";
-            }
-        })
-    </script>';
-				return; // detener ejecución
-			}
-
-			// Validar que Teléfono no esté repetido
-			$existeTelefono = ModeloLeads::mdlVerificarUnico($tabla, "phone", $_POST["nuevoTelefono"]);
-			if ($existeTelefono) {
-				echo '<script>
-        swal({
-            type: "error",
-            title: "¡El número de teléfono ya está registrado!",
-            showConfirmButton: true,
-            confirmButtonText: "Cerrar"
-        }).then(function(result){
-            if (result.value) {
-                window.location = "leads";
-            }
-        })
-    </script>';
-				return; // detener ejecución
-			}
-
 			$datos = array(
 				"cc" => $_POST["nuevoIdLead"],
 				"first_name" => $_POST["nuevoNombre"],
