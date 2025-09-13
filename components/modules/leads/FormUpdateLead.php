@@ -135,7 +135,7 @@
             <div class="row">
               <div class="col-12 col-sm-6 col-md-6">
                 <div class="floating-label-group">
-                  <input type="text" class="form-control" name="editarNombre" id="editarNombre" placeholder=" " >
+                  <input type="text" class="form-control" name="editarNombre" id="editarNombre" placeholder=" ">
                   <label for="editarNombre">Nombre</label>
                   <input type="hidden" name="idLeads" id="idLeadsEditar" required>
                 </div>
@@ -164,25 +164,28 @@
               </div>
             </div>
             <!-- REASIGNAR ASESOR -->
-            <h5>Reasignar Asesor</h5>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group floating-label-group">
-                  <select class="form-control input-lg" id="reasignarAsesor" name="reasignarAsesor">
-                    <option value="0">Sin Asesor</option>
-                    <?php
-                    $item = null;
-                    $valor = null;
-                    $asesores = ControladorUsuarios::ctrMostrarAsesores($item, $valor);
-                    foreach ($asesores as $key => $value) {
-                      echo '<option value="' . $value["id"] . '">' . $value["first_name"] . ' ' . $value["last_name"]. ' - ' .$value["perfil"] . '</option>';
-                    }
-                    ?>
-                  </select>
-                  <label for="reasignarAsesor"></label>
+            <?php if ($_SESSION["perfil"] == "Super Administrador" || $_SESSION["perfil"] == "Coordinador Comercial") { ?>
+              <h5>Reasignar Asesor</h5>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group floating-label-group">
+                    <select class="form-control input-lg" id="reasignarAsesor" name="reasignarAsesor">
+                      <option value="0">Sin Asesor</option>
+                      <?php
+                      $item = null;
+                      $valor = null;
+                      $asesores = ControladorUsuarios::ctrMostrarAsesores($item, $valor);
+                      foreach ($asesores as $key => $value) {
+                        echo '<option value="' . $value["id"] . '">' . $value["first_name"] . ' ' . $value["last_name"] . ' - ' . $value["perfil"] . '</option>';
+                      }
+                      ?>
+                    </select>
+                    <label for="reasignarAsesor"></label>
+                  </div>
                 </div>
               </div>
-            </div>
+            <?php } ?>
+
           </div>
         </div>
 

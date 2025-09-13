@@ -26,9 +26,10 @@ class ModeloUsuarios
 		return $resultado;
 	}
 
-static public function mdlVerUsuariosParaAdministradores($tabla, $item, $valor) {
+	static public function mdlVerUsuariosParaAdministradores($tabla, $item, $valor)
+	{
 
-    $sql = "SELECT 
+		$sql = "SELECT 
                 u.id,
                 u.user_status,
                 u.cc,
@@ -42,21 +43,21 @@ static public function mdlVerUsuariosParaAdministradores($tabla, $item, $valor) 
             FROM $tabla u
             LEFT JOIN usuarios c ON u.id_coordinador = c.id";
 
-    if ($item != null) {
-        $sql .= " WHERE u.$item = :$item ORDER BY u.perfil DESC";
-        $stmt = Conexion::conectar()->prepare($sql);
-        $stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
-        $stmt->execute();
-        return $stmt->fetch();
-    } else {
-        $sql .= " ORDER BY u.perfil DESC";
-        $stmt = Conexion::conectar()->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
+		if ($item != null) {
+			$sql .= " WHERE u.$item = :$item ORDER BY u.perfil DESC";
+			$stmt = Conexion::conectar()->prepare($sql);
+			$stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
+			$stmt->execute();
+			return $stmt->fetch();
+		} else {
+			$sql .= " ORDER BY u.perfil DESC";
+			$stmt = Conexion::conectar()->prepare($sql);
+			$stmt->execute();
+			return $stmt->fetchAll();
+		}
 
-    $stmt = null;
-}
+		$stmt = null;
+	}
 	/*=============================================
 	MOSTRAR ASESORES
 	=============================================*/
@@ -77,22 +78,50 @@ static public function mdlVerUsuariosParaAdministradores($tabla, $item, $valor) 
 		$stmt = null;
 	}
 
-static public function mdlMostrarCoordinadores($tabla, $item, $valor)
-{
-    if ($item != null) {
-        // Se añade condición para incluir Coordinador comercial y Super Administrador
-        $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :$item AND perfil IN ('Coordinador comercial', 'Super Administrador')");
-        $stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
-        $stmt->execute();
-        return $stmt->fetch();
-    } else {
-        // Se añade condición para incluir Coordinador comercial y Super Administrador
-        $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE perfil IN ('Coordinador comercial', 'Super Administrador')");
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
-    $stmt = null;
-}
+	static public function mdlMostrarCoordinadores($tabla, $item, $valor)
+	{
+		if ($item != null) {
+			// Se añade condición para incluir Coordinador comercial y Super Administrador
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :$item AND perfil IN ('Coordinador comercial', 'Super Administrador')");
+			$stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
+			$stmt->execute();
+			return $stmt->fetch();
+		} else {
+			// Se añade condición para incluir Coordinador comercial y Super Administrador
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE perfil IN ('Coordinador comercial', 'Super Administrador')");
+			$stmt->execute();
+			return $stmt->fetchAll();
+		}
+		$stmt = null;
+	}
+	static public function mdlMostrarAsesoresCoordinadores($tabla, $item, $valor)
+	{
+		if ($item != null) {
+			$stmt = Conexion::conectar()->prepare("
+            SELECT * 
+            FROM $tabla 
+            WHERE $item = :$item 
+              AND (perfil = 'Asesor comercial' OR perfil = 'Coordinador comercial')
+            ORDER BY perfil ASC
+        ");
+			$stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
+			$stmt->execute();
+			return $stmt->fetch();
+		} else {
+			$stmt = Conexion::conectar()->prepare("
+            SELECT * 
+            FROM $tabla 
+            WHERE perfil = 'Asesor comercial' OR perfil = 'Coordinador comercial'
+            ORDER BY perfil ASC
+        ");
+			$stmt->execute();
+			return $stmt->fetchAll();
+		}
+
+		$stmt->close();
+		$stmt = null;
+	}
+
 
 
 	static public function mdlMostrarAsesoresPorCoordinador($tabla, $id_coordinador)

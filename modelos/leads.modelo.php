@@ -38,6 +38,17 @@ static public function mdlRegistrarLead($tabla, $datos){
     $stmt = null;
 }
 
+static public function mdlVerificarUnico($tabla, $item, $valor){
+
+    $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :valor LIMIT 1");
+    $stmt->bindParam(":valor", $valor, PDO::PARAM_STR);
+    $stmt->execute();
+
+    return $stmt->fetch();
+
+    $stmt = null;
+}
+
 /*=============================================
 	MOSTRAR CLIENTES
 =============================================*/
