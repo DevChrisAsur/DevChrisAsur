@@ -1,37 +1,54 @@
+// Cuando se da clic en el botón de agregar nota al lead
+$(document).on('click', '.btnAgregarNotaLead', function () {
+    var idLead = $(this).attr("idLeads"); // capturamos el valor del atributo
+    window.idLeadSeleccionado = idLead;   // lo guardamos en variable global
+    console.log("Lead seleccionado:", idLead);
+
+    // además llenamos el hidden en el modal
+    $("#idLead").val(idLead);
+
+    // opcional: cargar las notas de este lead inmediatamente al abrir el modal
+    cargarNotasLead(idLead);
+});
+
+
 $(document).on('click', '#guardarNota', function(e) {
     e.preventDefault(); 
 
-    // Verificar si se ha seleccionado un cliente
-    var idCliente = window.idClienteSeleccionado;
-    if (!idCliente) {
-        alert("Primero debe seleccionar un cliente.");
+    // Verificar si hay cliente o lead seleccionado
+    var idCliente = window.idClienteSeleccionado || null;
+    var idLeads = window.idLeadSeleccionado || null;
+
+    console.log(idLeads);
+
+    if (!idCliente && !idLeads) {
+        alert("Primero debe seleccionar un cliente o un lead.");
         return;
     }
 
     // Recoger los datos del formulario
     var nuevoTituloNota = $('#nuevoTituloNota').val();
     var contenidoNota = $('#contenidoNota').val();
-    var archivoNota = $('#archivoNota')[0].files[0]; // Asegurarse de que este ID coincide con el HTML
+    var archivoNota = $('#archivoNota')[0].files[0];
 
-    // Crear el FormData para enviar los datos
+    // Crear el FormData
     var formData = new FormData();
-    formData.append('idCliente', idCliente);
+    
+    if (idCliente) {
+        formData.append('idCliente', idCliente);
+    } else if (idLeads) {
+        formData.append('idLeads', idLeads);
+    }
+
     formData.append('nuevoTituloNota', nuevoTituloNota);
     formData.append('contenidoNota', contenidoNota);
 
-    // Agregar el archivo solo si está seleccionado
+    // Agregar archivo solo si se seleccionó
     if (archivoNota) {
         formData.append('archivoNota', archivoNota);
     }
 
-    // console.log("Datos enviados (nota):", {
-    //     idCliente: idCliente,
-    //     nuevoTituloNota: nuevoTituloNota,
-    //     contenidoNota: contenidoNota,
-    //     archivoNota: archivoNota ? archivoNota.name : "No se seleccionó archivo"
-    // });
-
-    // Hacer la solicitud AJAX
+    // Enviar AJAX
     $.ajax({
         url: 'ajax/notas.ajax.php',
         method: 'POST',
@@ -41,9 +58,8 @@ $(document).on('click', '#guardarNota', function(e) {
         processData: false,
         dataType: 'json',
         success: function(respuesta) {
-            //console.log("Respuesta del servidor:", respuesta);
-            
             if (respuesta.success) {
+                console.log(respuesta); 
                 swal({
                     icon: "success",
                     title: "La nota ha sido guardada correctamente.",
@@ -52,8 +68,13 @@ $(document).on('click', '#guardarNota', function(e) {
                 }).then(function() {
                     $('#nuevoTituloNota').val('');
                     $('#contenidoNota').val('');
-                    $('#archivoNota').val(''); // Limpiar el campo de archivo
-                    cargarNotasCliente(idCliente);
+                    $('#archivoNota').val(''); // Limpiar archivo
+
+                    if (idCliente) {
+                        cargarNotasCliente(idCliente);
+                    } else if (idLeads) {
+                        cargarNotasLead(idLeads);
+                    }
                 });
             } else if (respuesta.error) {
                 swal({
@@ -73,6 +94,7 @@ $(document).on('click', '#guardarNota', function(e) {
     });
 });
 
+
 function cargarNotasCliente(idCliente) {
     $.ajax({
         url: 'ajax/notas.ajax.php',
@@ -85,6 +107,21 @@ function cargarNotasCliente(idCliente) {
         },
         error: function(xhr, status, error) {
             console.error("Error al cargar notas:", error);
+        }
+    });
+}
+function cargarNotasLead(idLeads) {
+    $.ajax({
+        url: 'ajax/notas.ajax.php',
+        method: 'POST',
+        data: { accion: 'mostrarNotasLead', idLeads: idLeads },
+        dataType: 'json',
+        success: function(respuesta) {
+            renderizarNotasEnCards(respuesta);
+        },
+        error: function(xhr, status, error) {
+            console.error("Error al cargar notas del lead:", error);
+            console.log("Respuesta servidor:", xhr.responseText);
         }
     });
 }

@@ -456,6 +456,12 @@
                     <button class="btn btn-danger btnEliminarLead" idLeads="' . $value["id_lead"] . '" style="margin-left: 8px;">
                       <i class="fa fa-times"></i>
                     </button>
+                    <button class="btn btn-info btnAgregarNotaLead" 
+                            idLeads="' . $value["id_lead"] . '" 
+                            data-toggle="modal" 
+                            data-target="#modalNotasLead">
+                        <i class="fa fa-sticky-note"></i>
+                    </button>
                   </div>
                 </td>
               </tr>';
@@ -759,5 +765,6 @@ $borrarLead->ctrEliminarLead();
 <?php
 include_once __DIR__ . '/../../components/modules/leads/FormRegisterLead.php';
 include_once __DIR__ . '/../../components/modules/leads/FormUpdateLead.php';
+include_once __DIR__ . '/../../components/modules/leads/ModalDialogNotes.php';
 
 ?>

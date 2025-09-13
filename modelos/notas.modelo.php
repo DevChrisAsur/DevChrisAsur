@@ -8,13 +8,17 @@ class ModeloNotas {
     CREAR NOTA
     =============================================*/
 
-    static public function mdlIngresarNota($tabla, $datos) {
+static public function mdlIngresarNota($tabla, $datos) {
     try {
         $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("INSERT INTO $tabla(id_customer, titulo, contenido, fecha_creacion, nombre_archivo, id_usuario) 
-                                    VALUES (:id_customer, :titulo, :contenido, :fecha_creacion, :nombre_archivo, :id_usuario)");
+
+        $stmt = $conexion->prepare("
+            INSERT INTO $tabla (id_customer, id_lead, titulo, contenido, fecha_creacion, nombre_archivo, id_usuario) 
+            VALUES (:id_customer, :id_lead, :titulo, :contenido, :fecha_creacion, :nombre_archivo, :id_usuario)
+        ");
 
         $stmt->bindParam(":id_customer", $datos['id_customer'], PDO::PARAM_INT);
+        $stmt->bindParam(":id_lead", $datos['id_lead'], PDO::PARAM_INT);
         $stmt->bindParam(":titulo", $datos['titulo'], PDO::PARAM_STR);
         $stmt->bindParam(":contenido", $datos['contenido'], PDO::PARAM_STR);
         $stmt->bindParam(":fecha_creacion", $datos['fecha_creacion'], PDO::PARAM_STR);
@@ -27,16 +31,15 @@ class ModeloNotas {
             error_log("Error en la creación de la nota: " . print_r($stmt->errorInfo(), true));
             return "error: " . $stmt->errorInfo()[2];
         }
-
     } catch (Exception $e) {
         error_log("Exception al crear la nota: " . $e->getMessage());
         return "Exception: " . $e->getMessage();
     }
 
-    // Cerrar conexión
     $stmt->close();
     $stmt = null;
 }
+
 
     
     
@@ -74,6 +77,19 @@ class ModeloNotas {
         return $stmt->fetchAll();
     }
 
+public static function mdlObtenerNotasPorLead($tabla, $idLead) {
+    $stmt = Conexion::conectar()->prepare(
+        "SELECT n.*, u.user_name
+        FROM $tabla n
+        INNER JOIN usuarios u ON n.id_usuario = u.id
+        WHERE n.id_lead = :id_lead
+        ORDER BY n.fecha_creacion DESC"
+    );
+
+    $stmt->bindParam(":id_lead", $idLead, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
 
 
     /*=============================================

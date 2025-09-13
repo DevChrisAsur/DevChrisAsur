@@ -5,7 +5,10 @@ require_once "../modelos/notas.modelo.php";
 /*=============================================
 CREAR UNA NUEVA NOTA
 =============================================*/
-if (isset($_POST["idCliente"]) && isset($_POST['nuevoTituloNota'])) {
+/*=============================================
+CREAR NOTA (Cliente o Lead)
+=============================================*/
+if ((isset($_POST["idCliente"]) || isset($_POST["idLeads"])) && isset($_POST['nuevoTituloNota'])) {
     error_log("Datos recibidos para crear nota: " . print_r($_POST, true));
 
     $archivoCargado = null;
@@ -14,21 +17,29 @@ if (isset($_POST["idCliente"]) && isset($_POST['nuevoTituloNota'])) {
     // Verificar si hay un archivo cargado
     if (isset($_FILES['archivoNota']) && $_FILES['archivoNota']['error'] === UPLOAD_ERR_OK) {
         $directorio = "../uploads/notas/";
-
-        // Preparar la información del archivo con un nombre único
         $nombreOriginal = basename($_FILES['archivoNota']['name']);
         $nombreArchivoFinal = uniqid() . "_" . $nombreOriginal;
     } else {
         error_log("No se subió ningún archivo o hubo un error al cargarlo.");
     }
 
-    // Llamar al controlador con los datos preparados, incluyendo el nombre final del archivo
-    $respuesta = ControladorNotas::ctrCrearNota([
-        'idCliente' => $_POST['idCliente'],
+    // Definir si es cliente o lead
+    $datos = [
         'nuevoTituloNota' => $_POST['nuevoTituloNota'],
         'contenidoNota' => $_POST['contenidoNota'],
-        'nombreArchivo' => $nombreArchivoFinal, // Guardar el nombre con uniqid en la base de datos
-    ]);
+        'nombreArchivo' => $nombreArchivoFinal,
+    ];
+
+    if (isset($_POST['idCliente'])) {
+        $datos['idCliente'] = $_POST['idCliente'];
+    }
+
+    if (isset($_POST['idLeads'])) {
+        $datos['idLead'] = $_POST['idLeads'];
+    }
+
+    // Llamar al controlador
+    $respuesta = ControladorNotas::ctrCrearNota($datos);
 
     if ($respuesta === "ok") {
         echo json_encode(['success' => true]);
@@ -38,6 +49,7 @@ if (isset($_POST["idCliente"]) && isset($_POST['nuevoTituloNota'])) {
     }
     exit;
 }
+
 /*=============================================
 MOSTRAR NOTAS DE UN CLIENTE
 =============================================*/
@@ -45,6 +57,17 @@ if (isset($_POST["accion"]) && $_POST["accion"] === "mostrarNotas" && isset($_PO
     $idCliente = $_POST["idCliente"];
 
     $notas = ControladorNotas::ctrObtenerNotasPorCliente($idCliente);
+
+    echo json_encode($notas);
+    exit;
+}
+/*=============================================
+MOSTRAR NOTAS DE UN LEAD
+=============================================*/
+if (isset($_POST["accion"]) && $_POST["accion"] === "mostrarNotasLead" && isset($_POST["idLeads"])) {
+    $idLeads = $_POST["idLeads"];
+
+    $notas = ControladorNotas::ctrObtenerNotasPorLead($idLeads);
 
     echo json_encode($notas);
     exit;

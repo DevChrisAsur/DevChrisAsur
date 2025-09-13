@@ -6,68 +6,68 @@ class ControladorNotas {
 	CREAR NOTA
 	=============================================*/
 
-	static public function ctrCrearNota() {
-		if (isset($_POST["nuevoTituloNota"])) {
-			// Nombre de la tabla en la base de datos
-			$tabla = "nota";
-	
-			// Iniciar sesión y obtener el ID del usuario
-			if (session_status() == PHP_SESSION_NONE) {
-				session_start();
-			}
-			$idUsuario = $_SESSION["id"] ?? null;
-	
-			if (!$idUsuario) {
-				return "Error: Usuario no identificado.";
-			}
-	
-			// Preparar datos de la nota
-			$datos = array(
-				"id_customer" => $_POST["idCliente"],
-				"id_usuario" => $idUsuario,
-				"titulo" => $_POST["nuevoTituloNota"],
-				"contenido" => $_POST["contenidoNota"],
-				"fecha_creacion" => date("Y-m-d H:i:s"),
-				"nombre_archivo" => null
-			);
-	
-			// Verificar si hay un archivo cargado y validar su tamaño
-			if (isset($_FILES["archivoNota"]) && $_FILES["archivoNota"]["error"] == 0) {
-				// Definir tamaño máximo permitido en bytes (por ejemplo, 2 MB)
-				$tamanoMaximo = 10 * 1024 * 1024; // 2 MB
-	
-				// Verificar tamaño del archivo
-				if ($_FILES["archivoNota"]["size"] > $tamanoMaximo) {
-					return "Error: El archivo supera el tamaño máximo permitido de 2 MB.";
-				}
-	
-				// Preparar el nombre del archivo para almacenar
-				$nombreArchivo = uniqid() . "_" . basename($_FILES["archivoNota"]["name"]);
-	
-				// Mover el archivo a la carpeta deseada
-				$directorio = "../uploads/notas/";
-				if (!file_exists($directorio)) {
-						mkdir($directorio, 0777, true);
-				}
+static public function ctrCrearNota() {
+    if (isset($_POST["nuevoTituloNota"])) {
+        $tabla = "nota";
 
-				if (move_uploaded_file($_FILES["archivoNota"]["tmp_name"], $directorio . $nombreArchivo)) {
-					// Actualizar el array $datos con el nombre del archivo
-					$datos["nombre_archivo"] = $nombreArchivo;
-				} else {
-					return "Error al mover el archivo.";
-				}
-			}
-	
-			// Llamar al modelo para insertar la nota
-			$respuesta = ModeloNotas::mdlIngresarNota($tabla, $datos);
-	
-			if ($respuesta === "ok") {
-				return "ok";
-			} else {
-				return "Error al crear la nota: " . $respuesta;
-			}
-		}
-	}
+        // Iniciar sesión y obtener el ID del usuario
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $idUsuario = $_SESSION["id"] ?? null;
+
+        if (!$idUsuario) {
+            return "Error: Usuario no identificado.";
+        }
+
+        // Determinar si es un cliente o un lead
+        $idCliente = $_POST["idCliente"] ?? null;
+        $idLead = $_POST["idLeads"] ?? null;
+
+        if (!$idCliente && !$idLead) {
+            return "Error: No se especificó Cliente ni Lead.";
+        }
+
+        // Preparar datos
+        $datos = array(
+            "id_customer" => $idCliente,
+            "id_lead" => $idLead,
+            "id_usuario" => $idUsuario,
+            "titulo" => $_POST["nuevoTituloNota"],
+            "contenido" => $_POST["contenidoNota"],
+            "fecha_creacion" => date("Y-m-d H:i:s"),
+            "nombre_archivo" => null
+        );
+
+        // Subida de archivo (si existe)
+        if (isset($_FILES["archivoNota"]) && $_FILES["archivoNota"]["error"] == 0) {
+            $tamanoMaximo = 10 * 1024 * 1024; // 10 MB
+
+            if ($_FILES["archivoNota"]["size"] > $tamanoMaximo) {
+                return "Error: El archivo supera el tamaño máximo permitido.";
+            }
+
+            $nombreArchivo = uniqid() . "_" . basename($_FILES["archivoNota"]["name"]);
+            $directorio = "../uploads/notas/";
+
+            if (!file_exists($directorio)) {
+                mkdir($directorio, 0777, true);
+            }
+
+            if (move_uploaded_file($_FILES["archivoNota"]["tmp_name"], $directorio . $nombreArchivo)) {
+                $datos["nombre_archivo"] = $nombreArchivo;
+            } else {
+                return "Error al mover el archivo.";
+            }
+        }
+
+        // Insertar nota en BD
+        $respuesta = ModeloNotas::mdlIngresarNota($tabla, $datos);
+
+        return ($respuesta === "ok") ? "ok" : "Error al crear la nota: " . $respuesta;
+    }
+}
+
 	
 
 	/*=============================================
@@ -87,6 +87,11 @@ class ControladorNotas {
     $tabla = "nota";
     return ModeloNotas::mdlObtenerNotasPorCliente($tabla, $idCliente);
 }
+public static function ctrObtenerNotasPorLead($idLead) {
+    $tabla = "nota";
+    return ModeloNotas::mdlObtenerNotasPorLead($tabla, $idLead);
+}
+	
 
 	/*=============================================
 	EDITAR NOTA
