@@ -164,7 +164,7 @@
               </div>
             </div>
             <!-- REASIGNAR ASESOR -->
-            <?php if ($_SESSION["perfil"] == "Super Administrador" || $_SESSION["perfil"] == "Coordinador Comercial") { ?>
+            <?php if ($_SESSION["perfil"] == "Super Administrador" || $_SESSION["perfil"] == "Coordinador comercial") { ?>
               <h5>Reasignar Asesor</h5>
               <div class="row">
                 <div class="col-md-6">
