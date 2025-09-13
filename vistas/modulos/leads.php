@@ -253,11 +253,13 @@
     color: #555;
   }
 
-#confirmacionModal .floating-label-group input,
-#confirmacionModal .floating-label-group select {
-  height: 40px;           /* mismo tamaño que los otros */
-  padding: 10px 12px;     /* menos aire */
-}
+  #confirmacionModal .floating-label-group input,
+  #confirmacionModal .floating-label-group select {
+    height: 40px;
+    /* mismo tamaño que los otros */
+    padding: 10px 12px;
+    /* menos aire */
+  }
 
   #confirmacionModal h5 {
     font-size: 1.2rem;
@@ -294,13 +296,14 @@
     background: white;
     padding: 0 5px;
   }
-  .swal2-icon.swal2-info {
-  font-size: 1.5rem !important; /* Ajusta el tamaño de la "i" */
-  width: 3em !important;
-  height: 3em !important;
-  line-height: 3em !important;
-}
 
+  .swal2-icon.swal2-info {
+    font-size: 1.5rem !important;
+    /* Ajusta el tamaño de la "i" */
+    width: 3em !important;
+    height: 3em !important;
+    line-height: 3em !important;
+  }
 </style>
 
 
@@ -356,55 +359,55 @@
 
   </section>
 
-<section class="content">
+  <section class="content">
 
-  <div class="box">
+    <div class="box">
 
-    <div class="box-header with-border">
-      <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarLead">
-        Registrar Lead
-      </button>
-    </div>
+      <div class="box-header with-border">
+        <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarLead">
+          Registrar Lead
+        </button>
+      </div>
 
-    <div class="box-body">
+      <div class="box-body">
 
-      <table class="table table-bordered table-striped dt-responsive tablas" width="100%">
-        <thead>
-          <tr>
-            <th style="width:10px">N°</th>
-            <th>Estado</th>
-            <th>Fecha de registro</th>
-            <th>Documento</th>
-            <th>Cliente</th>
-            <th>Teléfono</th>
-            <th>Sector de interés</th>
-            <th>Asesor asignado</th>
-            <th>Medio de contacto</th>
-            <th>Notas</th>
-            <th style="width:80px">Opciones</th>
-          </tr>
-        </thead>
+        <table class="table table-bordered table-striped dt-responsive tablas" width="100%">
+          <thead>
+            <tr>
+              <th style="width:10px">N°</th>
+              <th>Estado</th>
+              <th>Fecha de registro</th>
+              <th>Documento</th>
+              <th>Cliente</th>
+              <th>Teléfono</th>
+              <th>Sector de interés</th>
+              <th>Asesor asignado</th>
+              <th>Medio de contacto</th>
+              <th>Notas</th>
+              <th style="width:80px">Opciones</th>
+            </tr>
+          </thead>
 
-        <tbody>
-          <?php
+          <tbody>
+            <?php
 
-          /* ============================
+            /* ============================
              PERFIL: ASESOR COMERCIAL
           ============================ */
-          if ($_SESSION["perfil"] === "Asesor comercial") {
+            if ($_SESSION["perfil"] === "Asesor comercial") {
 
-            $id_asesor = $_SESSION["id"];
-            $leads = ControladorLeads::ctrVerLeadAsesor($id_asesor);
+              $id_asesor = $_SESSION["id"];
+              $leads = ControladorLeads::ctrVerLeadAsesor($id_asesor);
 
-            foreach ($leads as $key => $lead) {
-              echo '<tr>
+              foreach ($leads as $key => $lead) {
+                echo '<tr>
                 <td>' . ($key + 1) . '</td>';
 
-              echo ($lead["status_lead"] != 0)
-                ? '<td><button class="btn btn-success btn-xs btnCambiarEstadoLead" idLead="' . $lead["id_lead"] . '" estadoActualLead="0">Cliente</button></td>'
-                : '<td><button class="btn btn-info btn-xs btnCambiarEstadoLead" idLead="' . $lead["id_lead"] . '" estadoActualLead="1">Lead</button></td>';
+                echo ($lead["status_lead"] != 0)
+                  ? '<td><button class="btn btn-success btn-xs btnCambiarEstadoLead" idLead="' . $lead["id_lead"] . '" estadoActualLead="0">Cliente</button></td>'
+                  : '<td><button class="btn btn-info btn-xs btnCambiarEstadoLead" idLead="' . $lead["id_lead"] . '" estadoActualLead="1">Lead</button></td>';
 
-              echo '<td class="text">' . htmlspecialchars($lead["creation_date"]) . '</td>
+                echo '<td class="text">' . htmlspecialchars($lead["creation_date"]) . '</td>
                 <td class="text">' . htmlspecialchars($lead["cc"]) . '</td>
                 <td class="text">' . htmlspecialchars($lead["first_name"] . ' ' . $lead["last_name"]) . '</td>
                 <td class="text">' . htmlspecialchars($lead["phone"]) . '</td>
@@ -419,27 +422,32 @@
                       <i class="fa fa-pencil"></i>
                     </button>
                   </div>
+                    <button class="btn btn-info btnAgregarNotaLead" 
+                      idLeads="' . $lead["id_lead"] . '" 
+                          data-toggle="modal" 
+                          data-target="#modalNotasLead">
+                      <i class="fa fa-sticky-note"></i>
+                    </button>
                 </td>
               </tr>';
+              }
             }
-          }
 
-          /* ============================
+            /* ============================
              PERFIL: ADMINISTRADORES
-          ============================ */
-          else if ($_SESSION["perfil"] === "Super Administrador" || $_SESSION["perfil"] === "Administrador") {
+          ============================ */ else if ($_SESSION["perfil"] === "Super Administrador" || $_SESSION["perfil"] === "Administrador") {
 
-            $categorias = ControladorLeads::ctrVerInteresLead(null, null);
+              $categorias = ControladorLeads::ctrVerInteresLead(null, null);
 
-            foreach ($categorias as $key => $value) {
-              echo '<tr>
+              foreach ($categorias as $key => $value) {
+                echo '<tr>
                 <td>' . ($key + 1) . '</td>';
 
-              echo ($value["status_lead"] != 0)
-                ? '<td><button class="btn btn-success btn-xs btnCambiarEstadoLead" idLead="' . $value["id_lead"] . '" estadoActualLead="0">Cliente</button></td>'
-                : '<td><button class="btn btn-info btn-xs btnCambiarEstadoLead" idLead="' . $value["id_lead"] . '" estadoActualLead="1">Lead</button></td>';
+                echo ($value["status_lead"] != 0)
+                  ? '<td><button class="btn btn-success btn-xs btnCambiarEstadoLead" idLead="' . $value["id_lead"] . '" estadoActualLead="0">Cliente</button></td>'
+                  : '<td><button class="btn btn-info btn-xs btnCambiarEstadoLead" idLead="' . $value["id_lead"] . '" estadoActualLead="1">Lead</button></td>';
 
-              echo '<td class="text">' . htmlspecialchars($value["creation_date"]) . '</td>
+                echo '<td class="text">' . htmlspecialchars($value["creation_date"]) . '</td>
                 <td class="text">' . htmlspecialchars($value["cc"]) . '</td>
                 <td class="text">' . htmlspecialchars($value["first_name"] . ' ' . $value["last_name"]) . '</td>
                 <td class="text">' . htmlspecialchars($value["phone"]) . '</td>
@@ -465,26 +473,25 @@
                   </div>
                 </td>
               </tr>';
+              }
             }
-          }
 
-          /* ============================
+            /* ============================
              PERFIL: COORDINADOR COMERCIAL
-          ============================ */
-          else if ($_SESSION["perfil"] === "Coordinador comercial") {
+          ============================ */ else if ($_SESSION["perfil"] === "Coordinador comercial") {
 
-            $id_coordinador = $_SESSION["id"];
-            $leads = ControladorLeads::ctrVerLeadsCoordinador($id_coordinador);
+              $id_coordinador = $_SESSION["id"];
+              $leads = ControladorLeads::ctrVerLeadsCoordinador($id_coordinador);
 
-            foreach ($leads as $key => $lead) {
-              echo '<tr>
+              foreach ($leads as $key => $lead) {
+                echo '<tr>
                 <td>' . ($key + 1) . '</td>';
 
-              echo ($lead["status_lead"] != 0)
-                ? '<td><button class="btn btn-success btn-xs btnCambiarEstadoLead" idLead="' . $lead["id_lead"] . '" estadoActualLead="0">Cliente</button></td>'
-                : '<td><button class="btn btn-info btn-xs btnCambiarEstadoLead" idLead="' . $lead["id_lead"] . '" estadoActualLead="1">Lead</button></td>';
+                echo ($lead["status_lead"] != 0)
+                  ? '<td><button class="btn btn-success btn-xs btnCambiarEstadoLead" idLead="' . $lead["id_lead"] . '" estadoActualLead="0">Cliente</button></td>'
+                  : '<td><button class="btn btn-info btn-xs btnCambiarEstadoLead" idLead="' . $lead["id_lead"] . '" estadoActualLead="1">Lead</button></td>';
 
-              echo '<td class="text">' . htmlspecialchars($lead["creation_date"]) . '</td>
+                echo '<td class="text">' . htmlspecialchars($lead["creation_date"]) . '</td>
                 <td class="text">' . htmlspecialchars($lead["cc"]) . '</td>
                 <td class="text">' . htmlspecialchars($lead["first_name"] . ' ' . $lead["last_name"]) . '</td>
                 <td class="text">' . htmlspecialchars($lead["phone"]) . '</td>
@@ -499,27 +506,32 @@
                       <i class="fa fa-pencil"></i>
                     </button>
                   </div>
+                                      <button class="btn btn-info btnAgregarNotaLead" 
+                            idLeads="' . $lead["id_lead"] . '" 
+                            data-toggle="modal" 
+                            data-target="#modalNotasLead">
+                        <i class="fa fa-sticky-note"></i>
+                    </button>
                 </td>
               </tr>';
+              }
             }
-          }
 
-          /* ============================
+            /* ============================
              PERFIL: GESTOR DE PAGOS
-          ============================ */
-          else if ($_SESSION["perfil"] === "Gestor de pagos") {
+          ============================ */ else if ($_SESSION["perfil"] === "Gestor de pagos") {
 
-            $categorias = ControladorLeads::ctrVerInteresLead(null, null);
+              $categorias = ControladorLeads::ctrVerInteresLead(null, null);
 
-            foreach ($categorias as $key => $value) {
-              echo '<tr>
+              foreach ($categorias as $key => $value) {
+                echo '<tr>
                 <td>' . ($key + 1) . '</td>';
 
-              echo ($value["status_lead"] != 0)
-                ? '<td><span class="label label-success">Cliente</span></td>'
-                : '<td><span class="label label-info">Lead</span></td>';
+                echo ($value["status_lead"] != 0)
+                  ? '<td><span class="label label-success">Cliente</span></td>'
+                  : '<td><span class="label label-info">Lead</span></td>';
 
-              echo '<td class="text">' . htmlspecialchars($value["creation_date"]) . '</td>
+                echo '<td class="text">' . htmlspecialchars($value["creation_date"]) . '</td>
                 <td class="text">' . htmlspecialchars($value["cc"]) . '</td>
                 <td class="text">' . htmlspecialchars($value["first_name"] . ' ' . $value["last_name"]) . '</td>
                 <td class="text">' . htmlspecialchars($value["phone"]) . '</td>
@@ -529,32 +541,32 @@
                 <td class="text">' . htmlspecialchars($value["note"]) . '</td>
                 <td></td>
               </tr>';
+              }
             }
-          }
-          ?>
-        </tbody>
+            ?>
+          </tbody>
 
-        <tfoot>
-          <tr>
-            <th style="width:10px">N°</th>
-            <th>Estado</th>
-            <th>Fecha de registro</th>
-            <th>Documento</th>
-            <th>Cliente</th>
-            <th>Teléfono</th>
-            <th>Sector de interés</th>
-            <th>Asesor asignado</th>
-            <th>Medio de contacto</th>
-            <th>Notas</th>
-            <th style="width:80px">Opciones</th>
-          </tr>
-        </tfoot>
+          <tfoot>
+            <tr>
+              <th style="width:10px">N°</th>
+              <th>Estado</th>
+              <th>Fecha de registro</th>
+              <th>Documento</th>
+              <th>Cliente</th>
+              <th>Teléfono</th>
+              <th>Sector de interés</th>
+              <th>Asesor asignado</th>
+              <th>Medio de contacto</th>
+              <th>Notas</th>
+              <th style="width:80px">Opciones</th>
+            </tr>
+          </tfoot>
 
-      </table>
+        </table>
 
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
 
 </div>
