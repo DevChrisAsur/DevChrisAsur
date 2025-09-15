@@ -59,16 +59,21 @@ static public function mdlRegistrarLead($tabla, $datos){
 }
 
 
-static public function mdlVerificarUnico($tabla, $item, $valor){
-
-    $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :valor LIMIT 1");
-    $stmt->bindParam(":valor", $valor, PDO::PARAM_STR);
+static public function mdlBuscarLeadDuplicado($tabla, $phone, $email, $cc){
+    $db = Conexion::conectar();
+    $sql = "SELECT id_lead FROM $tabla WHERE 
+            (phone IS NOT NULL AND phone = :phone) OR
+            (email IS NOT NULL AND email = :email) OR
+            (cc IS NOT NULL AND cc = :cc)
+            LIMIT 1";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':phone', $phone, PDO::PARAM_STR);
+    $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+    $stmt->bindParam(':cc', $cc, PDO::PARAM_STR);
     $stmt->execute();
-
-    return $stmt->fetch();
-
-    $stmt = null;
+    return $stmt->fetch() ?: false;
 }
+
 
 /*=============================================
 	MOSTRAR CLIENTES

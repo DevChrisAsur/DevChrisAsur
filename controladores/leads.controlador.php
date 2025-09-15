@@ -4,6 +4,10 @@ class ControladorLeads
 {
 
 static public function ctrRegistrarLead(){
+    if(!isset($_POST["form_token"]) || $_POST["form_token"] !== $_SESSION["form_token"]){
+    return; // Token inválido o recarga, no procesa nada
+    }
+    unset($_SESSION["form_token"]);
     date_default_timezone_set('America/Bogota');
 
     if(isset($_POST["nuevoNombre"])){
@@ -11,22 +15,43 @@ static public function ctrRegistrarLead(){
         $tabla = "leads";
         $fecha_actual = date('Y-m-d');
 
-        // Obtener el ID del usuario de la sesión
         $id_usuario = isset($_SESSION["id"]) ? (int) $_SESSION["id"] : 0;
 
-        // Si el formulario tiene un asesor seleccionado, se usa ese
         if(!empty($_POST["AsignarAsesor"]) && $_POST["AsignarAsesor"] != "0"){
             $id_usuario = (int) $_POST["AsignarAsesor"];
         }
 
-        // Preparar datos y convertir vacíos a NULL
+        // 🚨 Verificar duplicados (phone, email, cc)
+        $duplicado = ModeloLeads::mdlBuscarLeadDuplicado(
+            $tabla,
+            !empty($_POST["nuevoTelefono"]) ? $_POST["nuevoTelefono"] : null,
+            !empty($_POST["nuevoEmail"]) ? $_POST["nuevoEmail"] : null,
+            !empty($_POST["nuevoIdLead"]) ? $_POST["nuevoIdLead"] : null
+        );
+
+        if($duplicado){
+            echo '<script>
+                swal({
+                    type: "error",
+                    title: "¡Este lead ya existe!",
+                    text: "Se encontró un duplicado por teléfono, email o documento.",
+                    showConfirmButton: true,
+                    confirmButtonText: "Cerrar"
+                }).then(function(result){
+                    if(result.value){
+                        window.location = "leads";
+                    }
+                })
+            </script>';
+            exit;
+        }
         $datos = [
             "cc"            => !empty($_POST["nuevoIdLead"]) ? $_POST["nuevoIdLead"] : null,
             "first_name"    => !empty($_POST["nuevoNombre"]) ? $_POST["nuevoNombre"] : null,
             "last_name"     => !empty($_POST["nuevoApellido"]) ? $_POST["nuevoApellido"] : null,
             "email"         => !empty($_POST["nuevoEmail"]) ? $_POST["nuevoEmail"] : null,
             "phone"         => !empty($_POST["nuevoTelefono"]) ? $_POST["nuevoTelefono"] : null,
-            "status_lead"   => 0, // por defecto
+            "status_lead"   => 0,
             "creation_date" => $fecha_actual,
             "origin"        => !empty($_POST["origenLead"]) ? $_POST["origenLead"] : null,
             "note"          => !empty($_POST["observaciones"]) ? $_POST["observaciones"] : null,
@@ -36,7 +61,6 @@ static public function ctrRegistrarLead(){
             "id_usuario"    => $id_usuario
         ];
 
-        // Llamar al modelo
         $respuesta = ModeloLeads::mdlRegistrarLead($tabla, $datos);
 
         if($respuesta == "ok"){
@@ -50,13 +74,14 @@ static public function ctrRegistrarLead(){
                     if(result.value){
                         window.location = "leads";
                     }
-                })
+                });
             </script>';
+            exit;
         } else {
             echo '<script>
                 swal({
                     type: "error",
-                    title: "¡Error al registrar el usuario!",
+                    title: "¡Error al registrar el lead!",
                     text: "'.$respuesta.'",
                     showConfirmButton: true,
                     confirmButtonText: "Cerrar"
@@ -66,10 +91,10 @@ static public function ctrRegistrarLead(){
                     }
                 })
             </script>';
+            exit;
         }
     }
 }
-
 
 	static public function ctrContarLeadsDiarios()
 	{

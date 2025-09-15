@@ -114,6 +114,12 @@
     font-family: "Segoe UI", Arial, sans-serif;
   }
 </style>
+<?php
+if (session_status() === PHP_SESSION_NONE) session_start();
+if (!isset($_SESSION['form_token'])) {
+    $_SESSION['form_token'] = bin2hex(random_bytes(16));
+}
+?>
 
 <div id="modalAgregarLead" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg"><!-- modal más grande y flexible -->
@@ -121,7 +127,7 @@
     <div class="modal-content">
 
       <form role="form" method="post" enctype="multipart/form-data">
-
+        <input type="hidden" name="form_token" value="<?php echo $_SESSION['form_token']; ?>">
         <!-- CABEZA DEL MODAL -->
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
