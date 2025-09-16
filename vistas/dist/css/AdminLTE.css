@@ -3531,7 +3531,7 @@ table.text-center th {
     text-align: center;
   }
 }
-@media (max-width: 991px) {
+/* @media (max-width: 991px) {
     .sidebar-collapse .main-sidebar .sidebar-menu > li > .treeview-menu {
         left: 50px;
     }
@@ -3540,7 +3540,7 @@ table.text-center th {
     .sidebar-collapse .main-sidebar .sidebar-menu > li > .treeview-menu {
         left: 50px;
     }
-}
+} */
 
 /*
  * Page: Invoice
@@ -5752,11 +5752,11 @@ table.text-center th {
 }
 
 /* Cuando se hace click (AdminLTE agrega .menu-open) */
-.sidebar-menu li.menu-open > .treeview-menu {
+/* .sidebar-menu li.menu-open > .treeview-menu {
   display: block !important;
-  position: relative !important; /* se queda dentro del sidebar */
+  position: relative !important; 
   left: 0 !important;
   width: 100% !important;
   background: inherit !important;
   box-shadow: none !important;
-}
+} */

@@ -37,19 +37,17 @@
     }
 
     /* Ajustar treeview en móviles */
-    @media (max-width: 768px) {
+    /* @media (max-width: 768px) {
         .main-sidebar .treeview-menu {
             padding-left: 5px !important;
             font-size: 14px;
-            /* más pequeño para que no se desborde */
         }
 
         .main-sidebar .treeview-menu li a {
             white-space: normal;
-            /* Permite que el texto baje de línea */
             line-height: 1.4;
         }
-    }
+    } */
 </style>
 <aside class="main-sidebar">
 
