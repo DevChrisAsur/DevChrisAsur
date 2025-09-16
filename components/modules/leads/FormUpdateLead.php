@@ -174,7 +174,7 @@
                       <?php
                       $item = null;
                       $valor = null;
-                      $asesores = ControladorUsuarios::ctrMostrarAsesores($item, $valor);
+                      $asesores = ControladorUsuarios::ctrMostrarAsesoresCoordinadores($item, $valor);
                       foreach ($asesores as $key => $value) {
                         echo '<option value="' . $value["id"] . '">' . $value["first_name"] . ' ' . $value["last_name"] . ' - ' . $value["perfil"] . '</option>';
                       }

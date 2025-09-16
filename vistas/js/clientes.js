@@ -81,36 +81,34 @@ $(document).on("click", "#btnInformacionAdicional", function () {
 
 // Manejar la creación de la suscripción (Guardar Producto)
 $(document).on('click', '#guardarProductoYCrearFactura', function(e) {
-  e.preventDefault(); // Evitar la recarga de la página
+  e.preventDefault();
 
-  // Obtener el ID del cliente seleccionado
+  var $btn = $(this); // referencia al botón
+  $btn.prop("disabled", true).text("Procesando..."); // Bloquear botón
+
   var idCliente = window.idClienteSeleccionado;
   if (!idCliente) {
       alert("Primero debe seleccionar un cliente.");
+      $btn.prop("disabled", false).text("Guardar producto y crear factura"); // Rehabilitar si falla
       return;
   }
 
-  // Obtener el servicio seleccionado
   var servicioSeleccionado = $("input[name='servicios[]']:checked").val();
   if (!servicioSeleccionado) {
       alert("Debe seleccionar un servicio.");
+      $btn.prop("disabled", false).text("Guardar producto y crear factura");
       return;
   }
 
-  // Crear un FormData para pasar los datos por AJAX
   var datos = new FormData();
   datos.append("nuevoServicio", servicioSeleccionado);
-  datos.append("nuevaSuscripcion", idCliente); // id_cliente como nueva suscripción
+  datos.append("nuevaSuscripcion", idCliente);
   datos.append("action", "crearSuscripcion");
-
-  // Mostrar los datos que se van a enviar al servidor
   // console.log("Datos enviados (suscripción):", {
   //     nuevoServicio: servicioSeleccionado,
   //     nuevaSuscripcion: idCliente,
   //     action: "crearSuscripcion"
   // });
-
-  // Hacer la solicitud AJAX para crear la suscripción
   $.ajax({
       url: "ajax/facturas.ajax.php",
       method: "POST",
@@ -124,7 +122,6 @@ $(document).on('click', '#guardarProductoYCrearFactura', function(e) {
               var idSuscripcion = parseInt(respuesta.idSuscripcion, 10);
               window.idSuscripcionSeleccionada = idSuscripcion;
 
-              // Ahora que la suscripción se ha creado, procedemos a crear la factura
               var facturaDatos = new FormData();
               facturaDatos.append("idCliente", idCliente);
               facturaDatos.append("idSuscripcion", idSuscripcion);
@@ -135,7 +132,6 @@ $(document).on('click', '#guardarProductoYCrearFactura', function(e) {
               facturaDatos.append("monto", $("#valorTotal").val());
               facturaDatos.append("fecha_limite", $("#fecha_limite").val());
               facturaDatos.append("action", "crearFactura"); 
-              // Mostrar los datos de la factura que se van a enviar
               // console.log("Datos enviados (factura):", {
               //     idCliente: idCliente,
               //     idSuscripcion: idSuscripcion,
@@ -157,31 +153,19 @@ $(document).on('click', '#guardarProductoYCrearFactura', function(e) {
                 success: function(respuestaFactura) {
                   if (respuestaFactura.success && respuestaFactura.idFactura) {
                     var idFactura = parseInt(respuestaFactura.idFactura, 10);
-                    // console.log("Factura creada correctamente, ID de la factura:", idFactura);
-                
-                    var numCuotas = $('#numCuotas').val(); // Obtener número de cuotas
-                    var montoTotal = $("#valorTotal").val(); // Obtener monto total
-                
-                    // Preparar los datos de las cuotas
+                    var numCuotas = $('#numCuotas').val();
+                    var montoTotal = $("#valorTotal").val();
                     
                     var cuotasDatos = new FormData();
-                    cuotasDatos.append("idFactura", idFactura); // Aquí pasamos el ID de la factura generada
-                    cuotasDatos.append("numCuotas", numCuotas); // Pasar número de cuotas
-                    cuotasDatos.append("montoTotal", montoTotal); // Pasar monto total
+                    cuotasDatos.append("idFactura", idFactura);
+                    cuotasDatos.append("numCuotas", numCuotas);
+                    cuotasDatos.append("montoTotal", montoTotal);
                     cuotasDatos.append("action", "crearCuotas");
 
-                    // Iterar sobre el número de cuotas
                     for (var i = 1; i <= numCuotas; i++) {
-                        var estadoPago = $("#estado_pago_" + i).val();
-                        var fechaVencimiento = $("#fecha_vencimiento_" + i).val();
-                        var montoCuota = $("#monto_" + i).val();
-                
-                        // Añadir los datos de cada cuota a FormData
-                        cuotasDatos.append("estado_pago_" + i, estadoPago);
-                        cuotasDatos.append("fecha_vencimiento_" + i, fechaVencimiento);
-                        cuotasDatos.append("monto_" + i, montoCuota);
-                
-                        // Mostrar los datos de cada cuota
+                        cuotasDatos.append("estado_pago_" + i, $("#estado_pago_" + i).val());
+                        cuotasDatos.append("fecha_vencimiento_" + i, $("#fecha_vencimiento_" + i).val());
+                        cuotasDatos.append("monto_" + i, $("#monto_" + i).val());              
                         // console.log(`Datos enviados para la cuota ${i}:`, {
                         //     estado_pago: estadoPago,
                         //     fecha_vencimiento: fechaVencimiento,
@@ -199,7 +183,6 @@ $(document).on('click', '#guardarProductoYCrearFactura', function(e) {
                         processData: false,
                         dataType: "json",
                         success: function(respuestaCuotas) {
-                            //console.log("Respuesta del servidor (cuotas):", respuestaCuotas);
                             if (respuestaCuotas.success) {
                                 swal({
                                     type: "success",
@@ -207,14 +190,19 @@ $(document).on('click', '#guardarProductoYCrearFactura', function(e) {
                                     showConfirmButton: true,
                                     confirmButtonText: "Cerrar",
                                 });
+
                                 cargarInformacionFinanciera(idCliente);
+
+                                // <<< NUEVO: cerrar el formulario al terminar
+                                $("#formularioContainer").hide();
+                                $("#toggleFormulario").text("Agregar nuevo Producto");
                             } else {
                                 console.error("Error al registrar las cuotas.");
+                                $btn.prop("disabled", false).text("Guardar producto y crear factura");
                             }
                         },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            console.error("Error en la solicitud AJAX para crear las cuotas:", textStatus, errorThrown);
-                            console.log("Respuesta completa del servidor:", jqXHR.responseText);
+                        error: function() {
+                            $btn.prop("disabled", false).text("Guardar producto y crear factura");
                         }
                     });
                 
@@ -225,17 +213,13 @@ $(document).on('click', '#guardarProductoYCrearFactura', function(e) {
                         showConfirmButton: true,
                         confirmButtonText: "Cerrar",
                     });
+                    $btn.prop("disabled", false).text("Guardar producto y crear factura");
                 }
-                
                 },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error("Error en la solicitud AJAX para crear la factura:", textStatus, errorThrown);
-                    console.log("Respuesta completa del servidor:", jqXHR.responseText); // Verifica la respuesta completa
+                error: function() {
+                    $btn.prop("disabled", false).text("Guardar producto y crear factura");
                 },
             });
-            
-            
-    
           } else {
               swal({
                   type: "error",
@@ -243,13 +227,74 @@ $(document).on('click', '#guardarProductoYCrearFactura', function(e) {
                   showConfirmButton: true,
                   confirmButtonText: "Cerrar",
               });
+              $btn.prop("disabled", false).text("Guardar producto y crear factura");
           }
       },
-      error: function(jqXHR, textStatus, errorThrown) {
-          console.error("Error en la solicitud AJAX para crear la suscripción:", textStatus, errorThrown);
+      error: function() {
+          $btn.prop("disabled", false).text("Guardar producto y crear factura");
       },
   });
 });
+
+// =============================================
+//  Recalcular cuotas
+// =============================================
+function recalcularCuotas() { // <<< NUEVO
+    var numCuotas = parseInt($("#numCuotas").val(), 10) || 0;
+    var montoTotal = parseFloat($("#valorTotal").val()) || 0;
+
+    if (numCuotas > 0 && montoTotal > 0) {
+        var montoPorCuota = (montoTotal / numCuotas).toFixed(2);
+
+        for (var i = 1; i <= numCuotas; i++) {
+            $("#monto_" + i).val(montoPorCuota);
+        }
+    }
+}
+
+// Escuchar cambios en valorTotal y numCuotas
+$(document).on("input change", "#valorTotal, #numCuotas", function () { // <<< NUEVO
+    recalcularCuotas();
+}); 
+
+// =============================================
+//  Ajustar cuotas según la primera cuota
+// =============================================
+$(document).on("input change", "#monto_1", function () {
+    var numCuotas = parseInt($("#numCuotas").val(), 10) || 0;
+    var montoTotal = parseFloat($("#valorTotal").val()) || 0;
+    var montoPrimera = parseFloat($("#monto_1").val()) || 0;
+
+    if (numCuotas > 1 && montoTotal > 0) {
+        var restante = montoTotal - montoPrimera;
+
+        // Si la primera cuota es mayor o igual al total, limitamos
+        if (montoPrimera >= montoTotal) {
+            alert("La primera cuota no puede ser igual o mayor al total de la factura.");
+            $("#monto_1").val((montoTotal - 1).toFixed(2)); // un peso menos como límite
+            restante = 1; // deja al menos algo para las demás
+        }
+
+        var montoPorCuota = (restante / (numCuotas - 1)).toFixed(2);
+
+        // Asignar a las demás cuotas, siempre más bajas que el total
+        for (var i = 2; i <= numCuotas; i++) {
+            if (montoPorCuota >= montoTotal) {
+                montoPorCuota = (montoTotal - 1).toFixed(2);
+            }
+            $("#monto_" + i).val(montoPorCuota);
+        }
+
+        // Ajustar la última cuota para cuadrar con el total exacto
+        var sumaParcial = montoPrimera;
+        for (var i = 2; i < numCuotas; i++) {
+            sumaParcial += parseFloat($("#monto_" + i).val());
+        }
+        var ultimaCuota = (montoTotal - sumaParcial).toFixed(2);
+        $("#monto_" + numCuotas).val(ultimaCuota);
+    }
+});
+
 
 function cargarInformacionFinanciera(idCliente) {
     var datos = new FormData();
