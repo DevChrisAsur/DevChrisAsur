@@ -44,8 +44,7 @@ class ModeloCuotas
         }
     }
 
-    static public function mdlVerCuotasPorFactura($tabla, $item, $valor)
-    {
+    static public function mdlVerCuotasPorFactura($tabla, $item, $valor){
 
         $stmt = Conexion::conectar()->prepare(
             "SELECT id_cuota, id_factura, monto, fecha_vencimiento, estado_pago, fecha_pago 

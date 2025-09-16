@@ -5,8 +5,7 @@ class ControladorFacturas
     /*=============================================
         REGISTRAR FACTURA
         =============================================*/
-    static public function ctrCrearFactura()
-    {
+    static public function ctrCrearFactura(){
         $tabla = "factura";
         $datos = array(
             "fecha_emision"   => date('Y-m-d'),

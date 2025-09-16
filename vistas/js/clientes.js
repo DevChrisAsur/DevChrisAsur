@@ -27,69 +27,46 @@ $(document).on("click", "#btnInformacionAdicional", function () {
   cargarInformacionCliente(idCliente);
 });
 
-// Al hacer clic en el botón para obtener la información del cliente
-// $(document).on("click", "#btnInformacionAdicional", function () {
-//   var idCliente = $(this).attr("idCliente"); // Recoger el ID del cliente
-//   if (!idCliente) {
-//     console.error("No se encontró idCliente en el botón.");
-//     return;
-//   }
+const currencyFormatter = new Intl.NumberFormat("es-CO", {
+    style: "currency",
+    currency: "COP",
+    minimumFractionDigits: 2,
+});
 
-//   // Crear un FormData para pasar los datos por AJAX
-//   var datos = new FormData();
-//   datos.append("idCliente", idCliente);
+// Sanitizar antes de enviar a PHP
+function sanitizeNumberString(str) {
+    if (!str) return "0";
+    str = String(str).trim();
+    str = str.replace(/[^0-9,.\-]/g, ''); // elimina símbolos
+    str = str.replace(/\./g, '');         // elimina separadores de miles
+    str = str.replace(',', '.');          // convierte coma en punto
+    return str;
+}
 
-//   // Hacer la solicitud AJAX
-//   $.ajax({
-//     url: "ajax/clientes.ajax.php", // URL del archivo AJAX para obtener los datos del cliente
-//     method: "POST",
-//     data: datos,
-//     cache: false,
-//     contentType: false,
-//     processData: false,
-//     dataType: "json",
-//     success: function (respuesta) {
-//       if (respuesta.error) {
-//         console.error("Error:", respuesta.error);
-//         alert("Error: " + respuesta.error);
-//       } else {
-//         var nombreCompleto = respuesta.first_name + " " + respuesta.last_name;
+// Dar formato a las cuotas en pantalla
+function formatCuotasAsCurrency() {
+    $(".monto-cuota").each(function () {
+        let rawValue = $(this).val();
+        if (rawValue !== "") {
+            let num = parseFloat(sanitizeNumberString(rawValue));
+            if (!isNaN(num)) {
+                $(this).val(currencyFormatter.format(num));
+            }
+        }
+    });
+}
 
-//         // Asignar la información del cliente a los campos correspondientes
-//         $("#infoIdCCliente").val(respuesta.cc);
-//         $("#infoNombreApellido").text(nombreCompleto);
-//         $("#infoEmail").text(respuesta.email);
-//         $("#infoTelefono").text(respuesta.phone);
-//         var paisCiudad =
-//           (respuesta.country || "Desconocido") +
-//           "/" +
-//           (respuesta.city || "Desconocida");
-//         $("#infoCity").text(paisCiudad);
-//         $("#infoIdLeads").text(respuesta.id_customer);
-//         $("#infoTipoCliente").text(respuesta.customer_type);
-//         $("#infofecha").text(respuesta.creation_date);
 
-//         // Guardar el ID del cliente en una variable global para su uso posterior
-//         window.idClienteSeleccionado = respuesta.id_customer;
-//       }
-//     },
-//     error: function (jqXHR, textStatus, errorThrown) {
-//       console.error("Error en la solicitud AJAX:", textStatus, errorThrown);
-//     },
-//   });
-// });
-
-// Manejar la creación de la suscripción (Guardar Producto)
 $(document).on('click', '#guardarProductoYCrearFactura', function(e) {
   e.preventDefault();
 
-  var $btn = $(this); // referencia al botón
-  $btn.prop("disabled", true).text("Procesando..."); // Bloquear botón
+  var $btn = $(this);
+  $btn.prop("disabled", true).text("Procesando...");
 
   var idCliente = window.idClienteSeleccionado;
   if (!idCliente) {
       alert("Primero debe seleccionar un cliente.");
-      $btn.prop("disabled", false).text("Guardar producto y crear factura"); // Rehabilitar si falla
+      $btn.prop("disabled", false).text("Guardar producto y crear factura");
       return;
   }
 
@@ -129,7 +106,7 @@ $(document).on('click', '#guardarProductoYCrearFactura', function(e) {
               facturaDatos.append("titular", $("#titular").val());
               facturaDatos.append("numeroCuenta", $("#numeroCuenta").val());
               facturaDatos.append("tipoCuenta", $("#tipoCuenta").val());
-              facturaDatos.append("monto", $("#valorTotal").val());
+              facturaDatos.append("monto", sanitizeNumberString($("#valorTotal").val())); // sanitizado
               facturaDatos.append("fecha_limite", $("#fecha_limite").val());
               facturaDatos.append("action", "crearFactura"); 
               // console.log("Datos enviados (factura):", {
@@ -154,8 +131,8 @@ $(document).on('click', '#guardarProductoYCrearFactura', function(e) {
                   if (respuestaFactura.success && respuestaFactura.idFactura) {
                     var idFactura = parseInt(respuestaFactura.idFactura, 10);
                     var numCuotas = $('#numCuotas').val();
-                    var montoTotal = $("#valorTotal").val();
-                    
+                    var montoTotal = sanitizeNumberString($("#valorTotal").val());
+
                     var cuotasDatos = new FormData();
                     cuotasDatos.append("idFactura", idFactura);
                     cuotasDatos.append("numCuotas", numCuotas);
@@ -165,13 +142,8 @@ $(document).on('click', '#guardarProductoYCrearFactura', function(e) {
                     for (var i = 1; i <= numCuotas; i++) {
                         cuotasDatos.append("estado_pago_" + i, $("#estado_pago_" + i).val());
                         cuotasDatos.append("fecha_vencimiento_" + i, $("#fecha_vencimiento_" + i).val());
-                        cuotasDatos.append("monto_" + i, $("#monto_" + i).val());              
-                        // console.log(`Datos enviados para la cuota ${i}:`, {
-                        //     estado_pago: estadoPago,
-                        //     fecha_vencimiento: fechaVencimiento,
-                        //     monto: montoCuota,
-                        //     idFactura: idFactura
-                        // });
+                        cuotasDatos.append("monto_" + i, sanitizeNumberString($("#monto_" + i).val()));
+                        
                     }
               
                     $.ajax({
@@ -193,9 +165,12 @@ $(document).on('click', '#guardarProductoYCrearFactura', function(e) {
 
                                 cargarInformacionFinanciera(idCliente);
 
-                                // <<< NUEVO: cerrar el formulario al terminar
+                                // Cerrar formulario
                                 $("#formularioContainer").hide();
                                 $("#toggleFormulario").text("Agregar nuevo Producto");
+
+                                // Formatear cuotas en pantalla
+                                formatCuotasAsCurrency();
                             } else {
                                 console.error("Error al registrar las cuotas.");
                                 $btn.prop("disabled", false).text("Guardar producto y crear factura");
@@ -236,26 +211,26 @@ $(document).on('click', '#guardarProductoYCrearFactura', function(e) {
   });
 });
 
+
 // =============================================
 //  Recalcular cuotas
 // =============================================
-function recalcularCuotas() { // <<< NUEVO
+function recalcularCuotas() {
     var numCuotas = parseInt($("#numCuotas").val(), 10) || 0;
-    var montoTotal = parseFloat($("#valorTotal").val()) || 0;
+    var montoTotal = parseFloat(sanitizeNumberString($("#valorTotal").val())) || 0;
 
     if (numCuotas > 0 && montoTotal > 0) {
-        var montoPorCuota = (montoTotal / numCuotas).toFixed(2);
+        var montoPorCuota = montoTotal / numCuotas;
 
         for (var i = 1; i <= numCuotas; i++) {
-            $("#monto_" + i).val(montoPorCuota);
+            $("#monto_" + i).val(currencyFormatter.format(montoPorCuota));
         }
     }
 }
-
 // Escuchar cambios en valorTotal y numCuotas
-$(document).on("input change", "#valorTotal, #numCuotas", function () { // <<< NUEVO
+$(document).on("input change", "#valorTotal, #numCuotas", function () {
     recalcularCuotas();
-}); 
+});
 
 // =============================================
 //  Ajustar cuotas según la primera cuota
@@ -397,7 +372,7 @@ $(document).ready(function () {
                 <td>${fila.cc}</td>
                 <td>${fila.estado_pago}</td>                
                 <td>${fila.fecha_vencimiento}</td>
-                <td>$${parseFloat(fila.valor_cuota_actual).toLocaleString('es-CO')}</td>
+                  <td>${currencyFormatter.format(fila.valor_cuota_actual)}</td>
                 <td>
                   <button class="btn btn-info btn-sm btn-ver-cliente" data-id="${fila.id_customer}">
                     Ver
